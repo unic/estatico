@@ -1,0 +1,12 @@
+@import "normalize-scss/normalize";
+
+$color: blue;
+
+body {
+	box-sizing: border-box;
+	color: $color;
+
+	.no-csstransforms & {
+		color: red;
+	}
+}
