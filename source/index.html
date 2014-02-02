@@ -1,4 +1,11 @@
+---
+title: Index
+text: Hello world
+---
+
 {% extends 'layouts/layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 	Message: {{ text }}
