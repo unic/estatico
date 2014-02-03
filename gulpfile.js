@@ -1,23 +1,27 @@
+'use strict';
+
 // Load plugins
-var gulp = require('gulp'),
+var exec = require('child_process').exec,
+	_ = require('lodash'),
+	gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	consolidate = require('gulp-consolidate'),
+	frontmatter = require('gulp-front-matter'),
 	sass = require('gulp-ruby-sass'),
 	autoprefixer = require('gulp-autoprefixer'),
 	jshint = require('gulp-jshint'),
 	uglify = require('gulp-uglify'),
 	concat = require('gulp-concat'),
+	modernizr = require('gulp-modernizr'),
+	iconfont = require('gulp-iconfont'),
+	iconfontCss = require('gulp-iconfont-css'),
 	clean = require('gulp-clean'),
 	livereload = require('gulp-livereload'),
 	lr = require('tiny-lr'),
 	server = lr(),
 	connect = require('connect'),
 	http = require('http'),
-	open = require('open'),
-	modernizr = require('gulp-modernizr'),
-	frontmatter = require('gulp-front-matter'),
-	exec = require('child_process').exec,
-	_ = require('lodash');
+	open = require('open');
 
 
 var config = {
@@ -135,6 +139,19 @@ gulp.task('lodash', function() {
 		];
 
 	exec('lodash ' + args.join(' '));
+});
+
+// Fonts
+gulp.task('iconfont', function() {
+	gulp.src(['./source/assets/media/icons/*.svg'])
+		.pipe(iconfontCss({
+			path: './source/assets/css/templates/_icons.scss',
+			targetPath: '../../css/_icons.scss'
+		}))
+		.pipe(iconfont({
+			fontName: 'Icons'
+		}))
+		.pipe(gulp.dest('./source/assets/fonts/icons/'));
 });
 
 // Clean
