@@ -14,7 +14,7 @@ var exec = require('child_process').exec,
 	concat = require('gulp-concat'),
 	modernizr = require('gulp-modernizr'),
 	iconfont = require('gulp-iconfont'),
-	iconfontCss = require('gulp-iconfont-css'),
+	// iconfontCss = require('gulp-iconfont-css'),
 	clean = require('gulp-clean'),
 	livereload = require('gulp-livereload'),
 	lr = require('tiny-lr'),
@@ -144,10 +144,10 @@ gulp.task('lodash', function() {
 // Fonts
 gulp.task('iconfont', function() {
 	gulp.src(['./source/assets/media/icons/*.svg'])
-		.pipe(iconfontCss({
-			path: './source/assets/css/templates/_icons.scss',
-			targetPath: '../../css/_icons.scss'
-		}))
+		// .pipe(iconfontCss({
+		// 	path: './source/assets/css/templates/_icons.scss',
+		// 	targetPath: '../../css/_icons.scss'
+		// }))
 		.pipe(iconfont({
 			fontName: 'Icons'
 		}))
