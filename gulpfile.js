@@ -4,22 +4,11 @@
 var exec = require('child_process').exec,
 	_ = require('lodash'),
 	gulp = require('gulp'),
-	gutil = require('gulp-util'),
-	consolidate = require('gulp-consolidate'),
-	frontmatter = require('gulp-front-matter'),
-	sass = require('gulp-ruby-sass'),
-	autoprefixer = require('gulp-autoprefixer'),
-	jshint = require('gulp-jshint'),
-	uglify = require('gulp-uglify'),
-	concat = require('gulp-concat'),
-	modernizr = require('gulp-modernizr'),
-	iconfont = require('gulp-iconfont'),
-	// iconfontCss = require('gulp-iconfont-css'),
-	clean = require('gulp-clean'),
-	livereload = require('gulp-livereload'),
-	lr = require('tiny-lr'),
-	server = lr(),
+	plugins = require('gulp-load-plugins')(),
+	livereload = require('tiny-lr'),
+	server = livereload(),
 	connect = require('connect'),
+	connectLivereload = require('connect-livereload'),
 	http = require('http'),
 	open = require('open');
 
@@ -64,6 +53,12 @@ var config = {
 				'!./source/assets/js/.tmp/modernizr.js'
 			],
 			lodash: 'source/assets/js/.tmp/lodash.js'
+		},
+		server: {
+			port: 9000
+		},
+		livereload: {
+			port: 35729
 		}
 	};
 
@@ -81,52 +76,52 @@ gulp.task('html', function() {
 		};
 
 	return gulp.src('./source/*.html')
-		.pipe(frontmatter({
+		.pipe(plugins.frontMatter({
 			property: 'frontmatter',
 			remove: true
 		}))
-		.pipe(consolidate('swig', swigConfig))
+		.pipe(plugins.consolidate('swig', swigConfig))
 		.pipe(gulp.dest('./build'))
-		.pipe(livereload(server));
+		.pipe(plugins.livereload(server));
 });
 
 // Styles
 gulp.task('css', function() {
 	var sassConfig = _.merge({
 			loadPath: config.paths.sass,
-			style: gutil.env.production ? 'compressed' : 'expanded'
+			style: plugins.util.env.production ? 'compressed' : 'expanded'
 		}, config.sass);
 
 	return gulp.src('./source/assets/css/main.scss')
-		.pipe(sass(sassConfig))
-		.pipe(autoprefixer(config.autoprefixer))
+		.pipe(plugins.rubySass(sassConfig))
+		.pipe(plugins.autoprefixer(config.autoprefixer))
 		.pipe(gulp.dest('./build/assets/css'))
-		.pipe(livereload(server));
+		.pipe(plugins.livereload(server));
 });
 
 // Scripts
 gulp.task('js', function() {
 	gulp.src(config.paths.jshint)
-		.pipe(jshint('.jshintrc'))
-		.pipe(jshint.reporter('jshint-stylish'));
+		.pipe(plugins.jshint('.jshintrc'))
+		.pipe(plugins.jshint.reporter('jshint-stylish'));
 
 	gulp.src(config.paths.head)
-		.pipe(concat('head.js'))
-		.pipe(gutil.env.production ? uglify() : gutil.noop())
+		.pipe(plugins.concat('head.js'))
+		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
-		.pipe(livereload(server));
+		.pipe(plugins.livereload(server));
 
 	gulp.src(config.paths.main)
-		.pipe(concat('main.js'))
-		.pipe(gutil.env.production ? uglify() : gutil.noop())
+		.pipe(plugins.concat('main.js'))
+		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
-		.pipe(livereload(server));
+		.pipe(plugins.livereload(server));
 });
 
 gulp.task('modernizr', function() {
 	return gulp.src(config.paths.modernizr)
-		.pipe(modernizr(config.modernizr))
-		.pipe(gutil.env.production ? uglify() : gutil.noop())
+		.pipe(plugins.modernizr(config.modernizr))
+		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./source/assets/js/.tmp'));
 });
 
@@ -144,11 +139,11 @@ gulp.task('lodash', function() {
 // Fonts
 gulp.task('iconfont', function() {
 	gulp.src(['./source/assets/media/icons/*.svg'])
-		// .pipe(iconfontCss({
-		// 	path: './source/assets/css/templates/_icons.scss',
-		// 	targetPath: '../../css/_icons.scss'
-		// }))
-		.pipe(iconfont({
+		.pipe(plugins.iconfontCss({
+			path: './source/assets/css/templates/_icons.scss',
+			targetPath: '../../css/_icons.scss'
+		}))
+		.pipe(plugins.iconfont({
 			fontName: 'Icons'
 		}))
 		.pipe(gulp.dest('./source/assets/fonts/icons/'));
@@ -159,13 +154,13 @@ gulp.task('clean', function() {
 	return gulp.src(['build'], {
 			read: false
 		})
-		.pipe(clean());
+		.pipe(plugins.clean());
 });
 
 // Watch
 gulp.task('watch', function() {
 	// Listen on port 35729
-	server.listen(35729, function (err) {
+	server.listen(config.livereload.port, function (err) {
 		if (err) {
 			return console.log(err)
 		};
@@ -179,9 +174,9 @@ gulp.task('watch', function() {
 // Connect server
 gulp.task('server', ['html', 'css', 'js', 'watch'], function() {
 	var app = connect()
-			.use(require('connect-livereload')())
+			.use(connectLivereload())
 			.use(connect.static('build')),
-		server = http.createServer(app).listen(9000);
+		server = http.createServer(app).listen(config.server.port);
 
 	server.on('listening', function() {
 		open('http://localhost:9000');
