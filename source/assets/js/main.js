@@ -1,1 +1,4 @@
-console.log('main2');
+//= require utils/register-plugins.js
+//= require ../../modules/slideshow/slideshow.js
+
+console.log('main');

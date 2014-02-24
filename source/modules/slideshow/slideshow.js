@@ -36,13 +36,12 @@
             this.interval = null;
         };
 
-
     Plugin.prototype.init = function() {
         this.$slides = this.$element.find(this.settings.domSelectors.slide).each($.proxy(function(index, slide) {
                 var $slide = $(slide),
                     image = $slide.find(this.settings.domSelectors.image).attr('src');
 
-                $slide.css('background-image', 'url(' + image + ')').addClass(this.settings.stateClasses.isInitialized);
+                // $slide.css('background-image', 'url(' + image + ')').addClass(this.settings.stateClasses.isInitialized);
             }, this));
 
         this.slides = this.$slides.length;
