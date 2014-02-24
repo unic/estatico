@@ -72,7 +72,7 @@ gulp.task('js', function() {
 			log: true
 		}))
 		.pipe(plugins.concat('head.js'))
-		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
 
@@ -82,7 +82,7 @@ gulp.task('js', function() {
 			log: true
 		}))
 		.pipe(plugins.concat('main.js'))
-		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
 });
