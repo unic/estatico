@@ -1,4 +1,6 @@
 @import "normalize-scss/normalize";
+@import "icons";
+@import "sprite";
 @import "slideshow/slideshow";
 
 body {
@@ -7,5 +9,13 @@ body {
 
 	.no-csstransforms & {
 		color: red;
+	}
+
+	p {
+		@include icon(github);
+
+		span {
+			@include sprite(sprite1);
+		}
 	}
 }

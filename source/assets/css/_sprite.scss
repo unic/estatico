@@ -1,0 +1,28 @@
+// Example
+// See https://github.com/twolfson/json2css/blob/master/lib/templates/scss.template.mustache for parameters
+@mixin sprite($filename) {
+
+	&:before {
+		content: "";
+		display: inline-block;
+
+		@if $filename == sprite1 {
+			background-image: url(../media/sprite.png);
+			background-position: 0px 0px;
+			height: 50px;
+			width: 50px;
+		}
+		@if $filename == sprite3 {
+			background-image: url(../media/sprite.png);
+			background-position: 0px -100px;
+			height: 200px;
+			width: 100px;
+		}
+		@if $filename == sprite2 {
+			background-image: url(../media/sprite.png);
+			background-position: 0px -50px;
+			height: 50px;
+			width: 50px;
+		}
+	}
+}

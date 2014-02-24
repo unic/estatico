@@ -7,6 +7,10 @@ var gulp = require('gulp'),
 
 	// Helpers
 	_ = require('lodash'),
+	exec = require('child_process').exec,
+
+	// Spriting
+	spritesmith = require('gulp.spritesmith'),
 
 	// Livereload
 	livereload = require('tiny-lr'),
@@ -17,12 +21,15 @@ var gulp = require('gulp'),
 	open = require('open');
 
 
-// HTML
+/**
+ * HTML task
+ *
+ * Compiles Swig templates to HTML
+ * Adds YAML front matter data to file object
+ */
 gulp.task('html', function() {
-	var templateData = function(file) {
-			var data = {
-					cache: false
-				};
+	var getTemplateData = function(file) {
+			var data = {};
 
 			_.each(file.frontmatter, function(val, key) {
 				data[key] = val;
@@ -36,12 +43,22 @@ gulp.task('html', function() {
 			property: 'frontmatter',
 			remove: true
 		}))
-		.pipe(plugins.consolidate('swig', templateData))
+		.pipe(plugins.swig({
+			data: getTemplateData,
+			defaults: {
+				cache: false
+			}
+		}))
 		.pipe(gulp.dest('./build'))
 		.pipe(plugins.livereload(server));
 });
 
-// Styles
+/**
+ * CSS task
+ *
+ * Compiles Sass to CSS
+ * Runs autoprefixer on the generated CSS
+ */
 gulp.task('css', function() {
 	return gulp.src('./source/assets/css/main.scss')
 		.pipe(plugins.rubySass({
@@ -56,7 +73,13 @@ gulp.task('css', function() {
 		.pipe(plugins.livereload(server));
 });
 
-// Scripts
+/**
+ * JS task
+ *
+ * Hints files
+ * Generates head.js
+ * Generates main.js
+ */
 gulp.task('js', function() {
 	gulp.src([
 			'./source/assets/js/*.js',
@@ -87,29 +110,43 @@ gulp.task('js', function() {
 		.pipe(plugins.livereload(server));
 });
 
+/**
+ * Modernizr task
+ *
+ * Generates customized Modernizr build in source/assets/js/.tmp/
+ * Using Customizr, crawls through project files and gathers up references to Modernizr tests
+ *
+ * See https://github.com/doctyper/customizr
+ */
 gulp.task('modernizr', function() {
-	return gulp.src([
-			'./source/assets/js/*.js',
-			'./source/assets/css/*.scss',
-			'!./source/assets/js/.tmp/modernizr.js'
-		])
+	return gulp.src('./source/assets/css/main.scss')
 		.pipe(plugins.modernizr({}))
 		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./source/assets/js/.tmp'));
 });
 
+/**
+ * Lodash task
+ *
+ * Generates customized lodash build in source/assets/js/.tmp/
+ */
 gulp.task('lodash', function() {
-	var args = [
-			'include=' + ['template', 'each', 'debounce'].join(','),
+	var modules = ['template', 'each', 'debounce'],
+		args = [
+			'include=' + modules.join(','),
 			'-o',
 			'source/assets/js/.tmp/lodash.js',
 			'-d'
 		];
 
-	require('child_process').exec('lodash ' + args.join(' '));
+	exec('lodash ' + args.join(' '));
 });
 
-// Fonts
+/**
+ * Icon font task
+ *
+ * Generates icon font and SCSS file
+ */
 gulp.task('iconfont', function() {
 	gulp.src(['./source/assets/media/icons/*.svg'])
 		.pipe(plugins.iconfontCss({
@@ -124,7 +161,11 @@ gulp.task('iconfont', function() {
 		.pipe(gulp.dest('./source/assets/fonts/icons/'));
 });
 
-// Media
+/**
+ * Media task
+ *
+ * Copies specific media files to build
+ */
 gulp.task('media', function() {
 	return gulp.src([
 				'./source/assets/fonts/{,**/}*',
@@ -136,17 +177,34 @@ gulp.task('media', function() {
 		.pipe(gulp.dest('./build'));
 });
 
-// Sprite
-// gulp.task('sprite', function() {
-// 	return gulp.src('./source/assets/media/*.png')
-// 		.pipe(plugins.spritesmith({
-// 			cssTargetPath: '../css/_sprite.scss',
-// 			imgPath: '../media/',
-// 		}))
-// 		.pipe(gulp.dest('./build/assets/media'));
-// });
+/**
+ * Spriting
+ *
+ * Generates sprite image from input files (can be of mixed file type)
+ * Generates SCSS file based on mustache template
+ *
+ * See https://github.com/twolfson/gulp.spritesmith
+ */
+gulp.task('sprite', function () {
+	var spriteData = gulp.src([
+			'./source/assets/media/sprite/*',
+			'./source/modules/**/sprite/*'
+		]).pipe(spritesmith({
+			imgName: 'sprite.png',
+			cssName: '_sprite.scss',
+			imgPath: '../media/sprite.png',
+			cssTemplate: './source/assets/css/templates/_sprite.scss'
+		}));
 
-// Clean
+	spriteData.img.pipe(gulp.dest('./source/assets/media/'));
+	spriteData.css.pipe(gulp.dest('./source/assets/css/'));
+});
+
+/**
+ * Clean-up task
+ *
+ * Removes build folder
+ */
 gulp.task('clean', function() {
 	return gulp.src(['build'], {
 			read: false
@@ -154,7 +212,11 @@ gulp.task('clean', function() {
 		.pipe(plugins.clean());
 });
 
-// Watch
+/**
+ * Watch task
+ *
+ * Runs specific tasks when specific files have changed
+ */
 gulp.task('watch', function() {
 	// Listen on port 35729
 	server.listen(35729, function (err) {
@@ -162,16 +224,27 @@ gulp.task('watch', function() {
 			return console.log(err)
 		};
 
-		gulp.watch('source/{,*/}*.html', ['html']);
-		gulp.watch('source/modules/**/*.html', ['html']);
-		gulp.watch('source/assets/css/*.scss', ['css']);
-		gulp.watch('source/modules/**/*.scss', ['css']);
-		gulp.watch('source/assets/js/{,**/}*.js', ['js']);
-		gulp.watch('source/modules/**/*.js', ['js']);
+		gulp.watch(['source/{,*/}*.html', 'source/modules/**/*.html'], ['html']);
+		gulp.watch(['source/assets/css/*.scss', 'source/modules/**/*.scss'], ['css']);
+		gulp.watch(['source/assets/js/{,**/}*.js', 'source/modules/**/*.js'], ['js']);
 	});
 });
 
-// Connect server
+/**
+ * Build task
+ *
+ * Creates build directory
+ */
+gulp.task('build', ['clean'], function() {
+	gulp.start('html', 'css', 'js', 'media');
+});
+
+/**
+ * Preview server task
+ *
+ * Creates Node connect server with livereload functionality
+ * Serves build directory
+ */
 gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
 	var app = connect()
 			.use(connectLivereload())
@@ -190,12 +263,11 @@ gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
 	});
 });
 
-// Build
-gulp.task('build', ['clean'], function() {
-	gulp.start('html', 'css', 'js', 'media');
-});
-
-// Default task
+/**
+ * Default task (when using "$ gulp")
+ *
+ * Recreates build directory and starts preview server
+ */
 gulp.task('default', ['clean'], function() {
 	gulp.start('server');
 });
