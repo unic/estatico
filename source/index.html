@@ -8,5 +8,7 @@ text: Hello world
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-	Message: {{ text }}
+	YAML text: {{ text }}
+
+	{% include 'modules/slideshow/slideshow.html' %}
 {% endblock %}

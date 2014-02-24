@@ -1,0 +1,19 @@
+<div class="slideshow" data-slideshow="init">
+	<div data-slideshow="slide">
+		<img src="tmp/media/IMG_2578-2.jpg" data-slideshow="image" />
+	</div>
+	<div data-slideshow="slide">
+		<img src="tmp/media/IMG_2608-2.jpg" data-slideshow="image" />
+	</div>
+	<div data-slideshow="slide">
+		<img src="tmp/media/IMG_2610-2.jpg" data-slideshow="image" />
+	</div>
+
+	<script type="text/template" data-slideshow="template">
+		<% _.each(data.slides, function(slide) { %>
+			<div data-slideshow="slide">
+				<img src="{{ slide.src }}" data-slideshow="image" />
+			</div>
+		<% }); %>
+	</script>
+</div>

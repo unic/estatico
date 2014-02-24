@@ -1,10 +1,9 @@
 @import "normalize-scss/normalize";
-
-$color: green;
+@import "slideshow/slideshow";
 
 body {
 	box-sizing: border-box;
-	color: $color;
+	color: green;
 
 	.no-csstransforms & {
 		color: red;
