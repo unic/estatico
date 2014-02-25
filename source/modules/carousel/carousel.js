@@ -1,7 +1,7 @@
 /**
  * @class       Carousel
  * @classdesc   Wrapper to initialize swiper into every instance
- * @requires    ../../assets/vendor/swiper-js/swiper.js
+ * @requires    ../../assets/vendor/swiper/dist/idangerous.swiper.js
  * @author      Oriol Torrent Florensa OrT, Unic AG
  *
  * Edited by    Oriol Torrent, Unic AG - 02.04.2014
@@ -82,21 +82,21 @@
 			this.$trigers.hide();
 		}
 
-		$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMWIDE_ENTER, $.proxy(this._setSlidesPerView, this, 4));
-		$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMDESKTOPTOWIDE_ENTER, $.proxy(this._setSlidesPerView, this, 3));
-		//$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMTABLETTODESKTOP_ENTER, $.proxy(this._setSlidesPerView, this, 2));
-		$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMTABLETLANDSCAPETODESKTOP_ENTER, $.proxy(this._setSlidesPerView, this, 2));
-		//$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMTABLETTOTABLETLANDSCAPE_ENTER, $.proxy(this._setSlidesPerView, this, 1));
-		// $document.on(Unic.modules.jsqueries.events.EVENT_MQ_TOTABLET_ENTER, $.proxy(this._setSlidesPerView, this, 2));
-		$document.on(Unic.modules.jsqueries.events.EVENT_MQ_TOTABLETLANDSCAPE_ENTER, $.proxy(this._setSlidesPerView, this, 1));
+		// $document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMWIDE_ENTER, $.proxy(this._setSlidesPerView, this, 4));
+		// $document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMDESKTOPTOWIDE_ENTER, $.proxy(this._setSlidesPerView, this, 3));
+		// //$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMTABLETTODESKTOP_ENTER, $.proxy(this._setSlidesPerView, this, 2));
+		// $document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMTABLETLANDSCAPETODESKTOP_ENTER, $.proxy(this._setSlidesPerView, this, 2));
+		// //$document.on(Unic.modules.jsqueries.events.EVENT_MQ_FROMTABLETTOTABLETLANDSCAPE_ENTER, $.proxy(this._setSlidesPerView, this, 1));
+		// // $document.on(Unic.modules.jsqueries.events.EVENT_MQ_TOTABLET_ENTER, $.proxy(this._setSlidesPerView, this, 2));
+		// $document.on(Unic.modules.jsqueries.events.EVENT_MQ_TOTABLETLANDSCAPE_ENTER, $.proxy(this._setSlidesPerView, this, 1));
 
-		$document.jsqueries('checkJSQuery', 'fromWide');
-		$document.jsqueries('checkJSQuery', 'fromDesktopToWide');
-		// $document.jsqueries('checkJSQuery', 'fromTabletToDesktop');
-		$document.jsqueries('checkJSQuery', 'fromTabletLandscapeToDesktop');
-		// $document.jsqueries('checkJSQuery', 'fromTabletToTabletLandscape');
-		// $document.jsqueries('checkJSQuery', 'toTablet');
-		$document.jsqueries('checkJSQuery', 'toTabletLandscape');
+		// $document.jsqueries('checkJSQuery', 'fromWide');
+		// $document.jsqueries('checkJSQuery', 'fromDesktopToWide');
+		// // $document.jsqueries('checkJSQuery', 'fromTabletToDesktop');
+		// $document.jsqueries('checkJSQuery', 'fromTabletLandscapeToDesktop');
+		// // $document.jsqueries('checkJSQuery', 'fromTabletToTabletLandscape');
+		// // $document.jsqueries('checkJSQuery', 'toTablet');
+		// $document.jsqueries('checkJSQuery', 'toTabletLandscape');
 	};
 
 
@@ -143,4 +143,4 @@
 		}]);
 	});
 
-})(window, document, jq_1_10_2, Unic);
+})(window, document, jQuery, Unic);

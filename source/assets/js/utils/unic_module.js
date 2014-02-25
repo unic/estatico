@@ -2,6 +2,7 @@
  * SuperClass to handle plugins more easy
  * @author OrT, RoW, Unic AG
  * @license All rights reserved Unic AG
+ * @requires ../../vendor/jquery/jquery.js
  */
 
 ;(function(window, document, $, Unic, undefined) {
@@ -132,4 +133,4 @@
 		};
 	};
 
-})(window, document, jq_1_10_2, Unic);
+})(window, document, jQuery, Unic);

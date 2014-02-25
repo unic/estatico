@@ -1,3 +1,69 @@
-.u_mod_carousel {
+$baseUnit: 8;
+$colorKhaki: #bcb1a3;
+$colorPostYellow: #ffcc00;
+$swiperBulletSize: 15px;
+$swiperArrowsDistance: -8px;
+$swiperArrowsFontSize: 70px;
+$swiperArrowsTopShift: -$swiperArrowsFontSize /6;
 
+.u_mod_carousel {
+	position: relative;
+	margin-top: pxToEm( $baseUnit * 8 );
+	margin-bottom: pxToEm( $baseUnit * 8 );
+}
+
+
+.u_swiper_container {
+	// margin-bottom: pxToEm(35px);
+	// margin-top: pxToEm(35px);
+	.u_swiper_slide {
+		// position: absolute;
+	}
+
+	.u_swiper_pagination {
+		margin-top: pxToEm(35px);
+		text-align: center;
+		.u_swiper_pagination_switch {
+			// box-shadow: 0px 1px 2px #555 inset;
+			display: inline-block;
+			width: pxToEm($swiperBulletSize);
+			height: pxToEm($swiperBulletSize);
+			border-radius: pxToEm($swiperBulletSize);
+			background: $colorKhaki;
+			margin: 0 pxToEm(6px);
+			cursor: pointer;
+		}
+		.u_swiper_visible_switch {
+			background-color: $colorPostYellow;
+		}
+		.u_swiper_active_switch {
+			background: $colorPostYellow;
+		}
+	}
+}
+
+.u_swiper_previous, .u_swiper_next {
+	font-size: pxToEm($swiperArrowsFontSize);
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: pxToEm(5px);
+	text-align: center;
+	z-index: 1;
+	&:before {
+		color: $colorKhaki;
+		display: block;
+		position: absolute;
+		top: 50%;
+		margin-top: pxToEm($swiperArrowsTopShift);
+	}
+	span { @extend %visuallyhidden !optional; }
+}
+.u_swiper_previous {
+	left: pxToEm($swiperArrowsDistance);
+	&:before { content: '\276c'; }
+}
+.u_swiper_next {
+	right: pxToEm($swiperArrowsDistance);
+	&:before { content: '\276d'; }
 }
