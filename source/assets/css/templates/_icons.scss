@@ -1,3 +1,6 @@
+// Example
+// Lodash template in source/assets/css/templates
+// See https://github.com/backflip/gulp-iconfont-css/blob/master/_icons.scss for parameters
 @font-face {
 	font-family: "<%= fontName %>";
 	src: url('<%= fontPath %><%= fontName %>.eot?') format('eot');

@@ -236,6 +236,15 @@ gulp.task('watch', function() {
 });
 
 /**
+ * Setup task
+ *
+ * Runs special tasks which are not part of server or build
+ */
+gulp.task('setup', function() {
+	gulp.start('modernizr', 'lodash');
+});
+
+/**
  * Build task
  *
  * Creates build directory
