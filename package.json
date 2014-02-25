@@ -18,7 +18,7 @@
     "gulp-front-matter": "1.0.0",
     "gulp-iconfont": "0.0.5",
     "gulp-iconfont-css": "0.0.5",
-    "gulp-resolve-dependencies": "0.0.1",
+    "gulp-resolve-dependencies": "0.1.0",
     "gulp-modernizr": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
     "tiny-lr": "0.0.5",
     "connect": "2.13.0",

@@ -1,3 +1,5 @@
-//= require .tmp/modernizr.js
+/**
+ * @requires ../vendor/.tmp/modernizr.js
+ */
 
 console.log('head');

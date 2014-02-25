@@ -83,15 +83,14 @@ gulp.task('css', function() {
 gulp.task('js', function() {
 	gulp.src([
 			'./source/assets/js/*.js',
-			'!./source/assets/vendor/*.js',
-			'!./source/assets/js/.tmp/*.js'
+			'!./source/assets/vendor/*.js'
 		])
 		.pipe(plugins.jshint('.jshintrc'))
 		.pipe(plugins.jshint.reporter('jshint-stylish'));
 
 	gulp.src('./source/assets/js/head.js')
 		.pipe(plugins.resolveDependencies({
-			pattern: /\/\/= require (.*?\.js)/g,
+			pattern: /\* @requires [\s-]*(.*?\.js)/g,
 			log: true
 		}))
 		.pipe(plugins.concat('head.js'))
@@ -101,7 +100,7 @@ gulp.task('js', function() {
 
 	gulp.src('./source/assets/js/main.js')
 		.pipe(plugins.resolveDependencies({
-			pattern: /\/\/= require (.*?\.js)/g,
+			pattern: /\* @requires [\s-]*(.*?\.js)/g,
 			log: true
 		}))
 		.pipe(plugins.concat('main.js'))
@@ -113,29 +112,35 @@ gulp.task('js', function() {
 /**
  * Modernizr task
  *
- * Generates customized Modernizr build in source/assets/js/.tmp/
+ * Generates customized Modernizr build in source/assets/vendor/.tmp/
  * Using Customizr, crawls through project files and gathers up references to Modernizr tests
  *
  * See https://github.com/doctyper/customizr
  */
 gulp.task('modernizr', function() {
-	return gulp.src('./source/assets/css/main.scss')
+	return gulp.src([
+			'./source/assets/css/*.scss',
+			'./source/modules/**/*.scss',
+			'./source/assets/js/*.js',
+			'./source/modules/**/*.js',
+			'!./source/assets/vendor/*.js'
+		])
 		.pipe(plugins.modernizr({}))
 		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
-		.pipe(gulp.dest('./source/assets/js/.tmp'));
+		.pipe(gulp.dest('./source/assets/vendor/.tmp'));
 });
 
 /**
  * Lodash task
  *
- * Generates customized lodash build in source/assets/js/.tmp/
+ * Generates customized lodash build in source/assets/vendor/.tmp/
  */
 gulp.task('lodash', function() {
 	var modules = ['template', 'each', 'debounce'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
-			'source/assets/js/.tmp/lodash.js',
+			'source/assets/vendor/.tmp/lodash.js',
 			'-d'
 		];
 
