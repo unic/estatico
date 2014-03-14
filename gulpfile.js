@@ -3,14 +3,15 @@
 var gulp = require('gulp'),
 
 	// Plugins
-	plugins = require('gulp-load-plugins')(),
+	plugins = require('gulp-load-plugins')({
+		pattern: 'gulp{-,.}*',
+		replaceString: /gulp(\-|\.)/
+	}),
 
 	// Helpers
 	_ = require('lodash'),
+	hogan = require('hogan.js'),
 	exec = require('child_process').exec,
-
-	// Spriting
-	spritesmith = require('gulp.spritesmith'),
 
 	// Livereload
 	livereload = require('tiny-lr'),
@@ -28,29 +29,43 @@ var gulp = require('gulp'),
  * Adds YAML front matter data to file object
  */
 gulp.task('html', function() {
-	var getTemplateData = function(file) {
-			var data = {};
+	// var getTemplateData = function(file) {
+	// 		var data = {};
 
-			_.each(file.frontmatter, function(val, key) {
-				data[key] = val;
-			});
+	// 		_.each(file.frontmatter, function(val, key) {
+	// 			data[key] = val;
+	// 		});
 
-			return data;
-		};
+	// 		return data;
+	// 	};
 
-	return gulp.src('./source/*.html')
-		.pipe(plugins.frontMatter({
-			property: 'frontmatter',
-			remove: true
-		}))
-		.pipe(plugins.swig({
-			data: getTemplateData,
-			defaults: {
-				cache: false
+	// return gulp.src('./source/*.html')
+	// 	.pipe(plugins.frontMatter({
+	// 		property: 'frontmatter',
+	// 		remove: true
+	// 	}))
+	// 	.pipe(plugins.swig({
+	// 		data: getTemplateData,
+	// 		defaults: {
+	// 			cache: false
+	// 		}
+	// 	}))
+	// 	.pipe(gulp.dest('./build'))
+	// 	.pipe(plugins.livereload(server));
+	return gulp.src('./source/hogan.html')
+		// .pipe(plugins.consolidate('hogan', {
+		// 	partials: {
+		// 		slideshow: 'modules/carousel/carousel',
+		// 		layout: 'layouts/hogan'
+		// 	}
+		// }))
+		.pipe(plugins.hogan({
+			partials: {
+				slideshow: 'modules/carousel/carousel',
+				layout: 'layouts/hogan'
 			}
 		}))
 		.pipe(gulp.dest('./build'))
-		.pipe(plugins.livereload(server));
 });
 
 /**
@@ -163,6 +178,9 @@ gulp.task('iconfont', function() {
 		.pipe(plugins.iconfont({
 			fontName: 'Icons'
 		}))
+	.on('codepoints', function(codepoints) {
+		console.log(codepoints, 'yeah');
+	})
 		.pipe(gulp.dest('./source/assets/fonts/icons/'));
 });
 
@@ -194,7 +212,7 @@ gulp.task('sprite', function () {
 	var spriteData = gulp.src([
 			'./source/assets/media/sprite/*',
 			'./source/modules/**/sprite/*'
-		]).pipe(spritesmith({
+		]).pipe(plugins.spritesmith({
 			imgName: 'sprite.png',
 			cssName: '_sprite.scss',
 			imgPath: '../media/sprite.png',
