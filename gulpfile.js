@@ -53,18 +53,18 @@ gulp.task('html', function() {
 	// 	.pipe(gulp.dest('./build'))
 	// 	.pipe(plugins.livereload(server));
 	return gulp.src('./source/hogan.html')
-		// .pipe(plugins.consolidate('hogan', {
-		// 	partials: {
-		// 		slideshow: 'modules/carousel/carousel',
-		// 		layout: 'layouts/hogan'
-		// 	}
-		// }))
-		.pipe(plugins.hogan({
+		.pipe(plugins.consolidate('hogan', {
 			partials: {
 				slideshow: 'modules/carousel/carousel',
 				layout: 'layouts/hogan'
 			}
 		}))
+		// .pipe(plugins.hogan({
+		// 	partials: {
+		// 		slideshow: 'modules/carousel/carousel',
+		// 		layout: 'layouts/hogan'
+		// 	}
+		// }))
 		.pipe(gulp.dest('./build'))
 });
 
