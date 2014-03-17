@@ -2,7 +2,7 @@
 
 var gulp = require('gulp'),
 
-	// Plugins
+	// Plugins (both "gulp-*" and "gulp.*")
 	plugins = require('gulp-load-plugins')({
 		pattern: 'gulp{-,.}*',
 		replaceString: /gulp(\-|\.)/
@@ -10,12 +10,14 @@ var gulp = require('gulp'),
 
 	// Helpers
 	_ = require('lodash'),
-	hogan = require('hogan.js'),
 	exec = require('child_process').exec,
+	path = require('path'),
 
 	// Livereload
 	livereload = require('tiny-lr'),
 	server = livereload(),
+
+	// Static file server
 	connect = require('connect'),
 	connectLivereload = require('connect-livereload'),
 	http = require('http'),
@@ -23,49 +25,29 @@ var gulp = require('gulp'),
 
 
 /**
- * HTML task
- *
- * Compiles Swig templates to HTML
- * Adds YAML front matter data to file object
+ * Compile Hogan templates to HTML
+ * Make content of data/FILENAME.json available to FILENAME.html
  */
 gulp.task('html', function() {
-	// var getTemplateData = function(file) {
-	// 		var data = {};
+	return gulp.src('./source/*.html')
+		.pipe(plugins.appendData({
+			property: 'data',
+			getRelativePath: function(file) {
+				var fileName = plugins.util.replaceExtension(path.basename(file.path), '.json');
 
-	// 		_.each(file.frontmatter, function(val, key) {
-	// 			data[key] = val;
-	// 		});
-
-	// 		return data;
-	// 	};
-
-	// return gulp.src('./source/*.html')
-	// 	.pipe(plugins.frontMatter({
-	// 		property: 'frontmatter',
-	// 		remove: true
-	// 	}))
-	// 	.pipe(plugins.swig({
-	// 		data: getTemplateData,
-	// 		defaults: {
-	// 			cache: false
-	// 		}
-	// 	}))
-	// 	.pipe(gulp.dest('./build'))
-	// 	.pipe(plugins.livereload(server));
-	return gulp.src('./source/hogan.html')
-		.pipe(plugins.consolidate('hogan', {
-			partials: {
-				slideshow: 'modules/carousel/carousel',
-				layout: 'layouts/hogan'
+				return path.join('data', fileName);
 			}
 		}))
-		// .pipe(plugins.hogan({
-		// 	partials: {
-		// 		slideshow: 'modules/carousel/carousel',
-		// 		layout: 'layouts/hogan'
-		// 	}
-		// }))
+		.pipe(plugins.consolidate('hogan', function(file) {
+			return _.merge({
+				partials: {
+					slideshow: 'modules/carousel/carousel',
+					layout: 'layouts/layout'
+				}
+			}, file.data);
+		}))
 		.pipe(gulp.dest('./build'))
+		.pipe(plugins.livereload(server));
 });
 
 /**
@@ -247,9 +229,21 @@ gulp.task('watch', function() {
 			return console.log(err)
 		};
 
-		gulp.watch(['source/{,*/}*.html', 'source/modules/**/*.html'], ['html']);
-		gulp.watch(['source/assets/css/*.scss', 'source/modules/**/*.scss'], ['css']);
-		gulp.watch(['source/assets/js/{,**/}*.js', 'source/modules/**/*.js'], ['js']);
+		gulp.watch([
+			'source/{,*/}*.html',
+			'source/data/*.json',
+			'source/modules/**/*.html'
+		], ['html']);
+
+		gulp.watch([
+			'source/assets/css/*.scss',
+			'source/modules/**/*.scss'
+		], ['css']);
+
+		gulp.watch([
+			'source/assets/js/{,**/}*.js',
+			'source/modules/**/*.js'
+		], ['js']);
 	});
 });
 
