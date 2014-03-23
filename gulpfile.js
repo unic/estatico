@@ -58,12 +58,14 @@ gulp.task('html', function() {
  */
 gulp.task('css', function() {
 	return gulp.src('./source/assets/css/main.scss')
+		// .pipe(plugins.plumber())
 		.pipe(plugins.rubySass({
 			loadPath: [
 				'source/assets/vendor',
 				'source/modules'
 			],
-			style: plugins.util.env.production ? 'compressed' : 'expanded'
+			style: plugins.util.env.production ? 'compressed' : 'expanded',
+			fullException: true
 		}))
 		.pipe(plugins.autoprefixer('last 2 version'))
 		.pipe(gulp.dest('./build/assets/css'))
@@ -160,9 +162,9 @@ gulp.task('iconfont', function() {
 		.pipe(plugins.iconfont({
 			fontName: 'Icons'
 		}))
-	.on('codepoints', function(codepoints) {
-		console.log(codepoints, 'yeah');
-	})
+			// .on('codepoints', function(codepoints) {
+			// 	console.log(codepoints, 'yeah');
+			// })
 		.pipe(gulp.dest('./source/assets/fonts/icons/'));
 });
 
