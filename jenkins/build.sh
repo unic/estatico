@@ -25,6 +25,12 @@ Build
 
 gulp build
 
+if [! -d "build"]; then
+	echo "[ERROR] Build failed (no build directory detected)"
+	exit
+fi
+
+
 
 echo "
 -------------------------------------------------------
@@ -64,7 +70,7 @@ Upload build to preview server
 
 if [ -n PREVIEW_CURL_PASSWORD ]
 	then
-		cd web
+		cd build
 		zip -r ../${PROTOTYPE_NAME}-${timestamp}.zip *
 		cd ..
 		curl -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-dev-preview.unic.com/upload
@@ -92,9 +98,9 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		# Sync files from dev build to temp folder
 		if [ -n PUSH_ASSETS ]
 			then
-				rsync -rm --delete --exclude='.git' ../web/ .
+				rsync -rm --delete --exclude='.git' ../build/ .
 			else
-				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../web/ .
+				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../build/ .
 		fi
 
 		# Push changes
