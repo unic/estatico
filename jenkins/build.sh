@@ -13,9 +13,9 @@ Install Dependencies
 
 npm install
 
-# Ruby environment (for compass)
-#source /usr/local/rvm/scripts/rvm
-#rvm use 2.0.0
+# Ruby environment (for Sass)
+source /usr/local/rvm/scripts/rvm
+rvm use 2.0.0
 
 
 echo "
