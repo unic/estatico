@@ -23,12 +23,7 @@ echo "
 Build
 -------------------------------------------------------"
 
-# Pre-run Modernizr task due to weird issues
-grunt modernizr
-grunt modernizr
-
-# Main build task
-grunt build
+gulp build
 
 
 echo "
