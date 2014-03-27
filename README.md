@@ -2,33 +2,44 @@
 
 ## Dependencies
 
-Node, NPM, Bower.
+Node, NPM.
 
 ## Usage
 
-1. Install node dependencies:
+1. Install node dependencies (and bower dependencies as a postinstall hook):
 
 ```shell
 npm install
 ```
 
-2. Install bower dependencies:
-
-```shell
-bower install
-```
-
-3. Setup (generates custom Modernizr and lodash builds)
+2. Setup (generates custom Modernizr and lodash builds)
 
 ```shell
 gulp setup
+# local version: node_modules/gulp/bin/gulp.js setup
 ```
 
-4. Start server
+3. Start server
 
 ```shell
 gulp
+# local version: node_modules/gulp/bin/gulp.js
 ```
+
+4. Build
+
+```shell
+gulp build
+# local version: node_modules/gulp/bin/gulp.js build
+```
+
+5. Update bower dependencies
+
+```shell
+bower install
+# local version: node_modules/bower/bin/bower install
+```
+
 
 
 

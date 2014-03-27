@@ -23,11 +23,13 @@ echo "
 Build
 -------------------------------------------------------"
 
-gulp build
+node_modules/gulp/bin/gulp.js setup
+node_modules/gulp/bin/gulp.js build
 
-if [! -d "build"]; then
-	echo "[ERROR] Build failed (no build directory detected)"
-	exit
+if [ ! -d "build" ]
+	then
+		echo "[ERROR] Build failed (no build directory detected)"
+		exit
 fi
 
 
