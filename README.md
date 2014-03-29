@@ -12,7 +12,7 @@ Node, NPM.
 npm install
 ```
 
-2. Setup (generates custom Modernizr and lodash builds)
+2. Setup (generates custom Modernizr and lodash builds, PNG sprite and icon font)
 
 ```shell
 gulp setup
