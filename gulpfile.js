@@ -36,7 +36,7 @@ require('handlebars-layouts')(handlebars);
  * Make content of data/FILENAME.json available to FILENAME.html
  */
 gulp.task('html', function() {
-	return gulp.src('./source/index.html')
+	return gulp.src('./source/*.html')
 		.pipe(plugins.appendData({
 			property: 'data',
 			getRelativePath: function(file) {
