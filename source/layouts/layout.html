@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{% block title %}Boilerplate{% endblock %}</title>
+	<title>Boilerplate</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -14,9 +14,11 @@
 	<script src="assets/js/head.js"></script>
 </head>
 <body>
-	{% block content %}
-	{% endblock %}
+	{{#block "content"}}
+		hello
+	{{/block}}
 
+	<script src="assets/js/templates.js"></script>
 	<script src="assets/js/main.js"></script>
 </body>
 </html>

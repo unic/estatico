@@ -1,6 +1,6 @@
 @import "normalize-scss/normalize";
-@import "icons";
-@import "sprite";
+@import "../.tmp/icons";
+@import "../.tmp/sprite";
 @import "carousel/carousel";
 
 body {
