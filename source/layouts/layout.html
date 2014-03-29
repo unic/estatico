@@ -14,9 +14,11 @@
 	<script src="assets/js/head.js"></script>
 </head>
 <body>
-	{{$content}}
-	{{/content}}
+	{{#block "content"}}
+		hello
+	{{/block}}
 
+	<script src="assets/js/templates.js"></script>
 	<script src="assets/js/main.js"></script>
 </body>
 </html>

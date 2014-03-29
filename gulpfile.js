@@ -12,6 +12,10 @@ var gulp = require('gulp'),
 	_ = require('lodash'),
 	exec = require('child_process').exec,
 	path = require('path'),
+	es = require('event-stream'),
+
+	// Handlebars
+	handlebars = require('handlebars'),
 
 	// Livereload
 	livereload = require('tiny-lr'),
@@ -25,11 +29,13 @@ var gulp = require('gulp'),
 
 
 /**
- * Compile Hogan templates to HTML
+ * Compile Handlebars templates to HTML
  * Make content of data/FILENAME.json available to FILENAME.html
  */
+require('handlebars-layouts')(handlebars);
+
 gulp.task('html', function() {
-	return gulp.src('./source/*.html')
+	return gulp.src('./source/index.html')
 		.pipe(plugins.appendData({
 			property: 'data',
 			getRelativePath: function(file) {
@@ -38,7 +44,7 @@ gulp.task('html', function() {
 				return path.join('data', fileName);
 			}
 		}))
-		.pipe(plugins.consolidate('hogan', function(file) {
+		.pipe(plugins.consolidate('handlebars', function(file) {
 			return _.merge({
 				partials: {
 					slideshow: 'modules/carousel/carousel',
@@ -106,12 +112,25 @@ gulp.task('js', function() {
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
+
+	es.merge(
+		gulp.src('./source/assets/vendor/handlebars/handlebars.js'),
+        gulp.src('./source/modules/**/*.html')
+			.pipe(plugins.handlebars())
+			.pipe(plugins.defineModule('plain'))
+			.pipe(plugins.declare({
+				namespace: 'Unic.templates'
+			}))
+    )
+    	.pipe(plugins.concat('templates.js'))
+		.pipe(gulp.dest('./build/assets/js/'))
+		.pipe(plugins.livereload(server));
 });
 
 /**
  * Modernizr task
  *
- * Generates customized Modernizr build in source/assets/vendor/.tmp/
+ * Generates customized Modernizr build in source/assets/.tmp/
  * Using Customizr, crawls through project files and gathers up references to Modernizr tests
  *
  * See https://github.com/doctyper/customizr
@@ -126,20 +145,20 @@ gulp.task('modernizr', function() {
 		])
 		.pipe(plugins.modernizr({}))
 		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
-		.pipe(gulp.dest('./source/assets/vendor/.tmp'));
+		.pipe(gulp.dest('./source/assets/.tmp'));
 });
 
 /**
  * Lodash task
  *
- * Generates customized lodash build in source/assets/vendor/.tmp/
+ * Generates customized lodash build in source/assets/.tmp/
  */
 gulp.task('lodash', function() {
 	var modules = ['template', 'each', 'debounce'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
-			'source/assets/vendor/.tmp/lodash.js',
+			'source/assets/.tmp/lodash.js',
 			'-d'
 		];
 
@@ -152,20 +171,25 @@ gulp.task('lodash', function() {
  * Generates icon font and SCSS file
  */
 gulp.task('iconfont', function() {
-	gulp.src(['./source/assets/media/icons/*.svg'])
-		.pipe(plugins.iconfontCss({
-			fontName: 'Icons',
-			path: './source/assets/css/templates/_icons.scss',
-			targetPath: '../../css/_icons.scss',
-			fontPath: '../fonts/icons/'
-		}))
+	gulp.src([
+			'./source/assets/media/iconfont/*.svg',
+			'./source/modules/**/iconfont/*.svg'
+		])
 		.pipe(plugins.iconfont({
 			fontName: 'Icons'
 		}))
-			// .on('codepoints', function(codepoints) {
-			// 	console.log(codepoints, 'yeah');
-			// })
-		.pipe(gulp.dest('./source/assets/fonts/icons/'));
+			.on('codepoints', function(codepoints, options) {
+				gulp.src('./source/assets/vendor/unic-iconfont-template/icons.scss.hbs')
+					.pipe(plugins.consolidate('handlebars', {
+						codepoints: codepoints,
+						options: _.merge(options, {
+							fontPath: '../fonts/'
+						})
+					}))
+					.pipe(plugins.rename('icons.scss'))
+					.pipe(gulp.dest('./source/assets/.tmp/'));
+			})
+		.pipe(gulp.dest('./build/assets/fonts/icons/'));
 });
 
 /**
@@ -194,17 +218,17 @@ gulp.task('media', function() {
  */
 gulp.task('sprite', function () {
 	var spriteData = gulp.src([
-			'./source/assets/media/sprite/*',
-			'./source/modules/**/sprite/*'
+			'./source/assets/media/pngsprite/*',
+			'./source/modules/**/pngsprite/*'
 		]).pipe(plugins.spritesmith({
 			imgName: 'sprite.png',
-			cssName: '_sprite.scss',
+			cssName: 'sprite.scss',
 			imgPath: '../media/sprite.png',
-			cssTemplate: './source/assets/css/templates/_sprite.scss'
+			cssTemplate: './source/assets/vendor/unic-pngsprite-template/sprite.scss'
 		}));
 
-	spriteData.img.pipe(gulp.dest('./source/assets/media/'));
-	spriteData.css.pipe(gulp.dest('./source/assets/css/'));
+	spriteData.img.pipe(gulp.dest('./build/assets/media/'));
+	spriteData.css.pipe(gulp.dest('./source/assets/.tmp/'));
 });
 
 /**

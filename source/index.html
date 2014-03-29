@@ -1,7 +1,5 @@
-{{<layout}}
-	{{$content}}
+{{#extend "layout"}}
+	{{#replace "content"}}
 		{{foo}}
-		hello
-		{{> slideshow}}
-	{{/content}}
-{{/layout}}
+	{{/replace}}
+{{/extend}}
