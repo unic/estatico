@@ -28,9 +28,27 @@ node_modules/gulp/bin/gulp.js build
 
 if [ ! -d "build" ]
 	then
-		echo "[ERROR] Build failed (no build directory detected)"
+		echo "[ERROR] DEV build failed (no build directory detected)"
 		exit
 fi
+
+mv build dev
+
+node_modules/gulp/bin/gulp.js setup
+node_modules/gulp/bin/gulp.js build --production
+
+if [ ! -d "build" ]
+	then
+		echo "[ERROR] PROD build failed (no build directory detected)"
+		exit
+fi
+
+mv build prod
+
+# Create structure for preview server
+mkdir build
+mv dev build/dev
+mv prod build/prod
 
 
 
@@ -76,6 +94,7 @@ if [ -n PREVIEW_CURL_PASSWORD ]
 		zip -r ../${PROTOTYPE_NAME}-${timestamp}.zip *
 		cd ..
 		curl -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-dev-preview.unic.com/upload
+		rm -f ${PROTOTYPE_NAME}-${timestamp}.zip
 	else
 		echo "[WARNING] No cURL password specified"
 fi
@@ -109,6 +128,9 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		git add --all
 		git commit -m "Build ${BUILD_NUMBER}"
 		git push origin ${BUILD_GIT_BRANCH}
+
+		cd ..
+		rm -rf build.tmp
 	else
 		echo "[WARNING] No repo or branch specified!"
 fi
