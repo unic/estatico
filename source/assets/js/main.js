@@ -1,5 +1,5 @@
 /**
- * @requires ../vendor/unic-js-module/unic-js-module.js
+ * @requires utils/unic-module.js
  * @requires ../vendor/handlebars/handlebars.js
  * @requires ../.tmp/templates.js
  * @requires ../.tmp/lodash.js
