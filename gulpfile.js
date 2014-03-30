@@ -286,7 +286,7 @@ gulp.task('setup', ['iconfont', 'pngsprite', 'lodash'], function() {
 /**
  * Create build directory
  */
-gulp.task('build', ['clean'], function() {
+gulp.task('build', function() {
 	gulp.start('html', 'css', 'js', 'media');
 });
 
