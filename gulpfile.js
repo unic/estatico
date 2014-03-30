@@ -12,7 +12,6 @@ var gulp = require('gulp'),
 	_ = require('lodash'),
 	exec = require('child_process').exec,
 	path = require('path'),
-	es = require('event-stream'),
 
 	// Handlebars
 	handlebars = require('handlebars'),
@@ -178,14 +177,13 @@ gulp.task('iconfont', function() {
 			fontName: 'Icons'
 		}))
 			.on('codepoints', function(codepoints, options) {
-				gulp.src('./source/assets/vendor/unic-iconfont-template/icons.scss.hbs')
+				gulp.src('./source/assets/css/templates/icons.scss')
 					.pipe(plugins.consolidate('handlebars', {
 						codepoints: codepoints,
 						options: _.merge(options, {
 							fontPath: '../fonts/'
 						})
 					}))
-					.pipe(plugins.rename('icons.scss'))
 					.pipe(gulp.dest('./source/assets/.tmp/'));
 			})
 		.pipe(gulp.dest('./build/assets/fonts/icons/'));
@@ -205,7 +203,7 @@ gulp.task('pngsprite', function () {
 			imgName: 'sprite.png',
 			cssName: 'sprite.scss',
 			imgPath: '../media/sprite.png',
-			cssTemplate: './source/assets/vendor/unic-pngsprite-template/sprite.scss'
+			cssTemplate: './source/assets/css/templates/sprite.scss'
 		}));
 
 	spriteData.css.pipe(gulp.dest('./source/assets/.tmp/'));
@@ -280,8 +278,9 @@ gulp.task('watch', function() {
 /**
  * Run special tasks which are not part of server or build
  */
-gulp.task('setup', ['modernizr'], function() {
-	gulp.start('iconfont', 'pngsprite', 'lodash');
+gulp.task('setup', ['iconfont', 'pngsprite', 'lodash'], function() {
+	// Modernizr has to run last due to weird side effects
+	gulp.start('modernizr');
 });
 
 /**
@@ -314,7 +313,7 @@ gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
 });
 
 /**
- * Default task (when using "$ gulp")
+ * Default task (when running "$ gulp")
  *
  * Recreate build directory and start preview server
  */
