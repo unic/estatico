@@ -1,0 +1,6 @@
+{
+	"project": "Boilerplate",
+	"partials": {
+		"layout": "layouts/layout"
+	}
+}

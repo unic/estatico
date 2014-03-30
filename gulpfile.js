@@ -27,31 +27,36 @@ var gulp = require('gulp'),
 	http = require('http'),
 	open = require('open');
 
-// Apply handlebar helpers
+
+// Make handlebars layout helpers available
 require('handlebars-layouts')(handlebars);
 
 
 /**
  * Compile Handlebars templates to HTML
- * Make content of data/FILENAME.json available to FILENAME.html
+ * Make content of data/FILENAME.json available to template engine
  */
 gulp.task('html', function() {
 	return gulp.src('./source/*.html')
-		.pipe(plugins.appendData({
-			property: 'data',
-			getRelativePath: function(file) {
-				var fileName = plugins.util.replaceExtension(path.basename(file.path), '.json');
-
-				return path.join('data', fileName);
-			}
-		}))
 		.pipe(plugins.consolidate('handlebars', function(file) {
-			return _.merge({
-				partials: {
-					slideshow: 'modules/carousel/carousel',
-					layout: 'layouts/layout'
-				}
-			}, file.data);
+			var fileName = plugins.util.replaceExtension(path.basename(file.path), '.json'),
+				dataFilePath = path.resolve(__dirname, './source/data/' + fileName),
+				defaultDataFilePath = path.resolve(__dirname, './source/data/default.json'),
+				pageData = {},
+				defaultData = {};
+
+			// Remove cached data
+			if (require.cache[dataFilePath]) {
+				delete require.cache[dataFilePath];
+			}
+			if (require.cache[defaultDataFilePath]) {
+				delete require.cache[defaultDataFilePath];
+			}
+
+			pageData  = require(dataFilePath);
+			defaultData = require('./source/data/default.json');
+
+			return _.merge({}, defaultData, pageData);
 		}))
 		.pipe(gulp.dest('./build'))
 		.pipe(plugins.livereload(server));
@@ -86,6 +91,7 @@ gulp.task('js', function() {
 			'./source/assets/js/*.js',
 			'!./source/assets/vendor/*.js'
 		])
+		.pipe(plugins.cached('linting'))
 		.pipe(plugins.jshint('.jshintrc'))
 		.pipe(plugins.jshint.reporter('jshint-stylish'));
 
@@ -245,29 +251,29 @@ gulp.task('watch', function() {
 			'source/{,*/}*.html',
 			'source/data/*.json',
 			'source/modules/**/*.html'
-		], 'html');
+		], ['html']);
 
 		gulp.watch([
 			'source/assets/css/*.scss',
 			'source/assets/.tmp/*.scss',
 			'source/modules/**/*.scss'
-		], 'css');
+		], ['css']);
 
 		gulp.watch([
 			'source/assets/js/{,**/}*.js',
 			'source/assets/.tmp/*.js',
 			'source/modules/**/*.js'
-		], 'js');
+		], ['js']);
 
 		gulp.watch([
 			'source/assets/pngsprite/*',
 			'source/modules/**/pngsprite/*'
-		], 'pngsprite');
+		], ['pngsprite']);
 
 		gulp.watch([
 			'source/assets/iconfont/*.svg',
 			'source/modules/**/iconfont/*.svg'
-		], 'iconfont');
+		], ['iconfont']);
 	});
 });
 
