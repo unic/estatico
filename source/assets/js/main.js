@@ -3,7 +3,7 @@
  * @requires ../vendor/handlebars/handlebars.js
  * @requires ../.tmp/templates.js
  * @requires ../.tmp/lodash.js
- * @requires ../../modules/carousel/carousel.js
+ * @requires ../../modules/slideshow/slideshow.js
  */
 
 console.log('main');

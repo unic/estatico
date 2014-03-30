@@ -177,11 +177,18 @@ gulp.task('iconfont', function() {
 			fontName: 'Icons'
 		}))
 			.on('codepoints', function(codepoints, options) {
+				codepoints = _.map(codepoints, function(codepoint) {
+					return {
+						name: codepoint.name,
+						codepoint: codepoint.codepoint.toString(16).toUpperCase()
+					};
+				});
+
 				gulp.src('./source/assets/css/templates/icons.scss')
 					.pipe(plugins.consolidate('handlebars', {
 						codepoints: codepoints,
 						options: _.merge(options, {
-							fontPath: '../fonts/'
+							fontPath: '../fonts/icons/'
 						})
 					}))
 					.pipe(gulp.dest('./source/assets/.tmp/'));
@@ -197,13 +204,14 @@ gulp.task('iconfont', function() {
  */
 gulp.task('pngsprite', function () {
 	var spriteData = gulp.src([
-			'./source/assets/media/pngsprite/*',
-			'./source/modules/**/pngsprite/*'
+			'./source/assets/media/pngsprite/*.png',
+			'./source/modules/**/pngsprite/*.png'
 		]).pipe(plugins.spritesmith({
 			imgName: 'sprite.png',
 			cssName: 'sprite.scss',
 			imgPath: '../media/sprite.png',
-			cssTemplate: './source/assets/css/templates/sprite.scss'
+			cssTemplate: './source/assets/css/templates/sprite.scss',
+			engine: 'pngsmith'
 		}));
 
 	spriteData.css.pipe(gulp.dest('./source/assets/.tmp/'));
@@ -217,7 +225,7 @@ gulp.task('pngsprite', function () {
 gulp.task('media', function() {
 	return gulp.src([
 				'./source/assets/fonts/{,**/}*',
-				'./source/assets/media/*',
+				'./source/assets/media/*.*',
 				'./source/tmp/media/*'
 			], {
 			base: './source/'
@@ -264,8 +272,8 @@ gulp.task('watch', function() {
 		], ['js']);
 
 		gulp.watch([
-			'source/assets/pngsprite/*',
-			'source/modules/**/pngsprite/*'
+			'source/assets/pngsprite/*.png',
+			'source/modules/**/pngsprite/*.png'
 		], ['pngsprite']);
 
 		gulp.watch([
@@ -291,10 +299,10 @@ gulp.task('build', function() {
 });
 
 /**
- * Create connect server with livereload functionality
+ * Default task: Create connect server with livereload functionality
  * Serve build directory
  */
-gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
+gulp.task('default', ['html', 'css', 'js', 'media', 'watch'], function() {
 	var app = connect()
 			.use(connectLivereload())
 			.use(connect.static('build')),
@@ -310,13 +318,4 @@ gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
 			process.exit(0);
 		});
 	});
-});
-
-/**
- * Default task (when running "$ gulp")
- *
- * Recreate build directory and start preview server
- */
-gulp.task('default', ['clean'], function() {
-	gulp.start('server');
 });

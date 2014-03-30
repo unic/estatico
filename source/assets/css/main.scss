@@ -1,7 +1,7 @@
 @import "normalize-scss/normalize";
 @import "../.tmp/icons";
 @import "../.tmp/sprite";
-@import "carousel/carousel";
+@import "slideshow/slideshow";
 
 body {
 	box-sizing: border-box;
@@ -12,10 +12,6 @@ body {
 	}
 
 	p {
-		@include icon(github);
-
-		span {
-			@include sprite(sprite1);
-		}
+		@include sprite(logo);
 	}
 }

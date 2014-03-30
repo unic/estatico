@@ -1,6 +1,6 @@
 {
 	"partials": {
-		"slideshow": "modules/carousel/carousel"
+		"slideshow": "modules/slideshow/slideshow"
 	},
 	"title": "Slideshow",
 	"slides": [
