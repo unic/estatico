@@ -1,5 +1,5 @@
 /**
- * @requires ../vendor/.tmp/modernizr.js
+ * @requires ../.tmp/modernizr.js
  */
 
 /**
