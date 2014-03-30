@@ -1,0 +1,9 @@
+.mod_slideshow {
+
+	.next {
+		@include icon(slideshow-twitter);
+	}
+	.prev {
+		@include icon(slideshow-github);
+	}
+}

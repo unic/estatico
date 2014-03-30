@@ -12,7 +12,6 @@ var gulp = require('gulp'),
 	_ = require('lodash'),
 	exec = require('child_process').exec,
 	path = require('path'),
-	es = require('event-stream'),
 
 	// Handlebars
 	handlebars = require('handlebars'),
@@ -178,14 +177,20 @@ gulp.task('iconfont', function() {
 			fontName: 'Icons'
 		}))
 			.on('codepoints', function(codepoints, options) {
-				gulp.src('./source/assets/vendor/unic-iconfont-template/icons.scss.hbs')
+				codepoints = _.map(codepoints, function(codepoint) {
+					return {
+						name: codepoint.name,
+						codepoint: codepoint.codepoint.toString(16).toUpperCase()
+					};
+				});
+
+				gulp.src('./source/assets/css/templates/icons.scss')
 					.pipe(plugins.consolidate('handlebars', {
 						codepoints: codepoints,
 						options: _.merge(options, {
-							fontPath: '../fonts/'
+							fontPath: '../fonts/icons/'
 						})
 					}))
-					.pipe(plugins.rename('icons.scss'))
 					.pipe(gulp.dest('./source/assets/.tmp/'));
 			})
 		.pipe(gulp.dest('./build/assets/fonts/icons/'));
@@ -199,13 +204,14 @@ gulp.task('iconfont', function() {
  */
 gulp.task('pngsprite', function () {
 	var spriteData = gulp.src([
-			'./source/assets/media/pngsprite/*',
-			'./source/modules/**/pngsprite/*'
+			'./source/assets/media/pngsprite/*.png',
+			'./source/modules/**/pngsprite/*.png'
 		]).pipe(plugins.spritesmith({
 			imgName: 'sprite.png',
 			cssName: 'sprite.scss',
 			imgPath: '../media/sprite.png',
-			cssTemplate: './source/assets/vendor/unic-pngsprite-template/sprite.scss'
+			cssTemplate: './source/assets/css/templates/sprite.scss',
+			engine: 'pngsmith'
 		}));
 
 	spriteData.css.pipe(gulp.dest('./source/assets/.tmp/'));
@@ -219,7 +225,7 @@ gulp.task('pngsprite', function () {
 gulp.task('media', function() {
 	return gulp.src([
 				'./source/assets/fonts/{,**/}*',
-				'./source/assets/media/*',
+				'./source/assets/media/*.*',
 				'./source/tmp/media/*'
 			], {
 			base: './source/'
@@ -266,8 +272,8 @@ gulp.task('watch', function() {
 		], ['js']);
 
 		gulp.watch([
-			'source/assets/pngsprite/*',
-			'source/modules/**/pngsprite/*'
+			'source/assets/pngsprite/*.png',
+			'source/modules/**/pngsprite/*.png'
 		], ['pngsprite']);
 
 		gulp.watch([
@@ -280,22 +286,23 @@ gulp.task('watch', function() {
 /**
  * Run special tasks which are not part of server or build
  */
-gulp.task('setup', ['modernizr'], function() {
-	gulp.start('iconfont', 'pngsprite', 'lodash');
+gulp.task('setup', ['iconfont', 'pngsprite', 'lodash'], function() {
+	// Modernizr has to run last due to weird side effects
+	gulp.start('modernizr');
 });
 
 /**
  * Create build directory
  */
-gulp.task('build', ['clean'], function() {
+gulp.task('build', function() {
 	gulp.start('html', 'css', 'js', 'media');
 });
 
 /**
- * Create connect server with livereload functionality
+ * Default task: Create connect server with livereload functionality
  * Serve build directory
  */
-gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
+gulp.task('default', ['html', 'css', 'js', 'media', 'watch'], function() {
 	var app = connect()
 			.use(connectLivereload())
 			.use(connect.static('build')),
@@ -311,13 +318,4 @@ gulp.task('server', ['html', 'css', 'js', 'media', 'watch'], function() {
 			process.exit(0);
 		});
 	});
-});
-
-/**
- * Default task (when using "$ gulp")
- *
- * Recreate build directory and start preview server
- */
-gulp.task('default', ['clean'], function() {
-	gulp.start('server');
 });

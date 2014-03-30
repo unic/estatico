@@ -1,0 +1,18 @@
+// Example template
+// See https://github.com/twolfson/json2css/blob/master/lib/templates/scss.template.mustache for parameters
+@mixin sprite($filename) {
+
+	&:before {
+		content: "";
+		display: inline-block;
+
+		{{#items}}
+		@if $filename == {{name}} {
+			background-image: url({{{escaped_image}}});
+			background-position: {{px.offset_x}} {{px.offset_y}};
+			height: {{px.height}};
+			width: {{px.width}};
+		}
+		{{/items}}
+	}
+}
