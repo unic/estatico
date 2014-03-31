@@ -66,7 +66,7 @@ gulp.task('html', function() {
  * Run autoprefixer on the generated CSS
  */
 gulp.task('css', function() {
-	return gulp.src('./source/assets/css/main.scss')
+	return gulp.src('./source/assets/css/*.scss')
 		.pipe(plugins.rubySass({
 			loadPath: [
 				'source/assets/vendor',
@@ -88,6 +88,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
 	gulp.src([
 			'./source/assets/js/*.js',
+			'./source/modules/**/*.js',
 			'!./source/assets/vendor/*.js'
 		])
 		.pipe(plugins.cached('linting'))
@@ -116,7 +117,7 @@ gulp.task('js', function() {
 });
 
 /**
- * Precompile JS templates
+ * Precompile JS templates (for demo purposes)
  */
 gulp.task('js-templates', function() {
 	gulp.src('./source/modules/**/*.html')
@@ -153,7 +154,7 @@ gulp.task('modernizr', function() {
  * Generate customized lodash build in source/assets/.tmp/
  */
 gulp.task('lodash', function() {
-	var modules = ['template', 'each', 'debounce'],
+	var modules = ['debounce'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
