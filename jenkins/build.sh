@@ -124,7 +124,7 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		# Sync files from dev build to temp folder
 		if [ -n PUSH_ASSETS ]
 			then
-				rsync -rm --delete --exclude='.git' ../build/ .
+				rsync -rm --delete --exclude='.git' --exclude='metadata.json' ../build/ .
 			else
 				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../build/dev/ .
 		fi
