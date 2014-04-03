@@ -20,7 +20,7 @@ rvm use 2.0.0
 
 echo "
 -------------------------------------------------------
-Build
+Build Dev Version
 -------------------------------------------------------"
 
 node_modules/gulp/bin/gulp.js setup
@@ -33,6 +33,12 @@ if [ ! -d "build" ]
 fi
 
 mv build dev
+
+
+echo "
+-------------------------------------------------------
+Build Prod Version
+-------------------------------------------------------"
 
 node_modules/gulp/bin/gulp.js setup
 node_modules/gulp/bin/gulp.js build --production
@@ -49,7 +55,6 @@ mv build prod
 mkdir build
 mv dev build/dev
 mv prod build/prod
-
 
 
 echo "
@@ -85,7 +90,7 @@ echo "$metadata saved to build/metadata.json"
 
 echo "
 -------------------------------------------------------
-Upload build to preview server
+Upload build to preview server (has to be pre-configured on http://fe-preview.unic.com/)
 -------------------------------------------------------"
 
 if [ -n PREVIEW_CURL_PASSWORD ]
@@ -121,7 +126,7 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 			then
 				rsync -rm --delete --exclude='.git' ../build/ .
 			else
-				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../build/ .
+				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../build/dev/ .
 		fi
 
 		# Push changes
@@ -139,7 +144,8 @@ fi
 
 echo "
 -------------------------------------------------------
- D E P L O Y
--------------------------------------------------------"
+ D E P L O Y (optional, use maven to deploy to Nexus)
+-------------------------------------------------------
 
-# E.g. Jenkins task to push to Nexus
+Ask the backend for a pom.xml
+"
