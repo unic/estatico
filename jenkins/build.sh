@@ -134,8 +134,8 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		git commit -m "Build ${BUILD_NUMBER}"
 		git push origin ${BUILD_GIT_BRANCH}
 
-		cd ..
-		rm -rf build.tmp
+		#cd ..
+		#rm -rf build.tmp
 	else
 		echo "[WARNING] No repo or branch specified!"
 fi
