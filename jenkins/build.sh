@@ -93,7 +93,7 @@ if [ -n PREVIEW_CURL_PASSWORD ]
 		cd build
 		zip -r ../${PROTOTYPE_NAME}-${timestamp}.zip *
 		cd ..
-		curl -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-dev-preview.unic.com/upload
+		curl -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-preview.unic.com/upload
 		rm -f ${PROTOTYPE_NAME}-${timestamp}.zip
 	else
 		echo "[WARNING] No cURL password specified"
