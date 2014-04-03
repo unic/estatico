@@ -124,18 +124,15 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		# Sync files from dev build to temp folder
 		if [ -n PUSH_ASSETS ]
 			then
-				rsync -rm --delete --exclude='.git' --exclude='metadata.json' ../build/ .
+				rsync -rm --delete --exclude '.git' --exclude 'metadata.json' ../build/ .
 			else
-				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../build/dev/ .
+				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/dev/ .
 		fi
 
 		# Push changes
 		git add --all
 		git commit -m "Build ${BUILD_NUMBER}"
 		git push origin ${BUILD_GIT_BRANCH}
-
-		#cd ..
-		#rm -rf build.tmp
 	else
 		echo "[WARNING] No repo or branch specified!"
 fi
