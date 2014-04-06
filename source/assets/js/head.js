@@ -1,5 +1,3 @@
-/*jshint -W098 */
-/*jshint -W079 */
 /**
  * @requires ../.tmp/modernizr.js
  */
