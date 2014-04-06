@@ -25,13 +25,11 @@ Build Dev Version
 
 if ! node_modules/gulp/bin/gulp.js setup
 	then
-		echo "[ERROR] 'gulp setup' failed."
 		exit 1
 fi
 
 if ! node_modules/gulp/bin/gulp.js build
 	then
-		echo "[ERROR] 'gulp build' failed."
 		exit 1
 fi
 
@@ -51,13 +49,11 @@ Build Prod Version
 
 if ! node_modules/gulp/bin/gulp.js setup
 	then
-		echo "[ERROR] 'gulp setup' failed."
 		exit 1
 fi
 
 if ! node_modules/gulp/bin/gulp.js build --production
 	then
-		echo "[ERROR] 'gulp build --production' failed."
 		exit 1
 fi
 
