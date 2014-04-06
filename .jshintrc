@@ -20,6 +20,8 @@
 	"smarttabs": true,
 	"jquery": true,
 	"predef": [
-		"_"
+		"_",
+		"Unic",
+		"Modernizr"
 	]
 }

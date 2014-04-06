@@ -23,13 +23,22 @@ echo "
 Build Dev Version
 -------------------------------------------------------"
 
-node_modules/gulp/bin/gulp.js setup
-node_modules/gulp/bin/gulp.js build
+if ! node_modules/gulp/bin/gulp.js setup
+	then
+		echo "[ERROR] 'gulp setup' failed."
+		exit 1
+fi
+
+if ! node_modules/gulp/bin/gulp.js build
+	then
+		echo "[ERROR] 'gulp build' failed."
+		exit 1
+fi
 
 if [ ! -d "build" ]
 	then
-		echo "[ERROR] DEV build failed (no build directory detected)"
-		exit
+		echo "[ERROR] DEV build failed (no build directory detected)."
+		exit 1
 fi
 
 mv build dev
@@ -40,13 +49,22 @@ echo "
 Build Prod Version
 -------------------------------------------------------"
 
-node_modules/gulp/bin/gulp.js setup
-node_modules/gulp/bin/gulp.js build --production
+if ! node_modules/gulp/bin/gulp.js setup
+	then
+		echo "[ERROR] 'gulp setup' failed."
+		exit 1
+fi
+
+if ! node_modules/gulp/bin/gulp.js build --production
+	then
+		echo "[ERROR] 'gulp build --production' failed."
+		exit 1
+fi
 
 if [ ! -d "build" ]
 	then
-		echo "[ERROR] PROD build failed (no build directory detected)"
-		exit
+		echo "[ERROR] PROD build failed (no build directory detected)."
+		exit 1
 fi
 
 mv build prod
@@ -101,7 +119,8 @@ if [ -n PREVIEW_CURL_PASSWORD ]
 		curl -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-preview.unic.com/upload
 		rm -f ${PROTOTYPE_NAME}-${timestamp}.zip
 	else
-		echo "[WARNING] No cURL password specified"
+		echo "[ERROR] No cURL password for preview server provided."
+		exit 1
 fi
 
 
@@ -118,7 +137,13 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 
 		# Init new repo and checkout build branch (has to pre-exist)
 		git init
-		git remote add -t ${BUILD_GIT_BRANCH} -f origin ${BUILD_GIT_REPO}
+
+		if ! git remote add -t ${BUILD_GIT_BRANCH} -f origin ${BUILD_GIT_REPO}
+			then
+				echo "[ERROR] Adding git remote failed. Build branch might be missing."
+				exit 1
+		fi
+
 		git checkout ${BUILD_GIT_BRANCH}
 
 		# Sync files from dev build to temp folder
@@ -134,7 +159,8 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		git commit -m "Build ${BUILD_NUMBER}"
 		git push origin ${BUILD_GIT_BRANCH}
 	else
-		echo "[WARNING] No repo or branch specified!"
+		echo "[ERROR] No repo or branch specified."
+		exit 1
 fi
 
 
