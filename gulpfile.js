@@ -86,7 +86,12 @@ gulp.task('js', function() {
 	])
 		.pipe(plugins.cached('linting'))
 		.pipe(plugins.jshint('.jshintrc'))
-		.pipe(plugins.jshint.reporter('jshint-stylish'));
+		.pipe(plugins.jshint.reporter('jshint-stylish'))
+		.pipe(plugins.jshint.reporter('fail'))
+		    .on('error', function(err) {
+		    	console.log('[ERROR] ' + err.message + '.');
+		    	process.exit(1);
+		    });
 
 	gulp.src([
 		'./source/assets/js/head.js'

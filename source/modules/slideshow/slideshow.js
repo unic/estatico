@@ -5,15 +5,13 @@
  * @license All rights reserved Unic AG
  */
 
-;(function(window, document, $, Unic, undefined) {
+(function(window, document, $, Unic, undefined) {
 	'use strict';
 
 	var $document = $(document);
 
 	var pluginName = 'accordion',
-		events = {
-			// eventname: pluginName +'_eventname'
-		},
+		events = {/* eventname: pluginName +'_eventname' */},
 		defaults = {
 			domSelectors: {
 				item: '[data-' + pluginName + '="item"]',
@@ -65,10 +63,12 @@
 			}, this));
 
 		this.show(this.options.initialItem);
-	}
+	};
 
 	Plugin.prototype.show = function(index) {
-		if (index === this.currentItem) return;
+		if (index === this.currentItem) {
+			return;
+		}
 
 		if (index >= this.$items.length) {
 			index = 0;
@@ -76,17 +76,19 @@
 			index = this.$items.length - 1;
 		}
 
-		this.$items.eq(currentItem).fadeOut(this.options.animationDuration);
+		this.$items.eq(this.currentItem).fadeOut(this.options.animationDuration);
 		this.$items.eq(index).fadeIn(this.options.animationDuration);
 
 		this.currentItem = index;
-	}
+	};
+
 	Plugin.prototype.prev = function() {
-		this.goTo(this.currentItem - 1)
-	}
+		this.goTo(this.currentItem - 1);
+	};
+
 	Plugin.prototype.next = function() {
-		this.goTo(this.currentItem + 1)
-	}
+		this.goTo(this.currentItem + 1);
+	};
 
 	// Make the plugin available through jQuery (and the global project namespace)
 	Unic.modules.PluginHelper.register(Plugin, pluginName);
