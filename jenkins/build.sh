@@ -1,15 +1,17 @@
 #!/bin/bash
 
 echo "
--------------------------------------------------------
- B U I L D
--------------------------------------------------------"
 
 
-echo "
--------------------------------------------------------
-Install Dependencies
--------------------------------------------------------"
+
+██████╗ ███████╗██████╗ ███████╗███╗   ██╗██████╗ ███████╗███╗   ██╗ ██████╗██╗███████╗███████╗
+██╔══██╗██╔════╝██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝████╗  ██║██╔════╝██║██╔════╝██╔════╝
+██║  ██║█████╗  ██████╔╝█████╗  ██╔██╗ ██║██║  ██║█████╗  ██╔██╗ ██║██║     ██║█████╗  ███████╗
+██║  ██║██╔══╝  ██╔═══╝ ██╔══╝  ██║╚██╗██║██║  ██║██╔══╝  ██║╚██╗██║██║     ██║██╔══╝  ╚════██║
+██████╔╝███████╗██║     ███████╗██║ ╚████║██████╔╝███████╗██║ ╚████║╚██████╗██║███████╗███████║
+╚═════╝ ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚═╝╚══════╝╚══════╝
+
+"
 
 npm install
 
@@ -17,30 +19,63 @@ npm install
 source /usr/local/rvm/scripts/rvm
 rvm use 2.0.0
 
+echo "
+
+
+
+██████╗ ██╗   ██╗██╗██╗     ██████╗
+██╔══██╗██║   ██║██║██║     ██╔══██╗
+██████╔╝██║   ██║██║██║     ██║  ██║
+██╔══██╗██║   ██║██║██║     ██║  ██║
+██████╔╝╚██████╔╝██║███████╗██████╔╝
+╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝
+
+"
 
 echo "
 -------------------------------------------------------
-Build
--------------------------------------------------------"
+Build Dev Version
+-------------------------------------------------------
+"
 
-node_modules/gulp/bin/gulp.js setup
-node_modules/gulp/bin/gulp.js build
+if ! node_modules/gulp/bin/gulp.js setup
+	then
+		exit 1
+fi
+
+if ! node_modules/gulp/bin/gulp.js build
+	then
+		exit 1
+fi
 
 if [ ! -d "build" ]
 	then
-		echo "[ERROR] DEV build failed (no build directory detected)"
-		exit
+		echo "[ERROR] DEV build failed (no build directory detected)."
+		exit 1
 fi
 
 mv build dev
 
-node_modules/gulp/bin/gulp.js setup
-node_modules/gulp/bin/gulp.js build --production
+echo "
+-------------------------------------------------------
+Build Prod Version
+-------------------------------------------------------
+"
+
+if ! node_modules/gulp/bin/gulp.js setup
+	then
+		exit 1
+fi
+
+if ! node_modules/gulp/bin/gulp.js build --production
+	then
+		exit 1
+fi
 
 if [ ! -d "build" ]
 	then
-		echo "[ERROR] PROD build failed (no build directory detected)"
-		exit
+		echo "[ERROR] PROD build failed (no build directory detected)."
+		exit 1
 fi
 
 mv build prod
@@ -50,62 +85,83 @@ mkdir build
 mv dev build/dev
 mv prod build/prod
 
-
-
 echo "
 -------------------------------------------------------
 Save Metadata
--------------------------------------------------------"
+-------------------------------------------------------
+"
 
 build_type="snapshot"
 
-if [ RELEASE -eq "true" ]
+if [ -n "${RELEASE}" ]
 	then
 		build_type="release"
 fi
 
 timestamp="${BUILD_ID/_/-}"
 
-# if [ -n RELEASE_VERSION ]
-#   then
-#     build_type="release"
-#     build_version="${RELEASE_VERSION}"
-#   else
-#     build_type="snapshot"
-#     build_version="${DEVELOPMENT_VERSION}-SNAPSHOT"
-# fi
-
-# echo "$build_type $build_version"
-
 # Write meta data to JSON file (for preview server, e.g.)
 metadata="{\"prototype-name\":\"${PROTOTYPE_NAME}\",\"build-timestamp\":\"$timestamp\",\"build-type\":\"$build_type\",\"build-branch\":\"${GIT_BRANCH}\",\"build-version\":\"${BUILD_NUMBER}\",\"build-url\":\"${BUILD_URL}api/json\",\"repo-url\":\"${GIT_REPO_URL}\"}"
 echo "$metadata" > ./build/metadata.json
 echo "$metadata saved to build/metadata.json"
 
+echo "
+
+
+
+██████╗ ██████╗ ███████╗██╗   ██╗██╗███████╗██╗    ██╗    ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗
+██╔══██╗██╔══██╗██╔════╝██║   ██║██║██╔════╝██║    ██║    ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗
+██████╔╝██████╔╝█████╗  ██║   ██║██║█████╗  ██║ █╗ ██║    ███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝
+██╔═══╝ ██╔══██╗██╔══╝  ╚██╗ ██╔╝██║██╔══╝  ██║███╗██║    ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔══██╗
+██║     ██║  ██║███████╗ ╚████╔╝ ██║███████╗╚███╔███╔╝    ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║
+╚═╝     ╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝     ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝
+
+"
 
 echo "
 -------------------------------------------------------
 Upload build to preview server
+Pre-configure on http://fe-preview.unic.com
 -------------------------------------------------------"
 
-if [ -n PREVIEW_CURL_PASSWORD ]
+if [ -n "${PREVIEW_CURL_PASSWORD}" ]
 	then
 		cd build
 		zip -r ../${PROTOTYPE_NAME}-${timestamp}.zip *
 		cd ..
-		curl -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-dev-preview.unic.com/upload
+		statuscode=$(curl --silent --output /dev/stderr --write-out "%{http_code}" -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-preview.unic.com/upload)
 		rm -f ${PROTOTYPE_NAME}-${timestamp}.zip
+
+		if [ $statuscode -ne 201 ]
+			then
+				echo "[ERROR] cURL response: $statuscode."
+				exit 1
+		fi
 	else
-		echo "[WARNING] No cURL password specified"
+		echo "[ERROR] No cURL password for preview server provided."
+		exit 1
 fi
 
+echo "
+
+
+
+ ██████╗ ██╗████████╗
+██╔════╝ ██║╚══██╔══╝
+██║  ███╗██║   ██║
+██║   ██║██║   ██║
+╚██████╔╝██║   ██║
+ ╚═════╝ ╚═╝   ╚═╝
+
+"
 
 echo "
 -------------------------------------------------------
-Push HTML (plus assets, if specified) to build branch
--------------------------------------------------------"
+Push HTML and assets (if not specified otherwise)
+-------------------------------------------------------
+"
 
-if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
+if [ -n "${BUILD_GIT_REPO}" ] && [ -n "${BUILD_GIT_BRANCH}" ]
 	then
 		# Create temp folder
 		mkdir build.tmp
@@ -113,33 +169,47 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 
 		# Init new repo and checkout build branch (has to pre-exist)
 		git init
-		git remote add -t ${BUILD_GIT_BRANCH} -f origin ${BUILD_GIT_REPO}
+
+		if ! git remote add -t ${BUILD_GIT_BRANCH} -f origin ${BUILD_GIT_REPO}
+			then
+				echo "[ERROR] Adding git remote failed. Build branch might be missing."
+				exit 1
+		fi
+
 		git checkout ${BUILD_GIT_BRANCH}
 
 		# Sync files from dev build to temp folder
-		if [ -n PUSH_ASSETS ]
+		if [ -n "${PUSH_ASSETS}" ]
 			then
-				rsync -rm --delete --exclude='.git' ../build/ .
+				rsync -rm --delete --exclude '.git' --exclude 'metadata.json' ../build/ .
 			else
-				rsync -rm --delete --exclude='.git' --include='*.html' -f 'hide,! */' ../build/ .
+				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/dev/ .
 		fi
 
 		# Push changes
 		git add --all
 		git commit -m "Build ${BUILD_NUMBER}"
 		git push origin ${BUILD_GIT_BRANCH}
-
-		cd ..
-		rm -rf build.tmp
 	else
-		echo "[WARNING] No repo or branch specified!"
+		echo "[ERROR] No repo or branch specified."
+		exit 1
 fi
 
+echo "
 
+
+███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
+████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝
+██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗
+██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║
+██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║
+╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+
+"
 
 echo "
 -------------------------------------------------------
- D E P L O Y
--------------------------------------------------------"
-
-# E.g. Jenkins task to push to Nexus
+Optional, use maven to deploy to Nexus
+Ask the backend for a pom.xml
+-------------------------------------------------------
+"
