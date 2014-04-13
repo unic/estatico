@@ -93,23 +93,12 @@ Save Metadata
 
 build_type="snapshot"
 
-if [ RELEASE -eq "true" ]
+if [ -n "${RELEASE}" ]
 	then
 		build_type="release"
 fi
 
 timestamp="${BUILD_ID/_/-}"
-
-# if [ -n RELEASE_VERSION ]
-#   then
-#     build_type="release"
-#     build_version="${RELEASE_VERSION}"
-#   else
-#     build_type="snapshot"
-#     build_version="${DEVELOPMENT_VERSION}-SNAPSHOT"
-# fi
-
-# echo "$build_type $build_version"
 
 # Write meta data to JSON file (for preview server, e.g.)
 metadata="{\"prototype-name\":\"${PROTOTYPE_NAME}\",\"build-timestamp\":\"$timestamp\",\"build-type\":\"$build_type\",\"build-branch\":\"${GIT_BRANCH}\",\"build-version\":\"${BUILD_NUMBER}\",\"build-url\":\"${BUILD_URL}api/json\",\"repo-url\":\"${GIT_REPO_URL}\"}"
@@ -135,7 +124,7 @@ Upload build to preview server
 Pre-configure on http://fe-preview.unic.com
 -------------------------------------------------------"
 
-if [ -n PREVIEW_CURL_PASSWORD ]
+if [ -n "${PREVIEW_CURL_PASSWORD}" ]
 	then
 		cd build
 		zip -r ../${PROTOTYPE_NAME}-${timestamp}.zip *
@@ -143,7 +132,7 @@ if [ -n PREVIEW_CURL_PASSWORD ]
 		statuscode=$(curl --silent --output /dev/stderr --write-out "%{http_code}" -u upload:${PREVIEW_CURL_PASSWORD} -v --upload-file ${PROTOTYPE_NAME}-${timestamp}.zip http://fe-preview.unic.com/upload)
 		rm -f ${PROTOTYPE_NAME}-${timestamp}.zip
 
-		if test $statuscode -ne 200
+		if [ $statuscode -ne 201 ]
 			then
 				echo "[ERROR] cURL response: $statuscode."
 				exit 1
@@ -172,7 +161,7 @@ Push HTML and assets (if not specified otherwise)
 -------------------------------------------------------
 "
 
-if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
+if [ -n "${BUILD_GIT_REPO}" ] && [ -n "${BUILD_GIT_BRANCH}" ]
 	then
 		# Create temp folder
 		mkdir build.tmp
@@ -190,7 +179,7 @@ if [ -n BUILD_GIT_REPO ] && [ -n BUILD_GIT_BRANCH ]
 		git checkout ${BUILD_GIT_BRANCH}
 
 		# Sync files from dev build to temp folder
-		if [ -n PUSH_ASSETS ]
+		if [ -n "${PUSH_ASSETS}" ]
 			then
 				rsync -rm --delete --exclude '.git' --exclude 'metadata.json' ../build/ .
 			else
