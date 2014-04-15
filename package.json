@@ -2,7 +2,7 @@
   "name": "unic-boilerplate",
   "version": "0.2.0",
   "dependencies": {
-    "gulp": "3.5.2",
+    "gulp": "3.6.0",
     "gulp-load-plugins": "0.3.0",
     "gulp-util": "2.2.14",
     "gulp-clean": "0.2.4",
