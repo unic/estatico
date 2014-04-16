@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.unic.cop-frontend.gulp-boilerplate</groupId>
+	<artifactId>frontend-prototype</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<parent>
+		<groupId>com.unic</groupId>
+		<artifactId>unic-pom</artifactId>
+		<version>3.10.2</version>
+	</parent>
+
+	<name>Frontend Prototype</name>
+	<description></description>
+
+	<scm>
+
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>unic-dc-releases</id>
+			<name>unic-dc-releases</name>
+			<url>http://unic-prd-nxs-zrh.int.unic.com/nexus/content/repositories/unic-dc-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>unic-dc-snapshots</id>
+			<name>unic-dc-snapshots</name>
+			<url>http://unic-prd-nxs-zrh.int.unic.com/nexus/content/repositories/unic-dc-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>.</directory>
+			</resource>
+		</resources>
+	</build>
+</project>

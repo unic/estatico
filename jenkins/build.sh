@@ -209,7 +209,8 @@ echo "
 
 echo "
 -------------------------------------------------------
-Optional, use maven to deploy to Nexus
-Ask the backend for a pom.xml
+Use maven to deploy to Nexus
+Make sure to edit the groupId property in jenkins/pom.xml
+(replace 'gulp-boilerplate' with the projects name or ask the backend for a specific configuration)
 -------------------------------------------------------
 "
