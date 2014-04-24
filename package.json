@@ -40,6 +40,6 @@
     "node": ">= 0.10"
   },
   "scripts": {
-    "postinstall": "node node_modules/.bin/bower install && node node_modules/.bin/gulp setup"
+
   }
 }
