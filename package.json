@@ -38,8 +38,5 @@
   },
   "engines": {
     "node": ">= 0.10"
-  },
-  "scripts": {
-    "postinstall": "node node_modules/bower/bin/bower install && node node_modules/gulp/bin/gulp.js setup"
   }
 }
