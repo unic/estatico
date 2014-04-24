@@ -13,7 +13,8 @@ echo "
 
 "
 
-npm install
+# Install NPM dependencies using npm-pkgr (caching modules)
+npm-pkgr
 
 # Ruby environment (for Sass)
 source /usr/local/rvm/scripts/rvm
