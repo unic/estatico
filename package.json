@@ -17,7 +17,7 @@
     "gulp-concat": "2.1.7",
     "gulp-jshint": "1.5.0",
     "jshint-stylish": "0.1.5",
-    "gulp-resolve-dependencies": "0.1.0",
+    "gulp-resolve-dependencies": "0.2.0",
     "gulp-handlebars": "2.0.0",
     "gulp-define-module": "0.1.0",
     "gulp-declare": "0.2.0",

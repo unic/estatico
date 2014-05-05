@@ -1368,10 +1368,10 @@
       "dependencies": {
         "through2": {
           "version": "0.4.1",
-          "from": "through2@~0.4.0",
+          "from": "through2@^0.4.1",
           "dependencies": {
             "readable-stream": {
-              "version": "1.0.26-4",
+              "version": "1.0.27-1",
               "from": "readable-stream@~1.0.17",
               "dependencies": {
                 "core-util-is": {
@@ -1838,6 +1838,7 @@
         "gulp-svg2ttf": {
           "version": "0.0.6",
           "from": "gulp-svg2ttf@0.0.6",
+          "resolved": "https://registry.npmjs.org/gulp-svg2ttf/-/gulp-svg2ttf-0.0.6.tgz",
           "dependencies": {
             "svg2ttf": {
               "version": "1.1.2",
@@ -1845,7 +1846,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~ 0.1.15",
+                  "from": "argparse@~0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -1880,6 +1881,7 @@
         "gulp-ttf2eot": {
           "version": "0.0.6",
           "from": "gulp-ttf2eot@0.0.6",
+          "resolved": "https://registry.npmjs.org/gulp-ttf2eot/-/gulp-ttf2eot-0.0.6.tgz",
           "dependencies": {
             "ttf2eot": {
               "version": "1.3.0",
@@ -1910,6 +1912,7 @@
         "gulp-ttf2woff": {
           "version": "0.0.4",
           "from": "gulp-ttf2woff@0.0.4",
+          "resolved": "https://registry.npmjs.org/gulp-ttf2woff/-/gulp-ttf2woff-0.0.4.tgz",
           "dependencies": {
             "ttf2woff": {
               "version": "1.2.0",
@@ -1917,7 +1920,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~ 0.1.15",
+                  "from": "argparse@~0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -1940,10 +1943,12 @@
         "gulp-svgicons2svgfont": {
           "version": "0.0.7",
           "from": "gulp-svgicons2svgfont@0.0.7",
+          "resolved": "https://registry.npmjs.org/gulp-svgicons2svgfont/-/gulp-svgicons2svgfont-0.0.7.tgz",
           "dependencies": {
             "svgicons2svgfont": {
               "version": "0.0.9",
               "from": "svgicons2svgfont@0.0.9",
+              "resolved": "https://registry.npmjs.org/svgicons2svgfont/-/svgicons2svgfont-0.0.9.tgz",
               "dependencies": {
                 "sax": {
                   "version": "0.6.0",
@@ -1951,7 +1956,8 @@
                 },
                 "svg-pathdata": {
                   "version": "0.0.3",
-                  "from": "svg-pathdata@0.0.3"
+                  "from": "svg-pathdata@0.0.3",
+                  "resolved": "https://registry.npmjs.org/svg-pathdata/-/svg-pathdata-0.0.3.tgz"
                 }
               }
             }
@@ -1959,7 +1965,8 @@
         },
         "plexer": {
           "version": "0.0.1",
-          "from": "plexer@0.0.1"
+          "from": "plexer@0.0.1",
+          "resolved": "https://registry.npmjs.org/plexer/-/plexer-0.0.1.tgz"
         }
       }
     },
@@ -2922,21 +2929,21 @@
       "resolved": "https://registry.npmjs.org/gulp-rename/-/gulp-rename-1.2.0.tgz"
     },
     "gulp-resolve-dependencies": {
-      "version": "0.1.0",
-      "from": "gulp-resolve-dependencies@0.1.0",
-      "resolved": "https://registry.npmjs.org/gulp-resolve-dependencies/-/gulp-resolve-dependencies-0.1.0.tgz"
+      "version": "0.2.0",
+      "from": "gulp-resolve-dependencies@0.2.0",
+      "resolved": "https://registry.npmjs.org/gulp-resolve-dependencies/-/gulp-resolve-dependencies-0.2.0.tgz"
     },
     "gulp-ruby-sass": {
       "version": "0.4.0",
       "from": "gulp-ruby-sass@git+https://github.com/backflip/gulp-ruby-sass.git",
-      "resolved": "git+https://github.com/backflip/gulp-ruby-sass.git#299bd76ae7bdaf4ac5e17399d2d44b7f9cb5d68e",
+      "resolved": "git+https://github.com/backflip/gulp-ruby-sass.git#01f6d8b478a0f516d4d09dc8c46f7101e1993a1d",
       "dependencies": {
         "through2": {
           "version": "0.4.1",
-          "from": "through2@~0.4.0",
+          "from": "through2@^0.4.1",
           "dependencies": {
             "readable-stream": {
-              "version": "1.0.26-4",
+              "version": "1.0.27-1",
               "from": "readable-stream@~1.0.17",
               "dependencies": {
                 "core-util-is": {
@@ -3001,10 +3008,10 @@
         },
         "chalk": {
           "version": "0.4.0",
-          "from": "chalk@^0.4.0",
+          "from": "chalk@~0.4.0",
           "dependencies": {
             "has-color": {
-              "version": "0.1.6",
+              "version": "0.1.7",
               "from": "has-color@~0.1.0"
             },
             "ansi-styles": {
