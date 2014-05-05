@@ -166,7 +166,15 @@ gulp.task('lodash', function() {
 			'-d'
 		];
 
-	exec('lodash ' + args.join(' '));
+	exec('node_modules/.bin/lodash ' + args.join(' '), function (error, stdout, stderr) {
+		console.log('Generating custom lodash build.');
+
+		if (error !== null) {
+			console.log(error);
+		} else {
+			console.log('Success!');
+		}
+	});
 });
 
 /**
