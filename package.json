@@ -21,7 +21,7 @@
     "gulp-handlebars": "2.0.0",
     "gulp-define-module": "0.1.0",
     "gulp-declare": "0.2.0",
-    "gulp-modernizr": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
+    "gulp-modernizr": "git+https://github.com/backflip/gulp-modernizr.git",
     "lodash": "2.4.1",
     "lodash-cli": "2.4.1",
     "gulp-iconfont": "git+https://github.com/backflip/gulp-iconfont.git",

@@ -1838,7 +1838,6 @@
         "gulp-svg2ttf": {
           "version": "0.0.6",
           "from": "gulp-svg2ttf@0.0.6",
-          "resolved": "https://registry.npmjs.org/gulp-svg2ttf/-/gulp-svg2ttf-0.0.6.tgz",
           "dependencies": {
             "svg2ttf": {
               "version": "1.1.2",
@@ -1846,7 +1845,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~0.1.15",
+                  "from": "argparse@~ 0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -1881,7 +1880,6 @@
         "gulp-ttf2eot": {
           "version": "0.0.6",
           "from": "gulp-ttf2eot@0.0.6",
-          "resolved": "https://registry.npmjs.org/gulp-ttf2eot/-/gulp-ttf2eot-0.0.6.tgz",
           "dependencies": {
             "ttf2eot": {
               "version": "1.3.0",
@@ -1912,7 +1910,6 @@
         "gulp-ttf2woff": {
           "version": "0.0.4",
           "from": "gulp-ttf2woff@0.0.4",
-          "resolved": "https://registry.npmjs.org/gulp-ttf2woff/-/gulp-ttf2woff-0.0.4.tgz",
           "dependencies": {
             "ttf2woff": {
               "version": "1.2.0",
@@ -1920,7 +1917,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~0.1.15",
+                  "from": "argparse@~ 0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -1943,12 +1940,10 @@
         "gulp-svgicons2svgfont": {
           "version": "0.0.7",
           "from": "gulp-svgicons2svgfont@0.0.7",
-          "resolved": "https://registry.npmjs.org/gulp-svgicons2svgfont/-/gulp-svgicons2svgfont-0.0.7.tgz",
           "dependencies": {
             "svgicons2svgfont": {
               "version": "0.0.9",
               "from": "svgicons2svgfont@0.0.9",
-              "resolved": "https://registry.npmjs.org/svgicons2svgfont/-/svgicons2svgfont-0.0.9.tgz",
               "dependencies": {
                 "sax": {
                   "version": "0.6.0",
@@ -1956,8 +1951,7 @@
                 },
                 "svg-pathdata": {
                   "version": "0.0.3",
-                  "from": "svg-pathdata@0.0.3",
-                  "resolved": "https://registry.npmjs.org/svg-pathdata/-/svg-pathdata-0.0.3.tgz"
+                  "from": "svg-pathdata@0.0.3"
                 }
               }
             }
@@ -1965,8 +1959,7 @@
         },
         "plexer": {
           "version": "0.0.1",
-          "from": "plexer@0.0.1",
-          "resolved": "https://registry.npmjs.org/plexer/-/plexer-0.0.1.tgz"
+          "from": "plexer@0.0.1"
         }
       }
     },
@@ -2395,8 +2388,8 @@
     },
     "gulp-modernizr": {
       "version": "0.0.0",
-      "from": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
-      "resolved": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
+      "from": "gulp-modernizr@git+https://github.com/backflip/gulp-modernizr.git",
+      "resolved": "git+https://github.com/backflip/gulp-modernizr.git#df487c6a2e375b727e85edb4386d8ac7ed26b3e5",
       "dependencies": {
         "customizr": {
           "version": "0.0.0",
@@ -2452,8 +2445,7 @@
                     },
                     "dateformat": {
                       "version": "1.0.2-1.2.3",
-                      "from": "dateformat@1.0.2-1.2.3",
-                      "resolved": "https://registry.npmjs.org/dateformat/-/dateformat-1.0.2-1.2.3.tgz"
+                      "from": "dateformat@1.0.2-1.2.3"
                     },
                     "eventemitter2": {
                       "version": "0.4.13",
@@ -2503,7 +2495,7 @@
                     },
                     "minimatch": {
                       "version": "0.2.14",
-                      "from": "minimatch@0.x.x",
+                      "from": "minimatch@~0.2.11",
                       "dependencies": {
                         "lru-cache": {
                           "version": "2.5.0",
@@ -2520,7 +2512,7 @@
                       "from": "nopt@~1.0.10",
                       "dependencies": {
                         "abbrev": {
-                          "version": "1.0.4",
+                          "version": "1.0.5",
                           "from": "abbrev@1"
                         }
                       }
@@ -2654,7 +2646,7 @@
                   "from": "grunt-contrib-copy@~0.4.0"
                 },
                 "grunt-contrib-requirejs": {
-                  "version": "0.4.3",
+                  "version": "0.4.4",
                   "from": "grunt-contrib-requirejs@~0.4.0"
                 },
                 "grunt-cli": {
@@ -2666,14 +2658,14 @@
                       "from": "nopt@~1.0.10",
                       "dependencies": {
                         "abbrev": {
-                          "version": "1.0.4",
+                          "version": "1.0.5",
                           "from": "abbrev@1"
                         }
                       }
                     },
                     "findup-sync": {
                       "version": "0.1.3",
-                      "from": "findup-sync@~0.1.2"
+                      "from": "findup-sync@~0.1.0"
                     },
                     "resolve": {
                       "version": "0.3.1",
@@ -2709,7 +2701,7 @@
                         },
                         "minimatch": {
                           "version": "0.2.14",
-                          "from": "minimatch@0.x.x",
+                          "from": "minimatch@~0.2.11",
                           "dependencies": {
                             "lru-cache": {
                               "version": "2.5.0",
@@ -2725,7 +2717,7 @@
                     },
                     "findup-sync": {
                       "version": "0.1.3",
-                      "from": "findup-sync@~0.1.2"
+                      "from": "findup-sync@~0.1.0"
                     }
                   }
                 },
@@ -2776,7 +2768,7 @@
                               "from": "domelementtype@1"
                             },
                             "readable-stream": {
-                              "version": "1.0.26-4",
+                              "version": "1.0.27-1",
                               "from": "readable-stream@1.0",
                               "dependencies": {
                                 "core-util-is": {
@@ -2827,7 +2819,7 @@
             },
             "mkdirp": {
               "version": "0.3.5",
-              "from": "mkdirp@0.3.x"
+              "from": "mkdirp@~0.3.5"
             },
             "promised-io": {
               "version": "0.3.4",
@@ -2849,7 +2841,7 @@
             },
             "glob": {
               "version": "3.2.9",
-              "from": "glob@>= 3.1.4",
+              "from": "glob@~3.2.8",
               "dependencies": {
                 "minimatch": {
                   "version": "0.2.14",
@@ -2873,10 +2865,10 @@
             },
             "nopt": {
               "version": "2.1.2",
-              "from": "nopt@~2.1.1",
+              "from": "nopt@~2.1.2",
               "dependencies": {
                 "abbrev": {
-                  "version": "1.0.4",
+                  "version": "1.0.5",
                   "from": "abbrev@1"
                 }
               }
@@ -2885,10 +2877,10 @@
         },
         "through2": {
           "version": "0.4.1",
-          "from": "through2@~0.4.0",
+          "from": "through2@^0.4.1",
           "dependencies": {
             "readable-stream": {
-              "version": "1.0.26-4",
+              "version": "1.0.27-1",
               "from": "readable-stream@~1.0.17",
               "dependencies": {
                 "core-util-is": {
