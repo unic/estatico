@@ -1368,7 +1368,7 @@
       "dependencies": {
         "through2": {
           "version": "0.4.1",
-          "from": "through2@^0.4.1",
+          "from": "through2@~0.4.0",
           "dependencies": {
             "readable-stream": {
               "version": "1.0.27-1",
@@ -1845,7 +1845,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~ 0.1.15",
+                  "from": "argparse@~0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -1917,7 +1917,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~ 0.1.15",
+                  "from": "argparse@~0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -2932,7 +2932,7 @@
       "dependencies": {
         "through2": {
           "version": "0.4.1",
-          "from": "through2@^0.4.1",
+          "from": "through2@~0.4.0",
           "dependencies": {
             "readable-stream": {
               "version": "1.0.27-1",
@@ -3013,91 +3013,6 @@
             "strip-ansi": {
               "version": "0.1.1",
               "from": "strip-ansi@~0.1.0"
-            }
-          }
-        }
-      }
-    },
-    "gulp-stylus": {
-      "version": "0.1.0",
-      "from": "gulp-stylus@0.1.0",
-      "resolved": "https://registry.npmjs.org/gulp-stylus/-/gulp-stylus-0.1.0.tgz",
-      "dependencies": {
-        "stylus": {
-          "version": "0.42.3",
-          "from": "stylus@~0.42.2",
-          "dependencies": {
-            "css-parse": {
-              "version": "1.7.0",
-              "from": "css-parse@1.7.x"
-            },
-            "mkdirp": {
-              "version": "0.3.5",
-              "from": "mkdirp@~0.3.5"
-            },
-            "debug": {
-              "version": "0.8.0",
-              "from": "debug@*"
-            },
-            "sax": {
-              "version": "0.5.8",
-              "from": "sax@0.5.x"
-            },
-            "glob": {
-              "version": "3.2.9",
-              "from": "glob@~3.2.8",
-              "dependencies": {
-                "minimatch": {
-                  "version": "0.2.14",
-                  "from": "minimatch@~0.2.11",
-                  "dependencies": {
-                    "lru-cache": {
-                      "version": "2.5.0",
-                      "from": "lru-cache@2"
-                    },
-                    "sigmund": {
-                      "version": "1.0.0",
-                      "from": "sigmund@~1.0.0"
-                    }
-                  }
-                },
-                "inherits": {
-                  "version": "2.0.1",
-                  "from": "inherits@2"
-                }
-              }
-            }
-          }
-        },
-        "map-stream": {
-          "version": "0.1.0",
-          "from": "map-stream@~0.1.0"
-        },
-        "nib": {
-          "version": "1.0.2",
-          "from": "nib@~1.0.2",
-          "dependencies": {
-            "stylus": {
-              "version": "0.37.0",
-              "from": "stylus@~0.37.0",
-              "dependencies": {
-                "cssom": {
-                  "version": "0.2.5",
-                  "from": "cssom@0.2.x"
-                },
-                "mkdirp": {
-                  "version": "0.3.5",
-                  "from": "mkdirp@0.3.x"
-                },
-                "debug": {
-                  "version": "0.8.0",
-                  "from": "debug@*"
-                },
-                "sax": {
-                  "version": "0.5.8",
-                  "from": "sax@0.5.x"
-                }
-              }
             }
           }
         }
@@ -3810,6 +3725,30 @@
     "open": {
       "version": "0.0.4",
       "from": "open@0.0.4"
+    },
+    "run-sequence": {
+      "version": "0.3.6",
+      "from": "run-sequence@",
+      "dependencies": {
+        "chalk": {
+          "version": "0.4.0",
+          "from": "chalk@*",
+          "dependencies": {
+            "has-color": {
+              "version": "0.1.7",
+              "from": "has-color@~0.1.0"
+            },
+            "ansi-styles": {
+              "version": "1.0.0",
+              "from": "ansi-styles@~1.0.0"
+            },
+            "strip-ansi": {
+              "version": "0.1.1",
+              "from": "strip-ansi@~0.1.0"
+            }
+          }
+        }
+      }
     },
     "tiny-lr": {
       "version": "0.0.5",
