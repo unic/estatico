@@ -42,11 +42,6 @@ Build Dev Version
 -------------------------------------------------------
 "
 
-if ! node_modules/gulp/bin/gulp.js setup
-	then
-		exit 1
-fi
-
 if ! node_modules/gulp/bin/gulp.js build
 	then
 		exit 1
