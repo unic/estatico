@@ -9,7 +9,9 @@ Node, NPM.
 1. Install node and bower dependencies:
 
 ```shell
-npm install && bower install
+npm install
+bower install
+# local version: node_modules/.bin/bower install
 ```
 
 2. Start server
