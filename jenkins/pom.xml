@@ -23,12 +23,12 @@
 		<repository>
 			<id>unic-dc-releases</id>
 			<name>unic-dc-releases</name>
-			<url>http://unic-prd-nxs-zrh.int.unic.com/nexus/content/repositories/unic-dc-releases/</url>
+			<url>https://nexus.unic.com/nexus/content/repositories/unic-dc-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>unic-dc-snapshots</id>
 			<name>unic-dc-snapshots</name>
-			<url>http://unic-prd-nxs-zrh.int.unic.com/nexus/content/repositories/unic-dc-snapshots/</url>
+			<url>https://nexus.unic.com/nexus/content/repositories/unic-dc-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
