@@ -32,7 +32,7 @@
 	@return $char;
 }
 
-@mixin icon($filename, $size: 16, $center: true, $offsetLeft: undefined, $offsetRight: undefined) {
+@mixin icon($filename, $size: 16, $center: true) {
 	position: relative;
 	&:before {
 		@extend %icon;
@@ -46,13 +46,13 @@
 			margin-left: pxToEm(-($size/2), $size);
 		}
 
-		@if ($offsetLeft) {
+		/* @if ($offsetLeft) {
 			left: pxToEm($offsetLeft);
 		}
 
 		@if ($offsetRight) {
 			right: pxToEm($offsetRight);
-		}
+		} */
 
 	}
 }

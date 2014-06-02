@@ -1,3 +1,5 @@
+
+
 .sg_wrapper {
 
 }
@@ -15,3 +17,32 @@
 	padding: 2em;
 }
 
+
+/* Icons */
+.sg_icons_label,
+.sg_icons_icon {
+	display: table-cell;
+	border-top: 1px solid rgb(225,225,225);
+	border-left: 1px solid rgb(225,225,225);
+	vertical-align: top;
+	padding: .5em;
+
+}
+
+.sg_icons_icon {
+	width: 20%;
+}
+.sg_icons_icon:last-of-type {
+	border-right: 1px solid rgb(225,225,225);
+}
+
+.sg_icons {
+	display: table;
+	width: 100%;
+
+	border-bottom: 1px solid rgb(225,225,225);
+}
+
+.sg_icons_item {
+	display: table-row;
+}
