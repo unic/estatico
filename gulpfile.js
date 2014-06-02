@@ -38,12 +38,14 @@ require('handlebars-layouts')(handlebars);
  */
 gulp.task('html', function() {
 	return gulp.src([
-		'./source/{,pages/}*.html'
+		'./source/{,styleguide/,pages/}*.html'
 	])
 		.pipe(plugins.frontMatter({
 			property: 'frontmatter'
 		}))
-		.pipe(plugins.appendTemplateData())
+		.pipe(plugins.appendTemplateData({
+			partialGlob: './source/{,layouts/**/,modules/**/,pages/,styleguide/**/}*.html'
+		}))
 		.pipe(plugins.consolidate('handlebars', function(file) {
 			return file.data;
 		}))
@@ -264,7 +266,8 @@ gulp.task('watch', function() {
 		gulp.watch([
 			'source/{,*/}*.html',
 			'source/data/*.json',
-			'source/modules/**/*.html'
+			'source/modules/**/*.html',
+			'source/styleguide/**/*.html'
 		], ['html']);
 
 		gulp.watch([
