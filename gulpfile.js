@@ -334,3 +334,33 @@ gulp.task('serve', function() {
 gulp.task('default', function(callback) {
 	runSequence(['build', 'watch'], 'serve', callback);
 });
+
+/**
+ * QUnit test
+ */
+gulp.task('test', ['build'], function() {
+	gulp.src('./build/{,**/}*')
+		.pipe(gulp.dest('./test'));
+
+	gulp.src(['./source/assets/vendor/qunit/qunit/qunit.js', './source/modules/slideshow/test.js'], {
+			base: './source'
+		})
+		.pipe(gulp.dest('./test/'));
+
+	return gulp.src('./test/index.html')
+		.pipe(plugins.inject(
+			gulp.src(['./source/assets/vendor/qunit/qunit/qunit.js', './source/modules/slideshow/test.js'], {
+				read: false
+			}), {
+				starttag: '<script src="/assets/js/main.js"></script>',
+				endtag: '</body>',
+				transform: function(filepath, file, index, length) {
+					var path = filepath.replace(/\/source/,'');
+
+					return '<script src="' + path + '"></script>';
+				}
+			}
+		))
+		// .pipe(gulp.dest('./test/'));
+		.pipe(plugins.qunit());
+});

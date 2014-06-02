@@ -22,6 +22,8 @@
 	"predef": [
 		"_",
 		"Unic",
-		"Modernizr"
+		"Modernizr",
+		"test",
+		"ok"
 	]
 }
