@@ -37,7 +37,7 @@ require('handlebars-layouts')(handlebars);
  */
 gulp.task('html', function() {
 	return gulp.src([
-		'./source/{,styleguide/,pages/}*.html'
+		'./source/{,styleguide/**/,pages/}*.html'
 	])
 		.pipe(plugins.frontMatter({
 			property: 'frontmatter'
