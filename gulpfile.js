@@ -11,8 +11,7 @@ var gulp = require('gulp'),
 	// Helpers
 	_ = require('lodash'),
 	exec = require('child_process').exec,
-	path = require('path'),
-	fs = require('fs'),
+	runSequence = require('run-sequence'),
 
 	// Handlebars
 	handlebars = require('handlebars'),
@@ -80,8 +79,8 @@ gulp.task('css', function() {
  * Generate head.js
  * Generate main.js
  */
-gulp.task('js', function() {
-	gulp.src([
+gulp.task('jshint', function() {
+	return gulp.src([
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',
 			'!./source/assets/vendor/*.js'
@@ -90,12 +89,14 @@ gulp.task('js', function() {
 		.pipe(plugins.jshint('.jshintrc'))
 		.pipe(plugins.jshint.reporter('jshint-stylish'))
 		.pipe(plugins.jshint.reporter('fail'))
-		    .on('error', function(err) {
-		    	console.log('[ERROR] ' + err.message + '.');
-		    	process.exit(1);
-		    });
+			.on('error', function(err) {
+				console.log('[ERROR] ' + err.message + '.');
+				process.exit(1);
+			});
+});
 
-	gulp.src([
+gulp.task('js-head', function() {
+	return gulp.src([
 		'./source/assets/js/head.js'
 	])
 		.pipe(plugins.resolveDependencies({
@@ -106,8 +107,10 @@ gulp.task('js', function() {
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
+});
 
-	gulp.src([
+gulp.task('js-main', function() {
+	return gulp.src([
 		'./source/assets/js/main.js'
 	])
 		.pipe(plugins.resolveDependencies({
@@ -152,14 +155,19 @@ gulp.task('modernizr', function() {
 		'!./source/assets/vendor/*.js'
 	])
 		.pipe(plugins.modernizr({}))
-		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./source/assets/.tmp'));
+});
+
+// Use wrapper to prevent the slightly buggy modernizr task from "breaking the chain"
+gulp.task('modernizr-wrapper', function(cb) {
+	exec('node_modules/.bin/gulp modernizr', cb)
 });
 
 /**
  * Generate customized lodash build in source/assets/.tmp/
  */
-gulp.task('lodash', function() {
+gulp.task('lodash', function(cb) {
 	var modules = ['debounce'],
 		args = [
 			'include=' + modules.join(','),
@@ -168,7 +176,7 @@ gulp.task('lodash', function() {
 			'-d'
 		];
 
-	exec('lodash ' + args.join(' '));
+	exec('node_modules/.bin/lodash ' + args.join(' '), cb);
 });
 
 /**
@@ -183,23 +191,23 @@ gulp.task('iconfont', function() {
 		.pipe(plugins.iconfont({
 			fontName: 'Icons'
 		}))
-		.on('codepoints', function(codepoints, options) {
-			codepoints = _.map(codepoints, function(codepoint) {
-				return {
-					name: codepoint.name,
-					codepoint: codepoint.codepoint.toString(16).toUpperCase()
-				};
-			});
+			.on('codepoints', function(codepoints, options) {
+				codepoints = _.map(codepoints, function(codepoint) {
+					return {
+						name: codepoint.name,
+						codepoint: codepoint.codepoint.toString(16).toUpperCase()
+					};
+				});
 
-			gulp.src('./source/assets/css/templates/icons.scss')
-				.pipe(plugins.consolidate('handlebars', {
-					codepoints: codepoints,
-					options: _.merge(options, {
-						fontPath: '../fonts/icons/'
-					})
-				}))
-				.pipe(gulp.dest('./source/assets/.tmp/'));
-		})
+				gulp.src('./source/assets/css/templates/icons.scss')
+					.pipe(plugins.consolidate('handlebars', {
+						codepoints: codepoints,
+						options: _.merge(options, {
+							fontPath: '../fonts/icons/'
+						})
+					}))
+					.pipe(gulp.dest('./source/assets/.tmp/'));
+			})
 		.pipe(gulp.dest('./build/assets/fonts/icons/'));
 });
 
@@ -232,12 +240,12 @@ gulp.task('pngsprite', function () {
  */
 gulp.task('media', function() {
 	return gulp.src([
-				'./source/assets/fonts/{,**/}*',
-				'./source/assets/media/*.*',
-				'./source/tmp/media/*'
-		], {
-			base: './source/'
-		})
+			'./source/assets/fonts/{,**/}*',
+			'./source/assets/media/*.*',
+			'./source/tmp/media/*'
+	], {
+		base: './source/'
+	})
 		.pipe(gulp.dest('./build'));
 });
 
@@ -260,8 +268,8 @@ gulp.task('watch', function() {
 	// Listen on port 35729
 	server.listen(35729, function (err) {
 		if (err) {
-			return console.log(err)
-		};
+			return console.log(err);
+		}
 
 		gulp.watch([
 			'source/{,*/}*.html',
@@ -280,7 +288,7 @@ gulp.task('watch', function() {
 			'source/assets/js/{,**/}*.js',
 			'source/assets/.tmp/*.js',
 			'source/modules/**/*.js'
-		], ['js']);
+		], ['jshint', 'js-head', 'js-main']);
 
 		gulp.watch([
 			'source/assets/pngsprite/*.png',
@@ -295,25 +303,16 @@ gulp.task('watch', function() {
 });
 
 /**
- * Run special tasks which are not part of server or build
- */
-gulp.task('setup', ['lodash'], function() {
-	// Modernizr has to run last due to weird side effects
-	gulp.start('modernizr');
-});
-
-/**
  * Create build directory
  */
-gulp.task('build', ['iconfont', 'pngsprite'], function() {
-	gulp.start('html', 'css', 'js', 'media');
+gulp.task('build', function(callback) {
+	runSequence('clean', ['lodash', 'modernizr-wrapper', 'iconfont', 'pngsprite'], ['html', 'css', 'jshint', 'js-head', 'js-main', 'media'], callback);
 });
 
 /**
- * Default task: Create connect server with livereload functionality
  * Serve build directory
  */
-gulp.task('default', ['iconfont', 'pngsprite', 'html', 'css', 'js', 'media', 'watch'], function() {
+gulp.task('serve', function() {
 	var app = connect()
 			.use(connectLivereload())
 			.use(connect.static('build')),
@@ -329,4 +328,12 @@ gulp.task('default', ['iconfont', 'pngsprite', 'html', 'css', 'js', 'media', 'wa
 			process.exit(0);
 		});
 	});
+});
+
+/**
+ * Default task: Create connect server with livereload functionality
+ * Serve build directory
+ */
+gulp.task('default', function(callback) {
+	runSequence(['build', 'watch'], 'serve', callback);
 });

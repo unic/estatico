@@ -3,3 +3,5 @@ build
 source/assets/.tmp
 source/assets/vendor
 .sass-cache
+.idea
+atlassian-ide-plugin.xml
