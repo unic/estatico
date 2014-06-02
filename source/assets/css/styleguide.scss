@@ -1,5 +1,4 @@
 .sg_wrapper {
-
 }
 
 .sg_nav {
@@ -8,11 +7,49 @@
 	top: 0;
 	height: 100%;
 	width: 10em;
+	padding: 2em 1em;
+	border-right: 1px solid rgb(225,225,225);
+
+	ul, li {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+
+	a {
+		display: block;
+		padding: .2em 0;
+		text-decoration: none;
+		color: grey;
+
+		&:hover {
+			color: black;
+		}
+	}
+
+	ul {
+		padding: 1em 0;
+	}
 }
 
 .sg_main {
-	margin-left: 10em;
+	margin-left: 12em;
 	padding: 2em;
+}
+
+.sg_title {
+	font-weight: 400;
+	margin-top: 0;
+}
+
+.sg_block {
+	border-top: 1px solid rgb(225,225,225);
+	padding: .4em 0 2em;
+}
+
+.sg_block_label {
+	font-weight: 700;
+	font-size: 12px;
 }
 
 /* Icons */
@@ -23,7 +60,6 @@
 	border-left: 1px solid rgb(225,225,225);
 	vertical-align: top;
 	padding: .5em;
-
 }
 
 .sg_icons_icon {
