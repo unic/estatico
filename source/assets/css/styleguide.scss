@@ -49,3 +49,33 @@
 .sg_inner_wrapper {
 	border-top: 1px solid black;
 }
+
+
+// Colors
+// ----------------------------------------------------------------------------------------------------
+
+.sg_color_list {
+	list-style-type: none;
+}
+
+.sg_color_item {
+	margin: 0 3em 2em 0;
+	width: 7em;
+	float: left;
+	text-align: center;
+}
+
+.sg_color_preview {
+	width: 5em;
+	height: 5em;
+	margin: 0 auto;
+	border-radius: 50%;
+}
+
+.sg_color_name {
+	padding-top: .8em;
+	font-weight: bold;
+}
+
+.sg_color_value {
+}
