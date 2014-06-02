@@ -1371,7 +1371,7 @@
           "from": "through2@~0.4.0",
           "dependencies": {
             "readable-stream": {
-              "version": "1.0.26-4",
+              "version": "1.0.27-1",
               "from": "readable-stream@~1.0.17",
               "dependencies": {
                 "core-util-is": {
@@ -1845,7 +1845,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~ 0.1.15",
+                  "from": "argparse@~0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -1917,7 +1917,7 @@
               "dependencies": {
                 "argparse": {
                   "version": "0.1.15",
-                  "from": "argparse@~ 0.1.15",
+                  "from": "argparse@~0.1.15",
                   "dependencies": {
                     "underscore": {
                       "version": "1.4.4",
@@ -2388,8 +2388,8 @@
     },
     "gulp-modernizr": {
       "version": "0.0.0",
-      "from": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
-      "resolved": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
+      "from": "gulp-modernizr@git+https://github.com/backflip/gulp-modernizr.git",
+      "resolved": "git+https://github.com/backflip/gulp-modernizr.git#df487c6a2e375b727e85edb4386d8ac7ed26b3e5",
       "dependencies": {
         "customizr": {
           "version": "0.0.0",
@@ -2445,8 +2445,7 @@
                     },
                     "dateformat": {
                       "version": "1.0.2-1.2.3",
-                      "from": "dateformat@1.0.2-1.2.3",
-                      "resolved": "https://registry.npmjs.org/dateformat/-/dateformat-1.0.2-1.2.3.tgz"
+                      "from": "dateformat@1.0.2-1.2.3"
                     },
                     "eventemitter2": {
                       "version": "0.4.13",
@@ -2496,7 +2495,7 @@
                     },
                     "minimatch": {
                       "version": "0.2.14",
-                      "from": "minimatch@0.x.x",
+                      "from": "minimatch@~0.2.11",
                       "dependencies": {
                         "lru-cache": {
                           "version": "2.5.0",
@@ -2513,7 +2512,7 @@
                       "from": "nopt@~1.0.10",
                       "dependencies": {
                         "abbrev": {
-                          "version": "1.0.4",
+                          "version": "1.0.5",
                           "from": "abbrev@1"
                         }
                       }
@@ -2647,7 +2646,7 @@
                   "from": "grunt-contrib-copy@~0.4.0"
                 },
                 "grunt-contrib-requirejs": {
-                  "version": "0.4.3",
+                  "version": "0.4.4",
                   "from": "grunt-contrib-requirejs@~0.4.0"
                 },
                 "grunt-cli": {
@@ -2659,14 +2658,14 @@
                       "from": "nopt@~1.0.10",
                       "dependencies": {
                         "abbrev": {
-                          "version": "1.0.4",
+                          "version": "1.0.5",
                           "from": "abbrev@1"
                         }
                       }
                     },
                     "findup-sync": {
                       "version": "0.1.3",
-                      "from": "findup-sync@~0.1.2"
+                      "from": "findup-sync@~0.1.0"
                     },
                     "resolve": {
                       "version": "0.3.1",
@@ -2702,7 +2701,7 @@
                         },
                         "minimatch": {
                           "version": "0.2.14",
-                          "from": "minimatch@0.x.x",
+                          "from": "minimatch@~0.2.11",
                           "dependencies": {
                             "lru-cache": {
                               "version": "2.5.0",
@@ -2718,7 +2717,7 @@
                     },
                     "findup-sync": {
                       "version": "0.1.3",
-                      "from": "findup-sync@~0.1.2"
+                      "from": "findup-sync@~0.1.0"
                     }
                   }
                 },
@@ -2769,7 +2768,7 @@
                               "from": "domelementtype@1"
                             },
                             "readable-stream": {
-                              "version": "1.0.26-4",
+                              "version": "1.0.27-1",
                               "from": "readable-stream@1.0",
                               "dependencies": {
                                 "core-util-is": {
@@ -2820,7 +2819,7 @@
             },
             "mkdirp": {
               "version": "0.3.5",
-              "from": "mkdirp@0.3.x"
+              "from": "mkdirp@~0.3.5"
             },
             "promised-io": {
               "version": "0.3.4",
@@ -2842,7 +2841,7 @@
             },
             "glob": {
               "version": "3.2.9",
-              "from": "glob@>= 3.1.4",
+              "from": "glob@~3.2.8",
               "dependencies": {
                 "minimatch": {
                   "version": "0.2.14",
@@ -2866,10 +2865,10 @@
             },
             "nopt": {
               "version": "2.1.2",
-              "from": "nopt@~2.1.1",
+              "from": "nopt@~2.1.2",
               "dependencies": {
                 "abbrev": {
-                  "version": "1.0.4",
+                  "version": "1.0.5",
                   "from": "abbrev@1"
                 }
               }
@@ -2878,10 +2877,10 @@
         },
         "through2": {
           "version": "0.4.1",
-          "from": "through2@~0.4.0",
+          "from": "through2@^0.4.1",
           "dependencies": {
             "readable-stream": {
-              "version": "1.0.26-4",
+              "version": "1.0.27-1",
               "from": "readable-stream@~1.0.17",
               "dependencies": {
                 "core-util-is": {
@@ -2922,21 +2921,21 @@
       "resolved": "https://registry.npmjs.org/gulp-rename/-/gulp-rename-1.2.0.tgz"
     },
     "gulp-resolve-dependencies": {
-      "version": "0.1.0",
-      "from": "gulp-resolve-dependencies@0.1.0",
-      "resolved": "https://registry.npmjs.org/gulp-resolve-dependencies/-/gulp-resolve-dependencies-0.1.0.tgz"
+      "version": "0.2.0",
+      "from": "gulp-resolve-dependencies@0.2.0",
+      "resolved": "https://registry.npmjs.org/gulp-resolve-dependencies/-/gulp-resolve-dependencies-0.2.0.tgz"
     },
     "gulp-ruby-sass": {
       "version": "0.4.0",
       "from": "gulp-ruby-sass@git+https://github.com/backflip/gulp-ruby-sass.git",
-      "resolved": "git+https://github.com/backflip/gulp-ruby-sass.git#299bd76ae7bdaf4ac5e17399d2d44b7f9cb5d68e",
+      "resolved": "git+https://github.com/backflip/gulp-ruby-sass.git#01f6d8b478a0f516d4d09dc8c46f7101e1993a1d",
       "dependencies": {
         "through2": {
           "version": "0.4.1",
           "from": "through2@~0.4.0",
           "dependencies": {
             "readable-stream": {
-              "version": "1.0.26-4",
+              "version": "1.0.27-1",
               "from": "readable-stream@~1.0.17",
               "dependencies": {
                 "core-util-is": {
@@ -3001,10 +3000,10 @@
         },
         "chalk": {
           "version": "0.4.0",
-          "from": "chalk@^0.4.0",
+          "from": "chalk@~0.4.0",
           "dependencies": {
             "has-color": {
-              "version": "0.1.6",
+              "version": "0.1.7",
               "from": "has-color@~0.1.0"
             },
             "ansi-styles": {
@@ -3014,91 +3013,6 @@
             "strip-ansi": {
               "version": "0.1.1",
               "from": "strip-ansi@~0.1.0"
-            }
-          }
-        }
-      }
-    },
-    "gulp-stylus": {
-      "version": "0.1.0",
-      "from": "gulp-stylus@0.1.0",
-      "resolved": "https://registry.npmjs.org/gulp-stylus/-/gulp-stylus-0.1.0.tgz",
-      "dependencies": {
-        "stylus": {
-          "version": "0.42.3",
-          "from": "stylus@~0.42.2",
-          "dependencies": {
-            "css-parse": {
-              "version": "1.7.0",
-              "from": "css-parse@1.7.x"
-            },
-            "mkdirp": {
-              "version": "0.3.5",
-              "from": "mkdirp@~0.3.5"
-            },
-            "debug": {
-              "version": "0.8.0",
-              "from": "debug@*"
-            },
-            "sax": {
-              "version": "0.5.8",
-              "from": "sax@0.5.x"
-            },
-            "glob": {
-              "version": "3.2.9",
-              "from": "glob@~3.2.8",
-              "dependencies": {
-                "minimatch": {
-                  "version": "0.2.14",
-                  "from": "minimatch@~0.2.11",
-                  "dependencies": {
-                    "lru-cache": {
-                      "version": "2.5.0",
-                      "from": "lru-cache@2"
-                    },
-                    "sigmund": {
-                      "version": "1.0.0",
-                      "from": "sigmund@~1.0.0"
-                    }
-                  }
-                },
-                "inherits": {
-                  "version": "2.0.1",
-                  "from": "inherits@2"
-                }
-              }
-            }
-          }
-        },
-        "map-stream": {
-          "version": "0.1.0",
-          "from": "map-stream@~0.1.0"
-        },
-        "nib": {
-          "version": "1.0.2",
-          "from": "nib@~1.0.2",
-          "dependencies": {
-            "stylus": {
-              "version": "0.37.0",
-              "from": "stylus@~0.37.0",
-              "dependencies": {
-                "cssom": {
-                  "version": "0.2.5",
-                  "from": "cssom@0.2.x"
-                },
-                "mkdirp": {
-                  "version": "0.3.5",
-                  "from": "mkdirp@0.3.x"
-                },
-                "debug": {
-                  "version": "0.8.0",
-                  "from": "debug@*"
-                },
-                "sax": {
-                  "version": "0.5.8",
-                  "from": "sax@0.5.x"
-                }
-              }
             }
           }
         }
@@ -3811,6 +3725,30 @@
     "open": {
       "version": "0.0.4",
       "from": "open@0.0.4"
+    },
+    "run-sequence": {
+      "version": "0.3.6",
+      "from": "run-sequence@",
+      "dependencies": {
+        "chalk": {
+          "version": "0.4.0",
+          "from": "chalk@*",
+          "dependencies": {
+            "has-color": {
+              "version": "0.1.7",
+              "from": "has-color@~0.1.0"
+            },
+            "ansi-styles": {
+              "version": "1.0.0",
+              "from": "ansi-styles@~1.0.0"
+            },
+            "strip-ansi": {
+              "version": "0.1.1",
+              "from": "strip-ansi@~0.1.0"
+            }
+          }
+        }
+      }
     },
     "tiny-lr": {
       "version": "0.0.5",
