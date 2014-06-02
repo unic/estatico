@@ -17,7 +17,6 @@
 	padding: 2em;
 }
 
-
 /* Icons */
 .sg_icons_label,
 .sg_icons_icon {
@@ -45,4 +44,7 @@
 
 .sg_icons_item {
 	display: table-row;
+
+.sg_inner_wrapper {
+	border-top: 1px solid black;
 }
