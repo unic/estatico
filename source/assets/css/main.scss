@@ -1,17 +1,7 @@
 @import "normalize-scss/normalize";
 @import "../.tmp/icons";
 @import "../.tmp/sprite";
-@import "slideshow/slideshow";
 
 body {
 	box-sizing: border-box;
-	color: green;
-
-	.no-csstransforms & {
-		color: red;
-	}
-
-	p {
-		@include sprite(logo);
-	}
 }
