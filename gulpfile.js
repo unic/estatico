@@ -170,11 +170,11 @@ gulp.task('lodash', function(cb) {
 		args = [
 			'include=' + modules.join(','),
 			'-o',
-			'source/assets/.tmp/lodash.js',
+			'../../source/assets/.tmp/lodash.js',
 			'-d'
 		];
 
-	exec('node_modules/.bin/lodash ' + args.join(' '), cb);
+	exec('cd node_modules/.bin/ && lodash ' + args.join(' '), cb);
 });
 
 /**
