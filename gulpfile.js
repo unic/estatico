@@ -92,7 +92,7 @@ gulp.task('html', function() {
 			// Sort by filename and split into pages and modules
 			data = _.sortBy(data, function(value, key) {
 				return key;
-			}).map(function(value, key) {
+			}).map(function(value) {
 				if (value.isModule) {
 					templateData.modules.push(value);
 				} else {
