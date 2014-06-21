@@ -272,7 +272,7 @@ gulp.task('js:lodash', function(cb) {
 		});
 	}
 
-	exec('cd ' + cmdDir + ' && ./lodash ' + args.join(' '), cb);
+	exec('cd ' + cmdDir + ' && lodash ' + args.join(' '), cb);
 });
 
 /**
