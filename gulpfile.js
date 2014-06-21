@@ -25,6 +25,7 @@ var gulp = require('gulp'),
 	// Static file server
 	connect = require('connect'),
 	connectLivereload = require('connect-livereload'),
+	connectServeStatic = require('serve-static'),
 	http = require('http'),
 	open = require('open');
 
@@ -35,22 +36,79 @@ require('handlebars-layouts')(handlebars);
 
 /**
  * Compile Handlebars templates to HTML
- * Make content of data/FILENAME.json available to template engine
+ * Make content of PAGENAME.json (or MODULENAME.json) available to template engine
  */
 gulp.task('html', function() {
+	var data = {};
+
 	return gulp.src([
-		'./source/{,pages/}*.html'
+		'./source/{,pages/,modules/**/}!(_)*.hbs'
 	])
-		.pipe(plugins.frontMatter({
-			property: 'frontmatter'
+		.pipe(plugins.tap(function(file) {
+			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), ''),
+				dataFile = plugins.util.replaceExtension(file.path, '.json'),
+				fileData = {
+					previewUrl: plugins.util.replaceExtension(fileName, '.html'),
+				},
+				modulePrepend = new Buffer('{{#extend "assets/vendor/unic-preview/layouts/layout"}}{{#replace "content"}}'),
+				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
+
+			// Find JSON file with the same name as the template
+			try {
+				fileData = _.merge(fileData, JSON.parse(fs.readFileSync(dataFile)));
+			} catch (err) {}
+
+			if (file.path.search('source/modules') !== -1) {
+				fileData.isModule = true;
+				fileData.code = file.contents.toString();
+
+				// Wrap modules with custom layout for preview purposes
+				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
+			}
+
+			// Save data for later use
+			data[fileName] = fileData;
 		}))
-		.pipe(plugins.appendTemplateData())
-		.pipe(plugins.consolidate('handlebars', function(file) {
-			return file.data;
+		.pipe(plugins.unicHandlebars({
+			data: function(filePath) {
+				var fileName = path.relative('./source/', filePath).replace(path.extname(filePath), '');
+
+				return data[fileName] || {};
+			},
+			partials: './source/{,layouts/,pages/,modules/**/,assets/vendor/unic-preview/**/}*.hbs',
+			extension: '.html'
 		}))
-		.pipe(plugins.frontMatter()) // Pipe through gulp-front-matter once more to remove front matter data from the generated files (handlebars does re-add it)
+		.pipe(plugins.prettify({
+			indent_with_tabs: true,
+			max_preserve_newlines: 1
+		}))
 		.pipe(gulp.dest('./build'))
-		.pipe(plugins.livereload(server));
+		.on('end', function() {
+			var templateData = {
+					pages: [],
+					modules: []
+				};
+
+			// Sort by filename and split into pages and modules
+			data = _.sortBy(data, function(value, key) {
+				return key;
+			}).map(function(value, key) {
+				if (value.isModule) {
+					templateData.modules.push(value);
+				} else {
+					templateData.pages.push(value);
+				}
+			});
+
+			// Create index for preview purposes
+			gulp.src('./source/assets/vendor/unic-preview/index.hbs')
+				.pipe(plugins.unicHandlebars({
+					extension: '.html',
+					data: templateData
+				}))
+				.pipe(gulp.dest('./build'))
+				.pipe(plugins.livereload(server));
+		});
 });
 
 /**
@@ -70,16 +128,17 @@ gulp.task('css', function() {
 			fullException: true
 		}))
 		.pipe(plugins.autoprefixer('last 2 version'))
+		.pipe(plugins.size({
+			title: 'css'
+		}))
 		.pipe(gulp.dest('./build/assets/css'))
 		.pipe(plugins.livereload(server));
 });
 
 /**
- * Hint files
- * Generate head.js
- * Generate main.js
+ * Hint files using .jshintrc
  */
-gulp.task('jshint', function() {
+gulp.task('js:hint', function() {
 	return gulp.src([
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',
@@ -95,7 +154,10 @@ gulp.task('jshint', function() {
 			});
 });
 
-gulp.task('js-head', function() {
+/**
+ * Generate head.js
+ */
+gulp.task('js:head', function() {
 	return gulp.src([
 		'./source/assets/js/head.js'
 	])
@@ -105,11 +167,17 @@ gulp.task('js-head', function() {
 		}))
 		.pipe(plugins.concat('head.js'))
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
+		.pipe(plugins.size({
+			title: 'js:head'
+		}))
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
 });
 
-gulp.task('js-main', function() {
+/**
+ * Generate main.js
+ */
+gulp.task('js:main', function() {
 	return gulp.src([
 		'./source/assets/js/main.js'
 	])
@@ -119,21 +187,41 @@ gulp.task('js-main', function() {
 		}))
 		.pipe(plugins.concat('main.js'))
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
+		.pipe(plugins.size({
+			title: 'js:main'
+		}))
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
 });
 
 /**
- * Precompile JS templates (for demo purposes)
+ * Precompile JS templates (optional)
  */
-gulp.task('js-templates', function() {
+gulp.task('js:templates', function() {
 	return gulp.src([
-		'./source/modules/**/*.html'
+		'./source/modules/**/*.hbs'
 	])
-		.pipe(plugins.handlebars())
-		.pipe(plugins.defineModule('plain'))
+		.pipe(plugins.unicHandlebars({
+			precompile: true,
+			partials: './source/modules/**/*.hbs'
+		}))
+		.pipe(plugins.defineModule('plain', { // RequireJS: use 'amd' over plain and uncomment lines below
+			// require: {
+			// 	Handlebars: 'handlebars'
+			// },
+			context: {
+				handlebars: 'Handlebars.template(<%= contents %>)'
+			},
+			wrapper: '<%= handlebars %>'
+		}))
 		.pipe(plugins.declare({
-			namespace: 'Unic.templates'
+			namespace: 'Unic.templates',
+			processName: function(filePath) {
+				// Use "modules/x/y" as partial name, e.g.
+				var name = path.relative('./source/', filePath);
+
+				return plugins.util.replaceExtension(name, '');
+			}
 		}))
 		.pipe(plugins.concat('templates.js'))
 		.pipe(gulp.dest('./source/assets/.tmp/'))
@@ -146,7 +234,7 @@ gulp.task('js-templates', function() {
  *
  * See https://github.com/doctyper/customizr
  */
-gulp.task('modernizr', function() {
+gulp.task('js:modernizr', function() {
 	return gulp.src([
 		'./source/assets/css/*.scss',
 		'./source/modules/**/*.scss',
@@ -162,7 +250,7 @@ gulp.task('modernizr', function() {
 /**
  * Generate customized lodash build in source/assets/.tmp/
  */
-gulp.task('lodash', function(cb) {
+gulp.task('js:lodash', function(cb) {
 	var cmdDir = 'node_modules/.bin/',
 		targetDir = 'source/assets/.tmp/',
 		targetFile = 'lodash.js',
@@ -184,14 +272,14 @@ gulp.task('lodash', function(cb) {
 		});
 	}
 
-	exec('cd ' + cmdDir + ' && lodash ' + args.join(' '), cb);
+	exec('cd ' + cmdDir + ' && ./lodash ' + args.join(' '), cb);
 });
 
 /**
  * Generate icon font
  * Generate SCSS file based on handlebars template
  */
-gulp.task('iconfont', function() {
+gulp.task('media:iconfont', function() {
 	return gulp.src([
 		'./source/assets/media/iconfont/*.svg',
 		'./source/modules/**/iconfont/*.svg'
@@ -208,14 +296,19 @@ gulp.task('iconfont', function() {
 				});
 
 				gulp.src('./source/assets/css/templates/icons.scss')
-					.pipe(plugins.consolidate('handlebars', {
-						codepoints: codepoints,
-						options: _.merge(options, {
-							fontPath: '../fonts/icons/'
-						})
+					.pipe(plugins.unicHandlebars({
+						data: {
+							codepoints: codepoints,
+							options: _.merge(options, {
+								fontPath: '../fonts/icons/'
+							})
+						}
 					}))
 					.pipe(gulp.dest('./source/assets/.tmp/'));
 			})
+		.pipe(plugins.size({
+			title: 'media:iconfont'
+		}))
 		.pipe(gulp.dest('./build/assets/fonts/icons/'));
 });
 
@@ -225,7 +318,7 @@ gulp.task('iconfont', function() {
  *
  * See https://github.com/twolfson/gulp.spritesmith
  */
-gulp.task('pngsprite', function () {
+gulp.task('media:pngsprite', function () {
 	var spriteData = gulp.src([
 			'./source/assets/media/pngsprite/*.png',
 			'./source/modules/**/pngsprite/*.png'
@@ -240,13 +333,17 @@ gulp.task('pngsprite', function () {
 
 	spriteData.css.pipe(gulp.dest('./source/assets/.tmp/'));
 
-	return spriteData.img.pipe(gulp.dest('./build/assets/media/'));
+	return spriteData.img
+		.pipe(plugins.size({
+			title: 'media:pngsprite'
+		}))
+		.pipe(gulp.dest('./build/assets/media/'));
 });
 
 /**
  * Copy specific media files to build directory
  */
-gulp.task('media', function() {
+gulp.task('media:copy', function() {
 	return gulp.src([
 			'./source/assets/fonts/{,**/}*',
 			'./source/assets/media/*.*',
@@ -254,6 +351,9 @@ gulp.task('media', function() {
 	], {
 		base: './source/'
 	})
+		.pipe(plugins.size({
+			title: 'media:copy'
+		}))
 		.pipe(gulp.dest('./build'));
 });
 
@@ -280,9 +380,8 @@ gulp.task('watch', function() {
 		}
 
 		gulp.watch([
-			'source/{,*/}*.html',
-			'source/data/*.json',
-			'source/modules/**/*.html'
+			'source/{,pages/,modules/**/}*.hbs',
+			'source/{,pages/,modules/**/}*.json'
 		], ['html']);
 
 		gulp.watch([
@@ -295,17 +394,17 @@ gulp.task('watch', function() {
 			'source/assets/js/{,**/}*.js',
 			'source/assets/.tmp/*.js',
 			'source/modules/**/*.js'
-		], ['jshint', 'js-head', 'js-main']);
+		], ['js:hint', 'js:head', 'js:main']);
 
 		gulp.watch([
 			'source/assets/pngsprite/*.png',
 			'source/modules/**/pngsprite/*.png'
-		], ['pngsprite']);
+		], ['media:pngsprite']);
 
 		gulp.watch([
 			'source/assets/iconfont/*.svg',
 			'source/modules/**/iconfont/*.svg'
-		], ['iconfont']);
+		], ['media:iconfont']);
 	});
 });
 
@@ -314,7 +413,7 @@ gulp.task('watch', function() {
  */
 gulp.task('build', function(callback) {
 	// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
-	runSequence('clean', ['lodash', 'iconfont', 'pngsprite'], 'modernizr', ['html', 'css', 'jshint', 'js-head', 'js-main', 'media'], callback);
+	runSequence('clean', ['js:lodash', 'media:iconfont', 'media:pngsprite'], 'js:modernizr', ['html', 'css', 'js:hint', 'js:head', 'js:main', 'media:copy'], callback);
 });
 
 /**
@@ -323,7 +422,7 @@ gulp.task('build', function(callback) {
 gulp.task('serve', function() {
 	var app = connect()
 			.use(connectLivereload())
-			.use(connect.static('build')),
+			.use(connectServeStatic('build')),
 		server = http.createServer(app).listen(9000);
 
 	server.on('listening', function() {
