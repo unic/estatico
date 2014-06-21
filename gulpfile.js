@@ -45,7 +45,7 @@ gulp.task('html', function() {
 		'./source/{,pages/,modules/**/}!(_)*.hbs'
 	])
 		.pipe(plugins.tap(function(file) {
-			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), ''),
+			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
 				dataFile = plugins.util.replaceExtension(file.path, '.json'),
 				fileData = {
 					previewUrl: plugins.util.replaceExtension(fileName, '.html'),
@@ -58,7 +58,7 @@ gulp.task('html', function() {
 				fileData = _.merge(fileData, JSON.parse(fs.readFileSync(dataFile)));
 			} catch (err) {}
 
-			if (file.path.search('source/modules') !== -1) {
+			if (file.path.indexOf('modules') !== -1) {
 				fileData.isModule = true;
 				fileData.code = file.contents.toString();
 
@@ -71,7 +71,7 @@ gulp.task('html', function() {
 		}))
 		.pipe(plugins.unicHandlebars({
 			data: function(filePath) {
-				var fileName = path.relative('./source/', filePath).replace(path.extname(filePath), '');
+				var fileName = path.relative('./source/', filePath).replace(path.extname(filePath), '').replace(/\\/g, '/');
 
 				return data[fileName] || {};
 			},
