@@ -272,7 +272,7 @@ gulp.task('js:lodash', function(cb) {
 		});
 	}
 
-	exec('cd ' + cmdDir + ' && lodash ' + args.join(' '), cb);
+	exec('cd ' + cmdDir + ' && .' + path.sep + 'lodash ' + args.join(' '), cb);
 });
 
 /**
@@ -318,7 +318,7 @@ gulp.task('media:iconfont', function() {
  *
  * See https://github.com/twolfson/gulp.spritesmith
  */
-gulp.task('media:pngsprite', function () {
+gulp.task('media:pngsprite', function() {
 	var spriteData = gulp.src([
 			'./source/assets/media/pngsprite/*.png',
 			'./source/modules/**/pngsprite/*.png'
@@ -374,7 +374,7 @@ gulp.task('clean', function() {
  */
 gulp.task('watch', function() {
 	// Listen on port 35729
-	server.listen(35729, function (err) {
+	server.listen(35729, function(err) {
 		if (err) {
 			return console.log(err);
 		}
@@ -411,9 +411,16 @@ gulp.task('watch', function() {
 /**
  * Create build directory
  */
-gulp.task('build', function(callback) {
+gulp.task('build', function(cb) {
 	// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
-	runSequence('clean', ['js:lodash', 'media:iconfont', 'media:pngsprite'], 'js:modernizr', ['html', 'css', 'js:hint', 'js:head', 'js:main', 'media:copy'], callback);
+	runSequence('clean', ['js:lodash', 'media:iconfont', 'media:pngsprite'], 'js:modernizr', ['html', 'css', 'js:hint', 'js:head', 'js:main', 'media:copy'], function(err) {
+		if (err) {
+			console.log('[ERROR] in ' + err.task + ': ' + err.err);
+			process.exit(1);
+		}
+
+		cb();
+	});
 });
 
 /**
@@ -430,8 +437,8 @@ gulp.task('serve', function() {
 	});
 
 	// Clean on exit
-	process.on('SIGINT', function () {
-		exec('gulp clean', function () {
+	process.on('SIGINT', function() {
+		exec('gulp clean', function() {
 			process.exit(0);
 		});
 	});
@@ -441,6 +448,13 @@ gulp.task('serve', function() {
  * Default task: Create connect server with livereload functionality
  * Serve build directory
  */
-gulp.task('default', function(callback) {
-	runSequence(['build', 'watch'], 'serve', callback);
+gulp.task('default', function(cb) {
+	runSequence(['build', 'watch'], 'serve', function(err) {
+		if (err) {
+			console.log('[ERROR] in ' + err.task + ': ' + err.err);
+			process.exit(1);
+		}
+
+		cb();
+	});
 });
