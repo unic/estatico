@@ -88,12 +88,8 @@ gulp.task('jshint', function() {
 		.pipe(plugins.cached('linting'))
 		.pipe(plugins.jshint('.jshintrc'))
 		.pipe(plugins.jshint.reporter('jshint-stylish'))
-		.pipe(plugins.jshint.reporter('fail'))
+		.pipe(plugins.util.env.develop ? plugins.util.noop() : plugins.jshint.reporter('fail'))
 			.on('error', function(err) {
-				if (plugins.util.env.develop) {
-					return;
-				}
-
 				console.log('[ERROR] ' + err.message + '.');
 				process.exit(1);
 			});
