@@ -105,7 +105,8 @@ gulp.task('js-head', function() {
 	])
 		.pipe(plugins.resolveDependencies({
 			pattern: /\* @requires [\s-]*(.*?\.js)/g,
-			log: true
+			log: true,
+			fail: plugins.util.env.develop ? false : true
 		}))
 		.pipe(plugins.concat('head.js'))
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
@@ -119,7 +120,8 @@ gulp.task('js-main', function() {
 	])
 		.pipe(plugins.resolveDependencies({
 			pattern: /\* @requires [\s-]*(.*?\.js)/g,
-			log: true
+			log: true,
+			fail: plugins.util.env.develop ? false : true
 		}))
 		.pipe(plugins.concat('main.js'))
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
