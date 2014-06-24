@@ -1,6 +1,10 @@
-{{#extend "layout"}}
+---
+title: Index
+---
+
+{{#extend "layouts/layout"}}
 	{{#replace "content"}}
-		<p>{{foo}}</p>
+		<p>{{index.foo}}</p>
 
 		<a href="slideshow.html">Slideshow</a>
 	{{/replace}}

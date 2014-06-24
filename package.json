@@ -2,48 +2,41 @@
   "name": "unic-boilerplate",
   "version": "0.2.0",
   "dependencies": {
-    "gulp": "3.5.2",
-    "gulp-load-plugins": "0.3.0",
-    "gulp-util": "2.2.14",
-    "gulp-clean": "0.2.4",
+    "gulp": "3.8.0",
+    "gulp-load-plugins": "0.5.1",
+    "gulp-util": "2.2.17",
+    "gulp-clean": "0.3.0",
     "gulp-cached": "0.0.3",
     "gulp-rename": "1.2.0",
-
     "gulp-consolidate": "0.1.2",
-    "handlebars": "2.0.0-alpha.2",
-    "handlebars-layouts": "0.2.0",
-
+    "handlebars": "2.0.0-alpha.4",
+    "handlebars-layouts": "0.3.3",
     "gulp-ruby-sass": "git+https://github.com/backflip/gulp-ruby-sass.git",
-    "gulp-autoprefixer": "0.0.6",
-
-    "gulp-uglify": "0.2.1",
-    "gulp-concat": "2.1.7",
-    "gulp-jshint": "1.5.0",
-    "jshint-stylish": "0.1.5",
-    "gulp-resolve-dependencies": "0.1.0",
-    "gulp-handlebars": "2.0.0",
-    "gulp-define-module": "0.1.0",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-uglify": "0.3.0",
+    "gulp-concat": "2.2.0",
+    "gulp-jshint": "1.6.2",
+    "jshint-stylish": "0.2.0",
+    "gulp-resolve-dependencies": "0.2.0",
+    "gulp-handlebars": "2.1.0",
+    "gulp-define-module": "0.1.1",
     "gulp-declare": "0.2.0",
-
-    "gulp-modernizr": "https://github.com/doctyper/gulp-modernizr/tarball/develop",
+    "gulp-modernizr": "https://github.com/backflip/gulp-modernizr/tarball/develop",
     "lodash": "2.4.1",
-    "lodash-cli": "2.4.1",
-
+    "lodash-cli": "2.4.2",
     "gulp-iconfont": "git+https://github.com/backflip/gulp-iconfont.git",
-    "gulp.spritesmith": "0.2.0",
-
-    "gulp-livereload": "1.1.1",
-    "tiny-lr": "0.0.5",
-    "connect": "2.13.0",
-    "connect-livereload": "0.3.2",
-    "open": "0.0.4",
-
-    "bower": "1.3.1"
+    "gulp.spritesmith": "1.1.0",
+    "gulp-livereload": "2.1.0",
+    "tiny-lr": "0.0.7",
+    "connect": "2.19.6",
+    "connect-livereload": "0.4.0",
+    "open": "0.0.5",
+    "bower": "1.3.5",
+    "gulp-append-template-data": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---append-template-data.git",
+    "gulp-front-matter": "1.0.0",
+    "run-sequence": "0.3.6"
   },
   "engines": {
     "node": ">= 0.10"
-  },
-  "scripts": {
-    "postinstall": "node node_modules/bower/bin/bower install"
   }
 }

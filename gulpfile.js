@@ -11,7 +11,9 @@ var gulp = require('gulp'),
 	// Helpers
 	_ = require('lodash'),
 	exec = require('child_process').exec,
+	runSequence = require('run-sequence'),
 	path = require('path'),
+	fs = require('fs'),
 
 	// Handlebars
 	handlebars = require('handlebars'),
@@ -36,27 +38,17 @@ require('handlebars-layouts')(handlebars);
  * Make content of data/FILENAME.json available to template engine
  */
 gulp.task('html', function() {
-	return gulp.src('./source/*.html')
-		.pipe(plugins.consolidate('handlebars', function(file) {
-			var fileName = plugins.util.replaceExtension(path.basename(file.path), '.json'),
-				dataFilePath = path.resolve(__dirname, './source/data/' + fileName),
-				defaultDataFilePath = path.resolve(__dirname, './source/data/default.json'),
-				pageData = {},
-				defaultData = {};
-
-			// Remove cached data
-			if (require.cache[dataFilePath]) {
-				delete require.cache[dataFilePath];
-			}
-			if (require.cache[defaultDataFilePath]) {
-				delete require.cache[defaultDataFilePath];
-			}
-
-			pageData  = require(dataFilePath);
-			defaultData = require('./source/data/default.json');
-
-			return _.merge({}, defaultData, pageData);
+	return gulp.src([
+		'./source/{,pages/}*.html'
+	])
+		.pipe(plugins.frontMatter({
+			property: 'frontmatter'
 		}))
+		.pipe(plugins.appendTemplateData())
+		.pipe(plugins.consolidate('handlebars', function(file) {
+			return file.data;
+		}))
+		.pipe(plugins.frontMatter()) // Pipe through gulp-front-matter once more to remove front matter data from the generated files (handlebars does re-add it)
 		.pipe(gulp.dest('./build'))
 		.pipe(plugins.livereload(server));
 });
@@ -66,7 +58,9 @@ gulp.task('html', function() {
  * Run autoprefixer on the generated CSS
  */
 gulp.task('css', function() {
-	return gulp.src('./source/assets/css/*.scss')
+	return gulp.src([
+		'./source/assets/css/*.scss'
+	])
 		.pipe(plugins.rubySass({
 			loadPath: [
 				'source/assets/vendor',
@@ -85,17 +79,30 @@ gulp.task('css', function() {
  * Generate head.js
  * Generate main.js
  */
-gulp.task('js', function() {
-	gulp.src([
+gulp.task('jshint', function() {
+	return gulp.src([
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',
 			'!./source/assets/vendor/*.js'
-		])
+	])
 		.pipe(plugins.cached('linting'))
 		.pipe(plugins.jshint('.jshintrc'))
-		.pipe(plugins.jshint.reporter('jshint-stylish'));
+		.pipe(plugins.jshint.reporter('jshint-stylish'))
+		.pipe(plugins.jshint.reporter('fail'))
+			.on('error', function(err) {
+				if (plugins.util.env.develop) {
+					return;
+				}
 
-	gulp.src('./source/assets/js/head.js')
+				console.log('[ERROR] ' + err.message + '.');
+				process.exit(1);
+			});
+});
+
+gulp.task('js-head', function() {
+	return gulp.src([
+		'./source/assets/js/head.js'
+	])
 		.pipe(plugins.resolveDependencies({
 			pattern: /\* @requires [\s-]*(.*?\.js)/g,
 			log: true
@@ -104,8 +111,12 @@ gulp.task('js', function() {
 		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
+});
 
-	gulp.src('./source/assets/js/main.js')
+gulp.task('js-main', function() {
+	return gulp.src([
+		'./source/assets/js/main.js'
+	])
 		.pipe(plugins.resolveDependencies({
 			pattern: /\* @requires [\s-]*(.*?\.js)/g,
 			log: true
@@ -120,7 +131,9 @@ gulp.task('js', function() {
  * Precompile JS templates (for demo purposes)
  */
 gulp.task('js-templates', function() {
-	gulp.src('./source/modules/**/*.html')
+	return gulp.src([
+		'./source/modules/**/*.html'
+	])
 		.pipe(plugins.handlebars())
 		.pipe(plugins.defineModule('plain'))
 		.pipe(plugins.declare({
@@ -139,30 +152,43 @@ gulp.task('js-templates', function() {
  */
 gulp.task('modernizr', function() {
 	return gulp.src([
-			'./source/assets/css/*.scss',
-			'./source/modules/**/*.scss',
-			'./source/assets/js/*.js',
-			'./source/modules/**/*.js',
-			'!./source/assets/vendor/*.js'
-		])
+		'./source/assets/css/*.scss',
+		'./source/modules/**/*.scss',
+		'./source/assets/js/*.js',
+		'./source/modules/**/*.js',
+		'!./source/assets/vendor/*.js'
+	])
 		.pipe(plugins.modernizr({}))
-		.pipe(plugins.util.env.production ? uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
 		.pipe(gulp.dest('./source/assets/.tmp'));
 });
 
 /**
  * Generate customized lodash build in source/assets/.tmp/
  */
-gulp.task('lodash', function() {
-	var modules = ['debounce'],
+gulp.task('lodash', function(cb) {
+	var cmdDir = 'node_modules/.bin/',
+		targetDir = 'source/assets/.tmp/',
+		targetFile = 'lodash.js',
+		relTargetPath = path.relative(cmdDir, targetDir + targetFile),
+		modules = ['debounce'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
-			'source/assets/.tmp/lodash.js',
+			relTargetPath,
 			'-d'
 		];
 
-	exec('lodash ' + args.join(' '));
+	// Create source/assets/.tmp directory if not already present
+	if (!fs.existsSync(targetDir)) {
+		fs.mkdirSync(targetDir, function(err) {
+			if (err) {
+				console.log(err);
+			}
+		});
+	}
+
+	exec('cd ' + cmdDir + ' && .' + path.sep + 'lodash ' + args.join(' '), cb);
 });
 
 /**
@@ -170,10 +196,10 @@ gulp.task('lodash', function() {
  * Generate SCSS file based on handlebars template
  */
 gulp.task('iconfont', function() {
-	gulp.src([
-			'./source/assets/media/iconfont/*.svg',
-			'./source/modules/**/iconfont/*.svg'
-		])
+	return gulp.src([
+		'./source/assets/media/iconfont/*.svg',
+		'./source/modules/**/iconfont/*.svg'
+	])
 		.pipe(plugins.iconfont({
 			fontName: 'Icons'
 		}))
@@ -207,7 +233,8 @@ gulp.task('pngsprite', function () {
 	var spriteData = gulp.src([
 			'./source/assets/media/pngsprite/*.png',
 			'./source/modules/**/pngsprite/*.png'
-		]).pipe(plugins.spritesmith({
+	])
+		.pipe(plugins.spritesmith({
 			imgName: 'sprite.png',
 			cssName: 'sprite.scss',
 			imgPath: '../media/sprite.png',
@@ -225,12 +252,12 @@ gulp.task('pngsprite', function () {
  */
 gulp.task('media', function() {
 	return gulp.src([
-				'./source/assets/fonts/{,**/}*',
-				'./source/assets/media/*.*',
-				'./source/tmp/media/*'
-			], {
-			base: './source/'
-		})
+			'./source/assets/fonts/{,**/}*',
+			'./source/assets/media/*.*',
+			'./source/tmp/media/*'
+	], {
+		base: './source/'
+	})
 		.pipe(gulp.dest('./build'));
 });
 
@@ -238,9 +265,11 @@ gulp.task('media', function() {
  * Remove build folder
  */
 gulp.task('clean', function() {
-	return gulp.src(['build'], {
-			read: false
-		})
+	return gulp.src([
+		'build'
+	], {
+		read: false
+	})
 		.pipe(plugins.clean());
 });
 
@@ -251,8 +280,8 @@ gulp.task('watch', function() {
 	// Listen on port 35729
 	server.listen(35729, function (err) {
 		if (err) {
-			return console.log(err)
-		};
+			return console.log(err);
+		}
 
 		gulp.watch([
 			'source/{,*/}*.html',
@@ -270,7 +299,7 @@ gulp.task('watch', function() {
 			'source/assets/js/{,**/}*.js',
 			'source/assets/.tmp/*.js',
 			'source/modules/**/*.js'
-		], ['js']);
+		], ['jshint', 'js-head', 'js-main']);
 
 		gulp.watch([
 			'source/assets/pngsprite/*.png',
@@ -285,25 +314,17 @@ gulp.task('watch', function() {
 });
 
 /**
- * Run special tasks which are not part of server or build
- */
-gulp.task('setup', ['iconfont', 'pngsprite', 'lodash'], function() {
-	// Modernizr has to run last due to weird side effects
-	gulp.start('modernizr');
-});
-
-/**
  * Create build directory
  */
-gulp.task('build', function() {
-	gulp.start('html', 'css', 'js', 'media');
+gulp.task('build', function(callback) {
+	// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
+	runSequence('clean', ['lodash', 'iconfont', 'pngsprite'], 'modernizr', ['html', 'css', 'jshint', 'js-head', 'js-main', 'media'], callback);
 });
 
 /**
- * Default task: Create connect server with livereload functionality
  * Serve build directory
  */
-gulp.task('default', ['html', 'css', 'js', 'media', 'watch'], function() {
+gulp.task('serve', function() {
 	var app = connect()
 			.use(connectLivereload())
 			.use(connect.static('build')),
@@ -319,4 +340,12 @@ gulp.task('default', ['html', 'css', 'js', 'media', 'watch'], function() {
 			process.exit(0);
 		});
 	});
+});
+
+/**
+ * Default task: Create connect server with livereload functionality
+ * Serve build directory
+ */
+gulp.task('default', function(callback) {
+	runSequence(['build', 'watch'], 'serve', callback);
 });
