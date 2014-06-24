@@ -109,7 +109,9 @@ gulp.task('js-head', function() {
 			fail: plugins.util.env.develop ? false : true
 		}))
 		.pipe(plugins.concat('head.js'))
-		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify({
+			preserveComments: 'some'
+		}) : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
 });
@@ -124,7 +126,9 @@ gulp.task('js-main', function() {
 			fail: plugins.util.env.develop ? false : true
 		}))
 		.pipe(plugins.concat('main.js'))
-		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify({
+			preserveComments: 'some'
+		}) : plugins.util.noop())
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(plugins.livereload(server));
 });
