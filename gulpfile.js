@@ -188,7 +188,7 @@ gulp.task('lodash', function(cb) {
 		});
 	}
 
-	exec('cd ' + cmdDir + ' && lodash ' + args.join(' '), cb);
+	exec('cd ' + cmdDir + ' && .' + path.sep + 'lodash ' + args.join(' '), cb);
 });
 
 /**
