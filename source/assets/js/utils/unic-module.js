@@ -17,8 +17,8 @@
 	// as this (slightly) quickens the resolution process and can be more efficiently
 	// minified (especially when both are regularly referenced in your plugin).
 
-	// Holds the pluginName
-	var pluginName = '';
+	// Prefix for data attribute where the plugin instance is stored
+	var dataNamespace = 'plugin_';
 
 	// The actual plugin constructor
 	/**
@@ -29,14 +29,15 @@
 	 * @param {object} options The options of this particular instance
 	 */
 	Unic.modules.PluginHelper = function(name, defaults, element, options) {
-		pluginName = name.toLowerCase();
-
 		var meta;
+
+		this.pluginName = name.toLowerCase();
+
 		this.$element = $(element);
 
 		// Grab plugin options provided via data properties in the html element. Ex:
 		// <div class='main_nav' data-mainnav-options='{'optionA':'someCoolOptionString'}'>
-		meta = this.$element.data(pluginName+'-options');
+		meta = this.$element.data(this.pluginName + '-options');
 
 		// jQuery has an extend method which merges the contents of two or
 		// more objects, storing the result in the first object. The first object
@@ -45,7 +46,7 @@
 		this.options = $.extend(true, {}, defaults, options, meta);
 
 		// Keep a reference to the wrapper object in the element
-		this.$element.data('plugin_'+pluginName, this);
+		this.$element.data(dataNamespace + this.pluginName, this);
 
 		this.init();
 	};
@@ -64,31 +65,16 @@
 	 * - remove element from DOM
 	 *
 	 * Usage from inside a plugin:
-	 * this.destroy(pluginName);
+	 * this.destroy();
 	 * Usage from outside a plugin:
-	 * jQuery('[data-example=init]').example('destroy', 'example');
-	 *
-	 * @param  {string} pluginToDestroy [description: the name of the plugin to be destroyed]
+	 * jQuery('[data-example=init]').example('destroy');
 	 */
-	Unic.modules.PluginHelper.prototype.destroy = function(pluginToDestroy) {
-		// We need to provide the pluginName because "init()" and "destroy()" are public methods
-		// and they can be called from the outside. If pluginName was not provided
-		// it would be the last initialized plugin instead of the one we would like to destroy.
-
-		// Check if there's a name passed in the arguments
-		// If no arguments, throw Error
-		if (!arguments.length || typeof(pluginToDestroy) === 'undefined') {
-			throw 'Missing plugin name parameter';
-			// If arguments: populate pluginNames with every passed argument
-		} else {
-			pluginName = pluginToDestroy.toLowerCase();
-		}
-
-		// remove all events in the pluginName namespace
-		this.$element.off('.' + pluginName);
+	Unic.modules.PluginHelper.prototype.destroy = function() {
+		// remove all events in the this.pluginName namespace
+		this.$element.off('.' + this.pluginName);
 		// unset Plugin data instance
-		this.$element.removeData( 'plugin_' + pluginName );
-		this.$element.removeData( pluginName );
+		this.$element.removeData(dataNamespace + this.pluginName);
+		this.$element.removeData(this.pluginName);
 	};
 
 
@@ -106,22 +92,24 @@
 
 		$.fn[pluginName] = function(options) {
 			var args = arguments;
+
 			if (options === undefined || typeof options === 'object') {
 				return this.each(function() {
-					if (!$.data(this, 'plugin_' + pluginName)) {
-						// $.data(this, 'plugin_' + pluginName, new PluginClass(this, options));
+					if (!$.data(this, dataNamespace + pluginName)) {
 						new PluginClass(this, options);
 					}
 				});
 			} else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-				if(this && this.length <= 1) {
-					var instance = this.data('plugin_' + pluginName);
+				if (this && this.length <= 1) {
+					var instance = this.data(dataNamespace + pluginName);
+
 					if (instance instanceof PluginClass && typeof instance[options] === 'function') {
 						return instance[options].apply(instance, Array.prototype.slice.call(args, 1));
 					}
 				} else {
 					return this.each(function() {
-						var instance = $.data(this, 'plugin_' + pluginName);
+						var instance = $.data(this, dataNamespace + pluginName);
+
 						if (instance instanceof PluginClass && typeof instance[options] === 'function') {
 							instance[options].apply(instance, Array.prototype.slice.call(args, 1));
 						}
