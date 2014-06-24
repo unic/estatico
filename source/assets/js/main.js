@@ -1,3 +1,4 @@
+/* global Modernizr */
 /**
  * @requires utils/unic-module.js
  * @requires ../vendor/handlebars/handlebars.js
