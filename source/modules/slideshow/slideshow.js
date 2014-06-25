@@ -10,7 +10,7 @@
 
 	var $document = $(document);
 
-	var pluginName = 'accordion',
+	var pluginName = 'slideshow',
 		events = {/* eventname: pluginName +'_eventname' */},
 		defaults = {
 			domSelectors: {
@@ -41,6 +41,8 @@
 		this.helper = Unic.modules.PluginHelper;
 		this.helper(pluginName, defaults, element, options);
 	};
+
+	Plugin.prototype = $.extend(true, {}, Unic.modules.PluginHelper.prototype, Plugin.prototype);
 
 	/**
 	 * Initialize module, bind events
