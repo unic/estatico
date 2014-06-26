@@ -1,10 +1,37 @@
-# Gulp boilerplate
+# [PROJECT NAME] [YEAR]
 
-## Dependencies
+[SHORT DESCRIPTION]
+
+
+---
+
+
+## LINKS
+
+* Code repository: [URL]
+* Jira: [URL]
+* Jenkins: [URL]
+* Preview server: [URL]
+
+
+---
+
+
+## DEVELOPERS
+
+* [NAME / SHORT NAME] [YEAR]
+
+
+---
+
+
+## SETUP
+
+### Dependencies
 
 Node, NPM.
 
-## Usage
+### Usage
 
 1. Install node and bower dependencies:
 
@@ -36,21 +63,16 @@ bower install
 ```
 
 
+---
 
 
-## Coding guidelines
+## CODING GUIDELINES
 
-Styleguide
-=========
-
-Remarks
--------
+### Remarks
 
 * "Generally" is used when a rule is not meant to be absolute.
 
-
-Formatting
-----------
+### Formatting
 
 1. General
 	* Encoding: UTF-8
@@ -65,7 +87,7 @@ Formatting
 	* One property per line
 	* Generally one selector per line
 	* Selectors in lowercase and with underscores, no dashes
-	* SASS: CamelCase for everything but selectors and placeholders
+	* Preprocessors: CamelCase for everything but selectors and placeholders
 
 4. JS
 	* Variables and function names in camelCase
@@ -81,24 +103,22 @@ Formatting
 		 \* Stripped when compressed  
 		 \*/
 
-
-Guidelines
-----------
+### Guidelines
 
 1. Selectors
 	* No use of IDs for styling, classes only
 	* Prefixing of classes:
 		* Layout: "layout\_", used for general page layout (e.g. "layout\_wrapper")
 		* Module: "mod\_", used for independent blocks of markup (e.g. "mod\_teaser"). Generally no namespacing inside modules (e.g. use ".mod\_teaser .title" instead of ".mod\_teaser\_title").
-		* Variant: "var\_", used as modifier or above elements (e.g. "var\_onecol") 
-		* State: "is\_", used as modifier or above elements (e.g. "is\_inactive") 
+		* Variant: "var\_", used as modifier or above elements (e.g. "var\_onecol")
+		* State: "is\_", used as modifier or above elements (e.g. "is\_inactive")
 	* JS hooks: Use data attributes instead of classes to target elements using JavaScript (e.g. data-teaser="init")
 	* No use of overqualified selectors (e.g. "div.mod\_teaser")
 
 2. Units
 	* em or % for dimensions, generally no px
 
-3. SASS
+3. CSS preprocessors
 	* Use mixins and placeholders for repeating styles
 	* Define Colors globally
 	* Nest your classes as little as possible
@@ -108,4 +128,3 @@ Guidelines
 
 5. Vendor code
 	* Use Bower --> bower.json
-	* Do not include minified code, the build step takes care of minification
