@@ -12,6 +12,8 @@
 * Jira: [URL]
 * Jenkins: [URL]
 * Preview server: [URL]
+* Design: [URL]
+* IA: [URL]
 
 
 ---
