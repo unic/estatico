@@ -10,7 +10,7 @@
 
 	var $document = $(document);
 
-	var pluginName = 'accordion',
+	var pluginName = 'slideshow',
 		events = {/* eventname: pluginName +'_eventname' */},
 		defaults = {
 			domSelectors: {
@@ -42,6 +42,8 @@
 		this.helper(pluginName, defaults, element, options);
 	};
 
+	Plugin.prototype = $.extend(true, {}, Unic.modules.PluginHelper.prototype, Plugin.prototype);
+
 	/**
 	 * Initialize module, bind events
 	 */
@@ -61,6 +63,16 @@
 
 				this.next();
 			}, this));
+
+		// Exemplary resize listener
+		$document.on(Unic.events.resize, function(event, originalEvent) {
+			console.log(originalEvent);
+		});
+
+		// Exemplary scroll listener
+		$document.on(Unic.events.scroll, function(event, originalEvent) {
+			console.log(originalEvent);
+		});
 
 		this.show(this.options.initialItem);
 	};
@@ -91,13 +103,6 @@
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)
-	Unic.modules.PluginHelper.register(Plugin, pluginName);
-
-	// Bind the module to particular events and elements
-	$document.on('ready ajax_loaded', function() {
-		$.fn[pluginName].apply($('[data-'+ pluginName +'~="init"]'), [{
-			// Options
-		}]);
-	});
+	Unic.modules.PluginHelper.register(Plugin, pluginName, ['ready', 'ajax_loaded']);
 
 })(window, document, jQuery, Unic);

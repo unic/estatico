@@ -14,7 +14,7 @@ echo "
 "
 
 # Install NPM dependencies using npm-pkgr (caching modules)
-npm-pkgr --strategy=copy
+DEBUG=* npm-pkgr --strategy=copy
 
 # Install Bower dependencies
 node node_modules/.bin/bower install

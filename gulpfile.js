@@ -147,7 +147,7 @@ gulp.task('js:hint', function() {
 		.pipe(plugins.cached('linting'))
 		.pipe(plugins.jshint('.jshintrc'))
 		.pipe(plugins.jshint.reporter('jshint-stylish'))
-		.pipe(plugins.jshint.reporter('fail'))
+		.pipe(plugins.util.env.develop ? plugins.util.noop() : plugins.jshint.reporter('fail'))
 			.on('error', function(err) {
 				console.log('[ERROR] ' + err.message + '.');
 				process.exit(1);
@@ -163,10 +163,13 @@ gulp.task('js:head', function() {
 	])
 		.pipe(plugins.resolveDependencies({
 			pattern: /\* @requires [\s-]*(.*?\.js)/g,
-			log: true
+			log: true,
+			fail: plugins.util.env.develop ? false : true
 		}))
 		.pipe(plugins.concat('head.js'))
-		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify({
+			preserveComments: 'some'
+		}) : plugins.util.noop())
 		.pipe(plugins.size({
 			title: 'js:head'
 		}))
@@ -183,10 +186,13 @@ gulp.task('js:main', function() {
 	])
 		.pipe(plugins.resolveDependencies({
 			pattern: /\* @requires [\s-]*(.*?\.js)/g,
-			log: true
+			log: true,
+			fail: plugins.util.env.develop ? false : true
 		}))
 		.pipe(plugins.concat('main.js'))
-		.pipe(plugins.util.env.production ? plugins.uglify() : plugins.util.noop())
+		.pipe(plugins.util.env.production ? plugins.uglify({
+			preserveComments: 'some'
+		}) : plugins.util.noop())
 		.pipe(plugins.size({
 			title: 'js:main'
 		}))
@@ -255,7 +261,7 @@ gulp.task('js:lodash', function(cb) {
 		targetDir = 'source/assets/.tmp/',
 		targetFile = 'lodash.js',
 		relTargetPath = path.relative(cmdDir, targetDir + targetFile),
-		modules = ['debounce'],
+		modules = ['debounce', 'keys'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
