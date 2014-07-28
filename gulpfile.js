@@ -76,7 +76,8 @@ gulp.task('html', function() {
 				return data[fileName] || {};
 			},
 			partials: './source/{,layouts/,pages/,modules/**/,assets/vendor/unic-preview/**/}*.hbs',
-			extension: '.html'
+			extension: '.html',
+			cachePartials: false
 		}))
 		.pipe(plugins.prettify({
 			indent_with_tabs: true,
@@ -104,7 +105,8 @@ gulp.task('html', function() {
 			gulp.src('./source/assets/vendor/unic-preview/index.hbs')
 				.pipe(plugins.unicHandlebars({
 					extension: '.html',
-					data: templateData
+					data: templateData,
+					cachePartials: false
 				}))
 				.pipe(gulp.dest('./build'))
 				.pipe(plugins.livereload(server));
