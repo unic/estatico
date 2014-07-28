@@ -173,7 +173,7 @@ gulp.task('lodash', function(cb) {
 		targetDir = 'source/assets/.tmp/',
 		targetFile = 'lodash.js',
 		relTargetPath = path.relative(cmdDir, targetDir + targetFile),
-		modules = ['debounce'],
+		modules = ['debounce', 'keys'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
