@@ -53,12 +53,12 @@
 		this.$items = this.$element.find(this.options.domSelectors.slide).hide();
 
 		this.$element
-			.on('click.' + pluginName, this.options.domSelectors.prev, $.proxy(function(event) {
+			.on('click.' + pluginName, this.options.domSelectors.prev, _.bind(function(event) {
 				event.preventDefault();
 
 				this.prev();
 			}, this))
-			.on('click.' + pluginName, this.options.domSelectors.next, $.proxy(function(event) {
+			.on('click.' + pluginName, this.options.domSelectors.next, _.bind(function(event) {
 				event.preventDefault();
 
 				this.next();
