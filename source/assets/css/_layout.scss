@@ -1,0 +1,26 @@
+// Variables are always defined at the top of a file
+// Colors are prefixed with "color", sizes with "size"
+$colorBgBody: #fff;
+
+
+body {
+	background: $colorBgBody;
+	font-family: $fontBase;
+	font-size: $sizeFontBase / 16px * 100%;
+	line-height: $lineHeightBase;
+}
+
+
+/* Demo */
+body {
+	box-sizing: border-box;
+	color: green;
+
+	.no-csstransforms & {
+		color: red;
+	}
+
+	p {
+		@include sprite(logo);
+	}
+}

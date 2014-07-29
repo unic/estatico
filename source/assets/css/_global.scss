@@ -1,0 +1,111 @@
+/**
+ * Default variables
+ */
+
+$sizeFontBase:       12px;
+$sizeWidthContent:   960px;
+$fontBase:           Helvetica, Arial, sans-serif;
+$lineHeightBase:     1.5;
+
+
+/**
+ * Helper functions
+ */
+
+@function pxToEm($px, $ref: $sizeFontBase) {
+	@return toEm(toPx($px) / toPx($ref));
+}
+@function pxToPc($px, $ref: $sizeWidthContent) {
+	@return (toPx($px) / toPx($ref) * 100%);
+}
+@function toEm($val) {
+	@return ($val + 0em);
+}
+@function toPx($val) {
+	@return ($val + 0px);
+}
+
+
+/**
+ * Hide visually
+ *
+ * See http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ * for discussion of different solutions
+ */
+
+%visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+%visuallyhidden_reset {
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
+}
+
+%visuallyhidden_focusable {
+	@extend %visuallyhidden;
+
+	&:active,
+	&:focus {
+		@extend %visuallyhidden_reset;
+	}
+}
+
+.visuallyhidden {
+	@extend %visuallyhidden;
+}
+
+
+/**
+ * Clearfix
+ *
+ * http://nicolasgallagher.com/micro-clearfix-hack/
+ */
+
+%clearfix {
+	*zoom: 1;
+
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+.clearfix {
+	@extend %clearfix;
+}
+
+
+/**
+ * Lists with layout purpose
+ */
+
+%reset_list {
+	list-style: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+	ul,
+	ol {
+		@extend %reset_list;
+	}
+}
