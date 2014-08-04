@@ -14,6 +14,7 @@ var gulp = require('gulp'),
 	runSequence = require('run-sequence'),
 	path = require('path'),
 	fs = require('fs'),
+	glob = require('glob'),
 
 	// Handlebars
 	handlebars = require('handlebars'),
@@ -51,7 +52,8 @@ gulp.task('html', function() {
 					previewUrl: plugins.util.replaceExtension(fileName, '.html'),
 				},
 				modulePrepend = new Buffer('{{#extend "assets/vendor/unic-preview/layouts/layout"}}{{#replace "content"}}'),
-				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
+				moduleAppend = new Buffer('{{/replace}}{{/extend}}'),
+				testScripts = [];
 
 			// Find JSON file with the same name as the template
 			try {
@@ -64,6 +66,13 @@ gulp.task('html', function() {
 
 				// Wrap modules with custom layout for preview purposes
 				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
+			}
+
+			// Find QUnit test files to include
+			if (fileData.runTests && fileData.testScripts) {
+				fileData.testScripts = glob.sync(fileData.testScripts).map(function(filePath) {
+					return path.join('./test/', path.relative('./source/', filePath));
+				});
 			}
 
 			// Save data for later use
@@ -284,6 +293,46 @@ gulp.task('js:lodash', function(cb) {
 });
 
 /**
+ * Copy QUnit test files
+ */
+gulp.task('js:copy', function() {
+	return gulp.src([
+		'./source/assets/vendor/qunit/qunit/*',
+		'./source/modules/**/*.test.js'
+	], {
+		base: './source/'
+	})
+		.pipe(gulp.dest('./build/test/'));
+});
+
+/**
+ * Run QUnit tests
+ */
+gulp.task('js:test', function() {
+	var ignoreFiles = [];
+
+	return gulp.src('./build/{pages/,modules/**/}*.html')
+		.pipe(plugins.tap(function(file) {
+			// Ignore files without a qunit script reference
+			if (file.contents.toString().search('assets/vendor/qunit/qunit/qunit.js') === -1) {
+				ignoreFiles.push(file.path);
+
+				return;
+			}
+
+			// Fix absolute file paths
+			file.contents = new Buffer(file.contents.toString().replace('<head>', '<head><base href="/' + path.resolve('./build') + '/">').replace(/\"\//g, '"'));
+		}))
+		.pipe(plugins.ignore.exclude(function(file) {
+			return _.indexOf(ignoreFiles, file.path) !== -1;
+		}))
+		.pipe(gulp.dest('./test/'))
+		.pipe(plugins.qunit().on('error', function(err) {
+			process.exit(1);
+		}));
+});
+
+/**
  * Generate icon font
  * Generate SCSS file based on handlebars template
  */
@@ -370,7 +419,8 @@ gulp.task('media:copy', function() {
  */
 gulp.task('clean', function() {
 	return gulp.src([
-		'build'
+		'build',
+		'test'
 	], {
 		read: false
 	})
@@ -402,7 +452,7 @@ gulp.task('watch', function() {
 			'source/assets/js/{,**/}*.js',
 			'source/assets/.tmp/*.js',
 			'source/modules/**/*.js'
-		], ['js:hint', 'js:head', 'js:main']);
+		], ['js:hint', 'js:head', 'js:main', 'js:copy', 'js:test']);
 
 		gulp.watch([
 			'source/assets/pngsprite/*.png',
@@ -421,7 +471,7 @@ gulp.task('watch', function() {
  */
 gulp.task('build', function(cb) {
 	// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
-	runSequence('clean', ['js:lodash', 'media:iconfont', 'media:pngsprite'], 'js:modernizr', ['html', 'css', 'js:hint', 'js:head', 'js:main', 'media:copy'], function(err) {
+	runSequence('clean', ['js:lodash', 'media:iconfont', 'media:pngsprite'], 'js:modernizr', ['css', 'js:hint', 'js:head', 'js:main', 'js:copy', 'media:copy', 'html'], 'js:test', function(err) {
 		if (err) {
 			console.log('[ERROR] in ' + err.task + ': ' + err.err);
 			process.exit(1);
@@ -465,34 +515,4 @@ gulp.task('default', function(cb) {
 
 		cb();
 	});
-});
-
-/**
- * QUnit test
- */
-gulp.task('test', ['build'], function() {
-	gulp.src('./build/{,**/}*')
-		.pipe(gulp.dest('./test'));
-
-	gulp.src(['./source/assets/vendor/qunit/qunit/qunit.js', './source/modules/slideshow/test.js'], {
-			base: './source'
-		})
-		.pipe(gulp.dest('./test/'));
-
-	return gulp.src('./test/index.html')
-		.pipe(plugins.inject(
-			gulp.src(['./source/assets/vendor/qunit/qunit/qunit.js', './source/modules/slideshow/test.js'], {
-				read: false
-			}), {
-				starttag: '<script src="/assets/js/main.js"></script>',
-				endtag: '</body>',
-				transform: function(filepath, file, index, length) {
-					var path = filepath.replace(/\/source/,'');
-
-					return '<script src="' + path + '"></script>';
-				}
-			}
-		))
-		// .pipe(gulp.dest('./test/'));
-		.pipe(plugins.qunit());
 });

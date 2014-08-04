@@ -9,16 +9,33 @@
 	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
 
-	<script src="assets/js/head.js"></script>
+	<script src="/assets/js/head.js"></script>
 </head>
 <body>
 	{{#block "content"}}
 	{{/block}}
 
-	<script src="assets/js/main.js"></script>
-<script src="assets/vendor/qunit/qunit/qunit.js"></script>
-<script src="modules/slideshow/test.js"></script>
+	<script src="/assets/js/main.js"></script>
+	{{#if runTests}}
+		<!-- DO NOT COPY -->
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<script src="/test/assets/vendor/qunit/qunit/qunit.js"></script>
+		{{#each testScripts}}
+			<script src="/{{this}}"></script>
+		{{/each}}
+		<script>
+			;(function($) {
+				$('<link/>', {
+					rel: 'stylesheet',
+					type: 'text/css',
+					href: '/test/assets/vendor/qunit/qunit/qunit.css'
+				}).appendTo('head');
+			})(jQuery);
+		</script>
+		<!-- //DO NOT COPY -->
+	{{/if}}
 </body>
 </html>
