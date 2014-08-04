@@ -42,6 +42,23 @@
 	margin-top: 0;
 }
 
+%sg_sub_headings {
+	font-weight: 400;
+	margin-top: 2em;
+}
+.sg_h2 {
+	@extend %sg_sub_headings;
+	border-bottom: 1px solid rgba(#000,.2);
+}
+.sg_h3 {
+	@extend %sg_sub_headings;
+
+}
+.sg_h4 {
+	@extend %sg_sub_headings;
+
+}
+
 .sg_block {
 	border-top: 1px solid rgb(225,225,225);
 	padding: .4em 0 2em;
@@ -81,7 +98,6 @@
 }
 
 .sg_inner_wrapper {
-	border-top: 1px solid black;
 }
 
 
