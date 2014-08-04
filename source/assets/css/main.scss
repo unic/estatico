@@ -1,17 +1,21 @@
-@import "normalize-scss/normalize";
+@import "fonts";
 @import "../.tmp/icons";
 @import "../.tmp/sprite";
+
+// 3rd party scripts
+@import "normalize-scss/normalize";
+
+// Base files
+@import "global";
+@import "layout";
+
+// Overwrites for 3rd party scripts
+@import "vendor";
+
+// Modules
 @import "slideshow/slideshow";
 
-body {
-	box-sizing: border-box;
-	color: green;
 
-	.no-csstransforms & {
-		color: red;
-	}
-
-	p {
-		@include sprite(logo);
-	}
+@media print {
+	@import "print";
 }
