@@ -79,6 +79,20 @@
 	"globals" : {
 		"_": false,
 		"Unic": true,
-		"Modernizr": false
+		"Modernizr": false,
+
+		"QUnit": false,
+		"test": false,
+		"expect": false,
+		"deepEqual": false,
+		"equal": false,
+		"notDeepEqual": false,
+		"notEqual": false,
+		"notPropEqual": false,
+		"notStrictEqual": false,
+		"ok": false,
+		"propEqual": false,
+		"strictEqual": false,
+		"throws": false
 	}
 }
