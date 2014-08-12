@@ -1,8 +1,21 @@
-@import "helpers";
-@import "normalize-scss/normalize";
+@import "fonts";
 @import "../.tmp/icons";
 @import "../.tmp/sprite";
 
-body {
-	box-sizing: border-box;
+// 3rd party scripts
+@import "normalize-scss/normalize";
+
+// Base files
+@import "global";
+@import "layout";
+
+// Overwrites for 3rd party scripts
+@import "vendor";
+
+// Modules
+@import "slideshow/slideshow";
+
+
+@media print {
+	@import "print";
 }

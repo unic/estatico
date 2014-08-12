@@ -10,29 +10,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="/assets/css/main.css">
-	<link rel="stylesheet" href="/assets/css/styleguide.css">
 
 	<script src="/assets/js/head.js"></script>
 </head>
 <body>
-	<div class="sg_wrapper">
+	{{#block "content"}}
+	{{/block}}
 
-	<nav class="sg_nav">
-		<h1 class="sg_title">styleguide</h1>
-		<ul>
-			<li><a href="/styleguide/sections/colors.html">Colors</a></li>
-			<li><a href="/styleguide/sections/elements.html">Elements</a></li>
-			<li><a href="/styleguide/sections/fonts.html">Fonts</a></li>
-			<li><a href="/styleguide/sections/forms.html">Forms</a></li>
-			<li><a href="/styleguide/sections/icons.html">Icons</a></li>
-		</ul>
-	</nav>
-	<main class="sg_main">
-		<h1 class="sg_title">{{title}}</h1>
-		{{#block "content"}}
-		{{/block}}
-	</main>
-	</div>
+	<pre>{{code}}</pre>
+
 	<script src="/assets/js/main.js"></script>
+	{{#if runTests}}
+		<!-- DO NOT COPY -->
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<script src="/test/assets/vendor/qunit/qunit/qunit.js"></script>
+		{{#each testScripts}}
+			<script src="/{{this}}"></script>
+		{{/each}}
+		<script>
+			;(function($) {
+				$('<link/>', {
+					rel: 'stylesheet',
+					type: 'text/css',
+					href: '/test/assets/vendor/qunit/qunit/qunit.css'
+				}).appendTo('head');
+			})(jQuery);
+		</script>
+		<!-- //DO NOT COPY -->
+	{{/if}}
 </body>
 </html>

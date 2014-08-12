@@ -1,12 +1,19 @@
+html,
+body {
+	height: 100%;
+}
+
 .sg_wrapper {
+	height: 100%;
 }
 
 .sg_nav {
+	overflow-y: auto;
 	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100%;
-	width: 10em;
+	width: 20%;
 	padding: 2em 1em;
 	border-right: 1px solid rgb(225,225,225);
 
@@ -33,8 +40,11 @@
 }
 
 .sg_main {
-	margin-left: 12em;
+	border: none;
+	height: 100%;
+	margin-left: 20%;
 	padding: 2em;
+	width: 80%
 }
 
 .sg_title {
