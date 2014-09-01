@@ -1,0 +1,25 @@
+/**
+ * Default variables
+ */
+
+$sizeFontBase     : 16px;
+$fontBase         : Arial, sans-serif;
+$fontTitles       : Georgia,serif;
+$lineHeightBase   : 1.5;
+$colorBgBody      : #ffffff;
+
+$baseUnit         : 8;
+
+// Controls text direction settings
+$text-direction   : ltr !default;
+
+// NOTE: No need to change this conditional statement, $text-direction variable controls it all.
+//$default-float: left !default;
+//$opposite-direction: right !default;
+//@if $text-direction == ltr {
+//	$default-float: left;
+//	$opposite-direction: right;
+//} @else {
+//	$default-float: right;
+//	$opposite-direction: left;
+//}
