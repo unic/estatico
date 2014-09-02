@@ -1,0 +1,23 @@
+'use strict';
+
+var gulp = require('gulp'),
+	resolveDependencies = require('gulp-resolve-dependencies'),
+	concat = require('gulp-concat'),
+	util = require('gulp-util'),
+	uglify = require('gulp-uglify'),
+	livereload = require('gulp-livereload'),
+	tinylr = require('tiny-lr'),
+	server = tinylr();
+
+gulp.task('js-head', function() {
+	return gulp.src(['./source/assets/js/head.js'])
+		.pipe(resolveDependencies({
+			pattern: /\* @requires [\s-]*(.*?\.js)/g,
+			log: true,
+			fail: util.env.develop ? false : true
+		}))
+		.pipe(concat('head.js'))
+		.pipe(util.env.production ? uglify({preserveComments: 'some'}) : util.noop())
+		.pipe(gulp.dest('./build/assets/js'))
+		.pipe(livereload(server));
+});
