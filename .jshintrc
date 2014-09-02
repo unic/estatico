@@ -78,6 +78,7 @@
 	// Custom Globals
 	"globals" : {
 		"_": false,
-		"Unic": true
+		"Unic": true,
+		"Modernizr": false
 	}
 }
