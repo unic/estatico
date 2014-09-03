@@ -1,16 +1,15 @@
 'use strict';
 
+/**
+ * Hint files using .jshintrc
+ */
+
 var gulp = require('gulp'),
 	util = require('gulp-util'),
 	cached = require('gulp-cached'),
 	jshint = require('gulp-jshint');
 
-/**
- * Hint files
- * Generate head.js
- * Generate main.js
- */
-gulp.task('jshint', function() {
+gulp.task('js:hint', function () {
 	return gulp.src([
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',
@@ -20,8 +19,9 @@ gulp.task('jshint', function() {
 		.pipe(jshint('.jshintrc'))
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(util.env.develop ? util.noop() : jshint.reporter('fail'))
-		.on('error', function(err) {
+		.on('error', function (err) {
 			console.log('[ERROR] ' + err.message + '.');
 			process.exit(1);
 		});
 });
+

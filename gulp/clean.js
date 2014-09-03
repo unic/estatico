@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 /**
  * Remove build folder
  */
-gulp.task('clean', function() {
+gulp.task('clean', function () {
 	return gulp
 		.src(['build'], {read: false})
 		.pipe(clean());

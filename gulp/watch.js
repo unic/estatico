@@ -1,25 +1,23 @@
 'use strict';
 
-var gulp = require('gulp'),
-	tinylr = require('tiny-lr'),
-	server = tinylr()/*,
-	handleErrors = require('../utils/handleErrors')*/;
-
 /**
  * Run specific tasks when specific files have changed
  */
-gulp.task('watch', function() {
+
+var gulp = require('gulp'),
+	tinylr = require('tiny-lr'),
+	server = tinylr();
+
+gulp.task('watch', function () {
 	// Listen on port 35729
 	server.listen(35729, function (err) {
 		if (err) {
-			// handleErrors(err);
 			return console.log(err);
 		}
 
 		gulp.watch([
-			'source/{,*/}*.html',
-			'source/data/*.json',
-			'source/modules/**/*.html'
+			'source/{,pages/,modules/**/}*.hbs',
+			'source/{,pages/,modules/**/}*.json'
 		], ['html']);
 
 		gulp.watch([
@@ -32,17 +30,16 @@ gulp.task('watch', function() {
 			'source/assets/js/{,**/}*.js',
 			'source/assets/.tmp/*.js',
 			'source/modules/**/*.js'
-		], ['jshint', 'js-head', 'js-main']);
+		], ['js:hint', 'js:head', 'js:main']);
 
 		gulp.watch([
 			'source/assets/pngsprite/*.png',
 			'source/modules/**/pngsprite/*.png'
-		], ['pngsprite']);
+		], ['media:pngsprite']);
 
 		gulp.watch([
 			'source/assets/iconfont/*.svg',
 			'source/modules/**/iconfont/*.svg'
-		], ['iconfont']);
+		], ['media:iconfont']);
 	});
 });
-

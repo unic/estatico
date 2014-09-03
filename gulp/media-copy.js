@@ -1,11 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
-
 /**
  * Copy specific media files to build directory
  */
-gulp.task('media', function() {
+
+var gulp = require('gulp'),
+	size = require('gulp-size');
+
+gulp.task('media:copy', function () {
 	return gulp.src([
 			'./source/assets/fonts/{,**/}*',
 			'./source/assets/media/*.*',
@@ -13,5 +15,8 @@ gulp.task('media', function() {
 		], {
 			base: './source/'
 		})
+		.pipe(size({
+			title: 'media:copy'
+		}))
 		.pipe(gulp.dest('./build'));
 });
