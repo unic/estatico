@@ -2,60 +2,17 @@
 	{{#replace "content"}}
 		<!-- todo: add icons from all icon folders -->
 		<div class="sg_icons">
+
+		{{#each icons}}
+
 			<div class="sg_icons_item">
-				<div class="sg_icons_label">Account</div>
-				<div class="sg_icons_icon" style="font-size: 16px"><span class="icon-account"></span></div>
-				<div class="sg_icons_icon" style="font-size: 20px"><span class="icon-account"></span></div>
-				<div class="sg_icons_icon" style="font-size: 24px"><span class="icon-account"></span></div>
-				<div class="sg_icons_icon" style="font-size: 32px"><span class="icon-account"></span></div>
-				<div class="sg_icons_icon" style="font-size: 56px"><span class="icon-account"></span></div>
-				<div class="sg_icons_icon" style="font-size: 100px"><span class="icon-account"></span></div>
+				<div class="sg_icons_label">{{this}}</div>
+				{{#each ../sizes}}
+					<div class="sg_icons_icon" style="font-size: {{this}}px"><span class="icon-{{../this}}"></span></div>
+				{{/each}}
 			</div>
-			<div class="sg_icons_item">
-				<div class="sg_icons_label">Back</div>
-				<div class="sg_icons_icon" style="font-size: 16px"><span class="icon-back"></span></div>
-				<div class="sg_icons_icon" style="font-size: 20px"><span class="icon-back"></span></div>
-				<div class="sg_icons_icon" style="font-size: 24px"><span class="icon-back"></span></div>
-				<div class="sg_icons_icon" style="font-size: 32px"><span class="icon-back"></span></div>
-				<div class="sg_icons_icon" style="font-size: 56px"><span class="icon-back"></span></div>
-				<div class="sg_icons_icon" style="font-size: 100px"><span class="icon-back"></span></div>
-			</div>
-			<div class="sg_icons_item">
-				<div class="sg_icons_label">Check</div>
-				<div class="sg_icons_icon" style="font-size: 16px"><span class="icon-check"></span></div>
-				<div class="sg_icons_icon" style="font-size: 20px"><span class="icon-check"></span></div>
-				<div class="sg_icons_icon" style="font-size: 24px"><span class="icon-check"></span></div>
-				<div class="sg_icons_icon" style="font-size: 32px"><span class="icon-check"></span></div>
-				<div class="sg_icons_icon" style="font-size: 56px"><span class="icon-check"></span></div>
-				<div class="sg_icons_icon" style="font-size: 100px"><span class="icon-check"></span></div>
-			</div>
-			<div class="sg_icons_item">
-				<div class="sg_icons_label">Check</div>
-				<div class="sg_icons_icon" style="font-size: 16px"><span class="icon-close"></span></div>
-				<div class="sg_icons_icon" style="font-size: 20px"><span class="icon-close"></span></div>
-				<div class="sg_icons_icon" style="font-size: 24px"><span class="icon-close"></span></div>
-				<div class="sg_icons_icon" style="font-size: 32px"><span class="icon-close"></span></div>
-				<div class="sg_icons_icon" style="font-size: 56px"><span class="icon-close"></span></div>
-				<div class="sg_icons_icon" style="font-size: 100px"><span class="icon-close"></span></div>
-			</div>
-			<div class="sg_icons_item">
-				<div class="sg_icons_label">Check</div>
-				<div class="sg_icons_icon" style="font-size: 16px"><span class="icon-customercare"></span></div>
-				<div class="sg_icons_icon" style="font-size: 20px"><span class="icon-customercare"></span></div>
-				<div class="sg_icons_icon" style="font-size: 24px"><span class="icon-customercare"></span></div>
-				<div class="sg_icons_icon" style="font-size: 32px"><span class="icon-customercare"></span></div>
-				<div class="sg_icons_icon" style="font-size: 56px"><span class="icon-customercare"></span></div>
-				<div class="sg_icons_icon" style="font-size: 100px"><span class="icon-customercare"></span></div>
-			</div>
-			<div class="sg_icons_item">
-				<div class="sg_icons_label">Check</div>
-				<div class="sg_icons_icon" style="font-size: 16px"><span class="icon-facebook"></span></div>
-				<div class="sg_icons_icon" style="font-size: 20px"><span class="icon-facebook"></span></div>
-				<div class="sg_icons_icon" style="font-size: 24px"><span class="icon-facebook"></span></div>
-				<div class="sg_icons_icon" style="font-size: 32px"><span class="icon-facebook"></span></div>
-				<div class="sg_icons_icon" style="font-size: 56px"><span class="icon-facebook"></span></div>
-				<div class="sg_icons_icon" style="font-size: 100px"><span class="icon-facebook"></span></div>
-			</div>
+
+		{{/each}}
 		</div>
 	{{/replace}}
 {{/extend}}

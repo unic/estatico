@@ -40,7 +40,8 @@ require('handlebars-layouts')(handlebars);
  * Make content of PAGENAME.json (or MODULENAME.json) available to template engine
  */
 gulp.task('html', function() {
-	var data = {};
+	var data = {},
+		icons = fs.readdirSync('./source/assets/media/iconfont/');
 
 	return gulp.src([
 		'./source/{,pages/,modules/**/,styleguide/,styleguide/sections/}!(_)*.hbs'
@@ -69,6 +70,13 @@ gulp.task('html', function() {
 
 			if (file.path.indexOf('styleguide') !== -1) {
 				fileData.isStyleguide = true;
+
+
+				for (var i = 0; i < icons.length; i++) {
+				    icons[i] = icons[i].replace(/\.[^/.]+$/, "");
+				}
+
+				fileData.icons = icons;
 			}
 
 			// Save data for later use
