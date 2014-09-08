@@ -1,3 +1,17 @@
+// Styleguide defaults
+// ----------------------------------------------------------------------------------------------------
+
+// Colors
+$sg_colorWhite: #fff;
+$sg_colorLightGray: #ddd;
+$sg_colorGray: #999;
+$sg_colorBlack: #000;
+
+
+
+// Styles
+// ----------------------------------------------------------------------------------------------------
+
 html,
 body {
 	height: 100%;
@@ -15,7 +29,7 @@ body {
 	height: 100%;
 	width: 20%;
 	padding: 2em 1em;
-	border-right: 1px solid rgb(225,225,225);
+	border-right: 1px solid $sg_colorLightGray;
 
 	ul, li {
 		margin: 0;
@@ -27,10 +41,10 @@ body {
 		display: block;
 		padding: .2em 0;
 		text-decoration: none;
-		color: grey;
+		color: $sg_colorGray;
 
 		&:hover {
-			color: black;
+			color: $sg_colorBlack;
 		}
 	}
 
@@ -58,7 +72,7 @@ body {
 }
 .sg_h2 {
 	@extend %sg_sub_headings;
-	border-bottom: 1px solid rgba(#000,.2);
+	border-bottom: 1px solid rgba($sg_colorBlack, .2);
 }
 .sg_h3 {
 	@extend %sg_sub_headings;
@@ -68,7 +82,7 @@ body {
 }
 
 .sg_block {
-	border-top: 1px solid rgb(225,225,225);
+	border-top: 1px solid $sg_colorWhite;
 	padding: .4em 0 2em;
 }
 
@@ -81,8 +95,8 @@ body {
 .sg_icons_label,
 .sg_icons_icon {
 	display: table-cell;
-	border-top: 1px solid rgb(225,225,225);
-	border-left: 1px solid rgb(225,225,225);
+	border-top: 1px solid $sg_colorLightGray;
+	border-left: 1px solid $sg_colorLightGray;
 	vertical-align: top;
 	padding: .5em;
 }
@@ -91,14 +105,14 @@ body {
 	width: 20%;
 }
 .sg_icons_icon:last-of-type {
-	border-right: 1px solid rgb(225,225,225);
+	border-right: 1px solid $sg_colorLightGray;
 }
 
 .sg_icons {
 	display: table;
 	width: 100%;
 
-	border-bottom: 1px solid rgb(225,225,225);
+	border-bottom: 1px solid $sg_colorLightGray;
 }
 
 .sg_icons_item {
@@ -127,6 +141,7 @@ body {
 	width: 5em;
 	height: 5em;
 	margin: 0 auto;
+	border: 1px solid $sg_colorLightGray;
 	border-radius: 50%;
 }
 

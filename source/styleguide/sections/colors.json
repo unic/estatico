@@ -3,42 +3,34 @@
 	"colors": [
 		{
 			"name": "Dark Red",
-			"variableName": "$colorDarkred",
 			"hexValue": "#460d00",
 			"showInStyleguide": true
 		}, {
 			"name": "Red Wine",
-			"variableName": "$colorRedwine",
 			"hexValue": "#671200",
 			"showInStyleguide": true
 		}, {
 			"name": "Nature",
-			"variableName": "$colorNature",
 			"hexValue": "#7b8b00",
 			"showInStyleguide": true
 		}, {
 			"name": "Black",
-			"variableName": "$colorBlack",
 			"hexValue": "#000000",
 			"showInStyleguide": true
 		}, {
 			"name": "Dark Gray",
-			"variableName": "$colorDarkgray",
 			"hexValue": "#101111",
 			"showInStyleguide": true
 		}, {
 			"name": "Gray",
-			"variableName": "$colorGray",
 			"hexValue": "#4d4d4d",
 			"showInStyleguide": true
 		}, {
 			"name": "Light Gray",
-			"variableName": "$colorLightgray",
 			"hexValue": "#ececec",
 			"showInStyleguide": true
 		}, {
 			"name": "White",
-			"variableName": "$colorWhite",
 			"hexValue": "#ffffff",
 			"showInStyleguide": true
 		}
