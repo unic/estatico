@@ -1,3 +1,10 @@
 {
-	"title": "Fonts"
+	"title": "Fonts",
+    "fonts": [
+        {
+            "family": "Arial",
+            "weights": [400 ,700],
+            "sizes": [12, 16, 24, 48]
+        }
+    ]
 }
