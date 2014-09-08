@@ -32,6 +32,7 @@
     "lodash": "2.4.1",
     "lodash-cli": "2.4.2",
     "open": "0.0.5",
+    "require-dir": "0.1.0",
     "run-sequence": "0.3.6",
     "serve-static": "1.2.3",
     "tiny-lr": "0.0.7"
@@ -40,6 +41,5 @@
     "node": ">= 0.10"
   },
   "devDependencies": {
-    "require-dir": "^0.1.0"
   }
 }
