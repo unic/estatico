@@ -29,6 +29,7 @@ var gulp = require('gulp'),
 	http = require('http'),
 	open = require('open');
 
+require('./handlebars_helpers');
 
 // Make handlebars layout helpers available
 require('handlebars-layouts')(handlebars);
@@ -149,6 +150,7 @@ gulp.task('css', function() {
  */
 gulp.task('js:hint', function() {
 	return gulp.src([
+			'./handlebars_helpers.js',
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',
 			'!./source/assets/vendor/*.js'

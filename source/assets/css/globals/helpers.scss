@@ -1,0 +1,33 @@
+/**
+ * Hide visually
+ *
+ * See http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ * for discussion of different solutions
+ */
+
+.visuallyhidden {
+	@extend %visuallyhidden;
+}
+
+
+/**
+ * Clearfix
+ *
+ * http://nicolasgallagher.com/micro-clearfix-hack/
+ */
+
+.clearfix {
+	@extend %clearfix;
+}
+
+
+/**
+ * Lists with layout purpose
+ */
+
+nav {
+	ul,
+	ol {
+		@extend %reset_list;
+	}
+}
