@@ -8,10 +8,6 @@
 var gulp = require('gulp'),
 	fs = require('fs'),
 	_ = require('lodash'),
-	//frontMatter = require('gulp-front-matter'),
-	//appendTemplateData = require('gulp-append-template-data'),
-	//generateSiteIndex = require('gulp-generate-site-index'),
-	//consolidate = require('gulp-consolidate'),
 	livereload = require('gulp-livereload'),
 	tinylr = require('tiny-lr'),
 	server = tinylr(),
@@ -71,7 +67,6 @@ gulp.task('html', function () {
 		}))
 		.pipe(gulp.dest('./build'))
 		.on('end', function () {
-			// TODO: add this as a different required task
 			var templateData = {
 				pages: [],
 				modules: []
