@@ -14,13 +14,9 @@ body {
 /* Demo */
 body {
 	box-sizing: border-box;
-	color: green;
+	color: black;
 
 	.no-csstransforms & {
 		color: red;
-	}
-
-	p {
-		@include sprite(logo);
 	}
 }

@@ -1,4 +1,5 @@
 .mod_slideshow {
+	@include sprite(logo);
 
 	.next {
 		@include icon(slideshow-twitter);

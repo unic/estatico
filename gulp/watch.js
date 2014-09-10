@@ -17,14 +17,16 @@ gulp.task('watch', function () {
 
 		gulp.watch([
 			'source/{,pages/,modules/**/}*.hbs',
-			'source/{,pages/,modules/**/}*.json'
+			'source/{,pages/,modules/**/}*.json',
+			'source/{,pages/,modules/**/,styleguide/**/}*.hbs',
+			'source/{,pages/,modules/**/,styleguide/**/}*.json'
 		], ['html']);
 
 		gulp.watch([
 			'source/assets/css/*.scss',
 			'source/assets/.tmp/*.scss',
 			'source/modules/**/*.scss'
-		], ['css']);
+		], ['css:default', 'css:styleguide']);
 
 		gulp.watch([
 			'source/assets/js/{,**/}*.js',

@@ -17,6 +17,8 @@
 	// speak: none; // only necessary if not using the private unicode range (firstGlyph option)
 	text-decoration: none;
 	text-transform: none;
+	line-height: 1;
+	position: absolute;
 }
 
 @function icon-char($filename) {
@@ -30,14 +32,28 @@
 	@return $char;
 }
 
-@mixin icon($filename) {
+@mixin icon($filename, $size: 16, $center: true) {
+	position: relative;
 	&:before {
 		@extend %icon;
+		font-size: pxToEm($size);
 		content: icon-char($filename);
+		top: 50%;
+		margin-top: pxToEm(-($size/2), $size);
+
+		@if ($center == true) {
+			left: 50%;
+			margin-left: pxToEm(-($size/2), $size);
+		}
 	}
 }
 
 {{#codepoints}}.icon-{{name}} {
-	@include icon({{name}});
+	padding: 0 1em 0 1.6em;
+	@include icon({{name}}, $center: false);
+
+	&:before {
+		left: 0;
+	}
 }
 {{/codepoints}}

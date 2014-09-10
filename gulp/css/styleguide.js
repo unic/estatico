@@ -14,9 +14,9 @@ var gulp = require('gulp'),
 	tinylr = require('tiny-lr'),
 	server = tinylr();
 
-gulp.task('css', function () {
+gulp.task('css:styleguide', function () {
 	return gulp.src([
-		'./source/assets/css/*.scss'
+		'./source/styleguide/*.scss'
 	])
 		.pipe(rubySass({
 			loadPath: [
@@ -30,6 +30,6 @@ gulp.task('css', function () {
 		.pipe(size({
 			title: 'css'
 		}))
-		.pipe(gulp.dest('./build/assets/css'))
+		.pipe(gulp.dest('./build/styleguide'))
 		.pipe(livereload(server));
 });
