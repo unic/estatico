@@ -1,3 +1,5 @@
+@import "global";
+
 * {
 	box-sizing: border-box;
 }
@@ -43,6 +45,21 @@ body {
 	padding: 2em 1em;
 	margin-right: 2em;
 	border-right: 1px solid $sg_colorLightGray;
+
+	h1 {
+		background: url(../media/logo.svg) no-repeat;
+		background-size: contain;
+		font-size: 1em;
+		height: pxToEm(100);
+		margin: 0 0 pxToEm(50) 0;
+		overflow: hidden;
+		text-indent: -100em;
+		width: pxToEm(100);
+	}
+
+	h2 {
+		margin-bottom: 0;
+	}
 
 	ul, li {
 		margin: 0;

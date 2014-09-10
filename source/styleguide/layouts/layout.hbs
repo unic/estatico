@@ -10,20 +10,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="/assets/css/main.css">
-	<link rel="stylesheet" href="/styleguide/styleguide.css">
+	<link rel="stylesheet" href="/styleguide/assets/css/main.css">
 </head>
 <body>
 	<div class="sg_wrapper">
 
 		<nav class="sg_nav">
-			<h1 class="sg_title">{{project}} styleguide</h1>
+			<h1 class="sg_title">{{project}}</h1>
 
 			<h2>Pages</h2>
 
 			<ul>
 			{{#each pages}}
 				<li>
-					<a href="{{this.previewUrl}}" target="content">{{this.title}}</a>
+					<a href="{{this.previewUrl}}">{{this.title}}</a>
 				</li>
 			{{/each}}
 			</ul>
@@ -35,7 +35,7 @@
 				<li>
 					<a href="{{this.previewUrl}}" target="content">
 						{{this.title}}
-						{{#if jira}}({{this.jira}}){{/if}}
+						{{#if this.jira}}({{this.jira}}){{/if}}
 					</a>
 				</li>
 			{{/each}}

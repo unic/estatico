@@ -25,8 +25,9 @@ gulp.task('watch', function () {
 		gulp.watch([
 			'source/assets/css/*.scss',
 			'source/assets/.tmp/*.scss',
-			'source/modules/**/*.scss'
-		], ['css:default', 'css:styleguide']);
+			'source/modules/**/*.scss',
+			'source/styleguide/assets/css/*.scss',
+		], ['css']);
 
 		gulp.watch([
 			'source/assets/js/{,**/}*.js',

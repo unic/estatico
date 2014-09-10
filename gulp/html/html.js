@@ -19,10 +19,11 @@ var gulp = require('gulp'),
 
 gulp.task('html', function () {
 	var data = {},
+		defaultFileData = JSON.parse(fs.readFileSync('./source/data/default.json')),
 		icons = fs.readdirSync('./source/assets/media/iconfont/');
 
 	return gulp.src([
-		'./source/{,pages/,modules/**/,styleguide/,styleguide/sections/}!(_)*.hbs'
+		'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
 	])
 		.pipe(tap(function (file) {
 			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
@@ -61,7 +62,7 @@ gulp.task('html', function () {
 			}
 
 			// Save data for later use
-			data[fileName] = fileData;
+			data[fileName] = _.merge({}, defaultFileData, fileData);
 		}))
 		.pipe(unicHandlebars({
 			data: function (filePath) {
@@ -79,11 +80,11 @@ gulp.task('html', function () {
 		}))
 		.pipe(gulp.dest('./build'))
 		.on('end', function () {
-			var templateData = {
-				pages: [],
-				modules: [],
-				styleguide: []
-			};
+			var templateData = _.merge({
+					pages: [],
+					modules: [],
+					styleguide: []
+				}, defaultFileData);
 
 			// Sort by filename and split into pages and modules
 			data = _.sortBy(data, function (value, key) {
