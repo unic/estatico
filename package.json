@@ -8,7 +8,6 @@
     "gulp": "3.8.1",
     "gulp-autoprefixer": "0.0.7",
     "gulp-cached": "0.0.3",
-    "gulp-clean": "0.3.0",
     "gulp-concat": "2.2.0",
     "gulp-declare": "0.2.0",
     "gulp-define-module": "0.1.1",
@@ -33,6 +32,7 @@
     "lodash-cli": "2.4.2",
     "open": "0.0.5",
     "require-dir": "0.1.0",
+    "rimraf": "^2.2.8",
     "run-sequence": "0.3.6",
     "serve-static": "1.2.3",
     "tiny-lr": "0.0.7"
@@ -40,6 +40,5 @@
   "engines": {
     "node": ">= 0.10"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
