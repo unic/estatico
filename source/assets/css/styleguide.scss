@@ -12,6 +12,13 @@ $sg_colorLightGray: #ddd;
 $sg_colorGray: #999;
 $sg_colorBlack: #000;
 
+// Transitions
+$sg_defaultTransitionProperty: all;
+$sg_defaultTransitionDuration: 0.2s;
+$sg_defaultTransitionTimingFunction: ease-in-out;
+$sg_defaultTransitionDelay: 0s;
+$sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
+
 
 
 // Styles
@@ -147,6 +154,13 @@ body {
 	width: 7em;
 	float: left;
 	text-align: center;
+
+	&:hover {
+
+		.sg_color_preview {
+			transform: scale(1.25);
+		}
+	}
 }
 
 .sg_color_preview {
@@ -155,6 +169,8 @@ body {
 	margin: 0 auto;
 	border: 1px solid $sg_colorLightGray;
 	border-radius: 50%;
+
+	transition: $sg_defaultTransition;
 }
 
 .sg_color_name {
