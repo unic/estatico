@@ -21,8 +21,8 @@ gulp.task('html', function () {
 		icons = fs.readdirSync('./source/assets/media/iconfont/');
 
 	return gulp.src([
-		'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
-	])
+			'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
+		])
 		.pipe(tap(function (file) {
 			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
 				dataFile = util.replaceExtension(file.path, '.json'),

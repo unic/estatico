@@ -14,12 +14,12 @@ var gulp = require('gulp'),
 
 gulp.task('js:modernizr', function () {
 	return gulp.src([
-		'./source/assets/css/*.scss',
-		'./source/modules/**/*.scss',
-		'./source/assets/js/*.js',
-		'./source/modules/**/*.js',
-		'!./source/assets/vendor/*.js'
-	])
+			'./source/assets/css/*.scss',
+			'./source/modules/**/*.scss',
+			'./source/assets/js/*.js',
+			'./source/modules/**/*.js',
+			'!./source/assets/vendor/*.js'
+		])
 		.pipe(modernizr({}))
 		.pipe(util.env.production ? uglify() : util.noop())
 		.pipe(gulp.dest('./source/assets/.tmp'));

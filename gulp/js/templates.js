@@ -15,7 +15,9 @@ var gulp = require('gulp'),
 	livereload = require('gulp-livereload');
 
 gulp.task('js:templates', function () {
-	return gulp.src(['./source/modules/**/*.hbs'])
+	return gulp.src([
+			'./source/modules/**/*.hbs'
+		])
 		.pipe(unicHandlebars({
 			precompile: true,
 			partials: './source/modules/**/*.hbs'
