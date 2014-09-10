@@ -11,7 +11,6 @@ var gulp = require('gulp'),
 	modernizr = require('gulp-modernizr'),
 	util = require('gulp-util'),
 	uglify = require('gulp-uglify');
-	//exec = require('child_process').exec;
 
 gulp.task('js:modernizr', function () {
 	return gulp.src([
