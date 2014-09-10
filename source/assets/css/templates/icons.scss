@@ -45,15 +45,6 @@
 			left: 50%;
 			margin-left: pxToEm(-($size/2), $size);
 		}
-
-		/* @if ($offsetLeft) {
-			left: pxToEm($offsetLeft);
-		}
-
-		@if ($offsetRight) {
-			right: pxToEm($offsetRight);
-		} */
-
 	}
 }
 
