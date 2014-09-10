@@ -11,7 +11,8 @@ gulp.task('media:copy', function () {
 	return gulp.src([
 			'./source/assets/fonts/{,**/}*',
 			'./source/assets/media/*.*',
-			'./source/tmp/media/*'
+			'./source/tmp/media/*',
+			'./source/styleguide/assets/media/*'
 		], {
 			base: './source/'
 		})

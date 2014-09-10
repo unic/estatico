@@ -14,12 +14,16 @@ var gulp = require('gulp'),
 	tinylr = require('tiny-lr'),
 	server = tinylr();
 
-gulp.task('css:styleguide', function () {
-	return gulp.src([
-		'./source/styleguide/*.scss'
-	])
+gulp.task('css', function () {
+	return gulp.src([,
+			'./source/assets/css/*.scss',
+			'./source/styleguide/assets/css/*.scss'
+		], {
+			base: './source/'
+		})
 		.pipe(rubySass({
 			loadPath: [
+				'source/assets/css',
 				'source/assets/vendor',
 				'source/modules'
 			],
@@ -28,8 +32,9 @@ gulp.task('css:styleguide', function () {
 		}))
 		.pipe(autoprefixer('last 2 version'))
 		.pipe(size({
-			title: 'css'
+			title: 'css',
+			showFiles: true
 		}))
-		.pipe(gulp.dest('./build/styleguide'))
+		.pipe(gulp.dest('./build'))
 		.pipe(livereload(server));
 });
