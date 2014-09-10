@@ -7,7 +7,7 @@
 		url('{{options.fontPath}}{{options.fontName}}.svg#{{options.fontName}}') format('svg');
 }
 
-%icon {
+%iconfont_icon {
 	font-family: "{{options.fontName}}";
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -18,10 +18,9 @@
 	text-decoration: none;
 	text-transform: none;
 	line-height: 1;
-	position: absolute;
 }
 
-@function icon-char($filename) {
+@function iconfontIconfontChar($filename) {
 	$char: "";
 	{{#codepoints}}
 	@if $filename == {{name}} {
@@ -32,28 +31,23 @@
 	@return $char;
 }
 
-@mixin icon($filename, $size: 16, $center: true) {
-	position: relative;
-	&:before {
-		@extend %icon;
-		font-size: pxToEm($size);
-		content: icon-char($filename);
-		top: 50%;
-		margin-top: pxToEm(-($size/2), $size);
+@mixin iconfontIcon($filename, $size: 16) {
 
-		@if ($center == true) {
-			left: 50%;
-			margin-left: pxToEm(-($size/2), $size);
-		}
+	&:before {
+		@extend %iconfont_icon;
+
+		font-size: pxToEm($size);
+		content: iconfontIconfontChar($filename);
 	}
 }
 
-{{#codepoints}}.icon-{{name}} {
-	padding: 0 1em 0 1.6em;
-	@include icon({{name}}, $center: false);
+{{#codepoints}}%iconfont_{{name}} {
+	@include iconfontIcon({{name}});
+}
+{{/codepoints}}
 
-	&:before {
-		left: 0;
-	}
+// Demo
+{{#codepoints}}.icon_{{name}} {
+	@extend %iconfont_{{name}};
 }
 {{/codepoints}}

@@ -1,0 +1,76 @@
+$icons: (
+	{{#each icons}}"{{@key}}": (
+		"dimensions": (
+			x: {{this.dimensions.x}},
+			y: {{this.dimensions.y}}
+		),
+		"urls": (
+			{{#each this.urls}}"{{@key}}": (
+				"svg": "{{this.svg}}",
+				"svgInline": "url({{this.svg}})",
+				"png": "{{this.png}}",
+				"pngInline": "url({{this.png}})"
+			),
+			{{/each}}
+		)
+	),
+	{{/each}}
+);
+
+// Mixins
+@mixin dataurlsIcon($name, $variant: "default", $extend: true) {
+	$icon: map-get($icons, $name);
+
+	@if $icon == null {
+		@error "No icon '#{$name}' found";
+	}
+
+	$dimensions: map-get($icon, dimensions);
+	$urls: map-get($icon, urls);
+	$urls: map-get($urls, $variant);
+
+	@if $urls == null {
+		@error "No variant '#{$variant}' of icon '#{$name}' found";
+	}
+
+	&:before {
+		content: "";
+		display: inline-block;
+
+		@if $extend {
+			@extend %dataurls_#{$name}_#{$variant};
+		} @else {
+			@include _dataurlsIcon($name, $variant);
+		}
+	}
+}
+
+@mixin _dataurlsIcon($name, $variant: "default", $skipDimensions: false, $skipFallback: false) {
+	$icon: map-get($icons, $name);
+	$dimensions: map-get($icon, "dimensions");
+	$urls: map-get($icon, "urls");
+	$urls: map-get($urls, $variant);
+
+	background-image: unquote(map-get($urls, "svgInline"));
+	background-repeat: no-repeat;
+
+	@if $skipDimensions != true {
+		background-size: contain;
+		height: pxToEm(map-get($dimensions, "x"));
+		width: pxToEm(map-get($dimensions, "y"));
+	}
+
+	@if $skipFallback != true {
+		.no-svg & {
+			background-image: url(map-get($urls, "png"));
+		}
+	}
+}
+
+// Placeholders
+{{#each icons}}
+{{#each this.urls}}%dataurls_{{../name}}_{{@key}} {
+	@include _dataurlsIcon("{{../name}}", "{{@key}}");
+}
+{{/each}}
+{{/each}}

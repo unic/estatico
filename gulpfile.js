@@ -1,5 +1,9 @@
 'use strict';
 
+// Load handlebars helpers
 require('./handlebars');
-require('require-dir')('./gulp', {recurse: true});
 
+// Load tasks
+require('require-dir')('./gulp', {
+	recurse: true
+});

@@ -1,15 +1,16 @@
 'use strict';
 
 /**
- * Hint files using .jshintrc
+ * Lint files using .jshintrc
  */
 
 var gulp = require('gulp'),
+	errorHandler = require('gulp-unic-errors'),
 	util = require('gulp-util'),
 	cached = require('gulp-cached'),
 	jshint = require('gulp-jshint');
 
-gulp.task('js:hint', function () {
+gulp.task('js:lint', function () {
 	return gulp.src([
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',
@@ -18,10 +19,5 @@ gulp.task('js:hint', function () {
 		.pipe(cached('linting'))
 		.pipe(jshint('.jshintrc'))
 		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(util.env.develop ? util.noop() : jshint.reporter('fail'))
-		.on('error', function (err) {
-			console.log('[ERROR] ' + err.message + '.');
-			process.exit(1);
-		});
+		.pipe(util.env.dev ? util.noop() : jshint.reporter('fail').on('error', errorHandler));
 });
-

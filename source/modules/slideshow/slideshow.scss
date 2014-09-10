@@ -1,10 +1,13 @@
 .mod_slideshow {
-	@include sprite(logo);
 
-	.next {
-		@include icon(slideshow-twitter);
+	// Media examples
+	.media_sprite {
+		@include sprite(logo);
 	}
-	.prev {
-		@include icon(slideshow-github);
+	.media_iconfont {
+		@include iconfontIcon(slideshow_twitter);
+	}
+	.media_dataurl {
+		@include dataurlsIcon(slideshow_twitter, primary);
 	}
 }

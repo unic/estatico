@@ -6,19 +6,21 @@
  */
 
 var gulp = require('gulp'),
-	iconfont = require('gulp-iconfont'),
-	//consolidate = require('gulp-consolidate'),
-	unicHandlebars = require('gulp-unic-handlebars'),
+	errorHandler = require('gulp-unic-errors'),
+	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
+	iconfont = require('gulp-iconfont'),
+	unicHandlebars = require('gulp-unic-handlebars'),
 	_ = require('lodash');
 
 gulp.task('media:iconfont', function () {
 	return gulp.src([
-			'./source/assets/media/iconfont/*.svg',
-			'./source/modules/**/iconfont/*.svg'
+			'./source/assets/media/icons/*.svg',
+			'./source/modules/**/icons/*.svg'
 		])
 		.pipe(iconfont({
-			fontName: 'Icons'
+			fontName: 'Icons',
+			normalize: true
 		}))
 		.on('codepoints', function (codepoints, options) {
 			codepoints = _.map(codepoints, function (codepoint) {
@@ -28,7 +30,8 @@ gulp.task('media:iconfont', function () {
 				};
 			});
 
-			gulp.src('./source/assets/css/templates/icons.scss')
+			gulp.src('./source/assets/css/templates/iconfont.scss')
+				.pipe(plumber())
 				.pipe(unicHandlebars({
 					data: {
 						codepoints: codepoints,
@@ -36,7 +39,7 @@ gulp.task('media:iconfont', function () {
 							fontPath: '../fonts/icons/'
 						})
 					}
-				}))
+				}).on('error', errorHandler))
 				.pipe(gulp.dest('./source/assets/.tmp/'));
 		})
 		.pipe(size({
@@ -44,4 +47,3 @@ gulp.task('media:iconfont', function () {
 		}))
 		.pipe(gulp.dest('./build/assets/fonts/icons/'));
 });
-

@@ -29,7 +29,7 @@ gulp.task('watch', function () {
 		'source/assets/js/{,**/}*.js',
 		'source/assets/.tmp/*.js',
 		'source/modules/**/*.js'
-	], ['js:hint', 'js:head', 'js:main']);
+	], ['js:lint', 'js:head', 'js:main']);
 
 	gulp.watch([
 		'source/assets/pngsprite/*.png',
@@ -37,7 +37,7 @@ gulp.task('watch', function () {
 	], ['media:pngsprite']);
 
 	gulp.watch([
-		'source/assets/iconfont/*.svg',
-		'source/modules/**/iconfont/*.svg'
+		'source/assets/icons/*.svg',
+		'source/modules/**/icons/*.svg'
 	], ['media:iconfont']);
 });

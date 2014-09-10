@@ -8,8 +8,8 @@
  */
 
 var gulp = require('gulp'),
-	modernizr = require('gulp-modernizr'),
 	util = require('gulp-util'),
+	modernizr = require('gulp-modernizr'),
 	uglify = require('gulp-uglify');
 
 gulp.task('js:modernizr', function () {
@@ -21,6 +21,6 @@ gulp.task('js:modernizr', function () {
 			'!./source/assets/vendor/*.js'
 		])
 		.pipe(modernizr({}))
-		.pipe(util.env.production ? uglify() : util.noop())
+		.pipe(util.env.prod ? uglify() : util.noop())
 		.pipe(gulp.dest('./source/assets/.tmp'));
 });

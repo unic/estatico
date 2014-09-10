@@ -5,27 +5,29 @@
  */
 
 var gulp = require('gulp'),
-	//handlebars = require('gulp-handlebars'),
+	errorHandler = require('gulp-unic-errors'),
+	plumber = require('gulp-plumber'),
+	util = require('gulp-util'),
+	livereload = require('gulp-livereload'),
 	defineModule = require('gulp-define-module'),
 	declare = require('gulp-declare'),
 	concat = require('gulp-concat'),
 	unicHandlebars = require('gulp-unic-handlebars'),
-	path = require('path'),
-	util = require('gulp-util'),
-	livereload = require('gulp-livereload');
+	path = require('path');
 
 gulp.task('js:templates', function () {
 	return gulp.src([
 			'./source/modules/**/*.hbs'
 		])
+		.pipe(plumber())
 		.pipe(unicHandlebars({
 			precompile: true,
 			partials: './source/modules/**/*.hbs'
-		}))
+		}).on('error', errorHandler))
 		.pipe(defineModule('plain', { // RequireJS: use 'amd' over plain and uncomment lines below
-			//require: {
-				//Handlebars: 'handlebars'
-			//},
+			// require: {
+			// 	Handlebars: 'handlebars'
+			// },
 			context: {
 				handlebars: 'Handlebars.template(<%= contents %>)'
 			},

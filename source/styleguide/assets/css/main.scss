@@ -208,3 +208,12 @@ body {
 	border-bottom: 1px solid $sg_colorLightGray;
 	padding: 1em 0;
 }
+
+
+// Module code preview
+// ----------------------------------------------------------------------------------------------------
+.sg_code {
+	background: $sg_colorLightGray;
+	margin-top: pxToEm(50);
+	padding: 1em;
+}
