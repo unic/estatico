@@ -41,6 +41,6 @@ gulp.task('js:templates', function () {
 		.pipe(concat('templates.js'))
 		.pipe(gulp.dest('./source/assets/.tmp/'))
 		.pipe(livereload({
-			auto:false
+			auto: false
 		}));
 });

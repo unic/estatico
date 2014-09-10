@@ -35,6 +35,6 @@ gulp.task('css', function () {
 		}))
 		.pipe(gulp.dest('./build'))
 		.pipe(livereload({
-			auto:false
+			auto: false
 		}));
 });

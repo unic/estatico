@@ -30,6 +30,6 @@ gulp.task('js:head', function () {
 		}))
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(livereload({
-			auto:false
+			auto: false
 		}));
 });
