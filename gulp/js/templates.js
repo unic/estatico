@@ -12,9 +12,7 @@ var gulp = require('gulp'),
 	unicHandlebars = require('gulp-unic-handlebars'),
 	path = require('path'),
 	util = require('gulp-util'),
-	livereload = require('gulp-livereload'),
-	tinylr = require('tiny-lr'),
-	server = tinylr();
+	livereload = require('gulp-livereload');
 
 gulp.task('js:templates', function () {
 	return gulp.src(['./source/modules/**/*.hbs'])
@@ -42,5 +40,7 @@ gulp.task('js:templates', function () {
 		}))
 		.pipe(concat('templates.js'))
 		.pipe(gulp.dest('./source/assets/.tmp/'))
-		.pipe(livereload(server));
+		.pipe(livereload({
+			auto:false
+		}));
 });

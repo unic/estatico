@@ -10,9 +10,7 @@ var gulp = require('gulp'),
 	util = require('gulp-util'),
 	autoprefixer = require('gulp-autoprefixer'),
 	livereload = require('gulp-livereload'),
-	size = require('gulp-size'),
-	tinylr = require('tiny-lr'),
-	server = tinylr();
+	size = require('gulp-size');
 
 gulp.task('css', function () {
 	return gulp.src([,
@@ -36,5 +34,7 @@ gulp.task('css', function () {
 			showFiles: true
 		}))
 		.pipe(gulp.dest('./build'))
-		.pipe(livereload(server));
+		.pipe(livereload({
+			auto:false
+		}));
 });

@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	runSequence = require('run-sequence');
 
 gulp.task('default', function (cb) {
-	runSequence(['build', 'watch'], 'serve', function (err) {
+	runSequence('livereload', 'build', 'watch', 'serve', function (err) {
 		if (err) {
 			console.log('[ERROR] in ' + err.task + ': ' + err.err);
 			process.exit(1);

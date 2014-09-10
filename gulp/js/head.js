@@ -10,9 +10,7 @@ var gulp = require('gulp'),
 	util = require('gulp-util'),
 	uglify = require('gulp-uglify'),
 	size = require('gulp-size'),
-	livereload = require('gulp-livereload'),
-	tinylr = require('tiny-lr'),
-	server = tinylr();
+	livereload = require('gulp-livereload');
 
 gulp.task('js:head', function () {
 	return gulp.src([
@@ -31,5 +29,7 @@ gulp.task('js:head', function () {
 			title: 'js:head'
 		}))
 		.pipe(gulp.dest('./build/assets/js'))
-		.pipe(livereload(server));
+		.pipe(livereload({
+			auto:false
+		}));
 });

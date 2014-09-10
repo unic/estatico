@@ -9,8 +9,6 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 	_ = require('lodash'),
 	livereload = require('gulp-livereload'),
-	tinylr = require('tiny-lr'),
-	server = tinylr(),
 	tap = require('gulp-tap'),
 	path = require('path'),
 	util = require('gulp-util'),
@@ -107,6 +105,8 @@ gulp.task('html', function () {
 					cachePartials: false
 				}))
 				.pipe(gulp.dest('./build'))
-				.pipe(livereload(server));
+				.pipe(livereload({
+					auto:false
+				}));
 		});
 });

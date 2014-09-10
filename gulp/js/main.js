@@ -6,9 +6,7 @@ var gulp = require('gulp'),
 	util = require('gulp-util'),
 	uglify = require('gulp-uglify'),
 	size = require('gulp-size'),
-	livereload = require('gulp-livereload'),
-	tinylr = require('tiny-lr'),
-	server = tinylr();
+	livereload = require('gulp-livereload');
 
 /**
  * Generate main.js
@@ -31,5 +29,7 @@ gulp.task('js:main', function () {
 			title: 'js:main'
 		}))
 		.pipe(gulp.dest('./build/assets/js'))
-		.pipe(livereload(server));
+		.pipe(livereload({
+			auto:false
+		}));
 });
