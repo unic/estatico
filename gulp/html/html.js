@@ -32,7 +32,7 @@ gulp.task('html', function () {
 					previewUrl: util.replaceExtension(fileName, '.html')
 				},
 				// TODO ThJ: move from bower package to styleguide folder
-				modulePrepend = new Buffer('{{#extend "assets/vendor/unic-preview/layouts/layout"}}{{#replace "content"}}'),
+				modulePrepend = new Buffer('{{#extend "styleguide/layouts/module"}}{{#replace "content"}}'),
 				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
 
 			// Find JSON file with the same name as the template
@@ -70,7 +70,7 @@ gulp.task('html', function () {
 
 				return data[fileName] || {};
 			},
-			partials: './source/{,layouts/,pages/,modules/**/,styleguide/**/,assets/vendor/unic-preview/**/}*.hbs',
+			partials: './source/{,layouts/,pages/,modules/**/,styleguide/**/}*.hbs',
 			extension: '.html',
 			cachePartials: false
 		}))
