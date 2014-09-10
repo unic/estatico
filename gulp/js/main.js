@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Generate main.js
+ */
+
 var gulp = require('gulp'),
 	resolveDependencies = require('gulp-resolve-dependencies'),
 	concat = require('gulp-concat'),
@@ -7,10 +11,6 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	size = require('gulp-size'),
 	livereload = require('gulp-livereload');
-
-/**
- * Generate main.js
- */
 
 gulp.task('js:main', function () {
 	return gulp.src([
