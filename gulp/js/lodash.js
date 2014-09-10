@@ -1,28 +1,14 @@
 'use strict';
 
+/**
+ * Generate customized lodash build in source/assets/.tmp/
+ */
+
 var gulp = require('gulp'),
 	fs = require('fs'),
 	path = require('path'),
 	exec = require('child_process').exec;
 
-/**
- * Generate customized lodash build in source/assets/.tmp/
- *//*
-gulp.task('lodash', function (cb) {
-	var modules = ['debounce'],
-		args = [
-			'include=' + modules.join(','),
-			'-o',
-			'source/assets/.tmp/lodash.js',
-			'-d'
-		];
-
-	exec('node_modules/.bin/lodash ' + args.join(' '), cb);
-});*/
-
-/**
- * Generate customized lodash build in source/assets/.tmp/
- */
 gulp.task('js:lodash', function (cb) {
 	var cmdDir = 'node_modules/.bin/',
 		targetDir = 'source/assets/.tmp/',
