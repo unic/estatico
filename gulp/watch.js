@@ -17,7 +17,9 @@ gulp.task('watch', function () {
 
 		gulp.watch([
 			'source/{,pages/,modules/**/}*.hbs',
-			'source/{,pages/,modules/**/}*.json'
+			'source/{,pages/,modules/**/}*.json',
+			'source/{,pages/,modules/**/,styleguide/**/}*.hbs',
+			'source/{,pages/,modules/**/,styleguide/**/}*.json'
 		], ['html']);
 
 		gulp.watch([

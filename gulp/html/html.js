@@ -18,10 +18,11 @@ var gulp = require('gulp'),
 	prettify = require('gulp-prettify');
 
 gulp.task('html', function () {
-	var data = {};
+	var data = {},
+		icons = fs.readdirSync('./source/assets/media/iconfont/');
 
 	return gulp.src([
-		'./source/{,pages/,modules/**/}!(_)*.hbs'
+		'./source/{,pages/,modules/**/,styleguide/,styleguide/sections/}!(_)*.hbs'
 	])
 		.pipe(tap(function (file) {
 			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
@@ -29,6 +30,7 @@ gulp.task('html', function () {
 				fileData = {
 					previewUrl: util.replaceExtension(fileName, '.html')
 				},
+				// TODO ThJ: move from bower package to styleguide folder
 				modulePrepend = new Buffer('{{#extend "assets/vendor/unic-preview/layouts/layout"}}{{#replace "content"}}'),
 				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
 
@@ -48,6 +50,16 @@ gulp.task('html', function () {
 				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
 			}
 
+			if (file.path.indexOf('styleguide') !== -1) {
+				fileData.isStyleguide = true;
+
+				for (var i = 0; i < icons.length; i++) {
+					icons[i] = icons[i].replace(/\.[^/.]+$/, "");
+				}
+
+				fileData.icons = icons;
+			}
+
 			// Save data for later use
 			data[fileName] = fileData;
 		}))
@@ -57,7 +69,7 @@ gulp.task('html', function () {
 
 				return data[fileName] || {};
 			},
-			partials: './source/{,layouts/,pages/,modules/**/,assets/vendor/unic-preview/**/}*.hbs',
+			partials: './source/{,layouts/,pages/,modules/**/,styleguide/**/,assets/vendor/unic-preview/**/}*.hbs',
 			extension: '.html',
 			cachePartials: false
 		}))
@@ -69,7 +81,8 @@ gulp.task('html', function () {
 		.on('end', function () {
 			var templateData = {
 				pages: [],
-				modules: []
+				modules: [],
+				styleguide: []
 			};
 
 			// Sort by filename and split into pages and modules
@@ -78,13 +91,15 @@ gulp.task('html', function () {
 			}).map(function (value) {
 				if (value.isModule) {
 					templateData.modules.push(value);
+				} else if (value.isStyleguide) {
+					templateData.styleguide.push(value);
 				} else {
 					templateData.pages.push(value);
 				}
 			});
 
 			// Create index for preview purposes
-			gulp.src('./source/assets/vendor/unic-preview/index.hbs')
+			gulp.src('./source/styleguide/index.hbs')
 				.pipe(unicHandlebars({
 					extension: '.html',
 					data: templateData,
