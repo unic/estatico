@@ -6,7 +6,7 @@
 
 var gulp = require('gulp');
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
 	gulp.watch([
 		'source/layouts/*.hbs',
 		'source/data/*.json',

@@ -9,8 +9,8 @@ var gulp = require('gulp'),
 	errorHandler = require('gulp-unic-errors'),
 	runSequence = require('run-sequence');
 
-gulp.task('default', function (cb) {
-	runSequence('livereload', 'build', 'watch', 'serve', function (err) {
+gulp.task('default', function(cb) {
+	runSequence('livereload', 'build', 'watch', 'serve', function(err) {
 		if (err) {
 			errorHandler(err);
 		}

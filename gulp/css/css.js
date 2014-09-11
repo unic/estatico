@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 	rubySass = require('gulp-ruby-sass'),
 	autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('css', function () {
+gulp.task('css', function() {
 	return gulp.src([,
 			'./source/assets/css/*.scss',
 			'./source/styleguide/assets/css/*.scss'

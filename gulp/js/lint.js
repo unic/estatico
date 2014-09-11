@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	cached = require('gulp-cached'),
 	jshint = require('gulp-jshint');
 
-gulp.task('js:lint', function () {
+gulp.task('js:lint', function() {
 	return gulp.src([
 			'./source/assets/js/*.js',
 			'./source/modules/**/*.js',

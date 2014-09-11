@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 	unicHandlebars = require('gulp-unic-handlebars'),
 	path = require('path');
 
-gulp.task('js:templates', function () {
+gulp.task('js:templates', function() {
 	return gulp.src([
 			'./source/modules/**/*.hbs'
 		])
@@ -35,7 +35,7 @@ gulp.task('js:templates', function () {
 		}))
 		.pipe(declare({
 			namespace: 'Unic.templates',
-			processName: function (filePath) {
+			processName: function(filePath) {
 				// Use "modules/x/y" as partial name, e.g.
 				var name = path.relative('./source/', filePath);
 

@@ -20,7 +20,7 @@ var gulp = require('gulp'),
 	unicHandlebars = require('gulp-unic-handlebars'),
 	prettify = require('gulp-prettify');
 
-gulp.task('html', function () {
+gulp.task('html', function() {
 	var data = {},
 		defaultFileData = JSON.parse(fs.readFileSync('./source/data/default.json')),
 		icons = _.map(glob.sync('./source/{assets/media/,modules/**/}icons/*'), function(file) {
@@ -30,7 +30,7 @@ gulp.task('html', function () {
 	return gulp.src([
 			'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
 		])
-		.pipe(tap(function (file) {
+		.pipe(tap(function(file) {
 			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
 				dataFile = util.replaceExtension(file.path, '.json'),
 				fileData = {
@@ -71,7 +71,7 @@ gulp.task('html', function () {
 		}))
 		.pipe(plumber())
 		.pipe(unicHandlebars({
-			data: function (filePath) {
+			data: function(filePath) {
 				var fileName = path.relative('./source/', filePath).replace(path.extname(filePath), '').replace(/\\/g, '/');
 
 				return data[fileName] || {};
@@ -85,7 +85,7 @@ gulp.task('html', function () {
 			max_preserve_newlines: 1
 		}))
 		.pipe(gulp.dest('./build'))
-		.on('end', function () {
+		.on('end', function() {
 			var templateData = _.merge({
 					pages: [],
 					modules: [],
@@ -93,9 +93,9 @@ gulp.task('html', function () {
 				}, defaultFileData);
 
 			// Sort by filename and split into pages and modules
-			data = _.sortBy(data, function (value, key) {
+			data = _.sortBy(data, function(value, key) {
 				return key;
-			}).map(function (value) {
+			}).map(function(value) {
 				if (value.isModule) {
 					templateData.modules.push(value);
 				} else if (value.isStyleguide) {

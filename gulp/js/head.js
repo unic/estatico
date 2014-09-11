@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify');
 
-gulp.task('js:head', function () {
+gulp.task('js:head', function() {
 	return gulp.src([
 			'./source/assets/js/head.js'
 		])

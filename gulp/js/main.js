@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify');
 
-gulp.task('js:main', function () {
+gulp.task('js:main', function() {
 	return gulp.src([
 			'./source/assets/js/main.js'
 		])

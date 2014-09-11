@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 	modernizr = require('gulp-modernizr'),
 	uglify = require('gulp-uglify');
 
-gulp.task('js:modernizr', function () {
+gulp.task('js:modernizr', function() {
 	return gulp.src([
 			'./source/assets/css/*.scss',
 			'./source/modules/**/*.scss',
