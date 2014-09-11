@@ -25,6 +25,7 @@ gulp.task('media:iconfont', function() {
 		.on('codepoints', function(codepoints, options) {
 			var icons = {};
 
+			// Normalize data to be consistent with dataurls.js and pngsprite.js
 			_.each(codepoints, function(icon) {
 				icons[icon.name] = {
 					codepoint: icon.codepoint.toString(16).toUpperCase()
