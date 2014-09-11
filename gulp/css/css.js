@@ -6,35 +6,37 @@
  */
 
 var gulp = require('gulp'),
-	rubySass = require('gulp-ruby-sass'),
-	util = require('gulp-util'),
-	autoprefixer = require('gulp-autoprefixer'),
-	livereload = require('gulp-livereload'),
+	errorHandler = require('gulp-unic-errors'),
+	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
-	tinylr = require('tiny-lr'),
-	server = tinylr();
+	livereload = require('gulp-livereload'),
+	util = require('gulp-util'),
+	rubySass = require('gulp-ruby-sass'),
+	autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('css', function () {
+gulp.task('css', function() {
 	return gulp.src([,
 			'./source/assets/css/*.scss',
 			'./source/styleguide/assets/css/*.scss'
 		], {
 			base: './source/'
 		})
+		.pipe(plumber())
 		.pipe(rubySass({
 			loadPath: [
 				'source/assets/css',
 				'source/assets/vendor',
 				'source/modules'
 			],
-			style: util.env.production ? 'compressed' : 'expanded',
-			fullException: true
-		}))
-		.pipe(autoprefixer('last 2 version'))
+			style: util.env.prod ? 'compressed' : 'expanded'
+		}).on('error', errorHandler))
+		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
 		.pipe(size({
 			title: 'css',
 			showFiles: true
 		}))
 		.pipe(gulp.dest('./build'))
-		.pipe(livereload(server));
+		.pipe(livereload({
+			auto: false
+		}));
 });

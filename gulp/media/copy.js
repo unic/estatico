@@ -7,7 +7,7 @@
 var gulp = require('gulp'),
 	size = require('gulp-size');
 
-gulp.task('media:copy', function () {
+gulp.task('media:copy', function() {
 	return gulp.src([
 			'./source/assets/fonts/{,**/}*',
 			'./source/assets/media/*.*',

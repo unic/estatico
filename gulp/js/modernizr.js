@@ -8,20 +8,19 @@
  */
 
 var gulp = require('gulp'),
-	modernizr = require('gulp-modernizr'),
 	util = require('gulp-util'),
+	modernizr = require('gulp-modernizr'),
 	uglify = require('gulp-uglify');
-	//exec = require('child_process').exec;
 
-gulp.task('js:modernizr', function () {
+gulp.task('js:modernizr', function() {
 	return gulp.src([
-		'./source/assets/css/*.scss',
-		'./source/modules/**/*.scss',
-		'./source/assets/js/*.js',
-		'./source/modules/**/*.js',
-		'!./source/assets/vendor/*.js'
-	])
+			'./source/assets/css/*.scss',
+			'./source/modules/**/*.scss',
+			'./source/assets/js/*.js',
+			'./source/modules/**/*.js',
+			'!./source/assets/vendor/*.js'
+		])
 		.pipe(modernizr({}))
-		.pipe(util.env.production ? uglify() : util.noop())
+		.pipe(util.env.prod ? uglify() : util.noop())
 		.pipe(gulp.dest('./source/assets/.tmp'));
 });

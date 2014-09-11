@@ -6,26 +6,31 @@
  */
 
 var gulp = require('gulp'),
-	fs = require('fs'),
-	_ = require('lodash'),
+	errorHandler = require('gulp-unic-errors'),
+	plumber = require('gulp-plumber'),
+	size = require('gulp-size'),
 	livereload = require('gulp-livereload'),
-	tinylr = require('tiny-lr'),
-	server = tinylr(),
+	util = require('gulp-util'),
+	fs = require('fs'),
+	path = require('path'),
+	glob = require('glob'),
+	_ = require('lodash'),
 	tap = require('gulp-tap'),
 	path = require('path'),
-	util = require('gulp-util'),
 	unicHandlebars = require('gulp-unic-handlebars'),
 	prettify = require('gulp-prettify');
 
-gulp.task('html', function () {
+gulp.task('html', function() {
 	var data = {},
 		defaultFileData = JSON.parse(fs.readFileSync('./source/data/default.json')),
-		icons = fs.readdirSync('./source/assets/media/iconfont/');
+		icons = _.map(glob.sync('./source/{assets/media/,modules/**/}icons/*'), function(file) {
+			return path.basename(file).replace(path.extname(file), '');
+		});
 
 	return gulp.src([
-		'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
-	])
-		.pipe(tap(function (file) {
+			'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
+		])
+		.pipe(tap(function(file) {
 			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
 				dataFile = util.replaceExtension(file.path, '.json'),
 				fileData = {
@@ -64,8 +69,9 @@ gulp.task('html', function () {
 			// Save data for later use
 			data[fileName] = _.merge({}, defaultFileData, fileData);
 		}))
+		.pipe(plumber())
 		.pipe(unicHandlebars({
-			data: function (filePath) {
+			data: function(filePath) {
 				var fileName = path.relative('./source/', filePath).replace(path.extname(filePath), '').replace(/\\/g, '/');
 
 				return data[fileName] || {};
@@ -73,13 +79,13 @@ gulp.task('html', function () {
 			partials: './source/{,layouts/,pages/,modules/**/,styleguide/**/}*.hbs',
 			extension: '.html',
 			cachePartials: false
-		}))
+		}).on('error', errorHandler))
 		.pipe(prettify({
 			indent_with_tabs: true,
 			max_preserve_newlines: 1
 		}))
 		.pipe(gulp.dest('./build'))
-		.on('end', function () {
+		.on('end', function() {
 			var templateData = _.merge({
 					pages: [],
 					modules: [],
@@ -87,9 +93,9 @@ gulp.task('html', function () {
 				}, defaultFileData);
 
 			// Sort by filename and split into pages and modules
-			data = _.sortBy(data, function (value, key) {
+			data = _.sortBy(data, function(value, key) {
 				return key;
-			}).map(function (value) {
+			}).map(function(value) {
 				if (value.isModule) {
 					templateData.modules.push(value);
 				} else if (value.isStyleguide) {
@@ -101,12 +107,15 @@ gulp.task('html', function () {
 
 			// Create index for preview purposes
 			gulp.src('./source/styleguide/index.hbs')
+				.pipe(plumber())
 				.pipe(unicHandlebars({
 					extension: '.html',
 					data: templateData,
 					cachePartials: false
-				}))
+				}).on('error', errorHandler))
 				.pipe(gulp.dest('./build'))
-				.pipe(livereload(server));
+				.pipe(livereload({
+					auto: false
+				}));
 		});
 });
