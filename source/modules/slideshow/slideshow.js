@@ -1,7 +1,6 @@
 /**
  * Carousel
  * @author ThJ, Unic AG
- * @requires ../../assets/vendor/jquery-touchswipe/jquery.touchSwipe.js
  * @license All rights reserved Unic AG
  */
 

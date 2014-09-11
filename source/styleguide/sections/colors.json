@@ -1,0 +1,38 @@
+{
+	"title": "Colors",
+	"colors": [
+		{
+			"name": "Dark Red",
+			"hexValue": "#460d00",
+			"showInStyleguide": true
+		}, {
+			"name": "Red Wine",
+			"hexValue": "#671200",
+			"showInStyleguide": true
+		}, {
+			"name": "Nature",
+			"hexValue": "#7b8b00",
+			"showInStyleguide": true
+		}, {
+			"name": "Black",
+			"hexValue": "#000000",
+			"showInStyleguide": true
+		}, {
+			"name": "Dark Gray",
+			"hexValue": "#101111",
+			"showInStyleguide": true
+		}, {
+			"name": "Gray",
+			"hexValue": "#4d4d4d",
+			"showInStyleguide": true
+		}, {
+			"name": "Light Gray",
+			"hexValue": "#ececec",
+			"showInStyleguide": true
+		}, {
+			"name": "White",
+			"hexValue": "#ffffff",
+			"showInStyleguide": true
+		}
+	]
+}

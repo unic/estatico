@@ -1,10 +1,26 @@
 <div class="mod_slideshow" data-init="slideshow">
+	<h2>Media examples</h2>
+
+	<h3>Icon font</h3>
+	<span class="media_icon">Icon</span>
+
+	<h3>Data URL</h3>
+	<span class="media_icon_dataurl">Icon</span>
+
+	<h3>PNG sprite</h3>
+	<span class="media_pngsprite">Icon</span>
+
+
+	<h2>Slideshow (not yet functional)</h2>
+
 	{{#each slides}}
 	<div class="slide">
 		{{this}}
 	</div>
 	{{/each}}
-	{{> "modules/slideshow/_slideshow-button"}}
+
+	{{> "modules/slideshow/_slideshow_button"}}
+
 	<button class="prev" data-carousel="prev">Previous</button>
 	<button class="next" data-carousel="next">Next</button>
 </div>

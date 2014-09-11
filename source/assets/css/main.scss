@@ -1,12 +1,13 @@
 @import "fonts";
-@import "../.tmp/icons";
-@import "../.tmp/sprite";
 
 // 3rd party scripts
 @import "normalize-scss/normalize";
 
 // Base files
 @import "global";
+@import "../.tmp/iconfont";
+@import "../.tmp/dataurls";
+@import "../.tmp/pngsprite";
 @import "layout";
 
 // Overwrites for 3rd party scripts
