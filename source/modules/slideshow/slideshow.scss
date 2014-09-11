@@ -1,13 +1,13 @@
 .mod_slideshow {
 
 	// Media examples
-	.media_sprite {
-		@include sprite(logo);
+	.media_pngsprite {
+		@include pngsprite("logo");
 	}
-	.media_iconfont {
-		@include iconfontIcon(slideshow_twitter);
+	.media_icon {
+		@include icon("slideshow_twitter");
 	}
-	.media_dataurl {
-		@include dataurlsIcon(slideshow_twitter, primary);
+	.media_icon_dataurl {
+		@include iconDataurl("slideshow_twitter", $color: "primary");
 	}
 }

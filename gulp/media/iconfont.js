@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 	unicHandlebars = require('gulp-unic-handlebars'),
 	_ = require('lodash');
 
-gulp.task('media:iconfont', function () {
+gulp.task('media:iconfont', function() {
 	return gulp.src([
 			'./source/assets/media/icons/*.svg',
 			'./source/modules/**/icons/*.svg'
@@ -22,11 +22,12 @@ gulp.task('media:iconfont', function () {
 			fontName: 'Icons',
 			normalize: true
 		}))
-		.on('codepoints', function (codepoints, options) {
-			codepoints = _.map(codepoints, function (codepoint) {
-				return {
-					name: codepoint.name,
-					codepoint: codepoint.codepoint.toString(16).toUpperCase()
+		.on('codepoints', function(codepoints, options) {
+			var icons = {};
+
+			_.each(codepoints, function(icon) {
+				icons[icon.name] = {
+					codepoint: icon.codepoint.toString(16).toUpperCase()
 				};
 			});
 
@@ -34,7 +35,7 @@ gulp.task('media:iconfont', function () {
 				.pipe(plumber())
 				.pipe(unicHandlebars({
 					data: {
-						codepoints: codepoints,
+						icons: icons,
 						options: _.merge(options, {
 							fontPath: '../fonts/icons/'
 						})
