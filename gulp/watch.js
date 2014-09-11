@@ -20,6 +20,7 @@ gulp.task('watch', function() {
 
 	gulp.watch([
 		'source/assets/css/*.scss',
+		'source/assets/css/globals/*.scss',
 		'source/assets/.tmp/*.scss',
 		'source/modules/**/*.scss',
 		'source/styleguide/assets/css/*.scss',
