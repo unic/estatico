@@ -32,7 +32,7 @@
     "gulp-tap": "0.1.1",
     "gulp-uglify": "0.3.1",
     "gulp-unic-colorize-svgs": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---colorize-svgs.git",
-    "gulp-unic-errors": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---errors.git",
+    "gulp-unic-errors": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---error-handling.git",
     "gulp-unic-handlebars": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---handlebars-templating.git",
     "gulp-unic-save-icon-data": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---save-icon-data.git",
     "gulp-util": "2.2.17",
