@@ -36,7 +36,6 @@ gulp.task('html', function() {
 				fileData = {
 					previewUrl: util.replaceExtension(fileName, '.html')
 				},
-				// TODO ThJ: move from bower package to styleguide folder
 				modulePrepend = new Buffer('{{#extend "styleguide/layouts/module"}}{{#replace "content"}}'),
 				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
 
@@ -44,8 +43,10 @@ gulp.task('html', function() {
 			try {
 				fileData = _.merge(fileData, JSON.parse(fs.readFileSync(dataFile)));
 			} catch (err) {
-				// TODO: handle errors
-				//this.emit('error', new util.PluginError(pluginName, err));
+				errorHandler({
+					task: 'html',
+					message: 'Error loading JSON "'+ path.relative('./source/', dataFile) +'": ' + err
+				});
 			}
 
 			if (file.path.indexOf('modules') !== -1) {

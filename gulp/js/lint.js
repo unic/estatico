@@ -24,7 +24,7 @@ gulp.task('js:lint', function() {
 		.pipe(util.env.dev ? tap(function(file) {
 			if (!file.jshint.success) {
 				errorHandler({
-					plugin: 'js:lint',
+					task: 'js:lint',
 					message: 'Linting error in file "' + path.relative('./source/', file.path) + '" (see console)'
 				});
 			}
