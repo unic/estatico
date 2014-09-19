@@ -17,6 +17,7 @@
     "gulp-gm": "0.0.7",
     "gulp-iconfont": "0.1.2",
     "gulp-if": "1.2.4",
+    "gulp-ignore": "1.2.0",
     "gulp-imagemin": "0.6.2",
     "gulp-jshint": "1.8.4",
     "gulp-livereload": "2.1.1",
@@ -47,7 +48,8 @@
     "rimraf": "2.2.8",
     "run-sequence": "0.3.6",
     "serve-static": "1.6.1",
-    "tiny-lr": "0.1.4"
+    "tiny-lr": "0.1.4",
+    "yargs": "1.3.1"
   },
   "engines": {
     "node": "0.10.31"

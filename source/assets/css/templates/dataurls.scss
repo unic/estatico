@@ -63,8 +63,8 @@ $iconsDataurls: (
 	background-size: contain;
 
 	@if $skipDimensions != true {
-		height: pxToEm(map-get($dimensions, "x"));
-		width: pxToEm(map-get($dimensions, "y"));
+		height: pxToEm(map-get($dimensions, "y"));
+		width: pxToEm(map-get($dimensions, "x"));
 	}
 
 	@if $skipFallback != true {
