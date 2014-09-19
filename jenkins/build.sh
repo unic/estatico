@@ -61,7 +61,7 @@ Build Prod Version
 -------------------------------------------------------
 "
 
-if ! node_modules/gulp/bin/gulp.js build --production
+if ! node_modules/gulp/bin/gulp.js build --prod
 	then
 		exit 1
 fi
