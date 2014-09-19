@@ -31,11 +31,18 @@
 
 ### Dependencies
 
-Node, NPM.
+Node, NPM (preferably using [nvm](https://github.com/creationix/nvm)).
 
 ### Usage
 
-1. Install node and bower dependencies:
+Recommendation: Use nvm to allow for a standardized node environment:
+
+```shell
+nvm use
+# if the specified version is not yet present: nvm install
+```
+
+Install node and bower dependencies:
 
 ```shell
 npm install
@@ -43,21 +50,22 @@ bower install
 # local version: node_modules/.bin/bower install
 ```
 
-2. Start server
+Start server
 
 ```shell
-gulp
-# local version: node_modules/.bin/gulp
+gulp --dev
+# local version: node_modules/.bin/gulp --dev
+# dev flag makes sure the server and watcher don't crash on error
 ```
 
-3. Build
+Build
 
 ```shell
 gulp build
 # local version: node_modules/.bin/gulp build
 ```
 
-4. Update bower dependencies
+Update bower dependencies
 
 ```shell
 bower install
