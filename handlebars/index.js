@@ -15,3 +15,8 @@ handlebars.registerHelper('removeWhiteSpace', function(value) {
 		value.replace(/\s+/g, '')
 	);
 });
+
+// Output raw block (use: {{{{raw}}}} blabla {{title}} bla{{{{/raw}}}})
+handlebars.registerHelper('raw', function(options) {
+  return options.fn();
+});
