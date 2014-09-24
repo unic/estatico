@@ -37,16 +37,19 @@ gulp.task('html', function() {
 					previewUrl: util.replaceExtension(fileName, '.html')
 				},
 				modulePrepend = new Buffer('{{#extend "styleguide/layouts/module"}}{{#replace "content"}}'),
-				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
+				moduleAppend = new Buffer('{{/replace}}{{/extend}}'),
+				moduleData = {};
 
 			// Find JSON file with the same name as the template
-			try {
-				fileData = _.merge(fileData, JSON.parse(fs.readFileSync(dataFile)));
-			} catch (err) {
-				errorHandler({
-					task: 'html',
-					message: 'Error loading JSON "'+ path.relative('./source/', dataFile) +'": ' + err
-				});
+			if (fs.existsSync(dataFile)) {
+				try {
+					fileData = _.merge(fileData, JSON.parse(fs.readFileSync(dataFile)));
+				} catch (err) {
+					errorHandler({
+						task: 'html',
+						message: 'Error loading JSON "'+ path.relative('./source/', dataFile) +'": ' + err
+					});
+				}
 			}
 
 			if (file.path.indexOf('modules') !== -1) {
@@ -55,9 +58,7 @@ gulp.task('html', function() {
 
 				// Wrap modules with custom layout for preview purposes
 				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
-			}
-
-			if (file.path.indexOf('styleguide') !== -1) {
+			} else if (file.path.indexOf('styleguide') !== -1) {
 				fileData.isStyleguide = true;
 
 				for (var i = 0; i < icons.length; i++) {
@@ -65,6 +66,24 @@ gulp.task('html', function() {
 				}
 
 				fileData.icons = icons;
+			} else {
+				// Get module default data for pages
+				_.each(glob.sync('./source/modules/**/*.json'), function(file) {
+					var moduleName = path.basename(file, path.extname(file));
+
+					if (fs.existsSync(file)) {
+						try {
+							moduleData[moduleName] = JSON.parse(fs.readFileSync(file));
+						} catch (err) {
+							errorHandler({
+								task: 'html',
+								message: 'Error loading JSON "'+ path.relative('./source/', file) +'": ' + err
+							});
+						}
+					}
+				});
+
+				fileData.modules = moduleData;
 			}
 
 			// Save data for later use
@@ -81,10 +100,10 @@ gulp.task('html', function() {
 			extension: '.html',
 			cachePartials: false
 		}).on('error', errorHandler))
-		.pipe(prettify({
-			indent_with_tabs: true,
-			max_preserve_newlines: 1
-		}))
+		// .pipe(prettify({
+		// 	indent_with_tabs: true,
+		// 	max_preserve_newlines: 1
+		// }))
 		.pipe(gulp.dest('./build'))
 		.on('end', function() {
 			var templateData = _.merge({
