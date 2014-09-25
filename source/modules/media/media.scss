@@ -11,7 +11,7 @@
 		&:hover,
 		&:focus,
 		&:active {
-			color: #A4C400;
+			color: $colorActive;
 		}
 	}
 	.media_icon_dataurl {
@@ -20,7 +20,7 @@
 		&:hover,
 		&:focus,
 		&:active {
-			color: #A4C400;
+			color: $colorActive;
 
 			&:before {
 				@include iconDataurlStyles("twitter", $color: "active", $skipDimensions: true);
@@ -33,7 +33,7 @@
 		&:hover,
 		&:focus,
 		&:active {
-			color: #A4C400;
+			color: $colorActive;
 
 			&:before {
 				@include pngspriteStyles("twitter_active", $skipDimensions: true);
