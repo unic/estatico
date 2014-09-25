@@ -1,9 +1,9 @@
 body {
 	background: $colorBg;
 	color: $colorText;
-	font-family: $fontBase;
+	font-family: $fontFamilyBase;
 	font-size: $sizeFontBase / 16px * 100%;
-	line-height: $lineHeightBase;
+	line-height: $sizeLineHeightBase;
 }
 
 nav {
