@@ -50,6 +50,23 @@ bower install
 # local version: node_modules/.bin/bower install
 ```
 
+If "npm install" fails:
+
+```shell
+# Clean up
+rm -rf node_modules
+npm cache clean
+
+# Temporarily remove npm-shrinkwrap.json
+rm npm-shrinkwrap.json
+
+# Install dependencies
+npm install
+
+# Re-add npm-shrinkwrap.json
+git checkout npm-shrinkwrap.json
+```
+
 Start server
 
 ```shell
