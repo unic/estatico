@@ -58,7 +58,7 @@ gulp.task('media:pngsprite', function(cb) {
 				};
 			});
 
-			gulp.src('./source/assets/css/templates/pngsprite.scss')
+			gulp.src('./source/assets/css/templates/_pngsprite.scss')
 				.pipe(plumber())
 				.pipe(unicHandlebars({
 					data: {

@@ -96,7 +96,7 @@ gulp.task('media:dataurls', function() {
 		.pipe(gulp.dest('./build/assets/media/icons/'))
 		// Create SCSS file
 		.on('end', function() {
-			gulp.src('./source/assets/css/templates/dataurls.scss')
+			gulp.src('./source/assets/css/templates/_dataurls.scss')
 				.pipe(plumber())
 				.pipe(unicHandlebars({
 					data: {

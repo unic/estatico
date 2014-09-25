@@ -32,7 +32,7 @@ gulp.task('media:iconfont', function() {
 				};
 			});
 
-			gulp.src('./source/assets/css/templates/iconfont.scss')
+			gulp.src('./source/assets/css/templates/_iconfont.scss')
 				.pipe(plumber())
 				.pipe(unicHandlebars({
 					data: {
