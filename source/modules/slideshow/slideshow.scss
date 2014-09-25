@@ -1,13 +1,9 @@
 .mod_slideshow {
 
-	// Media examples
-	.media_pngsprite {
-		@include pngsprite("logo");
-	}
-	.media_icon {
-		@include icon("slideshow_twitter");
-	}
-	.media_icon_dataurl {
-		@include iconDataurl("slideshow_twitter", $color: "primary");
+	&.is_activated {
+
+		.slide {
+			display: none;
+		}
 	}
 }

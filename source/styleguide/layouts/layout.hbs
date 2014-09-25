@@ -23,7 +23,7 @@
 			<ul>
 			{{#each pages}}
 				<li>
-					<a href="{{this.previewUrl}}">{{this.title}}</a>
+					<a href="{{styleguide.previewUrl}}">{{title}}</a>
 				</li>
 			{{/each}}
 			</ul>
@@ -33,9 +33,9 @@
 			<ul>
 			{{#each modules}}
 				<li>
-					<a href="{{this.previewUrl}}" target="content">
-						{{this.title}}
-						{{#if this.jira}}({{this.jira}}){{/if}}
+					<a href="{{styleguide.previewUrl}}" target="content">
+						{{styleguide.title}}
+						{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
 					</a>
 				</li>
 			{{/each}}
@@ -46,7 +46,9 @@
 			<ul>
 			{{#each styleguide}}
 				<li>
-					<a href="{{this.previewUrl}}" target="content">{{this.title}}</a>
+					<a href="{{styleguide.previewUrl}}" target="content">
+						{{title}}
+					</a>
 				</li>
 			{{/each}}
 			</ul>

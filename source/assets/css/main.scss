@@ -14,7 +14,10 @@
 @import "vendor";
 
 // Modules
+@import "teaser/teaser";
+@import "teasers/teasers";
 @import "slideshow/slideshow";
+@import "media/media";
 //*autoinsertmodule*
 
 @media print {

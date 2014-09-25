@@ -2,6 +2,8 @@
  * Carousel
  * @author ThJ, Unic AG
  * @license All rights reserved Unic AG
+ *
+ * @requires ../../assets/vendor/jquery-touchswipe/jquery.touchSwipe.js
  */
 
 (function(window, document, $, Unic, undefined) {
@@ -47,11 +49,14 @@
 	 * Initialize module, bind events
 	 */
 	Plugin.prototype.init = function() {
+		var buttons = Unic.templates['modules/slideshow/_slideshow_button']({});
+
 		this.currentItem = -1;
 
-		this.$items = this.$element.find(this.options.domSelectors.slide).hide();
+		this.$items = this.$element.find(this.options.domSelectors.item).hide();
 
 		this.$element
+			.append(buttons)
 			.on('click.' + pluginName, this.options.domSelectors.prev, _.bind(function(event) {
 				event.preventDefault();
 
@@ -61,7 +66,13 @@
 				event.preventDefault();
 
 				this.next();
-			}, this));
+			}, this))
+			.addClass(this.options.stateClasses.isActivated);
+
+		// Exemplary touch detection
+		// if (Modernizr.touchevents) {
+			// Init touchSwipe
+		// }
 
 		// Exemplary resize listener
 		$document.on(Unic.events.resize, function(event, originalEvent) {
@@ -87,18 +98,18 @@
 			index = this.$items.length - 1;
 		}
 
-		this.$items.eq(this.currentItem).fadeOut(this.options.animationDuration);
-		this.$items.eq(index).fadeIn(this.options.animationDuration);
+		this.$items.eq(this.currentItem).slideUp(this.options.animationDuration);
+		this.$items.eq(index).slideDown(this.options.animationDuration);
 
 		this.currentItem = index;
 	};
 
 	Plugin.prototype.prev = function() {
-		this.goTo(this.currentItem - 1);
+		this.show(this.currentItem - 1);
 	};
 
 	Plugin.prototype.next = function() {
-		this.goTo(this.currentItem + 1);
+		this.show(this.currentItem + 1);
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

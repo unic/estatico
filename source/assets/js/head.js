@@ -11,5 +11,3 @@ var Unic = {
 		modules: {},
 		data: {}
 	};
-
-console.log('head');

@@ -14,12 +14,12 @@ gulp.task('watch', function() {
 		'source/pages/*.json',
 		'source/modules/**/*.hbs',
 		'source/modules/**/*.json',
-		'source/styleguide/**/*.hbs',
+		'source/styleguide/{,**/}*.hbs',
 		'source/styleguide/**/*.json'
 	], ['html']);
 
 	gulp.watch([
-		'source/assets/css/*.scss',
+		'source/assets/css/{,**/}*.scss',
 		'source/assets/.tmp/*.scss',
 		'source/modules/**/*.scss',
 		'source/styleguide/assets/css/*.scss',
@@ -32,6 +32,10 @@ gulp.task('watch', function() {
 	], ['js:lint', 'js:head', 'js:main']);
 
 	gulp.watch([
+		'source/modules/**/*.js.hbs',
+	], ['js:templates']);
+
+	gulp.watch([
 		'source/assets/pngsprite/*.png',
 		'source/modules/**/pngsprite/*.png'
 	], ['media:pngsprite']);
@@ -39,5 +43,5 @@ gulp.task('watch', function() {
 	gulp.watch([
 		'source/assets/icons/*.svg',
 		'source/modules/**/icons/*.svg'
-	], ['media:iconfont']);
+	], ['media:iconfont', 'media:dataurls']);
 });

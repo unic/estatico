@@ -17,12 +17,12 @@ var gulp = require('gulp'),
 
 gulp.task('js:templates', function() {
 	return gulp.src([
-			'./source/modules/**/*.hbs'
+			'./source/modules/**/_*.js.hbs'
 		])
 		.pipe(plumber())
 		.pipe(unicHandlebars({
 			precompile: true,
-			partials: './source/modules/**/*.hbs'
+			partials: './source/modules/**/_*.js.hbs'
 		}).on('error', errorHandler))
 		.pipe(defineModule('plain', { // RequireJS: use 'amd' over plain and uncomment lines below
 			// require: {
@@ -39,7 +39,7 @@ gulp.task('js:templates', function() {
 				// Use "modules/x/y" as partial name, e.g.
 				var name = path.relative('./source/', filePath);
 
-				return util.replaceExtension(name, '');
+				return util.replaceExtension(util.replaceExtension(name, ''), '');
 			}
 		}))
 		.pipe(concat('templates.js'))

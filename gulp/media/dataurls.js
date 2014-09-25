@@ -37,10 +37,8 @@ gulp.task('media:dataurls', function() {
 		.pipe(unicColorizeSvgs({
 			colors: {
 				'default': {
-					primary: 'fb6400',
-					primary_active: 'fb6400',
-					secondary: '656c72',
-					secondary_active: '3e454b'
+					primary: '000000',
+					active: 'A4C400'
 				},
 				logo: {} // example: no coloring, only original file
 			},

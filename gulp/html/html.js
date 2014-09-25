@@ -20,10 +20,37 @@ var gulp = require('gulp'),
 	unicHandlebars = require('gulp-unic-handlebars'),
 	prettify = require('gulp-prettify');
 
+function jsonError(file, err) {
+	errorHandler({
+		task: 'html',
+		message: 'Error loading JSON "'+ path.relative('./source/', file) +'": ' + err
+	});
+}
+
+function getJsonData(file) {
+	if (!fs.existsSync(file)) {
+		return {};
+	}
+
+	try {
+		return JSON.parse(fs.readFileSync(file));
+	} catch (err) {
+		jsonError(file, err);
+	}
+}
+
 gulp.task('html', function() {
 	var data = {},
-		defaultFileData = JSON.parse(fs.readFileSync('./source/data/default.json')),
-		icons = _.map(glob.sync('./source/{assets/media/,modules/**/}icons/*'), function(file) {
+		defaultFileData = getJsonData('./source/data/default.json'),
+		modules = glob.sync('./source/modules/**/*.json'),
+		// Create object of module data with file name as key
+		moduleData = _.object(_.map(modules, function(file) {
+			return path.basename(file, path.extname(file));
+		}), _.map(modules, function(file) {
+			return getJsonData(file);
+		})),
+		// Create array of icon names for styleguide
+		iconData = _.map(glob.sync('./source/{assets/media/,modules/**/}icons/*'), function(file) {
 			return path.basename(file).replace(path.extname(file), '');
 		});
 
@@ -33,60 +60,44 @@ gulp.task('html', function() {
 		.pipe(tap(function(file) {
 			var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/'),
 				dataFile = util.replaceExtension(file.path, '.json'),
-				fileData = {
-					previewUrl: util.replaceExtension(fileName, '.html')
-				},
+				fileData = _.merge(getJsonData(dataFile), {
+					styleguide: {
+						previewUrl: util.replaceExtension(fileName, '.html')
+					}
+				}),
 				modulePrepend = new Buffer('{{#extend "styleguide/layouts/module"}}{{#replace "content"}}'),
-				moduleAppend = new Buffer('{{/replace}}{{/extend}}'),
-				moduleData = {};
+				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
 
-			// Find JSON file with the same name as the template
-			if (fs.existsSync(dataFile)) {
-				try {
-					fileData = _.merge(fileData, JSON.parse(fs.readFileSync(dataFile)));
-				} catch (err) {
-					errorHandler({
-						task: 'html',
-						message: 'Error loading JSON "'+ path.relative('./source/', dataFile) +'": ' + err
-					});
-				}
-			}
-
-			if (file.path.indexOf('modules') !== -1) {
-				fileData.isModule = true;
-				fileData.code = file.contents.toString();
+			// Custom data based on file type
+			if (fileName.indexOf('modules') !== -1) {
+				fileData = _.merge({
+					styleguide: {
+						// Save module markup as string
+						code: file.contents.toString(),
+						type: 'module'
+					}
+				}, fileData);
 
 				// Wrap modules with custom layout for preview purposes
 				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
-			} else if (file.path.indexOf('styleguide') !== -1) {
-				fileData.isStyleguide = true;
-
-				for (var i = 0; i < icons.length; i++) {
-					icons[i] = icons[i].replace(/\.[^/.]+$/, "");
-				}
-
-				fileData.icons = icons;
-			} else {
-				// Get module default data for pages
-				_.each(glob.sync('./source/modules/**/*.json'), function(file) {
-					var moduleName = path.basename(file, path.extname(file));
-
-					if (fs.existsSync(file)) {
-						try {
-							moduleData[moduleName] = JSON.parse(fs.readFileSync(file));
-						} catch (err) {
-							errorHandler({
-								task: 'html',
-								message: 'Error loading JSON "'+ path.relative('./source/', file) +'": ' + err
-							});
-						}
+			} else if (fileName.indexOf('styleguide') !== -1) {
+				fileData = _.merge({
+					// Save array of icons
+					icons: iconData,
+					styleguide: {
+						type: 'styleguide'
 					}
-				});
-
-				fileData.modules = moduleData;
+				}, fileData);
+			} else {
+				fileData = _.merge({
+					// Save every module's data
+					modules: moduleData,
+					styleguide: {
+						type: 'page'
+					}
+				}, fileData);
 			}
 
-			// Save data for later use
 			data[fileName] = _.merge({}, defaultFileData, fileData);
 		}))
 		.pipe(plumber())
@@ -106,22 +117,22 @@ gulp.task('html', function() {
 		// }))
 		.pipe(gulp.dest('./build'))
 		.on('end', function() {
-			var templateData = _.merge({
+			var templateData = _.merge(defaultFileData, {
 					pages: [],
 					modules: [],
 					styleguide: []
-				}, defaultFileData);
+				});
 
 			// Sort by filename and split into pages and modules
-			data = _.sortBy(data, function(value, key) {
-				return key;
-			}).map(function(value) {
-				if (value.isModule) {
-					templateData.modules.push(value);
-				} else if (value.isStyleguide) {
-					templateData.styleguide.push(value);
+			_.sortBy(data, function(fileData, fileName) {
+				return fileName;
+			}).map(function(fileData) {
+				if (fileData.styleguide.type === 'module') {
+					templateData.modules.push(fileData);
+				} else if (fileData.styleguide.type === 'styleguide') {
+					templateData.styleguide.push(fileData);
 				} else {
-					templateData.pages.push(value);
+					templateData.pages.push(fileData);
 				}
 			});
 

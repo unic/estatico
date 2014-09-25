@@ -9,14 +9,3 @@ body {
 	font-size: $sizeFontBase / 16px * 100%;
 	line-height: $lineHeightBase;
 }
-
-
-/* Demo */
-body {
-	box-sizing: border-box;
-	color: black;
-
-	.no-csstransforms & {
-		color: red;
-	}
-}

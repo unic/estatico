@@ -32,7 +32,7 @@ $pngsprite: (
 	}
 }
 
-@mixin pngspriteStyles($name) {
+@mixin pngspriteStyles($name, $skipDimensions: false) {
 	$image: map-get($pngsprite, $name);
 
 	@if $image == null {
@@ -45,6 +45,9 @@ $pngsprite: (
 
 	background-image: url($url);
 	background-position: toPx(map-get($position, "x")) toPx(map-get($position, "y"));
-	height: toPx(map-get($dimensions, "x"));
-	width: toPx(map-get($dimensions, "y"));
+
+	@if $skipDimensions != true {
+		height: toPx(map-get($dimensions, "y"));
+		width: toPx(map-get($dimensions, "x"));
+	}
 }

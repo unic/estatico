@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
+	<title>{{#if styleguide.title}}{{styleguide.title}} – {{/if}}{{project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="/assets/css/main.css">
@@ -18,7 +18,7 @@
 	{{#block "content"}}
 	{{/block}}
 
-	<pre class="sg_code">{{code}}</pre>
+	<pre class="sg_code">{{styleguide.code}}</pre>
 
 	<script src="/assets/js/main.js"></script>
 	{{#if runTests}}
