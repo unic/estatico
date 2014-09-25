@@ -1,4 +1,3 @@
-/* global Modernizr */
 /**
  * @requires ../vendor/unic-js-module/module.js
  * @requires ../vendor/unic-js-events/events.js
