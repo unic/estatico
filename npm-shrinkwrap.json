@@ -4917,6 +4917,11 @@
                 }
               }
             },
+            "rimraf": {
+              "version": "2.2.8",
+              "from": "rimraf@^2.2.6",
+              "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz"
+            },
             "stat-mode": {
               "version": "0.2.0",
               "from": "stat-mode@^0.2.0",
