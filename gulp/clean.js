@@ -5,8 +5,11 @@
  */
 
 var gulp = require('gulp'),
-	rimraf = require('rimraf');
+	del = require('del');
 
 gulp.task('clean', function(cb) {
-	rimraf('./build', cb);
+	del([
+		'./build',
+		'./source/assets/.tmp'
+	], cb);
 });
