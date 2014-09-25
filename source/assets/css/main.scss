@@ -1,17 +1,24 @@
-@import "fonts";
+@import "globals/variables";
+@import "globals/colors";
+@import "globals/functions";
+@import "globals/mixins";
 
-// 3rd party scripts
+// Reset / normalize styles
 @import "normalize-scss/normalize";
 
-// Base files
-@import "global";
+// Custom web fonts
+@import "globals/fonts";
+
+// Icons (as font or dataurl), PNG sprites
 @import "../.tmp/iconfont";
 @import "../.tmp/dataurls";
 @import "../.tmp/pngsprite";
-@import "layout";
 
-// Overwrites for 3rd party scripts
-@import "vendor";
+// Generic classes
+@import "globals/classes";
+
+// General layout
+@import "layout";
 
 // Modules
 @import "teaser/teaser";

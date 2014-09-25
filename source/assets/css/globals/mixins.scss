@@ -5,7 +5,7 @@
  * for discussion of different solutions
  */
 
-%visuallyhidden {
+@mixin visuallyhidden() {
 	border: 0;
 	clip: rect(0 0 0 0);
 	height: 1px;
@@ -16,7 +16,7 @@
 	width: 1px;
 }
 
-%visuallyhidden_reset {
+@mixin visuallyhiddenReset() {
 	clip: auto;
 	height: auto;
 	margin: 0;
@@ -25,21 +25,22 @@
 	width: auto;
 }
 
-%visuallyhidden_focusable {
-	@extend %visuallyhidden;
+@mixin visuallyhiddenFocusable() {
+	@include visuallyhidden;
 
-	&:active,
 	&:focus {
-		@extend %visuallyhidden_reset;
+		@include visuallyhiddenReset;
 	}
 }
 
+
 /**
- * Clearfix
+ * Contain floats with clearfix
  *
  * http://nicolasgallagher.com/micro-clearfix-hack/
  */
-%clearfix {
+
+@mixin clearfix() {
 	*zoom: 1;
 
 	&:before,
@@ -53,30 +54,25 @@
 	}
 }
 
+
 /**
  * Lists with layout purpose
  */
-%reset_list {
+
+@mixin resetList() {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-/**
- * Hide text - show icon
- */
-%hide-text {
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	display: block;
-}
 
 /**
- * Hide text that is wrapped in a span inside a div
+ * Replace text
  */
-%hide-link-text{
-	span {
-		display: none;
-	}
+
+@mixin replaceText() {
+	display: block;
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
 }

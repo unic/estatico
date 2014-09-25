@@ -2,7 +2,7 @@
 	display: flex;
 
 	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
-		@extend %clearfix;
+		@include clearfix;
 
 		.mod_teaser {
 			float: left;
