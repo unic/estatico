@@ -102,7 +102,7 @@ Use sourcemaps
 
 Now it is possible to edit values in the "source" tab from dev tools and save the changes directly from the dev tools. Gulp will take care of the rest.
 
-<iframe src="docs/gulp-sourcemaps.mp4" style="border:0; width: 75%; min-height: 350px"></iframe>
+Have a look at docs/gulp-sourcemaps.mp4 for a Screencarst.
 
 ---
 
