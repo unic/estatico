@@ -89,6 +89,19 @@ bower install
 # local version: node_modules/.bin/bower install
 ```
 
+Use sourcemaps
+
+1. Open chrome dev tools
+1. Open "source" tab from dev tools
+1. In the sources area (where you see the file-tree) right-mouse-click > "Add folder to workspace"
+1. Choose your project folder
+1. accpet the warning
+1. Select one of the .scss files (because it is easy for the browser to guess to which file should be map) and right-mouse-click > "Map to file system ressource"
+1. If the file has a unique name there will be 1 suggestion only. Simply press "Enter"
+1. Select "Yes" in the alert window > the dev tools will reload
+
+Now it is possible to edit values in the "source" tab from dev tools and save the changes directly from the dev tools. Gulp will take care of the rest.
+
 
 ---
 
