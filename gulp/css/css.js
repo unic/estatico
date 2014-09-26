@@ -30,7 +30,9 @@ gulp.task('css', function() {
 				'source/assets/vendor',
 				'source/modules'
 			],
-			style: 'expanded'
+			style: 'compact',
+			sourcemap: true,
+			lineNumbers: true
 		}).on('error', errorHandler))
 		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
 		.pipe(gulp.dest('./build/'))
