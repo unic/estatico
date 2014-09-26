@@ -13,13 +13,28 @@ echo "
 
 "
 
-# Install NPM dependencies using npm-pkgr (caching modules)
+echo "
+-------------------------------------------------------
+Install NPM dependencies using npm-pkgr (caching modules)
+-------------------------------------------------------
+"
+
 DEBUG=* npm-pkgr --strategy=copy
 
-# Install Bower dependencies
+echo "
+-------------------------------------------------------
+Install Bower dependencies
+-------------------------------------------------------
+"
+
 node node_modules/.bin/bower install
 
-# Ruby environment (for Sass)
+echo "
+-------------------------------------------------------
+Use Ruby 2.0.0 (for Sass)
+-------------------------------------------------------
+"
+
 source /usr/local/rvm/scripts/rvm
 rvm use 2.0.0
 
