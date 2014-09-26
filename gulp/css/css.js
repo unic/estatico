@@ -12,10 +12,12 @@ var gulp = require('gulp'),
 	livereload = require('gulp-livereload'),
 	util = require('gulp-util'),
 	rubySass = require('gulp-ruby-sass'),
-	autoprefixer = require('gulp-autoprefixer');
+	autoprefixer = require('gulp-autoprefixer'),
+	minify = require('gulp-minify-css'),
+	rename = require('gulp-rename');
 
 gulp.task('css', function() {
-	return gulp.src([,
+	return gulp.src([
 			'./source/assets/css/*.scss',
 			'./source/styleguide/assets/css/*.scss'
 		], {
@@ -28,9 +30,14 @@ gulp.task('css', function() {
 				'source/assets/vendor',
 				'source/modules'
 			],
-			style: util.env.prod ? 'compressed' : 'expanded'
+			style: 'expanded'
 		}).on('error', errorHandler))
 		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
+		.pipe(gulp.dest('./build/'))
+		.pipe(minify())
+		.pipe(rename({
+			suffix: '.min'
+		}))
 		.pipe(size({
 			title: 'css',
 			showFiles: true

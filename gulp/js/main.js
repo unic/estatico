@@ -12,7 +12,8 @@ var gulp = require('gulp'),
 	util = require('gulp-util'),
 	resolveDependencies = require('gulp-resolve-dependencies'),
 	concat = require('gulp-concat'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename');
 
 gulp.task('js:main', function() {
 	return gulp.src([
@@ -24,11 +25,16 @@ gulp.task('js:main', function() {
 			log: true
 		}).on('error', errorHandler))
 		.pipe(concat('main.js'))
-		.pipe(util.env.prod ? uglify({
+		.pipe(gulp.dest('./build/assets/js'))
+		.pipe(uglify({
 			preserveComments: 'some'
-		}) : util.noop())
+		}))
 		.pipe(size({
-			title: 'js:main'
+			title: 'js:main',
+			showFiles: true
+		}))
+		.pipe(rename({
+			suffix: '.min'
 		}))
 		.pipe(gulp.dest('./build/assets/js'))
 		.pipe(livereload({

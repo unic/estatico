@@ -9,9 +9,9 @@
 	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
-	<script src="/assets/js/head.js"></script>
+	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
 	<div class="layout_wrapper">
@@ -19,6 +19,6 @@
 		{{/block}}
 	</div>
 
-	<script src="/assets/js/main.js"></script>
+	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
 </body>
 </html>

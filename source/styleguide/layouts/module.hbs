@@ -9,10 +9,10 @@
 	<title>{{#if styleguide.title}}{{styleguide.title}} – {{/if}}{{project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<link rel="stylesheet" href="/styleguide/assets/css/main.css">
+	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+	<link rel="stylesheet" href="/styleguide/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
-	<script src="/assets/js/head.js"></script>
+	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
 	{{#block "content"}}
@@ -20,7 +20,7 @@
 
 	<pre class="sg_code">{{styleguide.code}}</pre>
 
-	<script src="/assets/js/main.js"></script>
+	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
 	{{#if runTests}}
 		<!-- DO NOT COPY -->
 		<div id="qunit"></div>

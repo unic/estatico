@@ -63,7 +63,8 @@ gulp.task('html', function() {
 				fileData = _.merge(getJsonData(dataFile), {
 					styleguide: {
 						previewUrl: util.replaceExtension(fileName, '.html')
-					}
+					},
+					env: util.env
 				}),
 				modulePrepend = new Buffer('{{#extend "styleguide/layouts/module"}}{{#replace "content"}}'),
 				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
