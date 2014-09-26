@@ -34,15 +34,15 @@ gulp.task('css', function() {
 		}).on('error', errorHandler))
 		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
 		.pipe(gulp.dest('./build/'))
-		.pipe(minify())
-		.pipe(rename({
+		.pipe(util.env.dev ? util.noop() : minify())
+		.pipe(util.env.dev ? util.noop() : rename({
 			suffix: '.min'
 		}))
 		.pipe(size({
 			title: 'css',
 			showFiles: true
 		}))
-		.pipe(gulp.dest('./build'))
+		.pipe(util.env.dev ? util.noop() : gulp.dest('./build'))
 		.pipe(livereload({
 			auto: false
 		}));
