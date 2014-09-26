@@ -40,6 +40,7 @@
     "gulp-util": "3.0.1",
     "gulp.spritesmith": "1.2.0",
     "handlebars": "2.0.0",
+    "handlebars-helpers": "0.5.8",
     "handlebars-layouts": "0.3.3",
     "jshint-stylish": "0.4.0",
     "lodash": "2.4.1",
