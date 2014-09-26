@@ -57,7 +57,7 @@ Build Dev Version
 -------------------------------------------------------
 "
 
-if ! node_modules/gulp/bin/gulp.js build
+if ! node_modules/gulp/bin/gulp.js build --dev
 	then
 		exit 1
 fi
@@ -76,7 +76,7 @@ Build Prod Version
 -------------------------------------------------------
 "
 
-if ! node_modules/gulp/bin/gulp.js build --prod
+if ! node_modules/gulp/bin/gulp.js build
 	then
 		exit 1
 fi
@@ -190,9 +190,9 @@ if [ -n "${BUILD_GIT_REPO}" ] && [ -n "${BUILD_GIT_BRANCH}" ]
 		# Sync files from dev build to temp folder
 		if [ -n "${PUSH_ASSETS}" ]
 			then
-				rsync -rm --delete --exclude '.git' --exclude 'metadata.json' ../build/ .
+				rsync -rm --delete --exclude '.git' ../build/prod/ .
 			else
-				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/dev/ .
+				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/prod/ .
 		fi
 
 		# Push changes

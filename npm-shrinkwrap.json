@@ -8155,6 +8155,103 @@
         }
       }
     },
+    "gulp-minify-css": {
+      "version": "0.3.10",
+      "from": "gulp-minify-css@",
+      "resolved": "https://registry.npmjs.org/gulp-minify-css/-/gulp-minify-css-0.3.10.tgz",
+      "dependencies": {
+        "clean-css": {
+          "version": "2.2.16",
+          "from": "clean-css@~2.2.13",
+          "resolved": "https://registry.npmjs.org/clean-css/-/clean-css-2.2.16.tgz",
+          "dependencies": {
+            "commander": {
+              "version": "2.2.0",
+              "from": "commander@2.2.x",
+              "resolved": "https://registry.npmjs.org/commander/-/commander-2.2.0.tgz"
+            }
+          }
+        },
+        "through2": {
+          "version": "0.6.2",
+          "from": "through2@^0.6.1",
+          "resolved": "https://registry.npmjs.org/through2/-/through2-0.6.2.tgz",
+          "dependencies": {
+            "readable-stream": {
+              "version": "1.0.32",
+              "from": "readable-stream@^1.0.26-2",
+              "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.32.tgz",
+              "dependencies": {
+                "core-util-is": {
+                  "version": "1.0.1",
+                  "from": "core-util-is@~1.0.0",
+                  "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz"
+                },
+                "isarray": {
+                  "version": "0.0.1",
+                  "from": "isarray@0.0.1",
+                  "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
+                },
+                "string_decoder": {
+                  "version": "0.10.31",
+                  "from": "string_decoder@~0.10.x",
+                  "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
+                },
+                "inherits": {
+                  "version": "2.0.1",
+                  "from": "inherits@~2.0.1",
+                  "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
+                }
+              }
+            },
+            "xtend": {
+              "version": "4.0.0",
+              "from": "xtend@>=4.0.0 <4.1.0-0",
+              "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.0.tgz"
+            }
+          }
+        },
+        "bufferstreams": {
+          "version": "0.0.2",
+          "from": "bufferstreams@0.0.2",
+          "resolved": "https://registry.npmjs.org/bufferstreams/-/bufferstreams-0.0.2.tgz",
+          "dependencies": {
+            "readable-stream": {
+              "version": "1.0.32",
+              "from": "readable-stream@^1.0.26-2",
+              "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.32.tgz",
+              "dependencies": {
+                "core-util-is": {
+                  "version": "1.0.1",
+                  "from": "core-util-is@~1.0.0",
+                  "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz"
+                },
+                "isarray": {
+                  "version": "0.0.1",
+                  "from": "isarray@0.0.1",
+                  "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
+                },
+                "string_decoder": {
+                  "version": "0.10.31",
+                  "from": "string_decoder@~0.10.x",
+                  "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
+                },
+                "inherits": {
+                  "version": "2.0.1",
+                  "from": "inherits@~2.0.1",
+                  "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
+                }
+              }
+            }
+          }
+        },
+        "memory-cache": {
+          "version": "0.0.5",
+          "from": "memory-cache@0.0.5",
+          "resolved": "https://registry.npmjs.org/memory-cache/-/memory-cache-0.0.5.tgz"
+        }
+      }
+    },
     "gulp-modernizr": {
       "version": "0.0.0",
       "from": "https://github.com/backflip/gulp-modernizr/tarball/develop",

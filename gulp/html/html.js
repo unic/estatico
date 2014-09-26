@@ -41,7 +41,9 @@ function getJsonData(file) {
 
 gulp.task('html', function() {
 	var data = {},
-		defaultFileData = getJsonData('./source/data/default.json'),
+		defaultFileData = _.merge(getJsonData('./source/data/default.json'), {
+			env: util.env
+		}),
 		modules = glob.sync('./source/modules/**/*.json'),
 		// Create object of module data with file name as key
 		moduleData = _.object(_.map(modules, function(file) {
