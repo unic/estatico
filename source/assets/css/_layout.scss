@@ -18,3 +18,28 @@ nav {
 	margin: 0 auto;
 	width: pxToEm($sizeWidthContent);
 }
+
+.layout_columns {
+	display: flex;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		@include clearfix;
+	}
+}
+
+.layout_main {
+	width: 75%;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		float: left;
+	}
+}
+
+.layout_sidebar {
+	flex: 1;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		float: right;
+		width: 25%;
+	}
+}
