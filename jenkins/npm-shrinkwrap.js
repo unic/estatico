@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash'),
-	fs = require('fs'),
+var fs = require('fs'),
 	data = require('../npm-shrinkwrap.json'),
 	jenkinsData = require('./npm-shrinkwrap.json');
 
-_.extend(data.dependencies, jenkinsData.dependencies);
+for (var prop in jenkinsData.dependencies) {
+	if (jenkinsData.dependencies.hasOwnProperty(prop)) {
+		data.dependencies[prop] = jenkinsData.dependencies[prop];
+	}
+}
 
 try {
 	fs.writeFileSync(__dirname + '/../npm-shrinkwrap.json', JSON.stringify(data, null, 2) + '\n');
