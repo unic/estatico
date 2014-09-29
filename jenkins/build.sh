@@ -15,6 +15,17 @@ echo "
 
 echo "
 -------------------------------------------------------
+Fix npm-shrinkwrap.json to use Jenkins-specific dependencies (e.g. gulp-imagemin)
+-------------------------------------------------------
+"
+
+if ! node jenkins/npm-shrinkwrap.js
+	then
+		exit 1
+fi
+
+echo "
+-------------------------------------------------------
 Install NPM dependencies using npm-pkgr (caching modules)
 -------------------------------------------------------
 "
