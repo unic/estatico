@@ -29,7 +29,7 @@ gulp.task('watch', function() {
 		'source/assets/js/{,**/}*.js',
 		'source/assets/.tmp/*.js',
 		'source/modules/**/*.js'
-	], ['js:lint', 'js:head', 'js:main']);
+	], ['js:lint', 'js:default']);
 
 	gulp.watch([
 		'source/modules/**/*.js.hbs',
