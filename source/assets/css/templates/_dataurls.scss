@@ -27,15 +27,20 @@ $iconsDataurls: (
 /**
  * Mixins
  *
- * iconDataurl() renders an icon into the :before pseudo element
+ * iconDataurl() renders an icon into the :before/:after pseudo element
  *
  * iconDataurlStyles() renders the main styles
  * It is used by iconDataurl()
  */
 
-@mixin iconDataurl($name, $color: "default") {
+@mixin iconDataurl($name, $color: "default", $after: false) {
 
-	&:before {
+	$selector: "before";
+	@if $after == true {
+		$selector: "after";
+	}
+
+	&:#{$selector} {
 		@include iconDataurlStyles($name, $color);
 
 		content: "";
