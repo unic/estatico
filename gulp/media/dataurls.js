@@ -40,7 +40,26 @@ gulp.task('media:dataurls', function() {
 					primary: '000000',
 					active: 'A4C400'
 				},
-				logo: {} // example: no coloring, only original file
+				// Use: @include iconDataurl(FILENAME, "primary") and @include iconDataurl(FILENAME, "active")
+
+				// Example 1: Custom colors for file "twitter"
+				// twitter: {
+				// 	primary: 'CC3300',
+				// 	active: '33CC00'
+				// },
+				// Use: @include iconDataurl("twitter", "primary") and @include iconDataurl("twitter", "active")
+
+				// Example 2: Custom colors and keys for file "twitter"
+				// twitter: {
+				// 	something: 'CC3300',
+				// 	something_else: '33CC00',
+				// 	something_different: '3300CC'
+				// },
+				// Use: @include iconDataurl("twitter", "something"), @include iconDataurl("twitter", "something_else"), @include iconDataurl("twitter", "something_different")
+
+				// Example 3: No coloring for file "twitter", only original file
+				// twitter: {}
+				// Use: @include iconDataurl("twitter")
 			},
 			replaceColor: function(content, hex) {
 				return content.replace(/fill="#(.*?)"/g, 'fill="#' + hex + '"');

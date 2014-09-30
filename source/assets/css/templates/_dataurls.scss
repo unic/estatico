@@ -33,7 +33,7 @@ $iconsDataurls: (
  * It is used by iconDataurl()
  */
 
-@mixin iconDataurl($name, $color: "primary") {
+@mixin iconDataurl($name, $color: "default") {
 
 	&:before {
 		@include iconDataurlStyles($name, $color);
@@ -43,7 +43,7 @@ $iconsDataurls: (
 	}
 }
 
-@mixin iconDataurlStyles($name, $color: "primary", $skipDimensions: false, $skipFallback: false) {
+@mixin iconDataurlStyles($name, $color: "default", $skipDimensions: false, $skipFallback: false) {
 	$icon: map-get($iconsDataurls, $name);
 
 	@if $icon == null {

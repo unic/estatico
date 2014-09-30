@@ -15,7 +15,7 @@
 		}
 	}
 	.media_icon_dataurl {
-		@include iconDataurl("twitter");
+		@include iconDataurl("twitter", "primary");
 
 		&:hover,
 		&:focus,
