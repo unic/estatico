@@ -1,0 +1,24 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+
+	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+</head>
+<body>
+	<div class="layout_wrapper">
+		{{#block "content"}}
+		{{/block}}
+	</div>
+
+	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+</body>
+</html>

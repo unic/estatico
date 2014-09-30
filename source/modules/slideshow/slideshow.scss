@@ -1,9 +1,9 @@
 .mod_slideshow {
 
-	.next {
-		@include icon(slideshow-twitter);
-	}
-	.prev {
-		@include icon(slideshow-github);
+	&.is_activated {
+
+		.slide {
+			display: none;
+		}
 	}
 }

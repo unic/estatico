@@ -1,0 +1,94 @@
+@font-face {
+	font-family: "{{options.fontName}}";
+	src: url('{{options.fontPath}}{{options.fontName}}.eot');
+	src: url('{{options.fontPath}}{{options.fontName}}.eot?#iefix') format('eot'),
+		url('{{options.fontPath}}{{options.fontName}}.woff') format('woff'),
+		url('{{options.fontPath}}{{options.fontName}}.ttf') format('truetype'),
+		url('{{options.fontPath}}{{options.fontName}}.svg#{{options.fontName}}') format('svg');
+}
+
+
+/**
+ * Map containing all icons with their unicode character
+ *
+ * Can be accessed using map-get (see iconStyles mixin)
+ */
+
+$icons: (
+	{{#each icons}}"{{@key}}": (
+		"char": "\\{{this.codepoint}}"
+	),
+	{{/each}}
+);
+
+
+/**
+ * Mixins
+ *
+ * icon() renders an icon into the :before pseudo element
+ *
+ * iconStyles() renders the main styles
+ * It is used by icon
+ *
+ * iconDefaultStyles() renders the basic styles
+ * They are separated to allow for the use in a placeholder to reduce code duplication
+ */
+
+@mixin icon($name, $skipDefaultsStyles: false) {
+
+	&:before {
+		@if $skipDefaultsStyles == false {
+			@include iconDefaultStyles;
+		}
+
+		@include iconStyles($name);
+	}
+}
+
+@mixin iconStyles($name) {
+	$icon: map-get($icons, $name);
+
+	@if $icon == null {
+		@error "No icon '#{$name}' found";
+	}
+
+	$char: map-get($icon, "char");
+
+	content: "#{$char}";
+}
+
+@mixin iconDefaultStyles() {
+	display: inline-block;
+	font-family: "{{options.fontName}}";
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	// speak: none; // only necessary if not using the private unicode range (firstGlyph option)
+	text-decoration: none;
+	text-transform: none;
+	line-height: 1;
+}
+
+
+/**
+ * Class for each icon
+ * Placeholder for default styles to reduce code duplication
+ *
+ * Used in styleguide, e.g.
+ */
+
+%icon {
+	@include iconDefaultStyles;
+}
+
+{{#each icons}}.icon_{{@key}} {
+
+	&:before {
+		@extend %icon;
+	}
+
+	@include icon("{{@key}}", $skipDefaultsStyles: true);
+}
+{{/each}}

@@ -1,0 +1,11 @@
+{{#extend "layouts/layout"}}
+	{{#replace "content"}}
+		<h2>{{title}}</h2>
+
+		<p>{{content}}</p>
+
+		<hr>
+
+		{{> "modules/teasers/teasers" modules.teasers}}
+	{{/replace}}
+{{/extend}}

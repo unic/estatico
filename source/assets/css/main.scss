@@ -1,17 +1,32 @@
+@import "globals/variables";
+@import "globals/colors";
+@import "globals/functions";
+@import "globals/mixins";
+
+// Reset / normalize styles
 @import "normalize-scss/normalize";
-@import "../.tmp/icons";
-@import "../.tmp/sprite";
+
+// Custom web fonts
+@import "globals/fonts";
+
+// Icons (as font or dataurl), PNG sprites
+@import "../.tmp/iconfont";
+@import "../.tmp/dataurls";
+@import "../.tmp/pngsprite";
+
+// Generic classes
+@import "globals/classes";
+
+// General layout
+@import "layout";
+
+// Modules
+@import "teaser/teaser";
+@import "teasers/teasers";
 @import "slideshow/slideshow";
+@import "media/media";
+//*autoinsertmodule*
 
-body {
-	box-sizing: border-box;
-	color: green;
-
-	.no-csstransforms & {
-		color: red;
-	}
-
-	p {
-		@include sprite(logo);
-	}
+@media print {
+	@import "print";
 }

@@ -1,5 +1,4 @@
-/*jshint -W098 */
-/*jshint -W079 */
+/* jshint unused: false */
 /**
  * @requires ../.tmp/modernizr.js
  */
@@ -12,5 +11,3 @@ var Unic = {
 		modules: {},
 		data: {}
 	};
-
-console.log('head');

@@ -1,0 +1,18 @@
+{{#extend "styleguide/layouts/section"}}
+	{{#replace "content"}}
+
+		<ul class="sg_color_list">
+			{{#each colors}}
+				{{#if this.showInStyleguide}}
+					<li class="sg_color_item" title="{{this.hexValue}}">
+						<div class="sg_color_preview" style="background-color: {{this.hexValue}}"></div>
+						<div class="sg_color_name">{{this.name}}</div>
+						<div class="sg_color_variable_name">$color{{removeWhiteSpace this.name}}</div>
+						<div class="sg_color_value">{{this.hexValue}}</div>
+					</li>
+				{{/if}}
+			{{/each}}
+		</ul>
+
+	{{/replace}}
+{{/extend}}
