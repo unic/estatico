@@ -6,6 +6,10 @@ var handlebars = require('handlebars');
 // Make handlebars layout helpers available
 require('handlebars-layouts')(handlebars);
 
+// Make specific assemble helpers available
+// Example: Use the comparisons provided by the handlebars-helpers package
+// require('../node_modules/handlebars-helpers/lib/helpers/helpers-comparisons.js').register(handlebars);
+
 
 // Custom Handlebars Helper
 
