@@ -8,7 +8,6 @@
 var gulp = require('gulp'),
 	errorHandler = require('gulp-unic-errors'),
 	plumber = require('gulp-plumber'),
-	size = require('gulp-size'),
 	livereload = require('gulp-livereload'),
 	util = require('gulp-util'),
 	fs = require('fs'),
@@ -17,8 +16,8 @@ var gulp = require('gulp'),
 	_ = require('lodash'),
 	tap = require('gulp-tap'),
 	path = require('path'),
-	unicHandlebars = require('gulp-unic-handlebars'),
-	prettify = require('gulp-prettify');
+	// prettify = require('gulp-prettify'),
+	unicHandlebars = require('gulp-unic-handlebars');
 
 function jsonError(file, err) {
 	errorHandler({
