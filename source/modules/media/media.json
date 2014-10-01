@@ -1,5 +1,6 @@
 {
 	"styleguide": {
-		"title": "Media demo"
+		"title": "Media demo",
+		"jira": "JIRA-3"
 	}
 }
