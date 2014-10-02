@@ -1,3 +1,6 @@
 {
-	"title": "MODULE"
+	"styleguide": {
+		"title": "MODULE",
+		"jira": "JIRA-1"
+	}
 }

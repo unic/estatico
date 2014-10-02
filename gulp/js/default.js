@@ -29,7 +29,7 @@ var gulp = require('gulp'),
 	};
 
 gulp.task('js:default', function() {
-	var tasks = _.map(packages, function(config, key) {
+	var tasks = _.map(packages, function(config) {
 			var fileName = path.basename(config.src);
 
 			return gulp.src(config.src)
