@@ -46,7 +46,7 @@ Install Bower dependencies
 -------------------------------------------------------
 "
 
-node node_modules/.bin/bower install
+node /var/lib/jenkins/.nvm/v0.10.31/lib/node_modules/bower/bin/bower install
 
 echo "
 -------------------------------------------------------
@@ -56,6 +56,14 @@ Use Ruby 2.0.0 (for Sass)
 
 source /usr/local/rvm/scripts/rvm
 rvm use 2.0.0
+
+echo "
+-------------------------------------------------------
+Install Ruby dependencies
+-------------------------------------------------------
+"
+
+bundle install
 
 echo "
 
@@ -75,6 +83,8 @@ echo "
 Build Dev Version
 -------------------------------------------------------
 "
+
+npm install gulp --save-dev
 
 if ! node_modules/gulp/bin/gulp.js build --dev
 	then
