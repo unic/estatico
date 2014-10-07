@@ -77,3 +77,49 @@
 	text-indent: 100%;
 	white-space: nowrap;
 }
+
+
+/**
+ * Better font rendering (on OS X)
+ * http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+ *
+ * Usage:
+ *
+ * .var_dark_on_light {
+ * 	@include fontSmoothing;
+ * }
+ * .var_light_on_dark {
+ * 	@include fontSmoothingReset;
+ * }
+ */
+
+@mixin fontSmoothing() {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin fontSmoothingReset() {
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: auto;
+}
+
+
+/**
+ * Placeholder in input fields
+ */
+
+@mixin placeholder() {
+
+	&::-webkit-input-placeholder {
+		@content;
+	}
+	&:-moz-placeholder { // Firefox 18-
+		@content;
+	}
+	&::-moz-placeholder { // Firefox 19+
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+}
