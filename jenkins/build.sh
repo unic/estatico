@@ -87,8 +87,6 @@ Build Dev Version
 -------------------------------------------------------
 "
 
-npm install gulp --save-dev
-
 if ! node_modules/gulp/bin/gulp.js build --dev
 	then
 		exit 1
