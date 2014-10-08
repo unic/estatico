@@ -31,7 +31,8 @@
 
 ### Dependencies
 
-Node, NPM (preferably using [nvm](https://github.com/creationix/nvm)).
+* Node, NPM (preferably using [nvm](https://github.com/creationix/nvm)).
+* Ruby and [bundler](http://bundler.io/) for Sass.
 
 ### Usage
 
@@ -65,6 +66,12 @@ npm install
 
 # Re-add npm-shrinkwrap.json
 git checkout npm-shrinkwrap.json
+```
+
+Install Sass:
+
+```shell
+bundle install
 ```
 
 Start server
