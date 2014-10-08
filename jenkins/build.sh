@@ -49,7 +49,7 @@ Install Bower dependencies
 -------------------------------------------------------
 "
 
-node node_modules/bower/bin/bower install
+node node_modules/.bin/bower install
 
 echo "
 -------------------------------------------------------
