@@ -31,6 +31,6 @@ gulp.task('js:lodash', function(cb) {
 			}
 		});
 	}
-
+console.log('cd ' + cmdDir + ' && .' + path.sep + 'lodash ' + args.join(' '));
 	exec('cd ' + cmdDir + ' && .' + path.sep + 'lodash ' + args.join(' '), cb);
 });
