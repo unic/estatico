@@ -38,7 +38,10 @@ Install NPM dependencies using npm-pkgr (caching modules)
 -------------------------------------------------------
 "
 
-DEBUG=* npm-pkgr --strategy=copy
+if ! DEBUG=* npm-pkgr
+	then
+		exit 1
+fi
 
 echo "
 -------------------------------------------------------
@@ -46,7 +49,7 @@ Install Bower dependencies
 -------------------------------------------------------
 "
 
-node /var/lib/jenkins/.nvm/v0.10.31/lib/node_modules/bower/bin/bower install
+node node_modules/bower/bin/bower install
 
 echo "
 -------------------------------------------------------
