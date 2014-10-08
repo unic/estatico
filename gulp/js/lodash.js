@@ -20,7 +20,7 @@ gulp.task('js:lodash', function(cb) {
 		args = [
 			'include=' + modules.join(','),
 			'-o',
-			absTargetFile,
+			'"' + absTargetFile + '"',
 			'-d'
 		];
 
