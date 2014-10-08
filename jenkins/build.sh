@@ -83,25 +83,6 @@ echo "
 
 echo "
 -------------------------------------------------------
-Build Dev Version
--------------------------------------------------------
-"
-
-if ! node_modules/gulp/bin/gulp.js build --dev
-	then
-		exit 1
-fi
-
-if [ ! -d "build" ]
-	then
-		echo "[ERROR] DEV build failed (no build directory detected)."
-		exit 1
-fi
-
-mv build dev
-
-echo "
--------------------------------------------------------
 Build Prod Version
 -------------------------------------------------------
 "
@@ -118,6 +99,25 @@ if [ ! -d "build" ]
 fi
 
 mv build prod
+
+echo "
+-------------------------------------------------------
+Build Dev Version
+-------------------------------------------------------
+"
+
+if ! node_modules/gulp/bin/gulp.js build --dev
+	then
+		exit 1
+fi
+
+if [ ! -d "build" ]
+	then
+		echo "[ERROR] DEV build failed (no build directory detected)."
+		exit 1
+fi
+
+mv build dev
 
 # Create structure for preview server
 mkdir build
