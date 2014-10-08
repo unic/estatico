@@ -2,37 +2,33 @@
 	"title": "Colors",
 	"colors": [
 		{
+			"name": "Unic Green",
+			"hexValue": "#a4c400",
+			"hideInStyleguide": true
+		}, {
 			"name": "Dark Red",
-			"hexValue": "#460d00",
-			"showInStyleguide": true
+			"hexValue": "#460d00"
 		}, {
 			"name": "Red Wine",
-			"hexValue": "#671200",
-			"showInStyleguide": true
+			"hexValue": "#671200"
 		}, {
 			"name": "Nature",
-			"hexValue": "#7b8b00",
-			"showInStyleguide": true
+			"hexValue": "#7b8b00"
 		}, {
 			"name": "Black",
-			"hexValue": "#000000",
-			"showInStyleguide": true
+			"hexValue": "#000000"
 		}, {
 			"name": "Dark Gray",
-			"hexValue": "#101111",
-			"showInStyleguide": true
+			"hexValue": "#101111"
 		}, {
 			"name": "Gray",
-			"hexValue": "#4d4d4d",
-			"showInStyleguide": true
+			"hexValue": "#4d4d4d"
 		}, {
 			"name": "Light Gray",
-			"hexValue": "#ececec",
-			"showInStyleguide": true
+			"hexValue": "#ececec"
 		}, {
 			"name": "White",
-			"hexValue": "#ffffff",
-			"showInStyleguide": true
+			"hexValue": "#ffffff"
 		}
 	]
 }
