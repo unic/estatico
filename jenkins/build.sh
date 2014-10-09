@@ -49,7 +49,10 @@ Install Bower dependencies
 -------------------------------------------------------
 "
 
-node node_modules/.bin/bower install
+if ! node node_modules/.bin/bower install
+	then
+		exit 1
+fi
 
 echo "
 -------------------------------------------------------
@@ -66,7 +69,10 @@ Install Ruby dependencies
 -------------------------------------------------------
 "
 
-bundle install
+if ! bundle install
+	then
+		exit 1
+fi
 
 echo "
 
