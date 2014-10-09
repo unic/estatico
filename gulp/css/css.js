@@ -31,7 +31,6 @@ gulp.task('css', function() {
 				'source/modules'
 			],
 			style: 'compact',
-			sourcemap: true,
 			lineNumbers: true
 		}).on('error', errorHandler))
 		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
