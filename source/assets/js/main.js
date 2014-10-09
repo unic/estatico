@@ -1,6 +1,6 @@
 /**
- * @requires ../vendor/unic-js-module/module.js
- * @requires ../vendor/unic-js-events/events.js
+ * @requires helpers/module.js
+ * @requires helpers/events.js
  *
  * @requires ../vendor/handlebars/handlebars.js
  * @requires ../.tmp/templates.js
@@ -9,5 +9,5 @@
  * @requires ../../modules/slideshow/slideshow.js
  * //*autoinsertmodule*
  *
- * @requires ../vendor/unic-js-module/init.js
+ * @requires helpers/init.js
  */
