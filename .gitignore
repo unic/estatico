@@ -6,3 +6,4 @@ source/assets/vendor
 .cache
 .idea
 atlassian-ide-plugin.xml
+.vagrant
