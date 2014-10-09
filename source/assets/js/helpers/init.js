@@ -7,7 +7,7 @@
  * @requires module.js
  */
 
-;(function(window, document, $, Unic, undefined) {
+;(function(window, document, $, _, Unic, undefined) {
 	'use strict';
 
 	var initEvents = _.keys(Unic.modules.PluginInitEvents);
@@ -30,4 +30,4 @@
 			}
 		});
 	});
-})(window, document, jQuery, Unic);
+})(window, document, jQuery, _, Unic);

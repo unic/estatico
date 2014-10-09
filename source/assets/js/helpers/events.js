@@ -6,7 +6,7 @@
  * @requires ../../.tmp/lodash.js
  */
 
-;(function(window, document, $, Unic, undefined) {
+;(function(window, document, $, _, Unic, undefined) {
 	'use strict';
 
 	var $document = $(document);
@@ -26,4 +26,4 @@
 			$document.triggerHandler(Unic.events.scroll, event);
 		}, this), 50));
 
-})(window, document, jQuery, Unic);
+})(window, document, jQuery, _, Unic);
