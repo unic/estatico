@@ -32,7 +32,8 @@ gulp.task('css', function() {
 			],
 			style: 'compact',
 			sourcemap: true,
-			lineNumbers: true
+			lineNumbers: true,
+			bundleExec: true
 		}).on('error', errorHandler))
 		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
 		.pipe(gulp.dest('./build/'))
