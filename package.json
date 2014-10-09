@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://git.unic.com/scm/budc/copfe---gulp-boilerplate.git"
   },
+  "description": "Boilerplate for frontend prototypes at Unic",
   "dependencies": {
     "bower": "1.3.12",
     "connect": "3.2.0",
