@@ -5,7 +5,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
 	livereload = require('gulp-livereload'),
@@ -103,7 +103,7 @@ gulp.task('media:dataurls', function() {
 				imageMagick: true
 			}),
 			raster()
-		).on('error', errorHandler))
+		).on('error', helpers.errors))
 		.pipe(rename({
 			extname: '.png'
 		}))
@@ -121,7 +121,7 @@ gulp.task('media:dataurls', function() {
 					data: {
 						icons: icons
 					}
-				}).on('error', errorHandler))
+				}).on('error', helpers.errors))
 				.pipe(base64({
 					baseDir: './build/assets/css/'
 				}))

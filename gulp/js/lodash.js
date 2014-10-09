@@ -5,7 +5,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	fs = require('fs'),
 	path = require('path'),
 	exec = require('child_process').exec;
@@ -28,7 +28,7 @@ gulp.task('js:lodash', function(cb) {
 	if (!fs.existsSync(absTargetDir)) {
 		fs.mkdirSync(absTargetDir, function(err) {
 			if (err) {
-				errorHandler(err);
+				helpers.errors(err);
 			}
 		});
 	}

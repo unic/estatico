@@ -8,7 +8,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
 	spritesmith = require('gulp.spritesmith'),
@@ -64,7 +64,7 @@ gulp.task('media:pngsprite', function(cb) {
 					data: {
 						images: images
 					}
-				}).on('error', errorHandler))
+				}).on('error', helpers.errors))
 				.pipe(gulp.dest('./source/assets/.tmp/'));
 
 			cb();

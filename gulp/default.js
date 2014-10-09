@@ -6,13 +6,13 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../helpers'),
 	runSequence = require('run-sequence');
 
 gulp.task('default', function(cb) {
 	runSequence('livereload', 'build', 'watch', 'serve', function(err) {
 		if (err) {
-			errorHandler(err);
+			helpers.errors(err);
 		}
 
 		cb();

@@ -5,7 +5,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
 	livereload = require('gulp-livereload'),
@@ -37,7 +37,7 @@ gulp.task('js:default', function() {
 				.pipe(resolveDependencies({
 					pattern: /\* @requires [\s-]*(.*?\.js)/g,
 					log: true
-				}).on('error', errorHandler))
+				}).on('error', helpers.errors))
 				.pipe(concat(fileName))
 				.pipe(gulp.dest(config.dest))
 				.pipe(util.env.dev ? util.noop() : uglify({
