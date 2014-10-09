@@ -54,18 +54,15 @@ bower install
 If "npm install" fails:
 
 ```shell
+# Update npm to at least 2.1.2
+npm install -g npm@2.1.2
+
 # Clean up
 rm -rf node_modules
 npm cache clean
 
-# Temporarily remove npm-shrinkwrap.json
-rm npm-shrinkwrap.json
-
 # Install dependencies
 npm install
-
-# Re-add npm-shrinkwrap.json
-git checkout npm-shrinkwrap.json
 ```
 
 Install Sass:
