@@ -51,7 +51,7 @@
     "lodash": "2.4.1",
     "lodash-cli": "2.4.2",
     "merge-stream": "0.1.6",
-    "node-notifier": "^4.0.2",
+    "node-notifier": "4.0.2",
     "open": "0.0.5",
     "require-dir": "0.1.0",
     "run-sequence": "1.0.1",
