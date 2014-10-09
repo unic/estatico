@@ -98,7 +98,7 @@ Have a look at [https://me.unic.com/display/COPFE/Gulp%3A+Specific+tasks]() for 
 
 ### Debugging
 
-If "npm install" fails:
+If "npm install" fails (e.g. ERR cb() never called):
 
 ```shell
 # Update npm to at least 2.1.2
@@ -131,6 +131,12 @@ npm shrinkwrap
 # Make sure the new npm-shrinkwrap.json works on Jenkins
 ```
 
+If "npm install" prompts for username/password but mangles the input:
+
+```shell
+npm config set spin false
+npm config set loglevel http
+```
 
 ---
 
