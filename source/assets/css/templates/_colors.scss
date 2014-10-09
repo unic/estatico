@@ -2,7 +2,7 @@
  * Colors imported from ColorSchemer export
  */
 
-{{#each colors}}$color{{removeWhiteSpace this.name}}: {{this.hexValue}};
+{{#each colors}}$color{{removeWhiteSpace name}}: {{hexValue}};
 {{/each}}
 
 

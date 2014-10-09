@@ -3,12 +3,12 @@
 
 		<ul class="sg_color_list">
 			{{#each colors}}
-				{{#unless this.hideFromStyleguide}}
-					<li class="sg_color_item" title="{{this.hexValue}}">
-						<div class="sg_color_preview" style="background-color: {{this.hexValue}}"></div>
-						<div class="sg_color_name">{{this.name}}</div>
-						<div class="sg_color_variable_name">$color{{removeWhiteSpace this.name}}</div>
-						<div class="sg_color_value">{{this.hexValue}}</div>
+				{{#unless hideFromStyleguide}}
+					<li class="sg_color_item" title="{{hexValue}}">
+						<div class="sg_color_preview" style="background-color: {{hexValue}}"></div>
+						<div class="sg_color_name">{{name}}</div>
+						<div class="sg_color_variable_name">$color{{removeWhiteSpace name}}</div>
+						<div class="sg_color_value">{{hexValue}}</div>
 					</li>
 				{{/unless}}
 			{{/each}}
