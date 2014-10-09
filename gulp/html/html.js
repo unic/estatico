@@ -19,13 +19,6 @@ var gulp = require('gulp'),
 	// prettify = require('gulp-prettify'),
 	unicHandlebars = require('gulp-unic-handlebars');
 
-function jsonError(file, err) {
-	helpers.errors({
-		task: 'html',
-		message: 'Error loading JSON "'+ path.relative('./source/', file) +'": ' + err
-	});
-}
-
 function getJsonData(file) {
 	if (!fs.existsSync(file)) {
 		return {};
@@ -34,7 +27,10 @@ function getJsonData(file) {
 	try {
 		return JSON.parse(fs.readFileSync(file));
 	} catch (err) {
-		jsonError(file, err);
+		helpers.errors({
+			task: 'html',
+			message: 'Error reading "'+ path.relative('./source/', file) +'": ' + err
+		});
 	}
 }
 

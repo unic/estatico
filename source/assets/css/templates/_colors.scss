@@ -1,0 +1,15 @@
+/**
+ * Colors imported from ColorSchemer export
+ */
+
+{{#each colors}}$color{{removeWhiteSpace this.name}}: {{this.hexValue}};
+{{/each}}
+
+
+/**
+ * Custom colors
+ */
+
+$colorText: #000000;
+$colorBg: #ffffff;
+$colorActive: #a4c400;
