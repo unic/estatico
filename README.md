@@ -49,20 +49,8 @@ Install node and bower dependencies:
 npm install
 bower install
 # local version: node_modules/.bin/bower install
-```
 
-If "npm install" fails:
-
-```shell
-# Update npm to at least 2.1.2
-npm install -g npm@2.1.2
-
-# Clean up
-rm -rf node_modules
-npm cache clean
-
-# Install dependencies
-npm install
+# see debugging steps below
 ```
 
 Install Sass:
@@ -71,7 +59,7 @@ Install Sass:
 bundle install
 ```
 
-Start server
+Start server:
 
 ```shell
 gulp --dev
@@ -79,21 +67,21 @@ gulp --dev
 # dev flag makes sure the server and watcher don't crash on error
 ```
 
-Build
+Build:
 
 ```shell
 gulp build
 # local version: node_modules/.bin/gulp build
 ```
 
-Update bower dependencies
+Update bower dependencies:
 
 ```shell
 bower install
 # local version: node_modules/.bin/bower install
 ```
 
-Use sourcemaps
+Use sourcemaps:
 
 1. Open Chrome dev tools
 2. Open "source" tab from dev tools
@@ -107,6 +95,42 @@ Use sourcemaps
 Now it is possible to edit values in the "source" tab from dev tools and save the changes directly from the dev tools. Gulp will take care of the rest.
 
 Have a look at [https://me.unic.com/display/COPFE/Gulp%3A+Specific+tasks]() for a screencast.
+
+### Debugging
+
+If "npm install" fails:
+
+```shell
+# Update npm to at least 2.1.2
+npm install -g npm@2.1.2
+
+# Clean up
+rm -rf node_modules
+npm cache clean
+
+# Try again
+npm install
+```
+
+If "npm install" still fails:
+
+```shell
+# Remove npm-shrinkwrap.json
+rm npm-shrinkwrap.json
+
+# Clean up
+rm -rf node_modules
+npm cache clean
+
+# Try again
+npm install
+
+# Re-generate npm-shrinkwrap.json
+npm shrinkwrap
+
+# Make sure the new npm-shrinkwrap.json works on Jenkins
+```
+
 
 ---
 
