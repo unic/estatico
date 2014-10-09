@@ -31,7 +31,8 @@ gulp.task('css', function() {
 				'source/modules'
 			],
 			style: 'compact',
-			lineNumbers: true
+			lineNumbers: true,
+			bundleExec: true
 		}).on('error', helpers.errors))
 		.pipe(autoprefixer('last 2 version').on('error', helpers.errors))
 		.pipe(gulp.dest('./build/'))
