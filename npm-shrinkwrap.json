@@ -11284,47 +11284,6 @@
         }
       }
     },
-    "gulp-unic-errors": {
-      "version": "0.1.0",
-      "from": "gulp-unic-errors@git+https://git.unic.com/scm/budc/copfe---gulp-plugin---error-handling.git",
-      "resolved": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---error-handling.git#6fd7132c108a956b7b4f872107b4600f6e858ddd",
-      "dependencies": {
-        "node-notifier": {
-          "version": "3.2.1",
-          "from": "node-notifier@3.2.1",
-          "resolved": "https://registry.npmjs.org/node-notifier/-/node-notifier-3.2.1.tgz",
-          "dependencies": {
-            "growler": {
-              "version": "0.0.1",
-              "from": "growler@^0.0.1",
-              "resolved": "https://registry.npmjs.org/growler/-/growler-0.0.1.tgz",
-              "dependencies": {
-                "underscore": {
-                  "version": "1.7.0",
-                  "from": "underscore@>=1.1.5",
-                  "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
-                }
-              }
-            },
-            "semver": {
-              "version": "3.0.1",
-              "from": "semver@^3.0.1",
-              "resolved": "https://registry.npmjs.org/semver/-/semver-3.0.1.tgz"
-            },
-            "shellwords": {
-              "version": "0.1.0",
-              "from": "shellwords@^0.1.0",
-              "resolved": "https://registry.npmjs.org/shellwords/-/shellwords-0.1.0.tgz"
-            },
-            "which": {
-              "version": "1.0.5",
-              "from": "which@^1.0.5",
-              "resolved": "https://registry.npmjs.org/which/-/which-1.0.5.tgz"
-            }
-          }
-        }
-      }
-    },
     "gulp-unic-handlebars": {
       "version": "0.0.3",
       "from": "gulp-unic-handlebars@git+https://git.unic.com/scm/budc/copfe---gulp-plugin---handlebars-templating.git",
@@ -13336,6 +13295,38 @@
               "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.0.tgz"
             }
           }
+        }
+      }
+    },
+    "node-notifier": {
+      "version": "4.0.2",
+      "from": "node-notifier@",
+      "resolved": "https://registry.npmjs.org/node-notifier/-/node-notifier-4.0.2.tgz",
+      "dependencies": {
+        "semver": {
+          "version": "4.0.3",
+          "from": "semver@^4.0.3",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-4.0.3.tgz"
+        },
+        "shellwords": {
+          "version": "0.1.0",
+          "from": "shellwords@^0.1.0",
+          "resolved": "https://registry.npmjs.org/shellwords/-/shellwords-0.1.0.tgz"
+        },
+        "which": {
+          "version": "1.0.5",
+          "from": "which@^1.0.5",
+          "resolved": "https://registry.npmjs.org/which/-/which-1.0.5.tgz"
+        },
+        "growly": {
+          "version": "1.1.1",
+          "from": "growly@^1.1.1",
+          "resolved": "https://registry.npmjs.org/growly/-/growly-1.1.1.tgz"
+        },
+        "clone": {
+          "version": "0.1.18",
+          "from": "clone@^0.1.18",
+          "resolved": "https://registry.npmjs.org/clone/-/clone-0.1.18.tgz"
         }
       }
     },

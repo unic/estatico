@@ -6,7 +6,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../helpers'),
 	livereload = require('gulp-livereload'),
 	util = require('gulp-util'),
 	tap = require('gulp-tap'),
@@ -16,7 +16,7 @@ var gulp = require('gulp'),
 
 gulp.task('mod', function() {
 	if (!args.n) {
-		errorHandler({
+		helpers.errors({
 			task: 'mod',
 			message: 'Parameter -n not specified.'
 		});

@@ -6,7 +6,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	livereload = require('gulp-livereload'),
 	util = require('gulp-util'),
@@ -20,7 +20,7 @@ var gulp = require('gulp'),
 	unicHandlebars = require('gulp-unic-handlebars');
 
 function jsonError(file, err) {
-	errorHandler({
+	helpers.errors({
 		task: 'html',
 		message: 'Error loading JSON "'+ path.relative('./source/', file) +'": ' + err
 	});
@@ -111,7 +111,7 @@ gulp.task('html', function() {
 			partials: './source/{,layouts/,pages/,modules/**/,styleguide/**/}*.hbs',
 			extension: '.html',
 			cachePartials: false
-		}).on('error', errorHandler))
+		}).on('error', helpers.errors))
 		// .pipe(prettify({
 		// 	indent_with_tabs: true,
 		// 	max_preserve_newlines: 1
@@ -144,7 +144,7 @@ gulp.task('html', function() {
 					extension: '.html',
 					data: templateData,
 					cachePartials: false
-				}).on('error', errorHandler))
+				}).on('error', helpers.errors))
 				.pipe(gulp.dest('./build'))
 				.pipe(livereload({
 					auto: false

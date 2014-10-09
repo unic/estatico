@@ -5,7 +5,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	util = require('gulp-util'),
 	tap = require('gulp-tap'),
 	path = require('path'),
@@ -23,10 +23,10 @@ gulp.task('js:lint', function() {
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(util.env.dev ? tap(function(file) {
 			if (!file.jshint.success) {
-				errorHandler({
+				helpers.errors({
 					task: 'js:lint',
 					message: 'Linting error in file "' + path.relative('./source/', file.path) + '" (see console)'
 				});
 			}
-		}) : jshint.reporter('fail').on('error', errorHandler));
+		}) : jshint.reporter('fail').on('error', helpers.errors));
 });

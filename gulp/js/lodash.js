@@ -5,7 +5,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	fs = require('fs'),
 	path = require('path'),
 	exec = require('child_process').exec;
@@ -13,21 +13,22 @@ var gulp = require('gulp'),
 gulp.task('js:lodash', function(cb) {
 	var cmdDir = 'node_modules/.bin/',
 		targetDir = 'source/assets/.tmp/',
+		absTargetDir = path.resolve(targetDir),
 		targetFile = 'lodash.js',
-		relTargetPath = path.relative(cmdDir, targetDir + targetFile),
+		absTargetFile = path.resolve(targetDir + targetFile),
 		modules = ['debounce', 'keys', 'bind'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
-			relTargetPath,
+			'"' + absTargetFile + '"',
 			'-d'
 		];
 
 	// Create source/assets/.tmp directory if not already present
-	if (!fs.existsSync(targetDir)) {
-		fs.mkdirSync(targetDir, function(err) {
+	if (!fs.existsSync(absTargetDir)) {
+		fs.mkdirSync(absTargetDir, function(err) {
 			if (err) {
-				errorHandler(err);
+				helpers.errors(err);
 			}
 		});
 	}
