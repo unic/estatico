@@ -31,7 +31,6 @@ gulp.task('css', function() {
 				'source/modules'
 			],
 			style: 'compact',
-			sourcemap: true,
 			lineNumbers: true,
 			bundleExec: true
 		}).on('error', errorHandler))
