@@ -98,7 +98,7 @@
 			if (options === undefined || typeof options === 'object') {
 				return this.each(function() {
 					if (!$.data(this, dataNamespace + pluginName)) {
-						new PluginClass(this, options);
+						Unic.modules[pluginName].pluginClass = new PluginClass(this, options);
 					}
 				});
 			} else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {

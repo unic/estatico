@@ -9,7 +9,11 @@
 ;(function(window, document, $, _, Unic, undefined) {
 	'use strict';
 
-	var $document = $(document);
+	var $document = $(document),
+		interval = $.extend({
+			resize: 50,
+			scroll: 50
+		}, Unic.settings && Unic.settings.eventInterval);
 
 	$.extend(true, Unic, {
 		events: {
@@ -19,11 +23,11 @@
 	});
 
 	$(window)
-		.on('resize.unic', _.debounce($.proxy(function(event) {
+		.on('resize.unic', _.debounce(_.bind(function(event) {
 			$document.triggerHandler(Unic.events.resize, event);
-		}, this), 50))
-		.on('scroll.unic', _.debounce($.proxy(function(event) {
+		}, this), interval.resize))
+		.on('scroll.unic', _.debounce(_.bind(function(event) {
 			$document.triggerHandler(Unic.events.scroll, event);
-		}, this), 50));
+		}, this), interval.scroll));
 
 })(window, document, jQuery, _, Unic);
