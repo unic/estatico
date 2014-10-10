@@ -24,10 +24,10 @@
 
 	$(window)
 		.on('resize.unic', _.debounce(_.bind(function(event) {
-			$document.triggerHandler(Coop.events.resize, event);
+			$document.triggerHandler(Unic.events.resize, event);
 		}, this), interval.resize))
 		.on('scroll.unic', _.debounce(_.bind(function(event) {
-			$document.triggerHandler(Coop.events.scroll, event);
+			$document.triggerHandler(Unic.events.scroll, event);
 		}, this), interval.scroll));
 
 })(window, document, jQuery, _, Unic);
