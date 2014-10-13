@@ -1,8 +1,11 @@
 /**
- * MODULE
- * @author ThJ, Unic AG
+ * @class       MODULE
+ * @classdesc   Plugin representing a MODULE.
+ * @author      Thomas Jaggi, Unic AG
+ * Edited By
+ * @copyright   Unic AG
+ *
  * //@requires ../../assets/vendor/xy/xy.js
- * @license All rights reserved Unic AG
  */
 
 (function(window, document, $, Unic, undefined) {
@@ -28,9 +31,9 @@
 
 	/**
 	 * Create an instance of the module
-	 * @param {object} element The DOM element to bind the module
-	 * @param {object} options Options overwriting the defaults
 	 * @constructor
+	 * @param {object} element - The DOM element to bind the module
+	 * @param {object} options - Options overwriting the defaults
 	 */
 	function Plugin(element, options) {
 		// Call super constructor
@@ -41,7 +44,9 @@
 	Plugin.prototype = $.extend(true, {}, Unic.modules.PluginHelper.prototype, Plugin.prototype);
 
 	/**
-	 * Initialize module, bind events
+	 * Initialize module, bind events.
+	 * @method
+	 * @public
 	 */
 	Plugin.prototype.init = function() {
 		console.log('MODULE');

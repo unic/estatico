@@ -1,7 +1,10 @@
 /**
- * SuperClass to handle plugins more easy
- * @author OrT, RoW, Unic AG
- * @license All rights reserved Unic AG
+ * @class       unicmodule
+ * @classdesc   SuperClass to handle plugins more easy
+ * @author      Oriol Torrent, Unic AG
+ * Edited By    Rosmarie Maurer-Wysseier, Unic AG
+ * @copyright   Unic AG
+ *
  * @requires ../../vendor/jquery/jquery.js
  */
 
@@ -24,10 +27,10 @@
 	// The actual plugin constructor
 	/**
 	 * Constructs an instance of the class.
-	 * @param {string} name The pluginName
-	 * @param {object} defaults The default options of the plugin
-	 * @param {object} element The actual DOM element
-	 * @param {object} options The options of this particular instance
+	 * @param {string} name - The pluginName
+	 * @param {object} defaults - The default options of the plugin
+	 * @param {object} element - The actual DOM element
+	 * @param {object} options - The options of this particular instance
 	 */
 	Unic.modules.PluginHelper = function(name, defaults, element, options) {
 		var meta;
@@ -85,9 +88,9 @@
 	 * Allows to call all public functions (not starting with underscore) to be called
 	 * through jQuery plugin e.g. $(element).pluginName('functionName', arg1, arg2)
 	 *
-	 * @param {function} PluginClass The constructor of the plugin
-	 * @param {string} pluginName The name of the plugin
-	 * @param {array} initEvents List of events to init the plugin on
+	 * @param {function} PluginClass - The constructor of the plugin
+	 * @param {string} pluginName - The name of the plugin
+	 * @param {array} initEvents - List of events to init the plugin on
 	 */
 	Unic.modules.PluginHelper.register = function(PluginClass, pluginName, initEvents) {
 		Unic.modules[pluginName.charAt(0).toUpperCase() + pluginName.substr(1).toLowerCase()] = PluginClass;
