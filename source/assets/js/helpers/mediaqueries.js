@@ -5,8 +5,7 @@
  * Edited By Oriol Torrent, Unic AG
  * @license  All rights reserved Unic AG
  *
- * @requires ../vendor/jquery/jquery.js
- * @requires ../.tmp/lodash.js
+ * @requires ../../vendor/jquery/jquery.js
  *
  * @example
  * To use media queries in JS you can:
@@ -20,13 +19,13 @@
  * });
  *
  * 2. Check the current breakpoint:
- * if(Unic.mq.currentBreakpoint.name == 'large') {
+ * if (Unic.mq.currentBreakpoint.name === "large") {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
  *
  * 3. Check the current viewport against an specific size:
- * if(parseInt(Unic.mq.currentBreakpoint.value) > 768) {
+ * if (parseInt(Unic.mq.currentBreakpoint.value) > 768) {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
@@ -35,33 +34,37 @@
 (function(window, document, $, Unic, undefined) {
 	'use strict';
 
+	function parseCssProperty(str) {
+		return $.parseJSON($.trim(str.replace(/^('|")|(\\)|('|")$/g, '')));
+	}
+
 	var $document = $(document),
 		$head = $document.find('head'),
-		mqBreakpointsString = $head.css('font-family'),
+		breakpointsString = $head.css('font-family'),
 		currentBreakpointString = $head.css('content'),
 		/**
-		 * mqBreakpoints is a JSON-like object. Ex:
+		 * breakpoints is a JSON-like object. Ex:
 		 * {small: "768px", medium: "992px", large: "1200px"}
 		 */
-		mqBreakpoints = $.parseJSON( $.trim(mqBreakpointsString.replace(/^('|")|(\\)|('|")$/g, ''))),
+		breakpoints = parseCssProperty(breakpointsString),
 		/**
 		 * currentBreakpoint is a JSON-like object with name and value elements. Ex:
 		 * {name: "large", value: "1200px"}
 		 */
-		currentBreakpoint = $.parseJSON( $.trim(currentBreakpointString.replace(/^('|")|(\\)|('|")$/g, '')) );
+		currentBreakpoint = parseCssProperty(currentBreakpointString);
 
 	$.extend(true, Unic, {
 		events: {
 			mq: 'unic_mq'
 		},
 		mq: {
-			breakpoints: mqBreakpoints,
+			breakpoints: breakpoints,
 			currentBreakpoint: currentBreakpoint
 		}
 	});
 
 	$document.on(Unic.events.resize, function() {
-		var breakpoint = $.parseJSON( $.trim( $head.css('content').replace(/^('|")|(\\)|('|")$/g, '') )),
+		var breakpoint = parseCssProperty($head.css('content')),
 			prevBreakpoint = Unic.mq.currentBreakpoint;
 
 		if (breakpoint && breakpoint.name !== Unic.mq.currentBreakpoint.name) {
