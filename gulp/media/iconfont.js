@@ -6,7 +6,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
 	iconfont = require('gulp-iconfont'),
@@ -41,7 +41,7 @@ gulp.task('media:iconfont', function() {
 							fontPath: '../fonts/icons/'
 						})
 					}
-				}).on('error', errorHandler))
+				}).on('error', helpers.errors))
 				.pipe(gulp.dest('./source/assets/.tmp/'));
 		})
 		.pipe(size({

@@ -5,7 +5,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	util = require('gulp-util'),
 	livereload = require('gulp-livereload'),
@@ -23,7 +23,7 @@ gulp.task('js:templates', function() {
 		.pipe(unicHandlebars({
 			precompile: true,
 			partials: './source/modules/**/_*.js.hbs'
-		}).on('error', errorHandler))
+		}).on('error', helpers.errors))
 		.pipe(defineModule('plain', { // RequireJS: use 'amd' over plain and uncomment lines below
 			// require: {
 			// 	Handlebars: 'handlebars'

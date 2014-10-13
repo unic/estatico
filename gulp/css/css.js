@@ -6,7 +6,7 @@
  */
 
 var gulp = require('gulp'),
-	errorHandler = require('gulp-unic-errors'),
+	helpers = require('require-dir')('../../helpers'),
 	plumber = require('gulp-plumber'),
 	size = require('gulp-size'),
 	livereload = require('gulp-livereload'),
@@ -31,10 +31,10 @@ gulp.task('css', function() {
 				'source/modules'
 			],
 			style: 'compact',
-			sourcemap: true,
-			lineNumbers: true
-		}).on('error', errorHandler))
-		.pipe(autoprefixer('last 2 version').on('error', errorHandler))
+			lineNumbers: true,
+			bundleExec: true
+		}).on('error', helpers.errors))
+		.pipe(autoprefixer('last 2 version').on('error', helpers.errors))
 		.pipe(gulp.dest('./build/'))
 		.pipe(util.env.dev ? util.noop() : minify())
 		.pipe(util.env.dev ? util.noop() : rename({
