@@ -32,7 +32,7 @@
  * }
  */
 
-(function(window, document, $, _, Unic, undefined) {
+(function(window, document, $, Unic, undefined) {
 	'use strict';
 
 	var $document = $(document),
@@ -71,4 +71,4 @@
 		}
 	});
 
-})(window, document, jQuery, _, Unic);
+})(window, document, jQuery, Unic);
