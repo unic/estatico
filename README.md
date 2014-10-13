@@ -73,3 +73,9 @@ Mobile (minimale Anzahl Geräte):
 
 * iOS (Smartphone und Tablet): zweitneuste Version zum Zeitpunkt der Entwicklung, getestet wird Safari (Stand 13. Oktober 2014: Version 6)
 * Android (Smartphone und Tablet): zweitneuste Version zum Zeitpunkt der Entwicklung, getestet werden der «Stock-Browser» sowie Chrome (Stand 13. Oktober 2014: Version 2)
+
+#### Vorgehen
+
+Beim Start der Entwicklung wird eine detaillierte Device-Liste mit spezifischen Versionen vorgeschlagen und abgenommen. Gibt es während des Projektverlaufs automatische Updates obiger Browser, muss diese Liste aktualisiert werden.
+
+Die Priorisierung von Bugs wird gemeinsam vorgenommen. Konkret ist es nicht unbedingt sinnvoll, eine Menge Ressourcen für die Behebung eines Problems in einem spezifischen Stock-Browser auf Android aufzuwenden, da diese Zeit dafür eingesetzt werden könnte, die UX für sämtliche User zu verbessern.
