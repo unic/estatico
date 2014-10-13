@@ -35,8 +35,8 @@
 
 	/**
 	 * Create an instance of the module
-	 * @param {object} element The DOM element to bind the module
-	 * @param {object} options Options overwriting the defaults
+	 * @param {object} element - The DOM element to bind the module
+	 * @param {object} options - Options overwriting the defaults
 	 * @constructor
 	 */
 	var Plugin = function(element, options) {
@@ -95,7 +95,7 @@
 	 * Shows a specific slide according the given index.
 	 * @method
 	 * @public
-	 * @param {Number} index The index of the slide to show as integer.
+	 * @param {Number} index - The index of the slide to show as integer.
 	 */
 	Plugin.prototype.show = function(index) {
 		if (index === this.currentItem) {

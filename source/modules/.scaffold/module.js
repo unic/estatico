@@ -32,8 +32,8 @@
 	/**
 	 * Create an instance of the module
 	 * @constructor
-	 * @param {object} element The DOM element to bind the module
-	 * @param {object} options Options overwriting the defaults
+	 * @param {object} element - The DOM element to bind the module
+	 * @param {object} options - Options overwriting the defaults
 	 */
 	function Plugin(element, options) {
 		// Call super constructor
