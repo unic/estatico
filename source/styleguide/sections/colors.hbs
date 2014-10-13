@@ -3,7 +3,7 @@
 
 		<ul class="sg_color_list">
 			{{#each colors}}
-				{{#unless hideInStyleguide}}
+				{{#unless hideFromStyleguide}}
 					<li class="sg_color_item" title="{{hexValue}}">
 						<div class="sg_color_preview" style="background-color: {{hexValue}}"></div>
 						<div class="sg_color_name">{{name}}</div>
@@ -13,7 +13,6 @@
 				{{/unless}}
 			{{/each}}
 		</ul>
-
 
 		<!-- Temporary solution -->
 		<hr style="clear: both;" />
@@ -27,7 +26,6 @@
 		{{#each colors}}
 			$color{{removeWhiteSpace name}}: {{hexValue}};<br/>
 		{{/each}}
-
 
 	{{/replace}}
 {{/extend}}
