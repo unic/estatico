@@ -37,3 +37,35 @@ See ```docs/Setup.md```
 
 See ```docs/CodingGuidelines.md```
 
+
+---
+
+
+## REQUIREMENTS
+
+### Browser support
+
+#### Level 1
+
+Gründliches Testing, hohe Priorität von Bugs, Vermeidung von Inkonsistenzen im Rendering (sofern dies ohne Nebenwirkungen für andere Browser gewährleistet werden kann).
+
+Desktop:
+* Internet Explorer: die zwei aktuellsten Version zum Zeitpunkt der Entwicklung (Stand 29. September 2014: Version 10 und 11)
+* Chrome: aktuellste Version zum Zeitpunkt der Entwicklung (Stand 29. September 2014: Version 37)
+* Firefox: aktuellste Version zum Zeitpunkt der Entwicklung (Stand 29. September 2014: Version 32)
+* Safari (Mac): aktuellste Version zum Zeitpunkt der Entwicklung (Stand 29. September 2014: Version 7)
+
+Mobile (mehrere Geräte pro OS):
+* iOS (Smartphone und Tablet): aktuellste Version zum Zeitpunkt der Entwicklung, getestet wird Safari (Stand 29. September 2014: Version 8)
+* Android (Smartphone und Tablet): aktuellste Version zum Zeitpunkt der Entwicklung, getestet werden der «Stock-Browser» sowie Chrome (Stand 29. September 2014: Version 4)
+
+#### Level 2
+
+Grundlegendes Testing, geringe Priorität von Bugs, welche die Grundfunktionalität der Seite nicht beeinflussen (beispielsweise Inkonsistenzen im Rendering).
+
+Desktop:
+* Internet Explorer: Version 9
+
+Mobile (minimale Anzahl Geräte):
+* iOS (Smartphone und Tablet): zweitneuste Version zum Zeitpunkt der Entwicklung, getestet wird Safari (Stand 29. September 2014: Version 6)
+* Android (Smartphone und Tablet): zweitneuste Version zum Zeitpunkt der Entwicklung, getestet werden der «Stock-Browser» sowie Chrome (Stand 29. September 2014: Version 2)
