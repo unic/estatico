@@ -1,9 +1,9 @@
 /**
- * @class				initevents
- * @classdesc		Init registered modules.
- * @author			Thomas Jaggi, Unic AG
+ * @class       initevents
+ * @classdesc   Init registered modules.
+ * @author      Thomas Jaggi, Unic AG
  * Edited By
- * @license			All rights reserved Unic AG
+ * @license     All rights reserved Unic AG
  *
  * @requires ../../vendor/jquery/jquery.js
  * @requires ../../.tmp/lodash.js

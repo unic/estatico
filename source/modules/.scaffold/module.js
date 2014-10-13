@@ -1,9 +1,9 @@
 /**
- * @class				MODULE
- * @classdesc		Plugin representing a MODULE.
- * @author			Thomas Jaggi, Unic AG
+ * @class       MODULE
+ * @classdesc   Plugin representing a MODULE.
+ * @author      Thomas Jaggi, Unic AG
  * Edited By
- * @license			All rights reserved Unic AG
+ * @license     All rights reserved Unic AG
  *
  * //@requires ../../assets/vendor/xy/xy.js
  */

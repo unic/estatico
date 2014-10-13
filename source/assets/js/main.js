@@ -1,6 +1,6 @@
 /*!
- * Project			Name of Client and Project
- * @copyright		Unic AG and Client AG
+ * Project      Name of Client and Project
+ * @copyright   Unic AG and Client AG
  */
 
 /**
