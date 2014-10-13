@@ -13185,6 +13185,11 @@
       "from": "handlebars-layouts@0.3.3",
       "resolved": "https://registry.npmjs.org/handlebars-layouts/-/handlebars-layouts-0.3.3.tgz"
     },
+    "highlight": {
+      "version": "0.2.3",
+      "from": "highlight@",
+      "resolved": "https://registry.npmjs.org/highlight/-/highlight-0.2.3.tgz"
+    },
     "jshint-stylish": {
       "version": "1.0.0",
       "from": "jshint-stylish@1.0.0",

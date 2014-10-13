@@ -17,6 +17,7 @@ var gulp = require('gulp'),
 	tap = require('gulp-tap'),
 	path = require('path'),
 	// prettify = require('gulp-prettify'),
+	highlight = require('highlight').Highlight,
 	unicHandlebars = require('gulp-unic-handlebars');
 
 function getJsonData(file) {
@@ -70,7 +71,7 @@ gulp.task('html', function() {
 				fileData = _.merge({
 					styleguide: {
 						// Save module markup as string
-						code: file.contents.toString(),
+						code: highlight(file.contents.toString()),
 						type: 'module'
 					}
 				}, fileData);
