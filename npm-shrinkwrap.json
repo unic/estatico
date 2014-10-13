@@ -1469,6 +1469,108 @@
         }
       }
     },
+    "cheerio": {
+      "version": "0.17.0",
+      "from": "cheerio@",
+      "resolved": "https://registry.npmjs.org/cheerio/-/cheerio-0.17.0.tgz",
+      "dependencies": {
+        "CSSselect": {
+          "version": "0.4.1",
+          "from": "CSSselect@~0.4.0",
+          "resolved": "https://registry.npmjs.org/CSSselect/-/CSSselect-0.4.1.tgz",
+          "dependencies": {
+            "CSSwhat": {
+              "version": "0.4.7",
+              "from": "CSSwhat@0.4",
+              "resolved": "https://registry.npmjs.org/CSSwhat/-/CSSwhat-0.4.7.tgz"
+            },
+            "domutils": {
+              "version": "1.4.3",
+              "from": "domutils@1.4",
+              "resolved": "https://registry.npmjs.org/domutils/-/domutils-1.4.3.tgz",
+              "dependencies": {
+                "domelementtype": {
+                  "version": "1.1.1",
+                  "from": "domelementtype@1",
+                  "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-1.1.1.tgz"
+                }
+              }
+            }
+          }
+        },
+        "entities": {
+          "version": "1.1.1",
+          "from": "entities@~1.1.1",
+          "resolved": "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz"
+        },
+        "htmlparser2": {
+          "version": "3.7.3",
+          "from": "htmlparser2@~3.7.2",
+          "resolved": "https://registry.npmjs.org/htmlparser2/-/htmlparser2-3.7.3.tgz",
+          "dependencies": {
+            "domhandler": {
+              "version": "2.2.0",
+              "from": "domhandler@2.2",
+              "resolved": "https://registry.npmjs.org/domhandler/-/domhandler-2.2.0.tgz"
+            },
+            "domutils": {
+              "version": "1.5.0",
+              "from": "domutils@1.5",
+              "resolved": "https://registry.npmjs.org/domutils/-/domutils-1.5.0.tgz"
+            },
+            "domelementtype": {
+              "version": "1.1.1",
+              "from": "domelementtype@1",
+              "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-1.1.1.tgz"
+            },
+            "readable-stream": {
+              "version": "1.1.13",
+              "from": "readable-stream@1.1",
+              "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.13.tgz",
+              "dependencies": {
+                "core-util-is": {
+                  "version": "1.0.1",
+                  "from": "core-util-is@~1.0.0",
+                  "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz"
+                },
+                "isarray": {
+                  "version": "0.0.1",
+                  "from": "isarray@0.0.1",
+                  "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
+                },
+                "string_decoder": {
+                  "version": "0.10.31",
+                  "from": "string_decoder@~0.10.x",
+                  "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
+                },
+                "inherits": {
+                  "version": "2.0.1",
+                  "from": "inherits@~2.0.1",
+                  "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
+                }
+              }
+            },
+            "entities": {
+              "version": "1.0.0",
+              "from": "entities@1.0",
+              "resolved": "https://registry.npmjs.org/entities/-/entities-1.0.0.tgz"
+            }
+          }
+        },
+        "dom-serializer": {
+          "version": "0.0.1",
+          "from": "dom-serializer@~0.0.0",
+          "resolved": "https://registry.npmjs.org/dom-serializer/-/dom-serializer-0.0.1.tgz",
+          "dependencies": {
+            "domelementtype": {
+              "version": "1.1.1",
+              "from": "domelementtype@~1.1.1",
+              "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-1.1.1.tgz"
+            }
+          }
+        }
+      }
+    },
     "connect": {
       "version": "3.2.0",
       "from": "connect@3.2.0",
