@@ -16,8 +16,8 @@ $mqResponsive: true;
  * stakeholders, designers, developers, and testers.
  */
 $mqBreakpoints: (
-	small:  $sizeBreakpointSmall,
-	medium:  $sizeBreakpointMedium,
+	small: $sizeBreakpointSmall,
+	medium: $sizeBreakpointMedium,
 	large: $sizeBreakpointLarge
 );
 
@@ -129,4 +129,26 @@ $mqShowBreakpoints: (small, medium, large);
 @function mqAddBreakpoint($name, $breakpoint) {
 	$newBreakpoint: (#{$name}: $breakpoint);
 	@return map-merge($mqBreakpoints, $newBreakpoint);
+}
+
+/**
+ * Create a JSON string of map of breakpoints
+ */
+@function mqGetBreakpointsJSON($breakpoints) {
+	$JSON: '{';
+
+	@each $breakpoint in $breakpoints {
+		$name: nth($breakpoint, 1);
+		$value: nth($breakpoint, 2);
+
+		$JSON: $JSON + '"#{$name}":"#{$value}",';
+	}
+
+	// Remove last ","
+	$JSON: str-slice($JSON, 1, str-length($JSON) - 1);
+
+	// Close JSON string
+	$JSON: $JSON + '}';
+
+	@return $JSON;
 }

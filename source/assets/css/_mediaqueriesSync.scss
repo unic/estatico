@@ -1,34 +1,30 @@
 /**
- * Content in head holds the current breakpoint.
- * It will be generated sequentially
+ * Sync breakpoints with JavaScript
+ *
+ * "content" property of head element contains the current breakpoint
+ * "font-family" property of head element contains all breakpoints
  */
+
 @include mq($from: 0px) {
 	head {
 		content: '{"key":"extra small","value":"0px"}';
 	}
 }
 
-// creates a json out of '$mqBreakpoints'
-$mediaJSON: '{';
 @each $breakpoint in $mqBreakpoints {
 	$name: nth($breakpoint, 1);
 	$value: nth($breakpoint, 2);
-	$mediaJSON: $mediaJSON + '"#{$name}":"#{$value}",' !global;
 
-	// Content in head holds the current breakpoint.
 	@include mq($from: $name) {
 		head {
 			content: '{"name":"#{$name}","value":"#{$value}"}';
 		}
 	}
 }
-// Removes last ","
-$mediaJSON: str-slice( $mediaJSON, 1, str-length($mediaJSON) - 1);
-// Close JSON
-$mediaJSON: $mediaJSON + '}';
 
-// Save breakpoints as JSON into the head's font-family
 head {
-	font-family: "#{$mediaJSON}";
+	$JSON: mqGetBreakpointsJSON($mqBreakpoints);
+
+	font-family: "#{$JSON}";
 	display: none; // Avoid showing anything from the head
 }
