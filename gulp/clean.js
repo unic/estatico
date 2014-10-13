@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 gulp.task('clean', function(cb) {
 	del([
 		'./build',
-		'./source/assets/.tmp'
+		'./source/assets/.tmp',
+		'./source/styleguide/sections/colors.json'
 	], cb);
 });
