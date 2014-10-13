@@ -3,7 +3,7 @@
  * @classdesc   SuperClass to handle plugins more easy
  * @author      Oriol Torrent, Unic AG
  * Edited By    Rosmarie Maurer-Wysseier, Unic AG
- * @license     All rights reserved Unic AG
+ * @copyright   Unic AG
  *
  * @requires ../../vendor/jquery/jquery.js
  */

@@ -3,7 +3,7 @@
  * @classdesc   Plugin representing a MODULE.
  * @author      Thomas Jaggi, Unic AG
  * Edited By
- * @license     All rights reserved Unic AG
+ * @copyright   Unic AG
  *
  * //@requires ../../assets/vendor/xy/xy.js
  */

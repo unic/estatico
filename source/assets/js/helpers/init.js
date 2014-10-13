@@ -3,7 +3,7 @@
  * @classdesc   Init registered modules.
  * @author      Thomas Jaggi, Unic AG
  * Edited By
- * @license     All rights reserved Unic AG
+ * @copyright   Unic AG
  *
  * @requires ../../vendor/jquery/jquery.js
  * @requires ../../.tmp/lodash.js
