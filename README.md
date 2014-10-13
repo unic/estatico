@@ -79,3 +79,8 @@ Mobile (minimale Anzahl Geräte):
 Beim Start der Entwicklung wird eine detaillierte Device-Liste mit spezifischen Versionen vorgeschlagen und abgenommen. Gibt es während des Projektverlaufs automatische Updates obiger Browser, muss diese Liste aktualisiert werden.
 
 Die Priorisierung von Bugs wird gemeinsam vorgenommen. Konkret ist es nicht unbedingt sinnvoll, eine Menge Ressourcen für die Behebung eines Problems in einem spezifischen Stock-Browser auf Android aufzuwenden, da diese Zeit dafür eingesetzt werden könnte, die UX für sämtliche User zu verbessern.
+
+
+### Accessibility
+
+Es wird WCAG 2.0 Level AA angestrebt.
