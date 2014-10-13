@@ -69,26 +69,26 @@ $mqShowBreakpoints: (small, medium, large);
 @mixin mq($from: false, $to: false, $and: false, $height: false) {
 
 	// Initialize variables
-	$min-size: 0;
-	$max-size: 0;
+	$minSize: 0;
+	$maxSize: 0;
 	$mediaQuery: '';
 	$axis: if($height, 'height', 'width');
 
 	// From: this breakpoint (inclusive)
 	@if $from {
 		@if type-of($from) == number {
-			$min-size: pxToEm($from, 16);
+			$minSize: pxToEm($from, 16);
 		} @else {
-			$min-size: pxToEm(mqGetBreakpointWidth($from), 16);
+			$minSize: pxToEm(mqGetBreakpointWidth($from), 16);
 		}
 	}
 
 	// To: that breakpoint (exclusive)
 	@if $to {
 		@if type-of($to) == number {
-			$max-size: pxToEm($to, 16) - .01em;
+			$maxSize: pxToEm($to, 16) - .01em;
 		} @else {
-			$max-size: pxToEm(mqGetBreakpointWidth($to), 16) - .01em;
+			$maxSize: pxToEm(mqGetBreakpointWidth($to), 16) - .01em;
 		}
 	}
 
@@ -110,8 +110,8 @@ $mqShowBreakpoints: (small, medium, large);
 
 		// Responsive support is enabled, output rules inside @media queries
 	@else {
-		@if $min-size != 0 { $mediaQuery: '#{$mediaQuery} and (min-#{$axis}: #{$min-size})'; }
-		@if $max-size != 0 { $mediaQuery: '#{$mediaQuery} and (max-#{$axis}: #{$max-size})'; }
+		@if $minSize != 0 { $mediaQuery: '#{$mediaQuery} and (min-#{$axis}: #{$minSize})'; }
+		@if $maxSize != 0 { $mediaQuery: '#{$mediaQuery} and (max-#{$axis}: #{$maxSize})'; }
 		@if $and { $mediaQuery: '#{$mediaQuery} and #{$and}'; }
 
 		$mediaQuery: unquote(#{$mediaQuery});

@@ -20,7 +20,7 @@
  * });
  *
  * 2. Check the current breakpoint:
- * if(Unic.mq.currentBreakpoint.key == 'large') {
+ * if(Unic.mq.currentBreakpoint.name == 'large') {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
@@ -45,8 +45,8 @@
 		 */
 		mqBreakpoints = $.parseJSON( $.trim(mqBreakpointsString.replace(/^('|")|(\\)|('|")$/g, ''))),
 		/**
-		 * currentBreakpoint is a JSON-like object with key and value elements. Ex:
-		 * {key: "large", value: "1200px"}
+		 * currentBreakpoint is a JSON-like object with name and value elements. Ex:
+		 * {name: "large", value: "1200px"}
 		 */
 		currentBreakpoint = $.parseJSON( $.trim(currentBreakpointString.replace(/^('|")|(\\)|('|")$/g, '')) );
 
