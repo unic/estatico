@@ -28,9 +28,9 @@
 
 	/**
 	 * Create an instance of the module
+	 * @constructor
 	 * @param {object} element The DOM element to bind the module
 	 * @param {object} options Options overwriting the defaults
-	 * @constructor
 	 */
 	function Plugin(element, options) {
 		// Call super constructor
@@ -41,7 +41,9 @@
 	Plugin.prototype = $.extend(true, {}, Unic.modules.PluginHelper.prototype, Plugin.prototype);
 
 	/**
-	 * Initialize module, bind events
+	 * Initialize module, bind events.
+	 * @method
+	 * @public
 	 */
 	Plugin.prototype.init = function() {
 		console.log('MODULE');

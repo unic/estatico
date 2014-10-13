@@ -47,6 +47,8 @@
 
 	/**
 	 * Initialize module, bind events
+	 * @method
+	 * @public
 	 */
 	Plugin.prototype.init = function() {
 		var buttons = Unic.templates['modules/slideshow/_slideshow_button']({});
@@ -87,6 +89,12 @@
 		this.show(this.options.initialItem);
 	};
 
+	/**
+	 * Shows a specific slide according the given index.
+	 * @method
+	 * @public
+	 * @param {integer} index The index of the slide to show.
+	 */
 	Plugin.prototype.show = function(index) {
 		if (index === this.currentItem) {
 			return;
@@ -104,10 +112,20 @@
 		this.currentItem = index;
 	};
 
+	/**
+	 * Shows the previous slide in the slideshow.
+	 * @method
+	 * @public
+	 */
 	Plugin.prototype.prev = function() {
 		this.show(this.currentItem - 1);
 	};
 
+	/**
+	 * Shows the next slide in the slideshow.
+	 * @method
+	 * @public
+	 */
 	Plugin.prototype.next = function() {
 		this.show(this.currentItem + 1);
 	};
