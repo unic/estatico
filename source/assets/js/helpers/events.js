@@ -1,7 +1,10 @@
 /**
- * Debounced global resize and scroll event listeners triggering custom events to listen to
- * @author ThJ, Unic AG
- * @license All rights reserved Unic AG
+ * @class       unicevents
+ * @classdesc   Debounced global resize and scroll event listeners triggering custom events to listen to
+ * @author      Thomas Jaggi, Unic AG
+ * Edited By
+ * @copyright   Unic AG
+ *
  * @requires ../../vendor/jquery/jquery.js
  * @requires ../../.tmp/lodash.js
  */

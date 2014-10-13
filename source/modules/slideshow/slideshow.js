@@ -1,7 +1,9 @@
 /**
- * Carousel
- * @author ThJ, Unic AG
- * @license All rights reserved Unic AG
+ * @class       slideshow
+ * @classdesc   Plugin representing a Slideshow.
+ * @author      Thomas Jaggi, Unic AG
+ * Edited By
+ * @copyright   Unic AG
  *
  * @requires ../../assets/vendor/jquery-touchswipe/jquery.touchSwipe.js
  */
@@ -33,8 +35,8 @@
 
 	/**
 	 * Create an instance of the module
-	 * @param {object} element The DOM element to bind the module
-	 * @param {object} options Options overwriting the defaults
+	 * @param {object} element - The DOM element to bind the module
+	 * @param {object} options - Options overwriting the defaults
 	 * @constructor
 	 */
 	var Plugin = function(element, options) {
@@ -47,6 +49,8 @@
 
 	/**
 	 * Initialize module, bind events
+	 * @method
+	 * @public
 	 */
 	Plugin.prototype.init = function() {
 		var buttons = Unic.templates['modules/slideshow/_slideshow_button']({});
@@ -87,6 +91,12 @@
 		this.show(this.options.initialItem);
 	};
 
+	/**
+	 * Shows a specific slide according the given index.
+	 * @method
+	 * @public
+	 * @param {Number} index - The index of the slide to show as integer.
+	 */
 	Plugin.prototype.show = function(index) {
 		if (index === this.currentItem) {
 			return;
@@ -104,10 +114,20 @@
 		this.currentItem = index;
 	};
 
+	/**
+	 * Shows the previous slide in the slideshow.
+	 * @method
+	 * @public
+	 */
 	Plugin.prototype.prev = function() {
 		this.show(this.currentItem - 1);
 	};
 
+	/**
+	 * Shows the next slide in the slideshow.
+	 * @method
+	 * @public
+	 */
 	Plugin.prototype.next = function() {
 		this.show(this.currentItem + 1);
 	};

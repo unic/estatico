@@ -1,3 +1,8 @@
+/*!
+ * Project      [PROJECT NAME] license
+ * @copyright   (c) [YEAR] Unic AG
+ */
+
 /**
  * @requires helpers/module.js
  * @requires helpers/events.js
