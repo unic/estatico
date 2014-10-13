@@ -1,8 +1,10 @@
 /**
  * Trigger custom events when changing breakpoint
  * Use font-family and content from head element to communicate between CSS and JS
- * @author ThJ, OrT Unic AG
- * @license All rights reserved Unic AG
+ * @author   Thomas Jaggi, Unic AG
+ * Edited By Oriol Torrent, Unic AG
+ * @license  All rights reserved Unic AG
+ *
  * @requires ../vendor/jquery/jquery.js
  * @requires ../.tmp/lodash.js
  *
