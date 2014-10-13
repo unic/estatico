@@ -14,18 +14,5 @@
 			{{/each}}
 		</ul>
 
-		<!-- Temporary solution -->
-		<hr style="clear: both;" />
-
-		<h2>Generated content for colors.scss</h2>
-		<ol>
-			<li>Define colors in styleguide/sections/colors.json</li>
-			<li>Copy the following code to /assets/css/globals.scss</li>
-		</ol>
-
-		{{#each colors}}
-			$color{{removeWhiteSpace name}}: {{hexValue}};<br/>
-		{{/each}}
-
 	{{/replace}}
 {{/extend}}
