@@ -1,5 +1,17 @@
 .mod_slideshow {
 
+	.prev,
+	.next {
+
+		@include mq($from: small, $to: medium) {
+			color: $colorGoldilocks;
+		}
+
+		@include mq($to: small) {
+			color: $colorOpulentCherry;
+		}
+	}
+
 	&.is_activated {
 
 		.slide {

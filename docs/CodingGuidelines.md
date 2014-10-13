@@ -61,6 +61,21 @@
 	* Define global variables/mixins/functions in the respective files in ```source/assets/css/globals/```
 	* Define colors in Color Schemer and export as HTML to ```source/assets/css/data/colors.html```. Use ```gulp css:colors``` to generate the corresponding SCSS.
 	* Nest your classes as little as possible
+	* Use the ```mq()``` mixin for media queries (see ```source/assets/css/globals/_mediaqueries.scss```):
+
+```scss
+.mod_test {
+	color: green;
+
+	@include mq($from: small, $to: medium) {
+		color: red;
+	}
+
+	@include mq($to: small) {
+		color: blue;
+	}
+}
+```
 
 4. JS
 	* Use unobtrusive JS
@@ -77,6 +92,30 @@ $(document).on(Unic.events.scroll, _.bind(function(event, originalEvent) {
 $(document).on(Unic.events.resize, _.bind(function(event, originalEvent) {
 	console.log(originalEvent);
 }, this));
+```
+
+	* Use custom events for media queries (see ```source/assets/js/helpers/mediaqueries.js```):
+
+```js
+// Listen to events so that your module can react to viewport changes. They are debounced already (using Unic.events.resize):
+$document.on(Unic.events.mq, function(event, prevBreakpoint, currentBreakpoint) {
+	console.log(prevBreakpoint); // {small: "768px"}
+	console.log(prevBreakpoint.name); // "small". Get previous breakpoint name.
+	console.log(prevBreakpoint.value); // "768px". Get previous breakpoint size as string.
+	console.log(parseInt(prevBreakpoint.value)); // "768". Get previous breakpoint size as number.
+});
+
+// Check the current breakpoint:
+if (Unic.mq.currentBreakpoint.name === 'large') {
+	this.destroySmall();
+	this.initLarge();
+}
+
+// Check the current viewport against a specific breakpoint:
+if (parseInt(Unic.mq.currentBreakpoint.value) > parseInt(Unic.mq.breakpoints.small)) {
+	this.destroySmall();
+	this.initLarge();
+}
 ```
 
 5. Vendor code

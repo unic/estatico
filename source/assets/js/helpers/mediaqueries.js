@@ -11,11 +11,11 @@
  * To use media queries in JS you can:
  *
  * 1. Listen to events so that your module can react to viewport changes. They are already debounced:
- * $document.on(Unic.events.mq, function(event, prevBreakpoint, currBreakpoint) {
- * 	console.log( prevBreakpoint ); // {small: "768px"}
- * 	console.log( prevBreakpoint.name ); // "small". Get previous breakpoint name.
- * 	console.log( prevBreakpoint.value ); // "768px". Get previous breakpoint size String.
- * 	console.log( parseInt(prevBreakpoint.value) ); // "768". Get previous breakpoint size Number.
+ * $document.on(Unic.events.mq, function(event, prevBreakpoint, currentBreakpoint) {
+ * 	console.log(prevBreakpoint); // {small: "768px"}
+ * 	console.log(prevBreakpoint.name); // "small". Get previous breakpoint name.
+ * 	console.log(prevBreakpoint.value); // "768px". Get previous breakpoint size as string.
+ * 	console.log(parseInt(prevBreakpoint.value)); // "768". Get previous breakpoint size as number.
  * });
  *
  * 2. Check the current breakpoint:
@@ -24,8 +24,8 @@
  * 	this.initLarge();
  * }
  *
- * 3. Check the current viewport against an specific size:
- * if (parseInt(Unic.mq.currentBreakpoint.value) > 768) {
+ * 3. Check the current viewport against a specific breakpoint:
+ * if (parseInt(Unic.mq.currentBreakpoint.value) > parseInt(Unic.mq.breakpoints.small)) {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
