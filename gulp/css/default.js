@@ -16,7 +16,7 @@ var gulp = require('gulp'),
 	minify = require('gulp-minify-css'),
 	rename = require('gulp-rename');
 
-gulp.task('css', function() {
+gulp.task('css:default', function() {
 	return gulp.src([
 			'./source/assets/css/*.scss',
 			'./source/styleguide/assets/css/*.scss'
@@ -41,7 +41,7 @@ gulp.task('css', function() {
 			suffix: '.min'
 		}))
 		.pipe(size({
-			title: 'css',
+			title: 'css:default',
 			showFiles: true
 		}))
 		.pipe(util.env.dev ? util.noop() : gulp.dest('./build'))
