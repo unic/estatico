@@ -4,12 +4,3 @@
 
 {{#each colors}}$color{{removeWhiteSpace name}}: {{hexValue}};
 {{/each}}
-
-
-/**
- * Custom colors
- */
-
-$colorText: #000000;
-$colorBg: #ffffff;
-$colorActive: #a4c400;
