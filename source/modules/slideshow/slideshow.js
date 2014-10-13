@@ -95,7 +95,7 @@
 	 * Shows a specific slide according the given index.
 	 * @method
 	 * @public
-	 * @param {integer} index The index of the slide to show.
+	 * @param {Number} index The index of the slide to show as integer.
 	 */
 	Plugin.prototype.show = function(index) {
 		if (index === this.currentItem) {
