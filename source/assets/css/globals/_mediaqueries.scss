@@ -95,16 +95,16 @@ $mqShowBreakpoints: (small, medium, large);
 	// Responsive support is disabled, rasterize the output outside @media blocks
 	// The browser will rely on the cascade itself.
 	@if ($mqResponsive == false) {
-		$static-breakpoint-width: mqGetBreakpointWidth($mqStaticBreakpoint);
-		@if type-of($static-breakpoint-width) == number {
-			$target-width: pxToEm($static-breakpoint-width, 16);
+		$staticBreakpointWidth: mqGetBreakpointWidth($mqStaticBreakpoint);
+		@if type-of($staticBreakpointWidth) == number {
+			$targetWidth: pxToEm($staticBreakpointWidth, 16);
 			// Output only rules that start at or span our target width
-			@if ($and == false and ($min-width <= $target-width) and (($to == false) or ($max-width >= $target-width))) {
+			@if ($and == false and ($minWidth <= $targetWidth) and (($to == false) or ($maxWidth >= $targetWidth))) {
 				@content;
 			}
 		} @else {
 			// Throw a warning if $mqStaticBreakpoint is not in the $mqBreakpoints list
-			@warn "No static styles will be output: #{$static-breakpoint-width}";
+			@warn "No static styles will be output: #{$staticBreakpointWidth}";
 		}
 	}
 
@@ -127,6 +127,6 @@ $mqShowBreakpoints: (small, medium, large);
  * Usage: $mqBreakpoints: mqAddBreakpoint(tvscreen, 1920px);
  */
 @function mqAddBreakpoint($name, $breakpoint) {
-	$new-breakpoint: (#{$name}: $breakpoint);
-	@return map-merge($mqBreakpoints, $new-breakpoint);
+	$newBreakpoint: (#{$name}: $breakpoint);
+	@return map-merge($mqBreakpoints, $newBreakpoint);
 }
