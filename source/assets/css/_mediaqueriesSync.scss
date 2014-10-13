@@ -8,9 +8,9 @@
 	}
 }
 
-// creates a json out of '$mq-breakpoints'
+// creates a json out of '$mqBreakpoints'
 $mediaJSON: '{';
-@each $breakpoint in $mq-breakpoints {
+@each $breakpoint in $mqBreakpoints {
 	$name: nth($breakpoint, 1);
 	$value: nth($breakpoint, 2);
 	$mediaJSON: $mediaJSON + '"#{$name}":"#{$value}",' !global;
