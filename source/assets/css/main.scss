@@ -3,6 +3,8 @@
 @import "globals/colors";
 @import "globals/functions";
 @import "globals/mixins";
+@import "globals/mediaqueries";
+
 
 // Reset / normalize styles
 @import "normalize-scss/normalize";
@@ -15,7 +17,8 @@
 @import "../.tmp/dataurls";
 @import "../.tmp/pngsprite";
 
-// Generic classes
+// General styles
+@import "mediaqueriesSync";
 @import "globals/classes";
 
 // General layout

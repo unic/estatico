@@ -6,6 +6,8 @@
  * @requires ../.tmp/templates.js
  * @requires ../.tmp/lodash.js
  *
+ * @requires _mediaqueries.js
+ *
  * @requires ../../modules/slideshow/slideshow.js
  * //*autoinsertmodule*
  *

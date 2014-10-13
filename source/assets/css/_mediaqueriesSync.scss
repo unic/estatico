@@ -1,0 +1,34 @@
+/**
+ * Content in head holds the current breakpoint.
+ * It will be generated sequentially
+ */
+@include mq($from: 0px) {
+	head {
+		content: '{"key":"extra small","value":"0px"}';
+	}
+}
+
+// creates a json out of '$mq-breakpoints'
+$mediaJSON: '{';
+@each $breakpoint in $mq-breakpoints {
+	$name: nth($breakpoint, 1);
+	$value: nth($breakpoint, 2);
+	$mediaJSON: $mediaJSON + '"#{$name}":"#{$value}",' !global;
+
+	// Content in head holds the current breakpoint.
+	@include mq($from: $name) {
+		head {
+			content: '{"name":"#{$name}","value":"#{$value}"}';
+		}
+	}
+}
+// Removes last ","
+$mediaJSON: str-slice( $mediaJSON, 1, str-length($mediaJSON) - 1);
+// Close JSON
+$mediaJSON: $mediaJSON + '}';
+
+// Save breakpoints as JSON into the head's font-family
+head {
+	font-family: "#{$mediaJSON}";
+	display: none; // Avoid showing anything from the head
+}
