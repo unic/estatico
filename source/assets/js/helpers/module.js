@@ -1,7 +1,10 @@
 /**
- * SuperClass to handle plugins more easy
- * @author OrT, RoW, Unic AG
- * @license All rights reserved Unic AG
+ * @class				unicmodule
+ * @classdesc		SuperClass to handle plugins more easy
+ * @author			Oriol Torrent, Unic AG
+ * Edited By		Rosmarie Maurer-Wysseier, Unic AG
+ * @license			All rights reserved Unic AG
+ *
  * @requires ../../vendor/jquery/jquery.js
  */
 

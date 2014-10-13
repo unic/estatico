@@ -1,7 +1,9 @@
 /**
- * Carousel
- * @author ThJ, Unic AG
- * @license All rights reserved Unic AG
+ * @class				slideshow
+ * @classdesc		Plugin representing a Slideshow.
+ * @author			Thomas Jaggi, Unic AG
+ * Edited By
+ * @license			All rights reserved Unic AG
  *
  * @requires ../../assets/vendor/jquery-touchswipe/jquery.touchSwipe.js
  */

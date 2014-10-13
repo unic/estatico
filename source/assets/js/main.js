@@ -1,3 +1,8 @@
+/*!
+ * Project			Name of Client and Project
+ * @copyright		Unic AG and Client AG
+ */
+
 /**
  * @requires helpers/module.js
  * @requires helpers/events.js
