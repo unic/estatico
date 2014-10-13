@@ -29,13 +29,13 @@
 
 ## DOCUMENTATION
 
-### Setup
+### Setup / Usage
 
-See ```docs/Setup.md```
+See ```docs/Setup_and_Usage.md```
 
 ### Coding Guidelines
 
-See ```docs/CodingGuidelines.md```
+See ```docs/Coding_Guidelines.md```
 
 
 ---
