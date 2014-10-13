@@ -19,7 +19,7 @@
  * });
  *
  * 2. Check the current breakpoint:
- * if (Unic.mq.currentBreakpoint.name === "large") {
+ * if (Unic.mq.currentBreakpoint.name === 'large') {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
