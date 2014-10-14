@@ -2,13 +2,14 @@
 
 	.prev,
 	.next {
+		color: $colorOpulentCherry; // for anything smaller than a tablet
 
-		@include mq($from: small, $to: medium) {
+		@include mq($from: small, $to: medium) { // for tablets
 			color: $colorGoldilocks;
 		}
 
-		@include mq($to: small) {
-			color: $colorOpulentCherry;
+		@include mq($from: medium) { // for anything bigger than a tablet
+			color: $colorWhatWillHappen;
 		}
 	}
 

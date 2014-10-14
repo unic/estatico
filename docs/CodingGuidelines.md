@@ -70,13 +70,13 @@
 
 ```scss
 .mod_test {
-	color: green;
+	color: green; // for anything smaller than a tablet
 
-	@include mq($from: small, $to: medium) {
+	@include mq($from: small, $to: medium) { // for tablets
 		color: red;
 	}
 
-	@include mq($to: small) {
+	@include mq($from: medium) { // for anything bigger than a tablet
 		color: blue;
 	}
 }
