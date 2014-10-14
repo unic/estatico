@@ -7,7 +7,7 @@
 
 @include mq($from: 0px) {
 	head {
-		content: '{"key":"extra small","value":"0px"}';
+		content: '{"name":"tiny","value":"0px"}';
 	}
 }
 
