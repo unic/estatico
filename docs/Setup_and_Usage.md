@@ -5,8 +5,7 @@
 * Node, NPM (preferably using [nvm](https://github.com/creationix/nvm)).
 * Ruby and [bundler](http://bundler.io/) for Sass.
 
-
-## Usage
+## General setup
 
 Recommendation: Use nvm to allow for a standardized node environment:
 
@@ -31,6 +30,18 @@ Install Sass:
 bundle install
 ```
 
+
+----
+
+
+# USAGE
+
+Use nvm in current bash session (if already used to install dependencies):
+
+```shell
+nvm use
+```
+
 Start server:
 
 ```shell
@@ -46,14 +57,20 @@ gulp build
 # local version: node_modules/.bin/gulp build
 ```
 
-Update bower dependencies:
+Install new bower dependency "xy":
 
 ```shell
-bower install
-# local version: node_modules/.bin/bower install
+bower install xy --save
+# local version: node_modules/.bin/bower install xy --save
 ```
 
-Use sourcemaps:
+
+----
+
+
+# SPECIAL FEATURES
+
+## Sourcemaps
 
 1. Open Chrome dev tools
 2. Open "source" tab from dev tools
@@ -68,8 +85,23 @@ Now it is possible to edit values in the "source" tab from dev tools and save th
 
 Have a look at [https://me.unic.com/display/COPFE/Gulp%3A+Specific+tasks]() for a screencast.
 
+## Add new module
 
-## Debugging
+Create module "accordion" based on ```source/modules/.scaffold/```.
+
+```shell
+gulp mod -n accordion
+# local version: node_modules/.bin/gulp mod -n accordion
+# flags: --nojs to skip creation of accordion.js, --nocss to skip creation of accordion.scss
+```
+
+The generated JS and SCSS files are automagically added to ```main.js``` and ```main.scss```, respectively.
+
+
+----
+
+
+# DEBUGGING
 
 If "npm install" fails (e.g. ERR cb() never called):
 
@@ -110,7 +142,4 @@ If "npm install" prompts for username/password but mangles the input:
 npm config set spin false
 npm config set loglevel http
 ```
-
----
-
 
