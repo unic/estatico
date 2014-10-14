@@ -5,7 +5,7 @@
  * Edited By
  * @copyright   Unic AG
  *
- * @requires ../../assets/vendor/jquery-touchswipe/jquery.touchSwipe.js
+ * //@requires ../../assets/vendor/some/dependency.js
  */
 
 (function(window, document, $, Unic, undefined) {
