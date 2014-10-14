@@ -80,13 +80,20 @@
 
 		// Exemplary resize listener
 		$document.on(Unic.events.resize, function(event, originalEvent) {
-			console.log(originalEvent);
+			console.log('slideshow.js', originalEvent);
 		});
 
 		// Exemplary scroll listener
 		$document.on(Unic.events.scroll, function(event, originalEvent) {
-			console.log(originalEvent);
+			console.log('slideshow.js', originalEvent);
 		});
+
+		// Exemplary media query listener
+		this.resize();
+
+		$document.on(Unic.events.mq, _.bind(function() {
+			this.resize();
+		}, this));
 
 		this.show(this.options.initialItem);
 	};
@@ -130,6 +137,19 @@
 	 */
 	Plugin.prototype.next = function() {
 		this.show(this.currentItem + 1);
+	};
+
+	/**
+	 * Does things based on current viewport.
+	 * @method
+	 * @public
+	 */
+	Plugin.prototype.resize = function() {
+		if (parseInt(Unic.mq.currentBreakpoint.value) > parseInt(Unic.mq.breakpoints.small)) {
+			console.log('slideshow.js', 'Viewport: Above small breakpoint');
+		} else {
+			console.log('slideshow.js', 'Viewport: Below small breakpoint');
+		}
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)
