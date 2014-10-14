@@ -1,0 +1,31 @@
+{{#extend "layouts/layout"}}
+	{{#replace "content"}}
+		<h2>{{title}}</h2>
+
+		<p>{{content}}</p>
+
+		<p><strong>{{warning}}</strong></p>
+
+		<hr>
+
+		<h3>Dynamic partial ({{partial}})</h3>
+
+		{{dynamicPartial partial modules.slideshow}}
+
+		<h3>Comparisons: Check if string contains substring</h3>
+
+		{{#contains testString subString}}
+			"{{testString}}" contains "{{subString}}"
+		{{else}}
+			"{{testString}}" does not contain "{{subString}}"
+		{{/contains}}
+
+		<h3>Comparisons: Check if string is equal other string</h3>
+
+		{{#is testString testString2}}
+			"{{testString}}" is equal "{{testString2}}"
+		{{else}}
+			"{{testString}}" is not equal "{{testString2}}"
+		{{/is}}
+	{{/replace}}
+{{/extend}}
