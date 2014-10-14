@@ -16,7 +16,7 @@ require('../node_modules/handlebars-helpers/lib/helpers/helpers-comparisons.js')
 // This might be fixed at some point: https://github.com/assemble/handlebars-helpers/pull/157
 
 
-// Custom Handlebars Helper
+// Custom Handlebars helpers
 
 // Remove whitespace from string
 handlebars.registerHelper('removeWhiteSpace', function(value) {
