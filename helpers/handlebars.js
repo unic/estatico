@@ -34,16 +34,18 @@ handlebars.registerHelper('raw', function(options) {
 
 // Include partial with dynamic name
 // Based on http://stackoverflow.com/a/21411521
-// @param {String} name - Partial path, can contain placeholder as "{{key}}" where "key" is a property of the context data
-// @param {Object} data - Data to pass to compile function
-handlebars.registerHelper('dynamicPartial', function(name, data, context) {
+// @param {String} name - Partial path, can contain placeholder as "{{key}}"
+// @param {Object} partialData - Data to pass to the partial
+// @param {Object} options.partialContext - Context to use for the placeholder replacement
+handlebars.registerHelper('dynamicPartial', function(name, partialData, options) {
 	var placeholders = name.match(/{{(.*?)}}/g),
+		replacementContext = options ? (options.hash.replacementContext ? options.hash.replacementContext : options.data.root) : partialData.data.root,
 		template,
 		output;
 
 	_.each(placeholders, function(placeholder) {
 		var key = placeholder.replace(/({|})/g, ''),
-			value = data[key] || (context ? context.data.root[key] : data.data.root[key]);
+			value = replacementContext[key];
 
 		if (value) {
 			name = name.replace(placeholder, value);
@@ -65,7 +67,7 @@ handlebars.registerHelper('dynamicPartial', function(name, data, context) {
 		template = handlebars.compile(template);
 	}
 
-	output = template(data || context).replace(/^\s+/, '');
+	output = template(partialData).replace(/^\s+/, '');
 
 	return new handlebars.SafeString(output);
 });

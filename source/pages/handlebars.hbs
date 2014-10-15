@@ -16,6 +16,12 @@
 
 		{{dynamicPartial "modules/slideshow/{{partialPlaceholder}}" modules.slideshow}}
 
+		<h3>Dynamic partial inside each loop</h3>
+
+		{{#each partials}}
+			{{dynamicPartial "modules/slideshow/{{placeholder}}" ../modules.slideshow replacementContext=this}}
+		{{/each}}
+
 		<h3>Comparisons: Check if string contains substring</h3>
 
 		{{#contains testString subString}}

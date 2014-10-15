@@ -4,6 +4,11 @@
 	"warning": "WARNING: Use them with caution, they won't work on the client-side when precompiling templates.",
 	"partial": "modules/slideshow/slideshow",
 	"partialPlaceholder": "slideshow",
+	"partials": [
+		{
+			"placeholder": "slideshow"
+		}
+	],
 	"testString": "hello world",
 	"subString": "hello",
 	"testString2": "hello world"
