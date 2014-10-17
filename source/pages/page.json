@@ -1,4 +1,7 @@
 {
 	"title": "Page",
+	"styleguide": {
+		"hideFromListing": false
+	},
 	"content": "This page demonstrates the include of a module."
 }

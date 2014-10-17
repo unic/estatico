@@ -1,5 +1,8 @@
 {
 	"title": "Page (custom teasers)",
+	"styleguide": {
+		"hideFromListing": false
+	},
 	"content": "This page demonstrates the include of a module with custom data.",
 	"modules": {
 		"teasers": {
