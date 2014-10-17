@@ -1,6 +1,7 @@
 {
 	"styleguide": {
 		"title": "Media demo",
-		"jira": "JIRA-3"
+		"jira": "JIRA-3",
+		"hideFromListing": false
 	}
 }

@@ -1,7 +1,8 @@
 {
 	"styleguide": {
 		"title": "Teasers",
-		"jira": "JIRA-1"
+		"jira": "JIRA-1",
+		"hideFromListing": false
 	},
 	"teasers": [
 		{

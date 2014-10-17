@@ -21,36 +21,42 @@
 			<h2>Pages</h2>
 
 			<ul>
-			{{#each pages}}
-				<li>
-					<a href="{{styleguide.previewUrl}}">{{title}}</a>
-				</li>
-			{{/each}}
+				{{#each pages}}
+					{{#unless styleguide.hideFromListing}}
+						<li>
+							<a href="{{styleguide.previewUrl}}">{{title}}</a>
+						</li>
+					{{/unless}}
+				{{/each}}
 			</ul>
 
 			<h2>Modules</h2>
 
 			<ul>
-			{{#each modules}}
-				<li>
-					<a href="{{styleguide.previewUrl}}" target="content">
-						{{styleguide.title}}
-						{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
-					</a>
-				</li>
-			{{/each}}
+				{{#each modules}}
+					{{#unless styleguide.hideFromListing}}
+						<li>
+							<a href="{{styleguide.previewUrl}}" target="content">
+								{{styleguide.title}}
+								{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
+							</a>
+						</li>
+					{{/unless}}
+				{{/each}}
 			</ul>
 
 			<h2>Styleguide</h2>
 
 			<ul>
-			{{#each styleguide}}
-				<li>
-					<a href="{{styleguide.previewUrl}}" target="content">
-						{{title}}
-					</a>
-				</li>
-			{{/each}}
+				{{#each styleguide}}
+					{{#unless styleguide.hideFromListing}}
+						<li>
+							<a href="{{styleguide.previewUrl}}" target="content">
+								{{title}}
+							</a>
+						</li>
+					{{/unless}}
+				{{/each}}
 			</ul>
 		</nav>
 		<div class="sg_main">
