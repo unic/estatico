@@ -1,6 +1,7 @@
 {
 	"styleguide": {
 		"title": "MODULE",
-		"jira": "JIRA-1"
+		"jira": "JIRA-1",
+		"hideFromListing": true
 	}
 }
