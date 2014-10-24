@@ -1,7 +1,7 @@
 /**
- * @class       MODULE
- * @classdesc   Plugin representing a MODULE.
- * @author      Thomas Jaggi, Unic AG
+ * @class       {{pascalCase}}
+ * @classdesc   Plugin representing a {{titleCase}}
+ * @author      XY, Unic AG
  * Edited By
  * @copyright   Unic AG
  *
@@ -12,7 +12,7 @@
 	'use strict';
 
 	var // $document = $(document),
-		pluginName = 'MODULE',
+		pluginName = '{{camelCase}}',
 		events = {
 			/* eventname: pluginName +'_eventname' */
 		},
@@ -49,7 +49,7 @@
 	 * @public
 	 */
 	Plugin.prototype.init = function() {
-		console.log('MODULE');
+		console.log('{{camelCase}}');
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)
