@@ -3,6 +3,7 @@
 Bugfixes:
 
 * FROBOIL-44: Media queries not working in IE (css content property not readable)
+* npm-shrinkwrap.json updated
 
 ## 1.0.0
 
