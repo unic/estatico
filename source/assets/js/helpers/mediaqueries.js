@@ -40,8 +40,9 @@
 
 	var $document = $(document),
 		$head = $document.find('head'),
+		$title = $head.find('title'),
 		breakpointsString = $head.css('font-family'),
-		currentBreakpointString = $head.css('content'),
+		currentBreakpointString = $title.css('font-family'),
 		/**
 		 * breakpoints is a JSON-like object. Ex:
 		 * {small: "768px", medium: "992px", large: "1200px"}
@@ -64,7 +65,7 @@
 	});
 
 	$document.on(Unic.events.resize, function() {
-		var breakpoint = parseCssProperty($head.css('content')),
+		var breakpoint = parseCssProperty($title.css('font-family')),
 			prevBreakpoint = Unic.mq.currentBreakpoint;
 
 		if (breakpoint && breakpoint.name !== Unic.mq.currentBreakpoint.name) {
