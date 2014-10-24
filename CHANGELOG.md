@@ -1,4 +1,10 @@
-## 1.0
+## 1.0.1
+
+Bugfixes:
+
+* FROBOIL-44: Media queries not working in IE (css content property not readable)
+
+## 1.0.0
 
 Features:
 
