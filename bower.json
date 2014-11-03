@@ -7,6 +7,6 @@
     "handlebars": "2.0.0"
   },
   "devDependencies": {
-  	"qunit": "1.14.0"
+  	"qunit": "1.15.0"
   }
 }
