@@ -3,7 +3,9 @@ build
 test
 source/assets/.tmp
 source/assets/vendor
+source/styleguide/sections/colors.json
 .sass-cache
 .cache
 .idea
 atlassian-ide-plugin.xml
+.vagrant

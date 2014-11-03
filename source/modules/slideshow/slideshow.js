@@ -1,8 +1,11 @@
 /**
- * Carousel
- * @author ThJ, Unic AG
- * @requires ../../assets/vendor/jquery-touchswipe/jquery.touchSwipe.js
- * @license All rights reserved Unic AG
+ * @class       slideshow
+ * @classdesc   Plugin representing a Slideshow.
+ * @author      Thomas Jaggi, Unic AG
+ * Edited By
+ * @copyright   Unic AG
+ *
+ * //@requires ../../assets/vendor/some/dependency.js
  */
 
 (function(window, document, $, Unic, undefined) {
@@ -32,8 +35,8 @@
 
 	/**
 	 * Create an instance of the module
-	 * @param {object} element The DOM element to bind the module
-	 * @param {object} options Options overwriting the defaults
+	 * @param {object} element - The DOM element to bind the module
+	 * @param {object} options - Options overwriting the defaults
 	 * @constructor
 	 */
 	var Plugin = function(element, options) {
@@ -46,13 +49,18 @@
 
 	/**
 	 * Initialize module, bind events
+	 * @method
+	 * @public
 	 */
 	Plugin.prototype.init = function() {
+		var buttons = Unic.templates['modules/slideshow/_slideshow_button']({});
+
 		this.currentItem = -1;
 
-		this.$items = this.$element.find(this.options.domSelectors.slide).hide();
+		this.$items = this.$element.find(this.options.domSelectors.item).hide();
 
 		this.$element
+			.append(buttons)
 			.on('click.' + pluginName, this.options.domSelectors.prev, _.bind(function(event) {
 				event.preventDefault();
 
@@ -62,21 +70,40 @@
 				event.preventDefault();
 
 				this.next();
-			}, this));
+			}, this))
+			.addClass(this.options.stateClasses.isActivated);
+
+		// Exemplary touch detection
+		// if (Modernizr.touchevents) {
+			// Init touchSwipe
+		// }
 
 		// Exemplary resize listener
 		$document.on(Unic.events.resize, function(event, originalEvent) {
-			console.log(originalEvent);
+			console.log('slideshow.js', originalEvent);
 		});
 
 		// Exemplary scroll listener
 		$document.on(Unic.events.scroll, function(event, originalEvent) {
-			console.log(originalEvent);
+			console.log('slideshow.js', originalEvent);
 		});
+
+		// Exemplary media query listener
+		this.resize();
+
+		$document.on(Unic.events.mq, _.bind(function() {
+			this.resize();
+		}, this));
 
 		this.show(this.options.initialItem);
 	};
 
+	/**
+	 * Shows a specific slide according the given index.
+	 * @method
+	 * @public
+	 * @param {Number} index - The index of the slide to show as integer.
+	 */
 	Plugin.prototype.show = function(index) {
 		if (index === this.currentItem) {
 			return;
@@ -88,18 +115,41 @@
 			index = this.$items.length - 1;
 		}
 
-		this.$items.eq(this.currentItem).fadeOut(this.options.animationDuration);
-		this.$items.eq(index).fadeIn(this.options.animationDuration);
+		this.$items.eq(this.currentItem).slideUp(this.options.animationDuration);
+		this.$items.eq(index).slideDown(this.options.animationDuration);
 
 		this.currentItem = index;
 	};
 
+	/**
+	 * Shows the previous slide in the slideshow.
+	 * @method
+	 * @public
+	 */
 	Plugin.prototype.prev = function() {
-		this.goTo(this.currentItem - 1);
+		this.show(this.currentItem - 1);
 	};
 
+	/**
+	 * Shows the next slide in the slideshow.
+	 * @method
+	 * @public
+	 */
 	Plugin.prototype.next = function() {
-		this.goTo(this.currentItem + 1);
+		this.show(this.currentItem + 1);
+	};
+
+	/**
+	 * Does things based on current viewport.
+	 * @method
+	 * @public
+	 */
+	Plugin.prototype.resize = function() {
+		if (parseInt(Unic.mq.currentBreakpoint.value) > parseInt(Unic.mq.breakpoints.small)) {
+			console.log('slideshow.js', 'Viewport: Above small breakpoint');
+		} else {
+			console.log('slideshow.js', 'Viewport: Below small breakpoint');
+		}
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

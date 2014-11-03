@@ -1,6 +1,14 @@
 #!/bin/bash
 
 echo "
+-------------------------------------------------------
+Use nvm
+-------------------------------------------------------
+"
+
+nvm use
+
+echo "
 
 
 
@@ -13,15 +21,58 @@ echo "
 
 "
 
-# Install NPM dependencies using npm-pkgr (caching modules)
-DEBUG=* npm-pkgr --strategy=copy
+echo "
+-------------------------------------------------------
+Fix npm-shrinkwrap.json to use Jenkins-specific dependencies (e.g. gulp-imagemin)
+-------------------------------------------------------
+"
 
-# Install Bower dependencies
-node node_modules/.bin/bower install
+if ! node jenkins/npm-shrinkwrap.js
+	then
+		exit 1
+fi
 
-# Ruby environment (for Sass)
+echo "
+-------------------------------------------------------
+Install NPM dependencies using npm-pkgr (caching modules)
+-------------------------------------------------------
+"
+
+if ! DEBUG=* npm-pkgr
+	then
+		exit 1
+fi
+
+echo "
+-------------------------------------------------------
+Install Bower dependencies
+-------------------------------------------------------
+"
+
+if ! node node_modules/.bin/bower install
+	then
+		exit 1
+fi
+
+echo "
+-------------------------------------------------------
+Use Ruby 2.0.0 (for Sass)
+-------------------------------------------------------
+"
+
 source /usr/local/rvm/scripts/rvm
 rvm use 2.0.0
+
+echo "
+-------------------------------------------------------
+Install Ruby dependencies
+-------------------------------------------------------
+"
+
+if ! bundle install
+	then
+		exit 1
+fi
 
 echo "
 
@@ -38,30 +89,11 @@ echo "
 
 echo "
 -------------------------------------------------------
-Build Dev Version
--------------------------------------------------------
-"
-
-if ! node_modules/gulp/bin/gulp.js build
-	then
-		exit 1
-fi
-
-if [ ! -d "build" ]
-	then
-		echo "[ERROR] DEV build failed (no build directory detected)."
-		exit 1
-fi
-
-mv build dev
-
-echo "
--------------------------------------------------------
 Build Prod Version
 -------------------------------------------------------
 "
 
-if ! node_modules/gulp/bin/gulp.js build --production
+if ! node_modules/gulp/bin/gulp.js build
 	then
 		exit 1
 fi
@@ -73,6 +105,25 @@ if [ ! -d "build" ]
 fi
 
 mv build prod
+
+echo "
+-------------------------------------------------------
+Build Dev Version
+-------------------------------------------------------
+"
+
+if ! node_modules/gulp/bin/gulp.js build --dev
+	then
+		exit 1
+fi
+
+if [ ! -d "build" ]
+	then
+		echo "[ERROR] DEV build failed (no build directory detected)."
+		exit 1
+fi
+
+mv build dev
 
 # Create structure for preview server
 mkdir build
@@ -175,9 +226,9 @@ if [ -n "${BUILD_GIT_REPO}" ] && [ -n "${BUILD_GIT_BRANCH}" ]
 		# Sync files from dev build to temp folder
 		if [ -n "${PUSH_ASSETS}" ]
 			then
-				rsync -rm --delete --exclude '.git' --exclude 'metadata.json' ../build/ .
+				rsync -rm --delete --exclude '.git' ../build/prod/ .
 			else
-				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/dev/ .
+				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/prod/ .
 		fi
 
 		# Push changes

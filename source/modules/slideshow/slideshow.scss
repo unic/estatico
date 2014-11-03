@@ -1,9 +1,22 @@
 .mod_slideshow {
 
+	.prev,
 	.next {
-		@include icon(slideshow-twitter);
+		color: $colorOpulentCherry; // for anything smaller than a tablet
+
+		@include mq($from: small, $to: medium) { // for tablets
+			color: $colorGoldilocks;
+		}
+
+		@include mq($from: medium) { // for anything bigger than a tablet
+			color: $colorWhatWillHappen;
+		}
 	}
-	.prev {
-		@include icon(slideshow-github);
+
+	&.is_activated {
+
+		.slide {
+			display: none;
+		}
 	}
 }

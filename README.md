@@ -27,106 +27,60 @@
 ---
 
 
-## SETUP
+## DOCUMENTATION
 
-### Dependencies
+### Setup / Usage
 
-Node, NPM.
+See ```docs/Setup_and_Usage.md```
 
-### Usage
+### Coding Guidelines
 
-1. Install node and bower dependencies:
-
-```shell
-npm install
-bower install
-# local version: node_modules/.bin/bower install
-```
-
-2. Start server
-
-```shell
-gulp
-# local version: node_modules/.bin/gulp
-```
-
-3. Build
-
-```shell
-gulp build
-# local version: node_modules/.bin/gulp build
-```
-
-4. Update bower dependencies
-
-```shell
-bower install
-# local version: node_modules/.bin/bower install
-```
+See ```docs/Coding_Guidelines.md```
 
 
 ---
 
 
-## CODING GUIDELINES
+## REQUIREMENTS
 
-### Remarks
+### Browser support
 
-* "Generally" is used when a rule is not meant to be absolute.
+#### Level 1
 
-### Formatting
+Gründliches Testing, hohe Priorität von Bugs, Vermeidung von Inkonsistenzen im Rendering (sofern dies ohne Nebenwirkungen für andere Browser gewährleistet werden kann).
 
-1. General
-	* Encoding: UTF-8
-	* Indentation: Tabs
+Desktop:
 
-2. HTML
-	* Attributes wrapped with double quotes
-	* Filenames with underscores, no dashes
+* Internet Explorer: die zwei aktuellsten Version zum Zeitpunkt der Entwicklung (Stand 13. Oktober 2014: Version 10 und 11)
+* Chrome: aktuellste Version zum Zeitpunkt der Entwicklung (Stand 13. Oktober 2014: Version 38)
+* Firefox: aktuellste Version zum Zeitpunkt der Entwicklung (Stand 13. Oktober 2014: Version 32)
+* Safari (Mac): aktuellste Version zum Zeitpunkt der Entwicklung (Stand 13. Oktober 2014: Version 7)
 
-3. CSS
-	* Properties indented
-	* One property per line
-	* Generally one selector per line
-	* Selectors in lowercase and with underscores, no dashes
-	* Preprocessors: CamelCase for everything but selectors and placeholders
+Mobile (mehrere Geräte pro OS):
 
-4. JS
-	* Variables and function names in camelCase
-	* Constants in UPPER_CASE (e.g. ANIMATION_DURATION)
-	* Constructors and class names in PascalCase
-	* References to jQuery objects start with $ (e.g. $carouselContainer)
-	* Single quotes
-	* Comments:  
-		/\*!  
-		 \* Not stripped when compressed  
-		 \*/  
-		/\**  
-		 \* Stripped when compressed  
-		 \*/
+* iOS (Smartphone und Tablet): aktuellste Version zum Zeitpunkt der Entwicklung, getestet wird Safari (Stand 13. Oktober 2014: Version 8)
+* Android (Smartphone und Tablet): aktuellste Version zum Zeitpunkt der Entwicklung, getestet werden der «Stock-Browser» sowie Chrome (Stand 13. Oktober 2014: Version 4)
 
-### Guidelines
+#### Level 2
 
-1. Selectors
-	* No use of IDs for styling, classes only
-	* Prefixing of classes:
-		* Layout: "layout\_", used for general page layout (e.g. "layout\_wrapper")
-		* Module: "mod\_", used for independent blocks of markup (e.g. "mod\_teaser"). Generally no namespacing inside modules (e.g. use ".mod\_teaser .title" instead of ".mod\_teaser\_title").
-		* Variant: "var\_", used as modifier or above elements (e.g. "var\_onecol")
-		* State: "is\_", used as modifier or above elements (e.g. "is\_inactive")
-	* JS hooks: Use data attributes instead of classes to target elements using JavaScript (e.g. data-teaser="init")
-	* No use of overqualified selectors (e.g. "div.mod\_teaser")
+Grundlegendes Testing, geringe Priorität von Bugs, welche die Grundfunktionalität der Seite nicht beeinflussen (beispielsweise Inkonsistenzen im Rendering).
 
-2. Units
-	* em or % for dimensions, generally no px
+Desktop:
 
-3. CSS preprocessors
-	* Use mixins and placeholders for repeating styles
-	* Define Colors globally
-	* Nest your classes as little as possible
+* Internet Explorer: Version 9
 
-4. JS
-	* Use unobtrusive JS
+Mobile (minimale Anzahl Geräte):
 
-5. Vendor code
-	* Use Bower --> bower.json
+* iOS (Smartphone und Tablet): zweitneuste Version zum Zeitpunkt der Entwicklung, getestet wird Safari (Stand 13. Oktober 2014: Version 6)
+* Android (Smartphone und Tablet): zweitneuste Version zum Zeitpunkt der Entwicklung, getestet werden der «Stock-Browser» sowie Chrome (Stand 13. Oktober 2014: Version 2)
+
+#### Vorgehen
+
+Beim Start der Entwicklung wird eine detaillierte Device-Liste mit spezifischen Versionen vorgeschlagen und abgenommen. Gibt es während des Projektverlaufs automatische Updates obiger Browser, muss diese Liste aktualisiert werden.
+
+Die Priorisierung von Bugs wird gemeinsam vorgenommen. Konkret ist es nicht unbedingt sinnvoll, eine Menge Ressourcen für die Behebung eines Problems in einem spezifischen Stock-Browser auf Android aufzuwenden, da diese Zeit dafür eingesetzt werden könnte, die UX für sämtliche User zu verbessern.
+
+
+### Accessibility
+
+Es wird WCAG 2.0 Level AA angestrebt.

@@ -1,0 +1,18 @@
+{{#extend "styleguide/layouts/section"}}
+	{{#replace "content"}}
+		<!-- todo: add icons from all icon folders -->
+		<div class="sg_icons">
+
+		{{#each icons}}
+
+			<div class="sg_icons_item">
+				<div class="sg_icons_label">{{this}}</div>
+				{{#each ../sizes}}
+					<div class="sg_icons_icon" style="font-size: {{this}}px" title="{{../this}} {{this}}px"><span class="icon_{{../this}}"></span></div>
+				{{/each}}
+			</div>
+
+		{{/each}}
+		</div>
+	{{/replace}}
+{{/extend}}

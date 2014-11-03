@@ -1,0 +1,68 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+	<link rel="stylesheet" href="/styleguide/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+</head>
+<body>
+	<div class="sg_wrapper">
+
+		<nav class="sg_nav">
+			<h1 class="sg_title">{{project}}</h1>
+
+			<h2>Pages</h2>
+
+			<ul>
+				{{#each pages}}
+					{{#unless styleguide.hideFromListing}}
+						<li>
+							<a href="{{styleguide.previewUrl}}">{{title}}</a>
+						</li>
+					{{/unless}}
+				{{/each}}
+			</ul>
+
+			<h2>Modules</h2>
+
+			<ul>
+				{{#each modules}}
+					{{#unless styleguide.hideFromListing}}
+						<li>
+							<a href="{{styleguide.previewUrl}}" target="content">
+								{{styleguide.title}}
+								{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
+							</a>
+						</li>
+					{{/unless}}
+				{{/each}}
+			</ul>
+
+			<h2>Styleguide</h2>
+
+			<ul>
+				{{#each styleguide}}
+					{{#unless styleguide.hideFromListing}}
+						<li>
+							<a href="{{styleguide.previewUrl}}" target="content">
+								{{title}}
+							</a>
+						</li>
+					{{/unless}}
+				{{/each}}
+			</ul>
+		</nav>
+		<div class="sg_main">
+			<iframe name="content"></iframe>
+		</div>
+
+	</div>
+</body>
+</html>

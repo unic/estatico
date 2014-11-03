@@ -1,0 +1,30 @@
+/**
+ * Sync breakpoints with JavaScript
+ *
+ * "content" property of head element contains the current breakpoint
+ * "font-family" property of head element contains all breakpoints
+ */
+
+@include mq($from: 0px) {
+	title {
+		font-family: '{"name":"tiny","value":"0px"}';
+	}
+}
+
+@each $breakpoint in $mqBreakpoints {
+	$name: nth($breakpoint, 1);
+	$value: nth($breakpoint, 2);
+
+	@include mq($from: $name) {
+		title {
+			font-family: '{"name":"#{$name}","value":"#{$value}"}';
+		}
+	}
+}
+
+head {
+	$JSON: mqGetBreakpointsJSON($mqBreakpoints);
+
+	font-family: "#{$JSON}";
+	display: none; // Avoid showing anything from the head
+}

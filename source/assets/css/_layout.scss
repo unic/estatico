@@ -1,24 +1,45 @@
-// Variables are always defined at the top of a file
-// Colors are prefixed with "color", sizes with "size"
-$colorBgBody: #fff;
-
-
 body {
-	background: $colorBgBody;
-	font-family: $fontBase;
+	background: $colorBg;
+	color: $colorText;
+	font-family: $fontFamilyBase;
 	font-size: $sizeFontBase / 16px * 100%;
-	line-height: $lineHeightBase;
+	line-height: $sizeLineHeightBase;
 }
 
+nav {
 
-/* Demo */
-body {
-	@include sprite(logo);
+	ul,
+	ol {
+		@include resetList;
+	}
+}
 
-	box-sizing: border-box;
-	color: green;
+.layout_wrapper {
+	margin: 0 auto;
+	width: pxToEm($sizeWidthContent);
+}
 
-	.no-csstransforms & {
-		color: red;
+.layout_columns {
+	display: flex;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		@include clearfix;
+	}
+}
+
+.layout_main {
+	width: 75%;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		float: left;
+	}
+}
+
+.layout_sidebar {
+	flex: 1;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		float: right;
+		width: 25%;
 	}
 }

@@ -1,20 +1,35 @@
-@import "fonts";
-@import "../.tmp/icons";
-@import "../.tmp/sprite";
+/*# sourceMappingURL=main.css.map */
+@import "globals/variables";
+@import "../.tmp/colors";
+@import "globals/functions";
+@import "globals/mixins";
+@import "globals/mediaqueries";
 
-// 3rd party scripts
+
+// Reset / normalize styles
 @import "normalize-scss/normalize";
 
-// Base files
-@import "global";
+// Custom web fonts
+@import "globals/fonts";
+
+// Icons (as font or dataurl), PNG sprites
+@import "../.tmp/iconfont";
+@import "../.tmp/dataurls";
+@import "../.tmp/pngsprite";
+
+// General styles
+@import "mediaqueries_sync";
+@import "globals/classes";
+
+// General layout
 @import "layout";
 
-// Overwrites for 3rd party scripts
-@import "vendor";
-
 // Modules
+@import "teaser/teaser";
+@import "teasers/teasers";
 @import "slideshow/slideshow";
-
+@import "media/media";
+//*autoinsertmodule*
 
 @media print {
 	@import "print";
