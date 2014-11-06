@@ -3,6 +3,7 @@
 @import "../.tmp/colors";
 @import "globals/functions";
 @import "globals/mixins";
+@import "globals/mediaqueries";
 
 * {
 	box-sizing: border-box;
@@ -29,7 +30,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Styles
 // ----------------------------------------------------------------------------------------------------
 
-
 html,
 body {
 	height: 100%;
@@ -39,16 +39,15 @@ body {
 	height: 100%;
 }
 
-.sg_nav {
-	overflow-y: auto;
-	position: fixed;
-	left: 0;
-	top: 0;
+
+
+// Styleguide index page
+// ----------------------------------------------------------------------------------------------------
+.sg_main {
+	border: none;
 	height: 100%;
-	width: 16em;
-	padding: 2em 1em;
-	margin-right: 2em;
-	border-right: 1px solid $sg_colorLightGray;
+	width: 100%;
+	padding: 2em;
 
 	h1 {
 		background: url(../media/logo.svg) no-repeat;
@@ -62,44 +61,73 @@ body {
 	}
 
 	h2 {
-		margin-bottom: 0;
+		margin: 0;
 	}
 
-	ul, li {
-		margin: 0;
-		padding: 0;
+	ul,
+	li {
 		list-style-type: none;
 	}
 
 	a {
-		display: block;
+		display: inline-block;
 		padding: .2em 0;
-		text-decoration: none;
 		color: $sg_colorGray;
 
 		&:hover {
 			color: $sg_colorBlack;
+			text-decoration: none;
 		}
 	}
-
-	ul {
-		padding: 1em 0;
-	}
 }
 
-.sg_main {
-	border: none;
-	height: 100%;
-	width: 100%;
-	padding: 2em 2em 2em 18em;
+.sg_inner_wrapper {
 
-	iframe {
+	// Wrapper around lists on the index page
+	&.var_sg_index {
 		width: 100%;
-		height: 100%;
-		border: none;
+		padding: 0 pxToRem(20) 0 0;
+		margin: 0 0 pxToRem(20) 0;
+		float: left;
+
+		@include mq($from: 500px) {
+			width: 50%;
+
+			&:nth-of-type(2n+1) { clear: both; }
+		}
+
+		@include mq($from: 700px) {
+			width: 33%;
+
+			&:nth-of-type(2n+1) { clear: none; }
+			&:nth-of-type(3n+1) { clear: both; }
+		}
+
+		@include mq($from: 1000px) {
+			width: 25%;
+
+			&:nth-of-type(3n+1) { clear: none; }
+			&:nth-of-type(4n+1) { clear: both; }
+		}
+
+		@include mq($from: 1300px) {
+			width: 20%;
+
+			&:nth-of-type(4n+1) { clear: none; }
+			&:nth-of-type(5n+1) { clear: both; }
+		}
 	}
 }
 
+// Lists on index page
+.sg_index_list {
+	padding: 0;
+}
+
+
+
+// Styleguide content styles
+// ----------------------------------------------------------------------------------------------------
 .sg_title {
 	font-weight: 400;
 	margin-top: 0;
@@ -158,8 +186,6 @@ body {
 	display: table-row;
 }
 
-.sg_inner_wrapper {
-}
 
 
 // Colors
