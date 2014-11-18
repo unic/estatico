@@ -231,6 +231,8 @@ if [ -n "${BUILD_GIT_REPO}" ] && [ -n "${BUILD_GIT_BRANCH}" ]
 				rsync -rm --delete --exclude '.git' --include '*.html' -f 'hide,! */' ../build/prod/ .
 		fi
 
+		cp -f ../build/metadata.json .
+
 		# Push changes
 		git add --all
 		git commit -m "Build ${BUILD_NUMBER}"
