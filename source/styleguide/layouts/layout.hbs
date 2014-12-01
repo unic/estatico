@@ -21,6 +21,7 @@
 		<h1 class="sg_title">{{project}}</h1>
 
 
+		{{#if pages }}
 		<div class="sg_inner_wrapper var_sg_index">
 			<h2>Pages</h2>
 
@@ -34,8 +35,10 @@
 				{{/each}}
 			</ul>
 		</div>
+		{{/if}}
 
 
+		{{#if modules }}
 		<div class="sg_inner_wrapper var_sg_index">
 			<h2>Modules</h2>
 
@@ -52,8 +55,10 @@
 				{{/each}}
 			</ul>
 		</div>
+		{{/if}}
 
 
+		{{#if styleguide }}
 		<div class="sg_inner_wrapper var_sg_index">
 			<h2>Styleguide</h2>
 
@@ -69,6 +74,8 @@
 				{{/each}}
 			</ul>
 		</div>
+		{{/if}}
+
 
 	</div>
 
