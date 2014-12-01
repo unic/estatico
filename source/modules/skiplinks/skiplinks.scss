@@ -1,0 +1,9 @@
+.mod_skiplinks {
+	ul {
+		@include resetList;
+	}
+
+	a {
+		@include visuallyhiddenFocusable;
+	}
+}

@@ -14,6 +14,7 @@
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
+	{{> "modules/skiplinks/skiplinks" modules.skiplinks}}
 	<div class="layout_wrapper">
 		{{#block "content"}}
 		{{/block}}

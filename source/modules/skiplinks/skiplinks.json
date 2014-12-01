@@ -1,0 +1,19 @@
+{
+	"styleguide": {
+		"title": "Skiplinks",
+		"hideFromListing": false
+	},
+	"links": [
+		{
+			"href": "#mainnav",
+			"accesskey": 0,
+			"title": "[ALT + 0]",
+			"label": "Skip to main navigation"
+		},{
+			"href": "#maincontent",
+			"accesskey": 1,
+			"title": "[ALT + 1]",
+			"label": "Skip to content"
+		}
+	]
+}
