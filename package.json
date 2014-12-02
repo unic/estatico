@@ -33,7 +33,7 @@
     "gulp-modernizr": "https://github.com/backflip/gulp-modernizr/tarball/develop",
     "gulp-plumber": "0.6.6",
     "gulp-prettify": "0.3.0",
-    "gulp-qunit": "1.0.0",
+    "gulp-qunit": "^1.0.0",
     "gulp-raster": "0.1.0",
     "gulp-rename": "1.2.0",
     "gulp-resolve-dependencies": "1.0.1",
