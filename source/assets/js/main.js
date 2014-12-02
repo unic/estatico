@@ -12,7 +12,7 @@
  * @requires ../.tmp/templates.js
  * @requires ../.tmp/lodash.js
  *
- * @requires ../vendor/skiplinks/_skiplinks.js
+ * @requires ../vendor/skiplinks/skiplinks.js
  * @requires ../../modules/slideshow/slideshow.js
  * //*autoinsertmodule*
  *
