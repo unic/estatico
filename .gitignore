@@ -1,6 +1,5 @@
 node_modules
 build
-test
 source/assets/.tmp
 source/assets/vendor
 source/styleguide/sections/colors.json
