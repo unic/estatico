@@ -5,9 +5,6 @@
 @import "globals/mixins";
 @import "globals/mediaqueries";
 
-* {
-	box-sizing: border-box;
-}
 
 // Styleguide defaults
 // ----------------------------------------------------------------------------------------------------
@@ -19,7 +16,6 @@ $sg_colorGray: #999;
 $sg_colorBlack: #000;
 $sg_colorUnicGreen: #a4c400;
 
-
 // Transitions
 $sg_defaultTransitionProperty: all;
 $sg_defaultTransitionDuration: 0.2s;
@@ -28,44 +24,16 @@ $sg_defaultTransitionDelay: 0s;
 $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
 
 
-
-// Styles
-// ----------------------------------------------------------------------------------------------------
-
-html,
-body {
-	height: 100%;
-}
-
-.sg_wrapper {
-	height: 100%;
-}
-
-
-
 // Styleguide index page
 // ----------------------------------------------------------------------------------------------------
+.sg_wrapper {
+	padding: 2em;
+}
+
 .sg_main {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
-	padding: 2em;
-
-	border: none;
-
-	h1 {
-		flex: 1 1 100%;
-		width: pxToEm(100);
-		height: pxToEm(100);
-		margin: 0 0 pxToEm(50) 0;
-		overflow: hidden;
-
-		background: url(../media/logo.svg) no-repeat;
-		background-size: contain;
-
-		font-size: 1em;
-		text-indent: -100em;
-	}
 
 	h2 {
 		margin: 0;
@@ -78,7 +46,7 @@ body {
 
 	a {
 		display: inline-block;
-		padding: .2em 0;
+		padding: 0.2em 0;
 		color: $sg_colorGray;
 
 		&:hover {
@@ -89,9 +57,9 @@ body {
 }
 
 .sg_inner_wrapper {
-
+	box-sizing: border-box;
 	padding: 1em;
-	background-color: rgba($sg_colorUnicGreen, .1);
+	background-color: rgba($sg_colorUnicGreen, 0.1);
 
 	// Wrapper around lists on the index page
 	&.var_sg_index {
@@ -162,12 +130,28 @@ body {
 }
 
 
-
 // Styleguide content styles
 // ----------------------------------------------------------------------------------------------------
 .sg_title {
+	$sizeFont: 24px;
+
+	font-size: pxToEm($sizeFont);
 	font-weight: 400;
-	margin-top: 0;
+	margin: 0 0 pxToEm(50, $sizeFont) 0;
+}
+
+.sg_logo {
+	$size: 80px;
+
+	@include replaceText;
+
+	background: url(../media/logo.svg) no-repeat;
+	background-size: contain;
+	display: inline-block;
+	margin-right: pxToRem(20);
+	overflow: hidden;
+	height: pxToRem($size);
+	width: pxToRem($size);
 }
 
 %sg_sub_headings {
@@ -176,7 +160,7 @@ body {
 }
 .sg_h2 {
 	@extend %sg_sub_headings;
-	border-bottom: 1px solid rgba($sg_colorBlack, .2);
+	border-bottom: 1px solid rgba($sg_colorBlack, 0.2);
 }
 .sg_h3 {
 	@extend %sg_sub_headings;
@@ -187,7 +171,7 @@ body {
 
 .sg_block {
 	border-top: 1px solid $sg_colorWhite;
-	padding: .4em 0 2em;
+	padding: 0.4em 0 2em;
 }
 
 .sg_block_label {
@@ -202,7 +186,7 @@ body {
 	border-top: 1px solid $sg_colorLightGray;
 	border-left: 1px solid $sg_colorLightGray;
 	vertical-align: top;
-	padding: .5em;
+	padding: 0.5em;
 }
 
 .sg_icons_icon {
@@ -224,12 +208,11 @@ body {
 }
 
 
-
 // Colors
 // ----------------------------------------------------------------------------------------------------
-
 .sg_color_list {
-	list-style-type: none;
+	@include clearfix;
+	@include resetList;
 }
 
 .sg_color_item {
@@ -257,7 +240,7 @@ body {
 }
 
 .sg_color_name {
-	padding-top: .8em;
+	padding-top: 0.8em;
 	font-weight: bold;
 }
 

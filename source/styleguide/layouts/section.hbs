@@ -13,9 +13,15 @@
 	<link rel="stylesheet" href="/styleguide/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 </head>
 <body>
-	<h1 class="sg_title">{{title}}</h1>
+	<div class="sg_wrapper">
+		<h1 class="sg_title">
+			<a href="/" class="sg_logo">{{project}}</a>
 
-	{{#block "content"}}
-	{{/block}}
+			{{title}}
+		</h1>
+
+		{{#block "content"}}
+		{{/block}}
+	</div>
 </body>
 </html>
