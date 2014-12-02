@@ -3,10 +3,8 @@
 @import "../.tmp/colors";
 @import "globals/functions";
 @import "globals/mixins";
+@import "globals/mediaqueries";
 
-* {
-	box-sizing: border-box;
-}
 
 // Styleguide defaults
 // ----------------------------------------------------------------------------------------------------
@@ -16,6 +14,7 @@ $sg_colorWhite: #fff;
 $sg_colorLightGray: #ddd;
 $sg_colorGray: #999;
 $sg_colorBlack: #000;
+$sg_colorUnicGreen: #a4c400;
 
 // Transitions
 $sg_defaultTransitionProperty: all;
@@ -25,84 +24,134 @@ $sg_defaultTransitionDelay: 0s;
 $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
 
 
-
-// Styles
+// Styleguide index page
 // ----------------------------------------------------------------------------------------------------
-
-
-html,
-body {
-	height: 100%;
-}
-
 .sg_wrapper {
-	height: 100%;
+	padding: 2em;
 }
 
-.sg_nav {
-	overflow-y: auto;
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 16em;
-	padding: 2em 1em;
-	margin-right: 2em;
-	border-right: 1px solid $sg_colorLightGray;
-
-	h1 {
-		background: url(../media/logo.svg) no-repeat;
-		background-size: contain;
-		font-size: 1em;
-		height: pxToEm(100);
-		margin: 0 0 pxToEm(50) 0;
-		overflow: hidden;
-		text-indent: -100em;
-		width: pxToEm(100);
-	}
+.sg_main {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
 
 	h2 {
-		margin-bottom: 0;
+		margin: 0;
 	}
 
-	ul, li {
-		margin: 0;
-		padding: 0;
+	ul,
+	li {
 		list-style-type: none;
 	}
 
 	a {
-		display: block;
-		padding: .2em 0;
-		text-decoration: none;
+		display: inline-block;
+		padding: 0.2em 0;
 		color: $sg_colorGray;
 
 		&:hover {
 			color: $sg_colorBlack;
+			text-decoration: none;
 		}
 	}
-
-	ul {
-		padding: 1em 0;
-	}
 }
 
-.sg_main {
-	border: none;
-	height: 100%;
-	width: 100%;
-	padding: 2em 2em 2em 18em;
+.sg_inner_wrapper {
+	box-sizing: border-box;
+	padding: 1em;
+	background-color: rgba($sg_colorUnicGreen, 0.1);
 
-	iframe {
+	// Wrapper around lists on the index page
+	&.var_sg_index {
 		width: 100%;
-		height: 100%;
-		border: none;
+		margin: 0 0 pxToRem(20) 0;
+
+		@include mq($from: 500px) {
+			width: 47.5%;
+			margin-right: 5%;
+
+			// Reset margin
+			&:nth-of-type(2n+2) {
+				margin-right: 0;
+			}
+		}
+
+		@include mq($from: 700px) {
+			width: 31%;
+			margin-right: 2%;
+
+			// Overwrite margin from previous breakpoint
+			&:nth-of-type(2n+2) {
+				margin-right: 2%;
+			}
+			// Reset margin
+			&:nth-of-type(3n+3) {
+				margin-right: 0;
+			}
+		}
+
+		@include mq($from: 1000px) {
+			width: 21%;
+			margin-right: 2%;
+
+			// Overwrite margin from previous breakpoints
+			&:nth-of-type(2n+2),
+			&:nth-of-type(3n+3) {
+				margin-right: 2%;
+			}
+			// Reset margin
+			&:nth-of-type(4n+4) {
+				margin-right: 0;
+			}
+		}
+
+		@include mq($from: 1300px) {
+			width: 18%;
+			margin-right: 1%;
+
+			// Overwrite margin from previous breakpoints
+			&:nth-of-type(2n+2),
+			&:nth-of-type(3n+3),
+			&:nth-of-type(4n+4) {
+				margin-right: 1%;
+			}
+			// Reset margin
+			&:nth-of-type(5n+5) {
+				margin-right: 0;
+				background-color: rgba(255,102,0,.2);
+			}
+		}
 	}
 }
 
+// Lists on index page
+.sg_index_list {
+	padding: 0;
+}
+
+
+// Styleguide content styles
+// ----------------------------------------------------------------------------------------------------
 .sg_title {
+	$sizeFont: 24px;
+
+	font-size: pxToEm($sizeFont);
 	font-weight: 400;
-	margin-top: 0;
+	margin: 0 0 pxToEm(50, $sizeFont) 0;
+}
+
+.sg_logo {
+	$size: 80px;
+
+	@include replaceText;
+
+	background: url(../media/logo.svg) no-repeat;
+	background-size: contain;
+	display: inline-block;
+	margin-right: pxToRem(20);
+	overflow: hidden;
+	height: pxToRem($size);
+	width: pxToRem($size);
 }
 
 %sg_sub_headings {
@@ -111,7 +160,7 @@ body {
 }
 .sg_h2 {
 	@extend %sg_sub_headings;
-	border-bottom: 1px solid rgba($sg_colorBlack, .2);
+	border-bottom: 1px solid rgba($sg_colorBlack, 0.2);
 }
 .sg_h3 {
 	@extend %sg_sub_headings;
@@ -122,7 +171,7 @@ body {
 
 .sg_block {
 	border-top: 1px solid $sg_colorWhite;
-	padding: .4em 0 2em;
+	padding: 0.4em 0 2em;
 }
 
 .sg_block_label {
@@ -137,7 +186,7 @@ body {
 	border-top: 1px solid $sg_colorLightGray;
 	border-left: 1px solid $sg_colorLightGray;
 	vertical-align: top;
-	padding: .5em;
+	padding: 0.5em;
 }
 
 .sg_icons_icon {
@@ -158,15 +207,12 @@ body {
 	display: table-row;
 }
 
-.sg_inner_wrapper {
-}
-
 
 // Colors
 // ----------------------------------------------------------------------------------------------------
-
 .sg_color_list {
-	list-style-type: none;
+	@include clearfix;
+	@include resetList;
 }
 
 .sg_color_item {
@@ -194,7 +240,7 @@ body {
 }
 
 .sg_color_name {
-	padding-top: .8em;
+	padding-top: 0.8em;
 	font-weight: bold;
 }
 
