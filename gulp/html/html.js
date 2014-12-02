@@ -78,6 +78,13 @@ gulp.task('html', function() {
 
 				// Wrap modules with custom layout for preview purposes
 				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
+
+				// Find QUnit test files to include
+				if (fileData.runTests && fileData.testScripts) {
+					fileData.testScripts = glob.sync(fileData.testScripts).map(function(filePath) {
+						return path.join('./test/', path.relative('./source/', filePath));
+					});
+				}
 			} else if (fileName.indexOf('styleguide') !== -1) {
 				fileData = _.merge({
 					// Save array of icons
