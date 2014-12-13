@@ -54,7 +54,7 @@ gulp.task('js:default', function() {
 			return gulp.src(config.src)
 				.pipe(plumber())
 				.pipe(resolveDependencies({
-					pattern: /\* @requires [\s-]*(.*?\.js)/g,
+					pattern: /\* @requires [\s-]*(.*\.js)/g,
 					log: true
 				}).on('error', helpers.errors))
 				.pipe(tap(function(file) {
