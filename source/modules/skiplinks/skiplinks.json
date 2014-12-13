@@ -1,0 +1,14 @@
+{
+	"styleguide": {
+		"title": "Skiplinks",
+		"hideFromListing": false
+	},
+	"links": [
+		{
+			"href": "#main",
+			"accesskey": 1,
+			"title": "[ALT + 1]",
+			"label": "Skip to content"
+		}
+	]
+}

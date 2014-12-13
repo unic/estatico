@@ -8,3 +8,4 @@ source/styleguide/sections/colors.json
 .idea
 atlassian-ide-plugin.xml
 .vagrant
+.qunit

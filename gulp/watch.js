@@ -44,4 +44,8 @@ gulp.task('watch', function() {
 		'source/assets/icons/*.svg',
 		'source/modules/**/icons/*.svg'
 	], ['media:iconfont', 'media:dataurls']);
+
+	gulp.watch([
+		'source/modules/**/*.test.js'
+	], ['qunit:test']);
 });
