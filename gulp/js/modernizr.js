@@ -10,6 +10,7 @@
 var gulp = require('gulp'),
 	util = require('gulp-util'),
 	modernizr = require('gulp-modernizr'),
+	tap = require('gulp-tap'),
 	uglify = require('gulp-uglify');
 
 gulp.task('js:modernizr', function() {
@@ -20,7 +21,15 @@ gulp.task('js:modernizr', function() {
 			'./source/modules/**/*.js',
 			'!./source/assets/vendor/*.js'
 		])
-		.pipe(modernizr({}))
+		.pipe(modernizr())
+		.pipe(tap(function(file) {
+			var content = file.contents.toString();
+
+			// Remove bang from test comments to allow for removal on uglifying
+			content = content.replace(/\/\*\!\n{/g, '/*\n{').replace(/\!\*\//g, '*/');
+
+			file.contents = new Buffer(content);
+		}))
 		.pipe(util.env.prod ? uglify() : util.noop())
 		.pipe(gulp.dest('./source/assets/.tmp'));
 });
