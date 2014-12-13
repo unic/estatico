@@ -22,7 +22,7 @@ gulp.task('js:templates', function() {
 		.pipe(plumber())
 		.pipe(unicHandlebars({
 			precompile: true,
-			partials: './source/modules/**/_*.js.hbs'
+			partials: null // Partials have to be treated like templates (add to src glob above)
 		}).on('error', helpers.errors))
 		.pipe(defineModule('plain', { // RequireJS: use 'amd' over plain and uncomment lines below
 			// require: {
@@ -34,12 +34,18 @@ gulp.task('js:templates', function() {
 			wrapper: '<%= handlebars %>'
 		}))
 		.pipe(declare({
-			namespace: 'Unic.templates',
+			namespace: 'Handlebars.partials',
 			processName: function(filePath) {
 				// Use "modules/x/y" as partial name, e.g.
 				var name = path.relative('./source/', filePath);
 
-				return util.replaceExtension(util.replaceExtension(name, ''), '');
+				// Remove file extension
+				name = util.replaceExtension(util.replaceExtension(name, ''), '');
+
+				// Fix path on windows
+				name = name.replace(new RegExp('\\' + path.sep, 'g'), '/');
+
+				return name;
 			}
 		}))
 		.pipe(concat('templates.js'))

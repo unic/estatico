@@ -79,6 +79,7 @@
 	"globals" : {
 		"_": false,
 		"Unic": true,
-		"Modernizr": false
+		"Modernizr": false,
+		"Handlebars": false
 	}
 }
