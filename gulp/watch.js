@@ -48,4 +48,11 @@ gulp.task('watch', function() {
 	gulp.watch([
 		'source/modules/**/*.test.js'
 	], ['qunit:test']);
+
+	gulp.watch([
+		'./source/assets/fonts/{,**/}*',
+		'./source/assets/media/*.*',
+		'./source/tmp/media/*',
+		'./source/styleguide/assets/media/*'
+	], ['media:copy']);
 });
