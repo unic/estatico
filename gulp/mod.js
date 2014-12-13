@@ -12,6 +12,7 @@ var gulp = require('gulp'),
 	tap = require('gulp-tap'),
 	ignore = require('gulp-ignore'),
 	rename = require('gulp-rename'),
+	changeCase = require('change-case'),
 	args = require('yargs').argv;
 
 gulp.task('mod', function() {
@@ -24,12 +25,24 @@ gulp.task('mod', function() {
 		return;
 	}
 
+	var name = args.n.replace(/(_|-)/g, ' '),
+		snakeCase = changeCase.snake(name),
+		camelCase = changeCase.camel(name),
+		pascalCase = changeCase.pascal(name),
+		titleCase = changeCase.title(name),
+		lowerCase = changeCase.lower(name).replace(' ', '');
+
 	return gulp.src([
 		'./source/modules/.scaffold/*'
 	])
-		// Replace MODULE with the specified name
+		// Replace {{CASE}} with the specified name
 		.pipe(tap(function(file) {
-			var content = file.contents.toString().replace(/MODULE/g, args.n);
+			var content = file.contents.toString()
+					.replace(/\{\{snakeCase\}\}/g, snakeCase)
+					.replace(/\{\{camelCase\}\}/g, camelCase)
+					.replace(/\{\{pascalCase\}\}/g, pascalCase)
+					.replace(/\{\{titleCase\}\}/g, titleCase)
+					.replace(/\{\{lowerCase\}\}/g, lowerCase);
 
 			file.contents = new Buffer(content);
 		}))
@@ -38,9 +51,9 @@ gulp.task('mod', function() {
 		// Skip JS file if --nojs is specified
 		.pipe(args.nojs ? ignore.exclude('*.js') : util.noop())
 		.pipe(rename({
-			basename: args.n
+			basename: snakeCase
 		}))
-		.pipe(gulp.dest('./source/modules/' + args.n))
+		.pipe(gulp.dest('./source/modules/' + snakeCase))
 		.on('end', function() {
 			if (!args.nocss) {
 				// Add @import to main.scss
@@ -48,7 +61,7 @@ gulp.task('mod', function() {
 					'./source/assets/css/main.scss'
 				])
 					.pipe(tap(function(file) {
-						var cssImport = '@import "' + args.n + '/' + args.n + '";\n//*autoinsertmodule*',
+						var cssImport = '@import "' + snakeCase + '/' + snakeCase + '";\n//*autoinsertmodule*',
 							content = file.contents.toString().replace(/\/\/\*autoinsertmodule\*/g, cssImport);
 
 						file.contents = new Buffer(content);
@@ -65,7 +78,7 @@ gulp.task('mod', function() {
 					'./source/assets/js/main.js'
 				])
 					.pipe(tap(function(file) {
-						var cssImport = '@requires ../../modules/' + args.n + '/' + args.n + '.js\n * //*autoinsertmodule*',
+						var cssImport = '@requires ../../modules/' + snakeCase + '/' + snakeCase + '.js\n * //*autoinsertmodule*',
 							content = file.contents.toString().replace(/\/\/\*autoinsertmodule\*/g, cssImport);
 
 						file.contents = new Buffer(content);
