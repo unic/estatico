@@ -53,7 +53,7 @@
 	 * @public
 	 */
 	Plugin.prototype.init = function() {
-		var buttons = Unic.templates['modules/slideshow/_slideshow_button']({});
+		var buttons = Handlebars.partials['modules/slideshow/_slideshow_button']({});
 
 		this.currentItem = -1;
 

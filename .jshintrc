@@ -80,6 +80,7 @@
 		"_": false,
 		"Unic": true,
 		"Modernizr": false,
+		"Handlebars": false,
 		// QUnit vars
 		"QUnit": false,
 		"test": false,
