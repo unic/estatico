@@ -79,6 +79,23 @@
 	"globals" : {
 		"_": false,
 		"Unic": true,
-		"Modernizr": false
+		"Modernizr": false,
+		"Handlebars": false,
+		// QUnit vars
+		"QUnit": false,
+		"test": false,
+		"asyncTest": false,
+		"expect": false,
+		"module": false,
+		"ok": false,
+		"equal": false,
+		"notEqual": false,
+		"deepEqual": false,
+		"notDeepEqual": false,
+		"strictEqual": false,
+		"notStrictEqual": false,
+		"raises": false,
+		"start": false,
+		"stop": false
 	}
 }

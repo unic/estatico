@@ -18,7 +18,7 @@
 @import "../.tmp/pngsprite";
 
 // General styles
-@import "mediaqueriesSync";
+@import "mediaqueries_sync";
 @import "globals/classes";
 
 // General layout
@@ -29,6 +29,7 @@
 @import "teasers/teasers";
 @import "slideshow/slideshow";
 @import "media/media";
+@import "skiplinks/skiplinks";
 //*autoinsertmodule*
 
 @media print {

@@ -14,55 +14,68 @@
 </head>
 <body>
 	<div class="sg_wrapper">
+		<h1 class="sg_title">
+			<span class="sg_logo"></span>
 
-		<nav class="sg_nav">
-			<h1 class="sg_title">{{project}}</h1>
+			{{project}}
+		</h1>
 
-			<h2>Pages</h2>
-
-			<ul>
-				{{#each pages}}
-					{{#unless styleguide.hideFromListing}}
-						<li>
-							<a href="{{styleguide.previewUrl}}">{{title}}</a>
-						</li>
-					{{/unless}}
-				{{/each}}
-			</ul>
-
-			<h2>Modules</h2>
-
-			<ul>
-				{{#each modules}}
-					{{#unless styleguide.hideFromListing}}
-						<li>
-							<a href="{{styleguide.previewUrl}}" target="content">
-								{{styleguide.title}}
-								{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
-							</a>
-						</li>
-					{{/unless}}
-				{{/each}}
-			</ul>
-
-			<h2>Styleguide</h2>
-
-			<ul>
-				{{#each styleguide}}
-					{{#unless styleguide.hideFromListing}}
-						<li>
-							<a href="{{styleguide.previewUrl}}" target="content">
-								{{title}}
-							</a>
-						</li>
-					{{/unless}}
-				{{/each}}
-			</ul>
-		</nav>
 		<div class="sg_main">
-			<iframe name="content"></iframe>
-		</div>
 
+			{{#if pages }}
+				<div class="sg_inner_wrapper var_sg_index">
+					<h2>Pages</h2>
+
+					<ul class="sg_index_list">
+						{{#each pages}}
+							{{#unless styleguide.hideFromListing}}
+								<li>
+									<a href="{{styleguide.previewUrl}}">{{title}}</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if modules }}
+				<div class="sg_inner_wrapper var_sg_index">
+					<h2>Modules</h2>
+
+					<ul class="sg_index_list">
+						{{#each modules}}
+							{{#unless styleguide.hideFromListing}}
+								<li>
+									<a href="{{styleguide.previewUrl}}">
+										{{styleguide.title}}
+										{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
+									</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if styleguide }}
+				<div class="sg_inner_wrapper var_sg_index">
+					<h2>Styleguide</h2>
+
+					<ul class="sg_index_list">
+						{{#each styleguide}}
+							{{#unless styleguide.hideFromListing}}
+								<li>
+									<a href="{{styleguide.previewUrl}}">
+										{{title}}
+									</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+		</div>
 	</div>
 </body>
 </html>

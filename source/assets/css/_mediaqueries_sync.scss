@@ -6,8 +6,8 @@
  */
 
 @include mq($from: 0px) {
-	head {
-		content: '{"name":"tiny","value":"0px"}';
+	title {
+		font-family: '{"name":"tiny","value":"0px"}';
 	}
 }
 
@@ -16,8 +16,8 @@
 	$value: nth($breakpoint, 2);
 
 	@include mq($from: $name) {
-		head {
-			content: '{"name":"#{$name}","value":"#{$value}"}';
+		title {
+			font-family: '{"name":"#{$name}","value":"#{$value}"}';
 		}
 	}
 }

@@ -14,11 +14,33 @@
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
-	<div class="layout_wrapper">
+	{{> "modules/skiplinks/skiplinks" modules.skiplinks}}
+
+	<div class="layout_wrapper" id="main">
 		{{#block "content"}}
 		{{/block}}
 	</div>
 
 	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+	{{#if runTests}}
+		<!-- DO NOT COPY -->
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<script src="/test/assets/vendor/qunit/qunit/qunit.js"></script>
+		{{#each testScripts}}
+			<script src="/{{this}}"></script>
+		{{/each}}
+		<script>
+			;(function($) {
+				$('<link/>', {
+					rel: 'stylesheet',
+					type: 'text/css',
+					href: '/test/assets/vendor/qunit/qunit/qunit.css'
+				}).appendTo('head');
+			})(jQuery);
+		</script>
+		<!-- //DO NOT COPY -->
+	{{/if}}
 </body>
 </html>

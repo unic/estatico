@@ -1,8 +1,3 @@
-/*!
- * Project      [PROJECT NAME] license
- * @copyright   (c) [YEAR] Unic AG
- */
-
 /**
  * @requires helpers/module.js
  * @requires helpers/events.js
@@ -12,7 +7,8 @@
  * @requires ../.tmp/templates.js
  * @requires ../.tmp/lodash.js
  *
- *
+ * @requires helpers/license.js
+ * @requires ../../modules/skiplinks/skiplinks.js
  * @requires ../../modules/slideshow/slideshow.js
  * //*autoinsertmodule*
  *
