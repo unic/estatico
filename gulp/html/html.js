@@ -108,14 +108,13 @@ gulp.task('html', function() {
 		}))
 		.pipe(plumber())
 		.pipe(unicHandlebars({
-			data: function(filePath) {
-				var fileName = path.relative('./source/', filePath).replace(path.extname(filePath), '').replace(/\\/g, '/');
+			data: function(file) {
+				var fileName = path.relative('./source/', file.path).replace(path.extname(file.path), '').replace(/\\/g, '/');
 
 				return data[fileName] || {};
 			},
 			partials: './source/{,layouts/,pages/,modules/**/,styleguide/**/}*.hbs',
-			extension: '.html',
-			cachePartials: false
+			extension: '.html'
 		}).on('error', helpers.errors))
 		// .pipe(prettify({
 		// 	indent_with_tabs: true,
@@ -147,8 +146,7 @@ gulp.task('html', function() {
 				.pipe(plumber())
 				.pipe(unicHandlebars({
 					extension: '.html',
-					data: templateData,
-					cachePartials: false
+					data: templateData
 				}).on('error', helpers.errors))
 				.pipe(gulp.dest('./build'))
 				.pipe(livereload({
