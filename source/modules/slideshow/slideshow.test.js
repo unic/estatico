@@ -14,7 +14,7 @@ QUnit.test('Test whether nav buttons were added', function(assert) {
 	assert.ok($buttons.length === 2, 'Two buttons found');
 });
 
-QUnit.test('Test whether clicking "prev" button updates currentItem property', function(assert) {
+QUnit.test('Test whether clicking prev button updates "currentItem" property', function(assert) {
 	var $slideshow = $('.mod_slideshow'),
 		$button = $slideshow.find('button.next'),
 		instance = $slideshow.data('plugin_slideshow');
@@ -22,4 +22,13 @@ QUnit.test('Test whether clicking "prev" button updates currentItem property', f
 	$button.trigger('click');
 
 	assert.ok(instance.currentItem === 1, 'currentItem is 1');
+});
+
+QUnit.test('Test whether "show" method updates "currentItem" property', function(assert) {
+	var $slideshow = $('.mod_slideshow'),
+		instance = $slideshow.data('plugin_slideshow');
+
+	instance.show(0);
+
+	assert.ok(instance.currentItem === 0, 'currentItem is 0');
 });
