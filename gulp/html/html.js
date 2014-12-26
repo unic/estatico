@@ -101,7 +101,6 @@ gulp.task('html', function() {
 				fileData.testScripts = glob.sync(fileData.testScripts).map(function(filePath) {
 					return path.join('./test/', path.relative('./source/', filePath));
 				});
-				console.log(fileData.testScripts);
 			}
 
 			data[fileName] = _.merge({}, defaultFileData, fileData);
