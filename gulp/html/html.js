@@ -35,7 +35,7 @@ function getJsonData(file) {
 	}
 }
 
-gulp.task('html', function() {
+gulp.task('html', function(cb) {
 	var data = {},
 		defaultFileData = _.merge(getJsonData('./source/data/default.json'), {
 			env: util.env
@@ -52,7 +52,7 @@ gulp.task('html', function() {
 			return path.basename(file).replace(path.extname(file), '');
 		});
 
-	return gulp.src([
+	gulp.src([
 			'./source/{,pages/,modules/**/,styleguide/sections/}!(_)*.hbs'
 		])
 		.pipe(tap(function(file) {
@@ -121,7 +121,7 @@ gulp.task('html', function() {
 		// 	max_preserve_newlines: 1
 		// }))
 		.pipe(gulp.dest('./build'))
-		.on('end', function() {
+		.on('finish', function() {
 			var templateData = _.merge(defaultFileData, {
 					pages: [],
 					modules: [],
@@ -151,6 +151,9 @@ gulp.task('html', function() {
 				.pipe(gulp.dest('./build'))
 				.pipe(livereload({
 					auto: false
-				}));
+				}))
+				.on('finish', function() {
+					cb();
+				});
 		});
 });
