@@ -57,7 +57,7 @@
 
 		this.currentItem = -1;
 
-		this.$items = this.$element.find(this.options.domSelectors.item).hide();
+		this.$items = this.$element.find(this.options.domSelectors.item);
 
 		this.$element
 			.append(buttons)
@@ -115,8 +115,8 @@
 			index = this.$items.length - 1;
 		}
 
-		this.$items.eq(this.currentItem).slideUp(this.options.animationDuration);
-		this.$items.eq(index).slideDown(this.options.animationDuration);
+		this.$items.eq(this.currentItem).stop(true, true).slideUp(this.options.animationDuration);
+		this.$items.eq(index).stop(true, true).slideDown(this.options.animationDuration);
 
 		this.currentItem = index;
 	};
