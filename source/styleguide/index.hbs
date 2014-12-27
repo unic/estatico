@@ -1,4 +1,58 @@
 {{#extend "styleguide/layouts/layout"}}
 	{{#replace "content"}}
+		<div class="sg_main">
+			{{#if pages }}
+				<div class="sg_inner_wrapper var_sg_index">
+					<h2>Pages</h2>
+
+					<ul class="sg_index_list">
+						{{#each pages}}
+							{{#unless styleguide.hideFromListing}}
+								<li>
+									<a href="{{styleguide.previewUrl}}">{{title}}</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if modules }}
+				<div class="sg_inner_wrapper var_sg_index">
+					<h2>Modules</h2>
+
+					<ul class="sg_index_list">
+						{{#each modules}}
+							{{#unless styleguide.hideFromListing}}
+								<li>
+									<a href="{{styleguide.previewUrl}}">
+										{{styleguide.title}}
+										{{#if styleguide.jira}}({{styleguide.jira}}){{/if}}
+									</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if styleguide }}
+				<div class="sg_inner_wrapper var_sg_index">
+					<h2>Styleguide</h2>
+
+					<ul class="sg_index_list">
+						{{#each styleguide}}
+							{{#unless styleguide.hideFromListing}}
+								<li>
+									<a href="{{styleguide.previewUrl}}">
+										{{title}}
+									</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+		</div>
 	{{/replace}}
 {{/extend}}
