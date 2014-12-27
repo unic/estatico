@@ -1,121 +1,120 @@
-/*
+// Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
 
-Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+.sg_code {
 
-*/
+	code {
+		display: block; padding: 0.5em;
+		background: #F0F0F0;
+	}
 
-pre code {
-  display: block; padding: 0.5em;
-  background: #F0F0F0;
-}
+	code,
+	.ruby .subst,
+	.tag .title,
+	.lisp .title {
+		color: black;
+	}
 
-pre code,
-pre .ruby .subst,
-pre .tag .title,
-pre .lisp .title {
-  color: black;
-}
+	.string,
+	.title,
+	.constant,
+	.parent,
+	.tag .value,
+	.rules .value,
+	.rules .value .number,
+	.preprocessor,
+	.ruby .symbol,
+	.ruby .symbol .string,
+	.ruby .symbol .keyword,
+	.ruby .symbol .keymethods,
+	.instancevar,
+	.aggregate,
+	.template_tag,
+	.django .variable,
+	.smalltalk .class,
+	.addition,
+	.flow,
+	.stream,
+	.bash .variable,
+	.apache .tag,
+	.apache .cbracket,
+	.tex .command,
+	.tex .special,
+	.erlang_repl .function_or_atom {
+		color: #800;
+	}
 
-pre .string,
-pre .title,
-pre .constant,
-pre .parent,
-pre .tag .value,
-pre .rules .value,
-pre .rules .value .number,
-pre .preprocessor,
-pre .ruby .symbol,
-pre .ruby .symbol .string,
-pre .ruby .symbol .keyword,
-pre .ruby .symbol .keymethods,
-pre .instancevar,
-pre .aggregate,
-pre .template_tag,
-pre .django .variable,
-pre .smalltalk .class,
-pre .addition,
-pre .flow,
-pre .stream,
-pre .bash .variable,
-pre .apache .tag,
-pre .apache .cbracket,
-pre .tex .command,
-pre .tex .special,
-pre .erlang_repl .function_or_atom {
-  color: #800;
-}
+	.comment,
+	.annotation,
+	.template_comment,
+	.diff .header,
+	.chunk {
+		color: #888;
+	}
 
-pre .comment,
-pre .annotation,
-pre .template_comment,
-pre .diff .header,
-pre .chunk {
-  color: #888;
-}
+	.number,
+	.date,
+	.regexp,
+	.literal,
+	.smalltalk .symbol,
+	.smalltalk .char,
+	.go .constant,
+	.change {
+		color: #080;
+	}
 
-pre .number,
-pre .date,
-pre .regexp,
-pre .literal,
-pre .smalltalk .symbol,
-pre .smalltalk .char,
-pre .go .constant,
-pre .change {
-  color: #080;
-}
+	.label,
+	.javadoc,
+	.ruby .string,
+	.decorator,
+	.filter .argument,
+	.localvars,
+	.array,
+	.attr_selector,
+	.important,
+	.pseudo,
+	.pi,
+	.doctype,
+	.deletion,
+	.envvar,
+	.shebang,
+	.apache .sqbracket,
+	.nginx .built_in,
+	.tex .formula,
+	.erlang_repl .reserved,
+	.input_number {
+		color: #88F
+	}
 
-pre .label,
-pre .javadoc,
-pre .ruby .string,
-pre .decorator,
-pre .filter .argument,
-pre .localvars,
-pre .array,
-pre .attr_selector,
-pre .important,
-pre .pseudo,
-pre .pi,
-pre .doctype,
-pre .deletion,
-pre .envvar,
-pre .shebang,
-pre .apache .sqbracket,
-pre .nginx .built_in,
-pre .tex .formula,
-pre .erlang_repl .reserved,
-pre .input_number {
-  color: #88F
-}
+	.css .tag,
+	.javadoctag,
+	.phpdoc,
+	.yardoctag {
+		font-weight: bold;
+	}
 
-pre .css .tag,
-pre .javadoctag,
-pre .phpdoc,
-pre .yardoctag {
-  font-weight: bold;
-}
+	.keyword,
+	.id,
+	.phpdoc,
+	.title,
+	.built_in,
+	.aggregate,
+	.smalltalk .class,
+	.winutils,
+	.bash .variable,
+	.apache .tag,
+	.go .typename,
+	.tex .command {
+		font-weight: bold;
+	}
 
-pre .keyword,
-pre .id,
-pre .phpdoc,
-pre .title,
-pre .built_in,
-pre .aggregate,
-pre .smalltalk .class,
-pre .winutils,
-pre .bash .variable,
-pre .apache .tag,
-pre .go .typename,
-pre .tex .command {
-  font-weight: bold;
-}
+	.nginx .built_in {
+		font-weight: normal;
+	}
 
-pre .nginx .built_in {
-  font-weight: normal;
-}
-
-pre .xml .css,
-pre .xml .javascript,
-pre .xml .vbscript,
-pre .tex .formula {
-  opacity: 0.5;
+	.xml .css,
+	.xml .javascript,
+	.xml .vbscript,
+	.tex .formula {
+		opacity: 0.5;
+	}
 }
