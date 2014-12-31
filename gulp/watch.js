@@ -50,9 +50,9 @@ gulp.task('watch', function() {
 	], ['qunit:test']);
 
 	gulp.watch([
-		'./source/assets/fonts/{,**/}*',
-		'./source/assets/media/*.*',
-		'./source/tmp/media/*',
-		'./source/styleguide/assets/media/*'
+		'source/assets/fonts/{,**/}*',
+		'source/assets/media/*',
+		'source/tmp/media/*',
+		'source/styleguide/assets/media/*'
 	], ['media:copy']);
 });
