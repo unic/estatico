@@ -39,29 +39,35 @@
 	});
 
 	test('Test correct Plugin init', function(assert) {
-		expect(6);
+		expect(9);
 
 		var instance = $node.data('plugin_slideshow'),
 			$buttons = $node.find('button[data-slideshow]'),
 			events = $._data($node.get(0), 'events'),
-			docEvents = $._data($document.get(0), 'events');
+			docEvents = $._data($document.get(0), 'events'),
+			resizeEvent = _.filter(docEvents[Unic.events.resize], function(event){
+				return event.namespace === instance.uuid;
+			}),
+			scrollEvent = _.filter(docEvents[Unic.events.scroll], function(event){
+				return event.namespace === instance.uuid;
+			}),
+			mqEvent = _.filter(docEvents[Unic.events.mq], function(event){
+				return event.namespace === instance.uuid;
+			});
 
 		assert.equal($buttons.length, 2, 'Two buttons found');
-		assert.equal(events.click.length, 2, 'Two Events attached to slideshow');
+		assert.equal(events.click.length, 2, 'Two events attached to slideshow');
 
 		_.each(events.click, function(event){
-			assert.equal(event.namespace, pluginName, 'Event in correct Namespace');
+			assert.equal(event.namespace, pluginName, 'Event in correct namespace');
 		});
 
-		var prevEvent = events.click[0];
-		assert.equal(prevEvent.selector, '[data-slideshow="prev"]', 'Prev-Button Event correct selector');
+		assert.equal(events.click[0].selector, '[data-slideshow="prev"]', 'Prev button event reporting correct selector');
+		assert.equal(events.click[1].selector, '[data-slideshow="next"]', 'Next button event reporting correct selector');
 
-		var nextEvent = events.click[1];
-		assert.equal(nextEvent.selector, '[data-slideshow="next"]', 'Next-Button Event correct selector');
-
-		// TODO : The docEvents do not have namespace set?
-		console.log(docEvents);
-
+		assert.equal(resizeEvent.length, 1, 'Resize event set');
+		assert.equal(scrollEvent.length, 1, 'Scroll event set');
+		assert.equal(mqEvent.length, 1, 'Media-query event set');
 	});
 
 	test('Test whether clicking prev button updates "currentItem" property', function(assert) {

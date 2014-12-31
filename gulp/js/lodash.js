@@ -16,7 +16,7 @@ gulp.task('js:lodash', function(cb) {
 		absTargetDir = path.resolve(targetDir),
 		targetFile = 'lodash.js',
 		absTargetFile = path.resolve(targetDir + targetFile),
-		modules = ['debounce', 'keys', 'bind', 'each', 'uniqueId'],
+		modules = ['debounce', 'keys', 'bind', 'each', 'filter', 'uniqueId'],
 		args = [
 			'include=' + modules.join(','),
 			'-o',
