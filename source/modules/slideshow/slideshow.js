@@ -152,18 +152,16 @@
 		}
 	};
 
-	Plugin.prototype.destroy = function(){
-		// TODO: can't we call that from ParentModule?
+	/**
+	 * Unbind events, remove data, custom teardown
+	 * @method
+	 * @public
+	 */
+	Plugin.prototype.destroy = function() {
+		// Unbind events, remove data
+		Unic.modules.PluginHelper.prototype.destroy.apply(this);
 
-		// remove all events in the this.pluginName namespace
-		this.$element.off('.' + pluginName);
-		$document.off('.' + pluginName);
-		// unset Plugin data instance
-		this.$element.removeData('plugin_' + pluginName);
-		this.$element.removeData(pluginName);
-
-		// end TODO
-
+		// Remove custom DOM elements
 		this.$element.find('button').remove();
 	};
 
