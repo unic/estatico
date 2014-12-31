@@ -28,18 +28,22 @@
 							QUnit.start();
 						};
 
-					$container.hide();
-
 					// $('<link/>', {
 					// 	rel: 'stylesheet',
 					// 	href: '/styleguide/assets/css/main.css'
 					// }).appendTo('head');
 
-					$button
-						.insertAfter($container)
-						.on('click', function() {
-							startTests();
-						});
+					if (!QUnit.urlParams.testNumber) {
+						$container.hide();
+
+						$button
+							.insertAfter($container)
+							.on('click', function() {
+								startTests();
+							});
+					} else {
+						startTests();
+					}
 				})(jQuery);
 			</script>
 		</div>
