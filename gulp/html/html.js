@@ -63,10 +63,13 @@ gulp.task('html', function(cb) {
 						previewUrl: util.replaceExtension(fileName, '.html')
 					}
 				}),
-				modulePrepend = new Buffer('{{#extend "styleguide/layouts/module"}}{{#replace "content"}}'),
-				moduleAppend = new Buffer('{{/replace}}{{/extend}}');
+				modulePrepend = '{{#extend "styleguide/layouts/module"}}{{#replace "content"}}',
+				moduleAppend = '{{/replace}}{{/extend}}',
+				qunitInsert = '{{#append "scripts"}}{{> "styleguide/partials/qunit"}}{{/append}}',
+				qunitInsertPoint = '{{/extend}}',
+				content = null;
 
-			// Custom data based on file type
+			// Add custom data based on file type
 			if (fileName.indexOf('modules') !== -1) {
 				fileData = _.merge({
 					styleguide: {
@@ -77,7 +80,7 @@ gulp.task('html', function(cb) {
 				}, fileData);
 
 				// Wrap modules with custom layout for preview purposes
-				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
+				content = modulePrepend + file.contents.toString() + moduleAppend;
 			} else if (fileName.indexOf('styleguide') !== -1) {
 				fileData = _.merge({
 					// Save array of icons
@@ -96,15 +99,25 @@ gulp.task('html', function(cb) {
 				}, fileData);
 			}
 
-			// Find QUnit test files to include
+			// Find QUnit test files and add markup
 			if (fileData.runTests && fileData.testScripts) {
 				fileData.testScripts = glob.sync(fileData.testScripts).map(function(filePath) {
 					return path.join('./test/', path.relative('./source/', filePath));
 				});
-				console.log(fileData.testScripts);
+
+				content = content || file.contents.toString();
+
+				// Append markup layout block
+				content = content.replace(qunitInsertPoint, qunitInsert + qunitInsertPoint);
 			}
 
+			// Save data by file name
 			data[fileName] = _.merge({}, defaultFileData, fileData);
+
+			// Save file content if it was altered
+			if (content) {
+				file.contents = new Buffer(content);
+			}
 		}))
 		.pipe(plumber())
 		.pipe(unicHandlebars({

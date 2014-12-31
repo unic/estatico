@@ -52,6 +52,19 @@
 		console.log('{{camelCase}}');
 	};
 
+	/**
+	 * Unbind events, remove data, custom teardown
+	 * @method
+	 * @public
+	 */
+	Plugin.prototype.destroy = function() {
+		// Unbind events, remove data
+		Unic.modules.PluginHelper.prototype.destroy.apply(this);
+
+		// Custom teardown (removing added DOM elements etc.)
+		// If there is no need for a custom teardown, this method can be removed
+	};
+
 	// Make the plugin available through jQuery (and the global project namespace)
 	Unic.modules.PluginHelper.register(Plugin, pluginName, ['ready', 'ajax_loaded']);
 

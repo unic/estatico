@@ -13,9 +13,9 @@
 		}
 	}
 
-	&.is_activated {
+	.js & {
 
-		.slide {
+		.slide + .slide {
 			display: none;
 		}
 	}

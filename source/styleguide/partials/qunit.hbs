@@ -1,0 +1,50 @@
+<!-- DO NOT COPY -->
+	<div class="sg_tests">
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+
+		<script src="/test/assets/vendor/qunit/qunit/qunit.js"></script>
+		<script>QUnit.config.autostart = false;</script>
+
+		{{#each testScripts}}
+			<script src="/{{this}}"></script>
+		{{/each}}
+
+		<script>
+			;(function($) {
+				var $container = $('#qunit'),
+					$button = $('<button>Run QUnit tests</button>'),
+					startTests = function() {
+						$container.show();
+
+						$('<link/>', {
+							rel: 'stylesheet',
+							href: '/test/assets/vendor/qunit/qunit/qunit.css'
+						}).appendTo('head');
+
+						$button.remove();
+
+						QUnit.start();
+					};
+
+				// Add styleguide styles
+				// $('<link/>', {
+				// 	rel: 'stylesheet',
+				// 	href: '/styleguide/assets/css/main.css'
+				// }).appendTo('head');
+
+				if ($.isEmptyObject(QUnit.urlParams)) {
+					$container.hide();
+
+					$button
+						.insertAfter($container)
+						.on('click', function() {
+							startTests();
+						});
+				} else {
+					startTests();
+				}
+			})(jQuery);
+		</script>
+	</div>
+<!-- //DO NOT COPY -->

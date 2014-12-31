@@ -57,7 +57,7 @@
 
 		this.currentItem = -1;
 
-		this.$items = this.$element.find(this.options.domSelectors.item).hide();
+		this.$items = this.$element.find(this.options.domSelectors.item);
 
 		this.$element
 			.append(buttons)
@@ -78,20 +78,20 @@
 			// Init touchSwipe
 		// }
 
-		// Exemplary resize listener
-		$document.on(Unic.events.resize, function(event, originalEvent) {
+		// Exemplary resize listener (uuid instead uf pluginName used to make sure it can be unbound per plugin instance)
+		$document.on(Unic.events.resize + '.' + this.uuid, function(event, originalEvent) {
 			console.log('slideshow.js', originalEvent);
 		});
 
-		// Exemplary scroll listener
-		$document.on(Unic.events.scroll, function(event, originalEvent) {
+		// Exemplary scroll listener (uuid instead uf pluginName used to make sure it can be unbound per plugin instance)
+		$document.on(Unic.events.scroll + '.' + this.uuid, function(event, originalEvent) {
 			console.log('slideshow.js', originalEvent);
 		});
 
-		// Exemplary media query listener
 		this.resize();
 
-		$document.on(Unic.events.mq, _.bind(function() {
+		// Exemplary media query listener (uuid instead uf pluginName used to make sure it can be unbound per plugin instance)
+		$document.on(Unic.events.mq + '.' + this.uuid, _.bind(function() {
 			this.resize();
 		}, this));
 
@@ -115,8 +115,8 @@
 			index = this.$items.length - 1;
 		}
 
-		this.$items.eq(this.currentItem).slideUp(this.options.animationDuration);
-		this.$items.eq(index).slideDown(this.options.animationDuration);
+		this.$items.eq(this.currentItem).stop(true, true).slideUp(this.options.animationDuration);
+		this.$items.eq(index).stop(true, true).slideDown(this.options.animationDuration);
 
 		this.currentItem = index;
 	};
@@ -150,6 +150,22 @@
 		} else {
 			console.log('slideshow.js', 'Viewport: Below small breakpoint');
 		}
+	};
+
+	/**
+	 * Unbind events, remove data, custom teardown
+	 * @method
+	 * @public
+	 */
+	Plugin.prototype.destroy = function() {
+		// Unbind events, remove data
+		Unic.modules.PluginHelper.prototype.destroy.apply(this);
+
+		// Remove custom DOM elements
+		this.$element.find('button').remove();
+
+		// Remove style definitions applied by $.slideUp / $.slideDown
+		this.$items.removeAttr('style');
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

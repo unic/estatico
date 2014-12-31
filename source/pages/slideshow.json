@@ -12,5 +12,5 @@
 		]
 	},
 	"testScripts": "./source/modules/slideshow/*.test.js",
-	"runTests": true
+	"runTests": false
 }

@@ -35,15 +35,22 @@ gulp.task('qunit:test', ['qunit:copy'], function(cb) {
 
 	gulp.src('./build/{pages/,modules/**/}*.html')
 		.pipe(tap(function(file) {
+			var content = file.contents.toString();
+
 			// Ignore files without a QUnit script reference
-			if (file.contents.toString().search('assets/vendor/qunit/qunit/qunit.js') === -1) {
+			if (content.search('assets/vendor/qunit/qunit/qunit.js') === -1) {
 				ignoreFiles.push(file.path);
 
 				return;
 			}
 
 			// Fix absolute file paths
-			file.contents = new Buffer(file.contents.toString().replace('<head>', '<head><base href="/' + path.resolve('./build') + '/">').replace(/\"\//g, '"'));
+			content = content.replace('<head>', '<head><base href="/' + path.resolve('./build') + '/">').replace(/\"\//g, '"');
+
+			// Re-enable autostart
+			content = content.replace('QUnit.config.autostart = false;', '');
+
+			file.contents = new Buffer(content);
 		}))
 		.pipe(ignore.exclude(function(file) {
 			return _.indexOf(ignoreFiles, file.path) !== -1;
