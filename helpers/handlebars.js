@@ -2,7 +2,7 @@
 
 // Handlebars
 var handlebars = require('handlebars'),
-	errors = require('./errors.js'),
+	errors = require('./errors'),
 	_ = require('lodash');
 
 // Make handlebars layout helpers available
@@ -29,7 +29,18 @@ handlebars.registerHelper('removeWhiteSpace', function(value) {
 
 // Output raw block (use: {{{{raw}}}} blabla {{title}} bla{{{{/raw}}}})
 handlebars.registerHelper('raw', function(options) {
-  return options.fn();
+	return options.fn();
+});
+
+// Repeat something X times
+handlebars.registerHelper('times', function(n, block) {
+	var output = '';
+
+	for (var i = 0; i < n; i++) {
+		output += block.fn(i);
+	}
+
+	return output;
 });
 
 // Include partial with dynamic name
@@ -38,6 +49,15 @@ handlebars.registerHelper('raw', function(options) {
 // @param {Object} partialData - Data to pass to the partial
 // @param {Object} options.partialContext - Context to use for the placeholder replacement
 handlebars.registerHelper('dynamicPartial', function(name, partialData, options) {
+	if (name === undefined) {
+		errors({
+			task: 'helpers/handlebars.js',
+			message: 'Name for dynamicPartial undefined'
+		});
+
+		return '';
+	}
+
 	var placeholders = name.match(/{{(.*?)}}/g),
 		replacementContext = options ? (options.hash.replacementContext ? options.hash.replacementContext : options.data.root) : partialData.data.root,
 		template,
@@ -56,7 +76,7 @@ handlebars.registerHelper('dynamicPartial', function(name, partialData, options)
 
 	if (template === undefined) {
 		errors({
-			task: 'helpers/handlebars',
+			task: 'helpers/handlebars.js',
 			message: 'Dynamic template "'+ name +'" not found'
 		});
 
