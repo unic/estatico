@@ -2,6 +2,7 @@
 	'use strict';
 
 	var $node,
+		$document = $(document),
 		pluginName = 'slideshow',
 		originalHTML = null;
 
@@ -28,45 +29,60 @@
 		}
 	});
 
-	test('Test whether plugin instance was saved on DOM element', function(assert) {
-		expect(1);
+	test('Test correct Plugin registration', function(assert) {
+		expect(2);
 
-		var $slideshow = $('.mod_slideshow'),
-			instance = $slideshow.data('plugin_slideshow');
+		var instance = $node.data('plugin_slideshow');
 
-		assert.ok(typeof instance === 'object', 'Plugin instance is an object');
+		assert.equal(typeof instance, 'object', 'Plugin instance is an object');
+		assert.equal(typeof $.fn[pluginName], 'function', 'Plugin function registered to jQuery');
 	});
 
-	test('Test whether nav buttons were added', function(assert) {
-		expect(1);
+	test('Test correct Plugin init', function(assert) {
+		expect(6);
 
-		var $slideshow = $('.mod_slideshow'),
-			$buttons = $slideshow.find('button[data-slideshow]');
+		var instance = $node.data('plugin_slideshow'),
+			$buttons = $node.find('button[data-slideshow]'),
+			events = $._data($node.get(0), 'events'),
+			docEvents = $._data($document.get(0), 'events');
 
-		assert.ok($buttons.length === 2, 'Two buttons found');
+		assert.equal($buttons.length, 2, 'Two buttons found');
+		assert.equal(events.click.length, 2, 'Two Events attached to slideshow');
+
+		_.each(events.click, function(event){
+			assert.equal(event.namespace, pluginName, 'Event in correct Namespace');
+		});
+
+		var prevEvent = events.click[0];
+		assert.equal(prevEvent.selector, '[data-slideshow="prev"]', 'Prev-Button Event correct selector');
+
+		var nextEvent = events.click[1];
+		assert.equal(nextEvent.selector, '[data-slideshow="next"]', 'Next-Button Event correct selector');
+
+		// TODO : The docEvents do not have namespace set?
+		console.log(docEvents);
+
 	});
 
 	test('Test whether clicking prev button updates "currentItem" property', function(assert) {
 		expect(1);
 
-		var $slideshow = $('.mod_slideshow'),
-			$button = $slideshow.find('button.next'),
-			instance = $slideshow.data('plugin_slideshow');
+		var $button = $node.find('button.next'),
+			instance = $node.data('plugin_slideshow');
 
 		$button.trigger('click');
 
-		assert.ok(instance.currentItem === 1, 'currentItem is 1');
+		assert.equal(instance.currentItem, 1, 'currentItem is 1');
 	});
 
 	test('Test whether "show" method updates "currentItem" property', function(assert) {
 		expect(1);
 
-		var $slideshow = $('.mod_slideshow'),
-			instance = $slideshow.data('plugin_slideshow');
+		var instance = $node.data('plugin_slideshow');
 
 		instance.show(2);
 
-		assert.ok(instance.currentItem === 2, 'currentItem is 2');
+		assert.equal(instance.currentItem, 2, 'currentItem is 2');
 	});
 
 })(window, document, jQuery, Unic);
