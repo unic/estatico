@@ -23,7 +23,7 @@
 		},
 		teardown: function() {
 			$node.slideshow('destroy');
-			
+
 			$node.hide().children().remove();
 		}
 	});
@@ -64,9 +64,9 @@
 		var $slideshow = $('.mod_slideshow'),
 			instance = $slideshow.data('plugin_slideshow');
 
-		instance.show(0);
+		instance.show(2);
 
-		assert.ok(instance.currentItem === 0, 'currentItem is 0');
+		assert.ok(instance.currentItem === 2, 'currentItem is 2');
 	});
 
 })(window, document, jQuery, Unic);
