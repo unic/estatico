@@ -79,19 +79,19 @@
 		// }
 
 		// Exemplary resize listener
-		$document.on(Unic.events.resize, function(event, originalEvent) {
+		$document.on(Unic.events.resize + '.' + pluginName, function(event, originalEvent) {
 			console.log('slideshow.js', originalEvent);
 		});
 
 		// Exemplary scroll listener
-		$document.on(Unic.events.scroll, function(event, originalEvent) {
+		$document.on(Unic.events.scroll + '.' + pluginName, function(event, originalEvent) {
 			console.log('slideshow.js', originalEvent);
 		});
 
 		// Exemplary media query listener
 		this.resize();
 
-		$document.on(Unic.events.mq, _.bind(function() {
+		$document.on(Unic.events.mq + '.' + pluginName, _.bind(function() {
 			this.resize();
 		}, this));
 
@@ -150,6 +150,21 @@
 		} else {
 			console.log('slideshow.js', 'Viewport: Below small breakpoint');
 		}
+	};
+
+	Plugin.prototype.destroy = function(){
+		// TODO: can't we call that from ParentModule?
+
+		// remove all events in the this.pluginName namespace
+		this.$element.off('.' + pluginName);
+		$document.off('.' + pluginName);
+		// unset Plugin data instance
+		this.$element.removeData('plugin_' + pluginName);
+		this.$element.removeData(pluginName);
+
+		// end TODO
+
+		this.$element.find('button').remove();
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

@@ -1,34 +1,72 @@
-'use strict';
+(function(window, document, $, Unic, undefined) {
+	'use strict';
 
-QUnit.test('Test whether plugin instance was saved on DOM element', function(assert) {
-	var $slideshow = $('.mod_slideshow'),
-		instance = $slideshow.data('plugin_slideshow');
+	var $node;
+	var pluginName = 'slideshow';
+	var originalHTML = null;
 
-	assert.ok(typeof instance === 'object', 'Plugin instance is an object');
-});
+	module('slideshow', {
+		setup: function(){
+			$node = $('.mod_' + pluginName);
+			$node.slideshow('destroy');
 
-QUnit.test('Test whether nav buttons were added', function(assert) {
-	var $slideshow = $('.mod_slideshow'),
-		$buttons = $slideshow.find('button[data-slideshow]');
+			if (originalHTML === null) {
+				originalHTML = $node.html();
+			}
+			else {
+				$node.html(originalHTML);
+			}
 
-	assert.ok($buttons.length === 2, 'Two buttons found');
-});
+			// Cannot trigger ready, therefore call the init here.
+			$.fn[pluginName].apply($('[data-init=' + pluginName +']'), [{
+				// Options
+			}]);
+		},
+		teardown: function() {
+			$node.slideshow('destroy');
+			$node.hide().children().remove();
+		}
+	});
 
-QUnit.test('Test whether clicking prev button updates "currentItem" property', function(assert) {
-	var $slideshow = $('.mod_slideshow'),
-		$button = $slideshow.find('button.next'),
-		instance = $slideshow.data('plugin_slideshow');
+	test('Test whether plugin instance was saved on DOM element', function(assert) {
+		expect(1);
 
-	$button.trigger('click');
+		var $slideshow = $('.mod_slideshow'),
+			instance = $slideshow.data('plugin_slideshow');
 
-	assert.ok(instance.currentItem === 1, 'currentItem is 1');
-});
+		assert.ok(typeof instance === 'object', 'Plugin instance is an object');
+	});
 
-QUnit.test('Test whether "show" method updates "currentItem" property', function(assert) {
-	var $slideshow = $('.mod_slideshow'),
-		instance = $slideshow.data('plugin_slideshow');
+	test('Test whether nav buttons were added', function(assert) {
+		expect(1);
 
-	instance.show(0);
+		var $slideshow = $('.mod_slideshow'),
+			$buttons = $slideshow.find('button[data-slideshow]');
 
-	assert.ok(instance.currentItem === 0, 'currentItem is 0');
-});
+		assert.ok($buttons.length === 2, 'Two buttons found');
+	});
+
+	test('Test whether clicking prev button updates "currentItem" property', function(assert) {
+		expect(1);
+
+		var $slideshow = $('.mod_slideshow'),
+			$button = $slideshow.find('button.next'),
+			instance = $slideshow.data('plugin_slideshow');
+
+		$button.trigger('click');
+
+		assert.ok(instance.currentItem === 1, 'currentItem is 1');
+	});
+
+	test('Test whether "show" method updates "currentItem" property', function(assert) {
+		expect(1);
+
+		var $slideshow = $('.mod_slideshow'),
+			instance = $slideshow.data('plugin_slideshow');
+
+		instance.show(0);
+
+		assert.ok(instance.currentItem === 0, 'currentItem is 0');
+	});
+
+})(window, document, jQuery, Unic);
