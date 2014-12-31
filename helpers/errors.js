@@ -6,10 +6,7 @@ var util = require('gulp-util'),
 module.exports = function(err) {
 	var plugin = err.task || err.plugin, // run-sequence exposes a different error object
 		message = err.err || err.message, // run-sequence exposes a different error object
-		optional = (err.fileName && err.lineNumber) ? {
-			file: err.fileName,
-			line: err.lineNumber
-		} : '';
+		stack = err.stack || '';
 
 	// Show errors as OS notifictions
 	// Working with --dev flag only
@@ -18,7 +15,16 @@ module.exports = function(err) {
 		message: message
 	});
 
-	util.log(plugin, util.colors.red(message), optional);
+	// Fallback for stack trace
+	if (!stack && err.fileName && err.lineNumber) {
+		stack = {
+			file: err.fileName,
+			line: err.lineNumber
+		};
+	}
+
+	// Log detailed error to console
+	util.log(plugin, util.colors.red(message), stack);
 
 	// Do not exit if --dev flag is used (helpful when watching files)
 	if (!util.env.dev) {
