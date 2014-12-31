@@ -163,6 +163,9 @@
 
 		// Remove custom DOM elements
 		this.$element.find('button').remove();
+
+		// Remove style definitions applied by $.slideUp / $.slideDown
+		this.$items.removeAttr('style');
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

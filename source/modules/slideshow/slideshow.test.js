@@ -4,23 +4,18 @@
 	var $document = $(document),
 		pluginName = 'slideshow',
 		$node = $('.mod_' + pluginName).eq(0),
-		originalHTML;
-
-	// Destroy to get initial markup
-	$node.slideshow('destroy');
-
-	originalHTML = $node.html();
+		instance;
 
 	// Setup QUnit module
 	module('slideshow', {
 		setup: function() {
+			instance = $node.data('plugin_' + pluginName);
 		},
 		teardown: function() {
-			$node.slideshow('destroy');
+			instance.destroy();
 
-			$node.html(originalHTML);
-
-			$.fn[pluginName].apply($('[data-init=' + pluginName +']'), [{
+			// Re-init
+			$.fn[pluginName].apply($node, [{
 				// Options
 			}]);
 		}
@@ -29,8 +24,6 @@
 	test('Test correct plugin registration', function(assert) {
 		expect(2);
 
-		var instance = $node.data('plugin_slideshow');
-
 		assert.equal(typeof instance, 'object', 'Plugin instance is an object');
 		assert.equal(typeof $.fn[pluginName], 'function', 'Plugin function registered to jQuery');
 	});
@@ -38,8 +31,7 @@
 	test('Test correct plugin init', function(assert) {
 		expect(9);
 
-		var instance = $node.data('plugin_slideshow'),
-			$buttons = $node.find('button[data-slideshow]'),
+		var $buttons = $node.find('button[data-' + pluginName + ']'),
 			events = $._data($node.get(0), 'events'),
 			docEvents = $._data($document.get(0), 'events'),
 			clickEvents = _.filter(events.click, function(event) {
@@ -63,8 +55,8 @@
 
 		assert.equal(clickEvents.length, 2, 'Two click events attached to slideshow');
 
-		assert.equal(events.click[0].selector, '[data-slideshow="prev"]', 'Prev button event reporting correct selector');
-		assert.equal(events.click[1].selector, '[data-slideshow="next"]', 'Next button event reporting correct selector');
+		assert.equal(events.click[0].selector, '[data-' + pluginName + '="prev"]', 'Prev button event reporting correct selector');
+		assert.equal(events.click[1].selector, '[data-' + pluginName + '="next"]', 'Next button event reporting correct selector');
 
 		assert.equal(resizeEvent.length, 1, 'Resize event set');
 		assert.equal(scrollEvent.length, 1, 'Scroll event set');
@@ -74,9 +66,9 @@
 	test('Test correct plugin destroy', function(assert) {
 		expect(5);
 
-		$node.slideshow('destroy');
+		instance.destroy();
 
-		var $buttons = $node.find('button[data-slideshow]'),
+		var $buttons = $node.find('button[data-' + pluginName + ']'),
 			events = $._data($node.get(0), 'events'),
 			docEvents = $._data($document.get(0), 'events'),
 			resizeEvent = _.filter(docEvents[Unic.events.resize], function(event) {
@@ -101,8 +93,7 @@
 	test('Test whether clicking prev button updates "currentItem" property', function(assert) {
 		expect(1);
 
-		var $button = $node.find('button.next'),
-			instance = $node.data('plugin_slideshow');
+		var $button = $node.find('button.next');
 
 		$button.trigger('click');
 
@@ -111,8 +102,6 @@
 
 	test('Test whether "show" method updates "currentItem" property', function(assert) {
 		expect(1);
-
-		var instance = $node.data('plugin_slideshow');
 
 		instance.show(2);
 
