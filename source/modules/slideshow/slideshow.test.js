@@ -68,8 +68,7 @@
 
 		instance.destroy();
 
-		var instance = $node.data('plugin_slideshow'),
-			$buttons = $node.find('button[data-' + pluginName + ']'),
+		var $buttons = $node.find('button[data-' + pluginName + ']'),
 			events = $._data($node.get(0), 'events'),
 			docEvents = $._data($document.get(0), 'events'),
 			resizeEvent = _.filter(docEvents[Unic.events.resize], function(event) {
