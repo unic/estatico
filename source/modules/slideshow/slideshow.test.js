@@ -39,7 +39,7 @@
 	});
 
 	test('Test correct Plugin init', function(assert) {
-		expect(6);
+		expect(9);
 
 		var instance = $node.data('plugin_slideshow'),
 			$buttons = $node.find('button[data-slideshow]'),
@@ -59,8 +59,20 @@
 		var nextEvent = events.click[1];
 		assert.equal(nextEvent.selector, '[data-slideshow="next"]', 'Next-Button Event correct selector');
 
-		// TODO : The docEvents do not have namespace set?
-		console.log(docEvents);
+		var resizeEvent = _.filter(docEvents[Unic.events.resize], function(event){
+			return event.namespace === pluginName;
+		});
+		assert.equal(resizeEvent.length, 1, 'Resize-Event set');
+
+		var scrollEvent = _.filter(docEvents[Unic.events.scroll], function(event){
+			return event.namespace === pluginName;
+		});
+		assert.equal(scrollEvent.length, 1, 'Scroll-Event set');
+
+		var mqEvent = _.filter(docEvents[Unic.events.mq], function(event){
+			return event.namespace === pluginName;
+		});
+		assert.equal(mqEvent.length, 1, 'MediaQuery-Event set');
 
 	});
 
