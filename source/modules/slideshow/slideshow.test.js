@@ -1,29 +1,29 @@
-(function(window, document, $, Unic, undefined) {
+;(function(window, document, $, Unic, undefined) {
 	'use strict';
 
-	var $node;
-	var pluginName = 'slideshow';
-	var originalHTML = null;
+	var $node,
+		pluginName = 'slideshow',
+		originalHTML = null;
 
 	module('slideshow', {
 		setup: function(){
 			$node = $('.mod_' + pluginName);
+
 			$node.slideshow('destroy');
 
 			if (originalHTML === null) {
 				originalHTML = $node.html();
-			}
-			else {
+			} else {
 				$node.html(originalHTML);
 			}
 
-			// Cannot trigger ready, therefore call the init here.
 			$.fn[pluginName].apply($('[data-init=' + pluginName +']'), [{
 				// Options
 			}]);
 		},
 		teardown: function() {
 			$node.slideshow('destroy');
+			
 			$node.hide().children().remove();
 		}
 	});
