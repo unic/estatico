@@ -79,19 +79,19 @@
 
 		$node.slideshow('destroy');
 
-		var $buttons = $node.find('button[data-slideshow]'),
+		var instance = $node.data('plugin_slideshow'),
+			$buttons = $node.find('button[data-slideshow]'),
 			events = $._data($node.get(0), 'events'),
 			docEvents = $._data($document.get(0), 'events'),
 			resizeEvent = _.filter(docEvents[Unic.events.resize], function(event) {
-				return event.namespace === pluginName;
+				return event.namespace === instance.uuid;
 			}),
 			scrollEvent = _.filter(docEvents[Unic.events.scroll], function(event) {
-				return event.namespace === pluginName;
+				return event.namespace === instance.uuid;
 			}),
 			mqEvent = _.filter(docEvents[Unic.events.mq], function(event) {
-				return event.namespace === pluginName;
+				return event.namespace === instance.uuid;
 			});
-
 		assert.equal($buttons.length, 0, 'No more button found');
 
 		assert.equal(typeof(events), 'undefined', 'No more click events attached to slideshow');
