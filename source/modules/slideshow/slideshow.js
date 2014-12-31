@@ -78,20 +78,20 @@
 			// Init touchSwipe
 		// }
 
-		// Exemplary resize listener
-		$document.on(Unic.events.resize + '.' + pluginName, function(event, originalEvent) {
+		// Exemplary resize listener (uuid instead uf pluginName used to make sure it can be unbound per plugin instance)
+		$document.on(Unic.events.resize + '.' + this.uuid, function(event, originalEvent) {
 			console.log('slideshow.js', originalEvent);
 		});
 
-		// Exemplary scroll listener
-		$document.on(Unic.events.scroll + '.' + pluginName, function(event, originalEvent) {
+		// Exemplary scroll listener (uuid instead uf pluginName used to make sure it can be unbound per plugin instance)
+		$document.on(Unic.events.scroll + '.' + this.uuid, function(event, originalEvent) {
 			console.log('slideshow.js', originalEvent);
 		});
 
-		// Exemplary media query listener
 		this.resize();
 
-		$document.on(Unic.events.mq + '.' + pluginName, _.bind(function() {
+		// Exemplary media query listener (uuid instead uf pluginName used to make sure it can be unbound per plugin instance)
+		$document.on(Unic.events.mq + '.' + this.uuid, _.bind(function() {
 			this.resize();
 		}, this));
 
@@ -163,9 +163,6 @@
 
 		// Remove custom DOM elements
 		this.$element.find('button').remove();
-
-		// Remove custom event listeners
-		$document.off('.' + pluginName);
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

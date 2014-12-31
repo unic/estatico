@@ -20,6 +20,8 @@
 	// as this (slightly) quickens the resolution process and can be more efficiently
 	// minified (especially when both are regularly referenced in your plugin).
 
+	var $document = $(document);
+
 	// Prefix for data attribute where the plugin instance is stored
 	var events = Unic.modules.PluginInitEvents = {},
 		dataNamespace = 'plugin_';
@@ -52,6 +54,9 @@
 		// Keep a reference to the wrapper object in the element
 		this.$element.data(dataNamespace + this.pluginName, this);
 
+		// Save unique ID for specific event listeners
+		this.uuid = _.uniqueId(this.pluginName);
+
 		this.init();
 	};
 
@@ -74,9 +79,13 @@
 	 * jQuery('[data-example=init]').example('destroy');
 	 */
 	Unic.modules.PluginHelper.prototype.destroy = function() {
-		// remove all events in the this.pluginName namespace
+		// Remove all event listeners in the this.pluginName namespace
 		this.$element.off('.' + this.pluginName);
-		// unset Plugin data instance
+
+		$document.off('.' + this.pluginName);
+		$document.off('.' + this.uuid);
+
+		// Unset plugin data
 		this.$element.removeData(dataNamespace + this.pluginName);
 		this.$element.removeData(this.pluginName);
 	};
