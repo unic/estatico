@@ -34,9 +34,9 @@ gulp.task('serve', function() {
 	});
 
 	// Clean on exit
-	process.on('SIGINT', function() {
-		exec('gulp clean', function() {
-			process.exit(0);
-		});
-	});
+	// process.on('SIGINT', function() {
+	// 	exec('gulp clean', function() {
+	// 		process.exit(0);
+	// 	});
+	// });
 });
