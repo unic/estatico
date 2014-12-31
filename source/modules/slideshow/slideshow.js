@@ -163,6 +163,9 @@
 
 		// Remove custom DOM elements
 		this.$element.find('button').remove();
+
+		// Remove custom event listeners
+		$document.off('.' + pluginName);
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)

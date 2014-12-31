@@ -63,6 +63,9 @@
 
 		// Custom teardown (removing added DOM elements etc.)
 		// If there is no need for a custom teardown, this method can be removed
+
+		// Example: Unbind custom resize and scroll listeners
+		// $document.off('.' + pluginName);
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)
