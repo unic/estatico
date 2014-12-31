@@ -41,17 +41,19 @@
 	test('Test correct Plugin init', function(assert) {
 		expect(9);
 
-		var instance = $node.data('plugin_slideshow'),
-			$buttons = $node.find('button[data-slideshow]'),
+		var $buttons = $node.find('button[data-slideshow]'),
 			events = $._data($node.get(0), 'events'),
 			docEvents = $._data($document.get(0), 'events');
 
 		assert.equal($buttons.length, 2, 'Two buttons found');
-		assert.equal(events.click.length, 2, 'Two Events attached to slideshow');
 
-		_.each(events.click, function(event){
+		var clickEvents = _.filter(events['click'], function(event){
+			return event.namespace === pluginName;
+		});
+		_.each(clickEvents, function(event){
 			assert.equal(event.namespace, pluginName, 'Event in correct Namespace');
 		});
+		assert.equal(clickEvents.length, 2, 'Two Events attached to slideshow');
 
 		var prevEvent = events.click[0];
 		assert.equal(prevEvent.selector, '[data-slideshow="prev"]', 'Prev-Button Event correct selector');
@@ -73,7 +75,34 @@
 			return event.namespace === pluginName;
 		});
 		assert.equal(mqEvent.length, 1, 'MediaQuery-Event set');
+	});
 
+	test('Test correct Plugin destroy', function(assert) {
+		expect(5);
+
+		$node.slideshow('destroy');
+
+		var $buttons = $node.find('button[data-slideshow]'),
+			events = $._data($node.get(0), 'events'),
+			docEvents = $._data($document.get(0), 'events');
+
+		assert.equal($buttons.length, 0, 'No more button found');
+		assert.equal(typeof(events), 'undefined', 'No more click events attached to slideshow');
+
+		var resizeEvent = _.filter(docEvents[Unic.events.resize], function(event){
+			return event.namespace === pluginName;
+		});
+		assert.equal(resizeEvent.length, 0, 'Resize-Event unset');
+
+		var scrollEvent = _.filter(docEvents[Unic.events.scroll], function(event){
+			return event.namespace === pluginName;
+		});
+		assert.equal(scrollEvent.length, 0, 'Scroll-Event unset');
+
+		var mqEvent = _.filter(docEvents[Unic.events.mq], function(event){
+			return event.namespace === pluginName;
+		});
+		assert.equal(mqEvent.length, 0, 'MediaQuery-Event unset');
 	});
 
 	test('Test whether clicking prev button updates "currentItem" property', function(assert) {
