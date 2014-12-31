@@ -33,7 +33,7 @@
 					// 	href: '/styleguide/assets/css/main.css'
 					// }).appendTo('head');
 
-					if (!QUnit.urlParams.testNumber) {
+					if ($.isEmptyObject(QUnit.urlParams)) {
 						$container.hide();
 
 						$button
