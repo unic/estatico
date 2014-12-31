@@ -18,6 +18,7 @@
     "gulp-autoprefixer": "1.0.1",
     "gulp-base64": "0.1.2",
     "gulp-cached": "1.0.1",
+    "gulp-changed": "1.1.0",
     "gulp-concat": "2.4.1",
     "gulp-declare": "0.3.0",
     "gulp-define-module": "0.1.1",
