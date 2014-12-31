@@ -1,31 +1,28 @@
 ;(function(window, document, $, Unic, undefined) {
 	'use strict';
 
-	var $node,
-		$document = $(document),
+	var $document = $(document),
 		pluginName = 'slideshow',
-		originalHTML = null;
+		$node = $('.mod_' + pluginName).eq(0),
+		originalHTML;
 
+	// Destroy to get initial markup
+	$node.slideshow('destroy');
+
+	originalHTML = $node.html();
+
+	// Setup QUnit module
 	module('slideshow', {
 		setup: function() {
-			$node = $('.mod_' + pluginName);
-
-			$node.slideshow('destroy');
-
-			if (originalHTML === null) {
-				originalHTML = $node.html();
-			} else {
-				$node.html(originalHTML);
-			}
-
-			$.fn[pluginName].apply($('[data-init=' + pluginName +']'), [{
-				// Options
-			}]);
 		},
 		teardown: function() {
 			$node.slideshow('destroy');
 
-			$node.hide().children().remove();
+			$node.html(originalHTML);
+
+			$.fn[pluginName].apply($('[data-init=' + pluginName +']'), [{
+				// Options
+			}]);
 		}
 	});
 
