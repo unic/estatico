@@ -9078,7 +9078,7 @@
             },
             "glob": {
               "version": "3.2.11",
-              "from": "glob@>=3.2.9 <3.3.0",
+              "from": "glob@>=3.2.8 <3.3.0",
               "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
               "dependencies": {
                 "inherits": {
@@ -9247,7 +9247,7 @@
                     },
                     "minimatch": {
                       "version": "0.2.14",
-                      "from": "minimatch@>=0.2.9 <0.3.0",
+                      "from": "minimatch@>=0.2.11 <0.3.0",
                       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz",
                       "dependencies": {
                         "lru-cache": {
@@ -9325,7 +9325,7 @@
                     },
                     "exit": {
                       "version": "0.1.2",
-                      "from": "exit@>=0.1.0 <0.2.0",
+                      "from": "exit@>=0.1.1 <0.2.0",
                       "resolved": "https://registry.npmjs.org/exit/-/exit-0.1.2.tgz"
                     },
                     "getobject": {
@@ -9521,7 +9521,7 @@
                     },
                     "findup-sync": {
                       "version": "0.1.3",
-                      "from": "findup-sync@>=0.1.0 <0.2.0",
+                      "from": "findup-sync@>=0.1.2 <0.2.0",
                       "resolved": "https://registry.npmjs.org/findup-sync/-/findup-sync-0.1.3.tgz"
                     }
                   }
@@ -9728,7 +9728,7 @@
                   "dependencies": {
                     "ansi-regex": {
                       "version": "0.2.1",
-                      "from": "ansi-regex@>=0.2.0 <0.3.0",
+                      "from": "ansi-regex@>=0.2.1 <0.3.0",
                       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-0.2.1.tgz"
                     }
                   }
@@ -9740,7 +9740,7 @@
                   "dependencies": {
                     "ansi-regex": {
                       "version": "0.2.1",
-                      "from": "ansi-regex@>=0.2.0 <0.3.0",
+                      "from": "ansi-regex@>=0.2.1 <0.3.0",
                       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-0.2.1.tgz"
                     }
                   }
@@ -12502,12 +12502,12 @@
             },
             "through2": {
               "version": "0.4.2",
-              "from": "through2@>=0.4.1 <0.5.0",
+              "from": "through2@>=0.4.0 <0.5.0",
               "resolved": "https://registry.npmjs.org/through2/-/through2-0.4.2.tgz",
               "dependencies": {
                 "readable-stream": {
                   "version": "1.0.33",
-                  "from": "readable-stream@>=1.0.33-1 <1.1.0-0",
+                  "from": "readable-stream@>=1.0.17 <1.1.0",
                   "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.33.tgz",
                   "dependencies": {
                     "core-util-is": {
@@ -12623,7 +12623,7 @@
                   "dependencies": {
                     "readable-stream": {
                       "version": "1.1.13",
-                      "from": "readable-stream@>=1.1.8 <1.2.0",
+                      "from": "readable-stream@>=1.1.9 <1.2.0",
                       "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.13.tgz",
                       "dependencies": {
                         "core-util-is": {
@@ -12662,9 +12662,9 @@
       }
     },
     "gulp-unic-handlebars": {
-      "version": "0.0.4",
-      "from": "gulp-unic-handlebars@git+https://git.unic.com/scm/budc/copfe---gulp-plugin---handlebars-templating.git#v0.0.4",
-      "resolved": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---handlebars-templating.git#4c5a6295d15531a334040eb1872d40e040e04319",
+      "version": "0.0.5",
+      "from": "gulp-unic-handlebars@git+https://git.unic.com/scm/budc/copfe---gulp-plugin---handlebars-templating.git#v0.0.5",
+      "resolved": "git+https://git.unic.com/scm/budc/copfe---gulp-plugin---handlebars-templating.git#071c3c160b87b1e1ec47a9117a0be6cb521bc120",
       "dependencies": {
         "gulp-util": {
           "version": "2.2.17",
@@ -12813,12 +12813,12 @@
             },
             "through2": {
               "version": "0.4.2",
-              "from": "through2@>=0.4.1 <0.5.0",
+              "from": "through2@>=0.4.0 <0.5.0",
               "resolved": "https://registry.npmjs.org/through2/-/through2-0.4.2.tgz",
               "dependencies": {
                 "readable-stream": {
                   "version": "1.0.33",
-                  "from": "readable-stream@>=1.0.33-1 <1.1.0-0",
+                  "from": "readable-stream@>=1.0.17 <1.1.0",
                   "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.33.tgz",
                   "dependencies": {
                     "core-util-is": {
@@ -12934,7 +12934,7 @@
                   "dependencies": {
                     "readable-stream": {
                       "version": "1.1.13",
-                      "from": "readable-stream@>=1.1.8 <1.2.0",
+                      "from": "readable-stream@>=1.1.9 <1.2.0",
                       "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.13.tgz",
                       "dependencies": {
                         "core-util-is": {
@@ -12972,7 +12972,7 @@
         },
         "through2": {
           "version": "0.5.1",
-          "from": "through2@>=0.5.0 <0.6.0",
+          "from": "through2@0.5.1",
           "resolved": "https://registry.npmjs.org/through2/-/through2-0.5.1.tgz",
           "dependencies": {
             "readable-stream": {
