@@ -18,15 +18,15 @@
 ### 3. CSS
 * Properties indented
 * One property per line
-* Generally one selector per line
+* One selector per line
 * Selectors in lowercase and with underscores, no dashes
 * Preprocessors: CamelCase for everything but selectors and placeholders
 
 ### 4. JS
 * Variables and function names in camelCase
-* Constants in UPPER_CASE (e.g. ANIMATION_DURATION)
+* Constants in UPPER_CASE (e.g. ```ANIMATION_DURATION```)
 * Constructors and class names in PascalCase
-* References to jQuery objects start with $ (e.g. $carouselContainer)
+* References to jQuery objects start with $ (e.g. ```$carouselContainer```)
 * Single quotes
 * Comments:
 
@@ -51,15 +51,17 @@
 ### 1. Selectors
 * No use of IDs for styling, classes only
 * Prefixing of classes:
-	* Layout: "layout\_", used for general page layout (e.g. "layout\_wrapper")
-	* Module: "mod\_", used for independent blocks of markup (e.g. "mod\_teaser"). Generally no namespacing inside modules (e.g. use ".mod\_teaser .title" instead of ".mod\_teaser\_title").
-	* Variant: "var\_", used as modifier or above elements (e.g. "var\_onecol")
-	* State: "is\_", used as modifier or above elements (e.g. "is\_inactive")
-* JS hooks: Use data attributes instead of classes to target elements using JavaScript (e.g. data-teaser="init")
-* No use of overqualified selectors (e.g. "div.mod\_teaser")
+	* Layout: ```layout_```, used for general page layout (e.g. ```.layout_wrapper```)
+	* Module: ```mod_```, used for independent blocks of markup (e.g. ```.mod_teaser```). 
+	* Variant: ```var_```, used as modifier or above elements (e.g. ```.mod_teasers.var_onecol```)
+	* State: ```is_```, used as modifier or above elements (e.g. ```.mod_accordion.is_enabled```)
+* No BEM-like approach, use nesting instead (e.g. ```.mod_teaser .title``` instead of ```.mod_teaser_title```). In case of "wrapper" modules like accordions: Use namespacing like ```.mod_accordion .accordion_title``` if necessary.
+* JS hooks: Use data attributes instead of classes to target elements using JavaScript (e.g. ```data-teaser="init```)
+* No use of overqualified selectors (e.g. ```.mod_teaser``` instead of ```div.mod_teaser```)
 
 ### 2. Units
-* em or % for dimensions, generally no px
+* ```rem```, ```em``` or ```%``` for dimensions, generally no ```px```
+* Prefer ```rem``` over ```em``` where reasonable, unless IE 8 has to be supported
 
 ### 3. CSS preprocessors
 * Use mixins for repeating styles
