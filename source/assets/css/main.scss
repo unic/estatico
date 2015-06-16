@@ -1,0 +1,39 @@
+@import "globals/variables";
+@import "../.tmp/colors";
+@import "globals/functions";
+@import "globals/mixins";
+@import "globals/mediaqueries";
+
+
+// Reset / normalize styles
+@import "normalize.css/normalize";
+
+// Custom web fonts
+@import "globals/fonts";
+
+// Icons (as font or dataurl), PNG sprites
+@import "../.tmp/iconfont";
+@import "../.tmp/dataurls";
+@import "../.tmp/pngsprite";
+
+// General styles
+@import "mediaqueries_sync";
+@import "globals/classes";
+
+// General layout
+@import "layout";
+
+// Modules
+//*autoinsertmodule*
+
+//*startdemomodules*
+@import "../../demo/modules/media/media";
+@import "../../demo/modules/teaser/teaser";
+@import "../../demo/modules/teasers/teasers";
+@import "../../demo/modules/skiplinks/skiplinks";
+@import "../../demo/modules/slideshow/slideshow";
+//*enddemomodules*
+
+@media print {
+	@import "print";
+}

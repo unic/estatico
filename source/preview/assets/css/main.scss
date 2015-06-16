@@ -1,0 +1,245 @@
+@import "globals/variables";
+@import "../.tmp/colors";
+@import "globals/functions";
+@import "globals/mixins";
+@import "globals/mediaqueries";
+
+@import "../../../node_modules/highlight.js/styles/github";
+
+
+// Styleguide defaults
+// ----------------------------------------------------------------------------------------------------
+
+// Colors
+$sg_colorWhite: #fff;
+$sg_colorLightGray: #ddd;
+$sg_colorGray: #999;
+$sg_colorBlack: #000;
+$sg_colorUnicGreen: #a4c400;
+
+// Transitions
+$sg_defaultTransitionProperty: all;
+$sg_defaultTransitionDuration: 0.2s;
+$sg_defaultTransitionTimingFunction: ease-in-out;
+$sg_defaultTransitionDelay: 0s;
+$sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
+
+
+// Styleguide index page
+// ----------------------------------------------------------------------------------------------------
+.sg_wrapper {
+	padding: 2em;
+}
+
+.sg_main {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	margin: 0 pxToEm(-10);
+
+	h2 {
+		margin: 0;
+	}
+
+	ul,
+	li {
+		list-style-type: none;
+	}
+
+	a {
+		display: inline-block;
+		padding: 0.2em 0;
+		color: $sg_colorGray;
+
+		&:hover {
+			color: $sg_colorBlack;
+			text-decoration: none;
+		}
+	}
+}
+
+.sg_inner_wrapper {
+	box-sizing: border-box;
+	padding: 1em;
+	background-color: rgba($sg_colorGray, 0.1);
+
+	// Wrapper around lists on the index page
+	&.var_sg_index {
+		border: pxToEm(10) solid $sg_colorWhite;
+		border-width: 0 pxToEm(10);
+		width: 100%;
+		margin: 0 0 pxToEm(20) 0;
+
+		@include mq($from: 500px) {
+			width: 50%;
+		}
+
+		@include mq($from: 700px) {
+			width: 33.333%;
+		}
+
+		@include mq($from: 1000px) {
+			width: 25%;
+		}
+
+		@include mq($from: 1300px) {
+			width: 20%;
+		}
+	}
+}
+
+// Lists on index page
+.sg_index_list {
+	margin-bottom: 0;
+	padding: 0;
+}
+
+
+// Styleguide content styles
+// ----------------------------------------------------------------------------------------------------
+.sg_title {
+	$sizeFont: 24px;
+
+	font-family: Georgia, serif;
+	font-size: pxToEm($sizeFont);
+	font-weight: 400;
+	margin: 0 0 pxToEm(50, $sizeFont) 0;
+}
+
+.sg_logo {
+	border-bottom: 1px solid;
+	color: inherit;
+	text-decoration: none;
+}
+
+%sg_sub_headings {
+	font-weight: 400;
+	margin-top: 2em;
+}
+.sg_h2 {
+	@extend %sg_sub_headings;
+	border-bottom: 1px solid rgba($sg_colorBlack, 0.2);
+}
+.sg_h3 {
+	@extend %sg_sub_headings;
+}
+.sg_h4 {
+	@extend %sg_sub_headings;
+}
+
+.sg_block {
+	border-top: 1px solid $sg_colorWhite;
+	padding: 0.4em 0 2em;
+}
+
+.sg_block_label {
+	font-weight: 700;
+	font-size: 12px;
+}
+
+/* Icons */
+.sg_icons_label,
+.sg_icons_icon {
+	display: table-cell;
+	border-top: 1px solid $sg_colorLightGray;
+	border-left: 1px solid $sg_colorLightGray;
+	vertical-align: top;
+	padding: 0.5em;
+}
+
+.sg_icons_icon {
+	width: 20%;
+}
+.sg_icons_icon:last-of-type {
+	border-right: 1px solid $sg_colorLightGray;
+}
+
+.sg_icons {
+	display: table;
+	width: 100%;
+
+	border-bottom: 1px solid $sg_colorLightGray;
+}
+
+.sg_icons_item {
+	display: table-row;
+}
+
+
+// Colors
+// ----------------------------------------------------------------------------------------------------
+.sg_color_list {
+	@include clearfix;
+	@include resetList;
+
+	margin: 0 pxToEm(-10);
+}
+
+.sg_color_item {
+	margin: 0 pxToEm(10) pxToEm(20) pxToEm(10);
+	min-width: 10em;
+	float: left;
+	text-align: center;
+
+	&:hover {
+
+		.sg_color_preview {
+			transform: scale(1.25);
+		}
+	}
+}
+
+.sg_color_preview {
+	width: 5em;
+	height: 5em;
+	margin: 0 auto;
+	border: 1px solid $sg_colorLightGray;
+	border-radius: 50%;
+
+	transition: $sg_defaultTransition;
+}
+
+.sg_color_name {
+	padding-top: 0.8em;
+	font-weight: bold;
+}
+
+.sg_color_value {
+}
+
+
+// Fonts
+// ----------------------------------------------------------------------------------------------------
+.sg_font_style {
+
+}
+
+.sg_font_size {
+	border-bottom: 1px solid $sg_colorLightGray;
+	padding: 1em 0;
+}
+
+
+// Module code preview
+// ----------------------------------------------------------------------------------------------------
+.sg_code {
+
+}
+
+
+// Markdown documentation
+// ----------------------------------------------------------------------------------------------------
+.sg_documentation {
+
+	code {
+		background: #f8f8f8;
+		color: #666;
+		padding: 0 0.2em;
+	}
+}
+
+// QUnit test results
+// ----------------------------------------------------------------------------------------------------
+.sg_tests {
+
+}

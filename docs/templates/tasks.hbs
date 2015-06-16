@@ -1,0 +1,21 @@
+# TASKS
+
+## Default task
+
+{{#globals name="`gulp`"}}
+### {{{name}}}
+{{>description}}
+{{/globals~}}
+
+## Generic options
+
+* Use `--dev` flag to continue on errors. Recommended with the default task due to the file watcher crashing otherwise.
+
+## Specific tasks
+
+{{#globals}}
+{{#isnt name "`gulp`"}}
+### {{{name}}}
+{{>description}}
+{{/isnt}}
+{{/globals}}

@@ -1,0 +1,45 @@
+{{#extend "layouts/layout"}}
+	{{#content "header"}}
+		{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+	{{/content}}
+
+	{{#content "content"}}
+		<h2>{{title}}</h2>
+
+		<p>{{text}}</p>
+
+		<p><strong>{{warning}}</strong></p>
+
+		<hr>
+
+		<h3>Dynamic partial ({{partial}})</h3>
+
+		{{dynamicPartial partial modules.slideshow}}
+
+		<h3>Dynamic partial with placeholder in name ("demo/modules/slideshow/{{{{raw}}}}{{partialPlaceholder}}{{{{/raw}}}}")</h3>
+
+		{{dynamicPartial "demo/modules/slideshow/{{partialPlaceholder}}" modules.slideshow}}
+
+		<h3>Dynamic partial inside each loop</h3>
+
+		{{#each partials}}
+			{{dynamicPartial "demo/modules/slideshow/{{placeholder}}" ../modules.slideshow replacementContext=this}}
+		{{/each}}
+
+		<h3>Comparisons: Check if string contains substring</h3>
+
+		{{#contains testString subString}}
+			"{{testString}}" contains "{{subString}}"
+		{{else}}
+			"{{testString}}" does not contain "{{subString}}"
+		{{/contains}}
+
+		<h3>Comparisons: Check if string is equal to other string</h3>
+
+		{{#is testString testString2}}
+			"{{testString}}" is equal to "{{testString2}}"
+		{{else}}
+			"{{testString}}" is not equal to "{{testString2}}"
+		{{/is}}
+	{{/content}}
+{{/extend}}

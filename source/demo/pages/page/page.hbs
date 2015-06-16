@@ -1,0 +1,15 @@
+{{#extend "layouts/layout"}}
+	{{#content "header"}}
+		{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+	{{/content}}
+
+	{{#content "content"}}
+		<h2>{{title}}</h2>
+
+		<p>{{text}}</p>
+
+		<hr>
+
+		{{> "demo/modules/teasers/teasers" modules.teasers}}
+	{{/content}}
+{{/extend}}
