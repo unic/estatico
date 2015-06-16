@@ -34,8 +34,13 @@ Estático has been born as a result of a collective work of our frontend team. W
 git clone https://github.com/unic/estatico.git
 cd estatico
 
+# Install dependencies
+npm install
+
+# Install Gulp globally if not already present
 npm install -g gulp
 
+# Run
 gulp --dev
 ```
 
