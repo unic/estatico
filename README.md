@@ -31,7 +31,9 @@ Estático has been born as a result of a collective work of our frontend team. W
 ## Getting started
 
 ```bash
-npm install estatico
+git clone https://github.com/unic/estatico.git
+cd estatico
+
 npm install -g gulp
 
 gulp --dev
@@ -41,15 +43,15 @@ gulp --dev
 
 ### Setup / Usage
 
-See [docs/Setup_and_Usage.md!](docs/Setup_and_Usage.md)
+See [docs/Setup_and_Usage.md](docs/Setup_and_Usage.md)
 
 ### Tasks
 
-See [docs/Tasks.md!](docs/Tasks.md)
+See [docs/Tasks.md](docs/Tasks.md)
 
 ### Coding Guidelines
 
-See [docs/Coding_Guidelines.md!](docs/Coding_Guidelines.md)
+See [docs/Coding_Guidelines.md](docs/Coding_Guidelines.md)
 
 ## License
 

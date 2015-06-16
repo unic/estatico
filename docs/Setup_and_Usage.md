@@ -17,7 +17,7 @@ nvm use
 Install dependencies:
 
 ```shell
-npm install estatico
+npm install
 
 # Install Gulp globally (optional)
 npm install -g gulp
