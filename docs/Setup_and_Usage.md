@@ -86,9 +86,6 @@ Estático generates source maps for both CSS and JS. How to enable them in your 
 * [Firefox](https://developer.mozilla.org/en-US/docs/Tools/Debugger/How_to/Use_a_source_map)
 * [IE](http://blogs.msdn.com/b/davrous/archive/2014/08/22/enhance-your-javascript-debugging-life-thanks-to-the-source-map-support-available-in-ie11-chrome-opera-amp-firefox.aspx)
 
-Have a look at [https://me.unic.com/display/COPFE/Gulp%3A+Specific+tasks](this wiki page) for a screencast with Chrome.
-
-
 ----
 
 
