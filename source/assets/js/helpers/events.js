@@ -24,7 +24,7 @@
 		};
 
 	$(window)
-		.on('resize.estatico', _.debounce(function(event) {
+		.on('resize.estatico orientationchange.estatico', _.debounce(function(event) {
 			$document.triggerHandler(events.resize, event);
 		}, interval.resize))
 		.on('scroll.estatico', _.debounce(function(event) {
