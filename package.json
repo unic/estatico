@@ -81,7 +81,7 @@
     "should": "6.0.1"
   },
   "scripts": {
-    "test": "node node_modules/.bin/mocha --ui exports",
-    "postinstall": "node node_modules/.bin/bower install"
+    "test": "mocha --ui exports",
+    "postinstall": "bower install"
   }
 }
