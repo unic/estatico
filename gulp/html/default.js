@@ -94,7 +94,13 @@ gulp.task(taskName, function(cb) {
 		// Relativify absolute paths
 		.pipe(tap(function(file) {
 			var content = file.contents.toString(),
-				relPathPrefix = path.join(path.relative(file.path, './source')).replace(/\.\.$/, '');
+				relPathPrefix = path.join(path.relative(file.path, './source'));
+
+			relPathPrefix = relPathPrefix
+				// Normalize path separator
+				.replace(new RegExp('\\' + path.sep, 'g'), '/')
+				// Remove trailing ..
+				.replace(/\.\.$/, '');
 
 			content = content.replace(/('|")\//g, '$1' + relPathPrefix);
 

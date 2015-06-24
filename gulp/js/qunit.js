@@ -54,7 +54,13 @@ gulp.task(taskName, function(cb) {
 			})
 				.pipe(tap(function(file) {
 					var content = file.contents.toString(),
-						relPathPrefix = path.join(path.relative(file.path, taskConfig.srcTemplatesBase)).replace(/\.\.$/, '');
+						relPathPrefix = path.join(path.relative(file.path, taskConfig.srcTemplatesBase));
+
+					relPathPrefix = relPathPrefix
+						// Normalize path separator
+						.replace(new RegExp('\\' + path.sep, 'g'), '/')
+						// Remove trailing ..
+						.replace(/\.\.$/, '');
 
 					// Ignore files without a QUnit script reference
 					if (content.search(taskConfig.srcQUnit) === -1) {
@@ -65,7 +71,7 @@ gulp.task(taskName, function(cb) {
 
 					// Make paths relative to build directory, add base tag
 					content = content
-						.replace('<head>', '<head><base href="' + path.resolve(taskConfig.srcTemplatesBase) + '/">')
+						.replace('<head>', '<head><base href="' + path.resolve(taskConfig.srcTemplatesBase) + path.sep + '">')
 						.replace(new RegExp(relPathPrefix, 'g'), '');
 
 					// Re-enable autostart
