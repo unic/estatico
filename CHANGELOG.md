@@ -1,3 +1,10 @@
+## 3.0.1
+
+Bugfixes:
+
+FROBOIL-155: Fix QUnit path handling to work on Windows
+FROBOIL-155: Fix npm script paths
+
 ## 3.0.0
 
 Features:

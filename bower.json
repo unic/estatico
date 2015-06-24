@@ -1,6 +1,6 @@
 {
   "name": "estatico",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "dependencies": {
     "jquery": "1.11.1",
     "normalize.css": "2.1.3",
