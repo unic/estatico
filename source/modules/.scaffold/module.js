@@ -24,7 +24,8 @@
 		},
 		data = {
 			// items: ["Item 1", "Item 2"]
-		};
+		},
+		log = estatico.helpers.log(name);
 
 	/**
 	 * Create an instance of the module
@@ -53,7 +54,7 @@
 	 * @public
 	 */
 	Module.prototype.init = function() {
-		// console.log('Module "{{name}}" initialized');
+		// log('Module initialized');
 	};
 
 	/**

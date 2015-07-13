@@ -28,6 +28,18 @@
 				}
 
 				return destination;
+			},
+			// Creates a console.log wrapper with optional namespace/context
+			log: function log(context) {
+				var _fn;
+
+				if (typeof context === 'string' && context.length > 0) {
+					_fn = Function.prototype.bind.call(console.log, console, context);
+				} else {
+					_fn = Function.prototype.bind.call(console.log, console);
+				}
+
+				return _fn;
 			}
 		}
 	};
