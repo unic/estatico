@@ -17,12 +17,12 @@
  * }
  *
  * // Check the current viewport against a specific breakpoint:
- * if (estatico.mq.query({ from: 'small' }) {
+ * if (estatico.mq.query({ from: 'small' })) {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
  * // or
- * if (estatico.mq.query({ from: 'small', to: 'medium' }) {
+ * if (estatico.mq.query({ from: 'small', to: 'medium' })) {
  * 	this.destroySmall();
  * 	this.initMedium();
  * }
