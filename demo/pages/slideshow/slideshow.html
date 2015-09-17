@@ -1,0 +1,116 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Unit test – Estático</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../../assets/css/main.min.css">
+
+	<script src="../../../assets/js/head.min.js"></script>
+</head>
+<body>
+		<script>
+			// Global content data, will be extended by data-slideshow-data
+			estatico.helpers.extend(estatico.data, {
+				slideshow: {
+					i18n: {
+						prev: 'Previous',
+						next: 'Next'
+					}
+				}
+			});
+
+			// Global configuration data, will be extended by data-slideshow-options
+			estatico.helpers.extend(estatico.options, {
+				slideshow: {
+					animationDuration: 200,
+					url: '../../../mocks/demo/modules/slideshow/slideshow.json?delay=500'
+				}
+			});
+		</script>
+
+		<div class="mod_skiplinks">
+			<ul>
+					<li>
+						<a href="#main" accesskey="1" title="[ALT + 1]">
+							Skip to content
+						</a>
+					</li>
+			</ul>
+		</div>
+
+	<div class="layout_wrapper" id="main">
+		<h2>Unit test</h2>
+
+		<p>This page demonstrates the customized initialization of a module and allows to run its JavaScript unit tests.</p>
+
+		<hr>
+
+		<div class="mod_slideshow" data-init="slideshow" data-slideshow-data='{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}' data-slideshow-options='{"animationDuration":100}'>
+			<div class="slides" data-slideshow="slides">
+					<div class="slide" data-slideshow="slide">
+						<img src="http://www.fillmurray.com/600/201" alt="Bill Murray 1">
+					</div>
+					<div class="slide" data-slideshow="slide">
+						<img src="http://www.fillmurray.com/600/202" alt="Bill Murray 2">
+					</div>
+					<div class="slide" data-slideshow="slide">
+						<img src="http://www.fillmurray.com/600/203" alt="Bill Murray 3">
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../assets/js/main.min.js"></script>
+
+			<!-- DO NOT COPY -->
+				<div class="sg_tests">
+					<div id="qunit"></div>
+					<div id="qunit-fixture"></div>
+			
+					<script src="../../../test/assets/vendor/qunit/qunit/qunit.js"></script>
+					<script>QUnit.config.autostart = false;</script>
+			
+						<script src="../../../test/demo/modules/slideshow/slideshow.test.js"></script>
+			
+					<script>
+						;(function($) {
+							'use strict';
+			
+							var $container = $('#qunit'),
+								$button = $('<button>Run QUnit tests</button>'),
+								startTests = function() {
+									$container.show();
+			
+									$('<link/>', {
+										rel: 'stylesheet',
+										href: '../../../test/assets/vendor/qunit/qunit/qunit.css'
+									}).appendTo('head');
+			
+									$button.remove();
+			
+									QUnit.start();
+								};
+			
+							if ($.isEmptyObject(QUnit.urlParams)) {
+								$container.hide();
+			
+								$button
+									.insertAfter($container)
+									.on('click', function() {
+										startTests();
+									});
+							} else {
+								startTests();
+							}
+						})(jQuery);
+					</script>
+				</div>
+			<!-- //DO NOT COPY -->
+</body>
+</html>

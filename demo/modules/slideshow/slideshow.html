@@ -1,0 +1,138 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Demo: Slideshow – Estático</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../../assets/css/main.min.css">
+	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
+
+	<script src="../../../assets/js/head.min.js"></script>
+</head>
+<body>
+	<div class="sg_wrapper">
+		<h1 class="sg_title">
+			<a href="../../../" class="sg_logo">Estático</a>
+
+			Demo: Slideshow
+		</h1>
+
+		<h2 class="sg_h2">Demo</h2>
+		<div class="clearfix">
+<div class="mod_slideshow" data-init="slideshow" data-slideshow-data='{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}' data-slideshow-options='{"animationDuration":100}'>
+	<div class="slides" data-slideshow="slides">
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/201" alt="Bill Murray 1">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/202" alt="Bill Murray 2">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/203" alt="Bill Murray 3">
+			</div>
+	</div>
+</div>
+		</div>
+
+		<h2 class="sg_h2">Code</h2>
+		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_slideshow"</span> <span class="hljs-attribute">data-init</span>=<span class="hljs-value">"slideshow"</span> <span class="hljs-attribute">data-slideshow-data</span>=<span class="hljs-value">'{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}'</span> <span class="hljs-attribute">data-slideshow-options</span>=<span class="hljs-value">'{"animationDuration":100}'</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"slides"</span> <span class="hljs-attribute">data-slideshow</span>=<span class="hljs-value">"slides"</span>&gt;</span>
+		{{#each slides}}
+			{{&gt; "demo/modules/slideshow/_slideshow_slide.js" this}}
+		{{/each}}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</pre>
+
+			<div class="sg_documentation">
+				<h2 class="sg_h2">Documentation</h2>
+
+				<h2 id="description">Description</h2>
+<p>Slideshow / carousel thingy (for demo purposes only).</p>
+<ul>
+<li>Log <code>estatico.modules.slideshow.instances.slideshow1</code> to the console to see this instance and, specifically, how data and options are handled.</li>
+<li>It fires of an ajax request to <code>/mocks/demo/modules/slideshow/slideshow.json</code> which is delayed by 5s when running the gulp preview server.</li>
+<li>It listens to the custom <code>debouncedscroll</code> and <code>debouncedresize</code> events ands logs the orginial ones.</li>
+<li>It listens to the custom <code>mq</code> event and logs whether it&#39;s currently above or below the &quot;small&quot; breakpoint (as specified in <code>_mediaqueries.scss</code>).</li>
+</ul>
+<h2 id="integration">Integration</h2>
+<p>Copy HTML. The <code>data-slideshow-data</code> and <code>data-slideshow-options</code> attributes are optional. Dito for the script block which can be used for global data/options.</p>
+
+			</div>
+
+			<h2 class="sg_h2">Data mocking</h2>
+
+
+				<pre class="sg_code hljs">{
+	"<span class="hljs-attribute">slides</span>": <span class="hljs-value">[
+		{
+			"<span class="hljs-attribute">src</span>": <span class="hljs-value"><span class="hljs-string">"http://www.fillmurray.com/600/204"</span></span>,
+			"<span class="hljs-attribute">alt</span>": <span class="hljs-value"><span class="hljs-string">"Bill Murray 4"</span>
+		</span>},
+		{
+			"<span class="hljs-attribute">src</span>": <span class="hljs-value"><span class="hljs-string">"http://www.fillmurray.com/600/205"</span></span>,
+			"<span class="hljs-attribute">alt</span>": <span class="hljs-value"><span class="hljs-string">"Bill Murray 5"</span>
+		</span>},
+		{
+			"<span class="hljs-attribute">src</span>": <span class="hljs-value"><span class="hljs-string">"http://www.fillmurray.com/600/206"</span></span>,
+			"<span class="hljs-attribute">alt</span>": <span class="hljs-value"><span class="hljs-string">"Bill Murray 6"</span>
+		</span>}
+	]
+</span>}</pre>
+
+		<script src="../../../assets/js/main.min.js"></script>
+
+				<h2 class="sg_h2">QUnit tests</h2>
+
+				<!-- DO NOT COPY -->
+					<div class="sg_tests">
+						<div id="qunit"></div>
+						<div id="qunit-fixture"></div>
+				
+						<script src="../../../test/assets/vendor/qunit/qunit/qunit.js"></script>
+						<script>QUnit.config.autostart = false;</script>
+				
+							<script src="../../../test/demo/modules/slideshow/slideshow.test.js"></script>
+				
+						<script>
+							;(function($) {
+								'use strict';
+				
+								var $container = $('#qunit'),
+									$button = $('<button>Run QUnit tests</button>'),
+									startTests = function() {
+										$container.show();
+				
+										$('<link/>', {
+											rel: 'stylesheet',
+											href: '../../../test/assets/vendor/qunit/qunit/qunit.css'
+										}).appendTo('head');
+				
+										$button.remove();
+				
+										QUnit.start();
+									};
+				
+								if ($.isEmptyObject(QUnit.urlParams)) {
+									$container.hide();
+				
+									$button
+										.insertAfter($container)
+										.on('click', function() {
+											startTests();
+										});
+								} else {
+									startTests();
+								}
+							})(jQuery);
+						</script>
+					</div>
+				<!-- //DO NOT COPY -->
+	</div>
+</body>
+</html>

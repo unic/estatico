@@ -1,0 +1,99 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Handlebars helpers – Estático</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../../assets/css/main.min.css">
+
+	<script src="../../../assets/js/head.min.js"></script>
+</head>
+<body>
+		<div class="mod_skiplinks">
+			<ul>
+					<li>
+						<a href="#main" accesskey="1" title="[ALT + 1]">
+							Skip to content
+						</a>
+					</li>
+			</ul>
+		</div>
+
+	<div class="layout_wrapper" id="main">
+		<h2>Handlebars helpers</h2>
+
+		<p>This page demonstrates the use of a some handlebars helpers (see helpers/handlebars.js).</p>
+
+		<p><strong>WARNING: Use them with caution, they currently won&#x27;t work on the client-side when precompiling templates.</strong></p>
+
+		<hr>
+
+		<h3>Dynamic partial (demo/modules/slideshow/slideshow)</h3>
+
+		<div class="mod_slideshow" data-init="slideshow" data-slideshow-data='{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}' data-slideshow-options='{"animationDuration":100}'>
+	<div class="slides" data-slideshow="slides">
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/201" alt="Bill Murray 1">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/202" alt="Bill Murray 2">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/203" alt="Bill Murray 3">
+			</div>
+	</div>
+</div>
+
+
+		<h3>Dynamic partial with placeholder in name ("demo/modules/slideshow/{{partialPlaceholder}}")</h3>
+
+		<div class="mod_slideshow" data-init="slideshow" data-slideshow-data='{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}' data-slideshow-options='{"animationDuration":100}'>
+	<div class="slides" data-slideshow="slides">
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/201" alt="Bill Murray 1">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/202" alt="Bill Murray 2">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/203" alt="Bill Murray 3">
+			</div>
+	</div>
+</div>
+
+
+		<h3>Dynamic partial inside each loop</h3>
+
+			<div class="mod_slideshow" data-init="slideshow" data-slideshow-data='{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}' data-slideshow-options='{"animationDuration":100}'>
+	<div class="slides" data-slideshow="slides">
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/201" alt="Bill Murray 1">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/202" alt="Bill Murray 2">
+			</div>
+			<div class="slide" data-slideshow="slide">
+				<img src="http://www.fillmurray.com/600/203" alt="Bill Murray 3">
+			</div>
+	</div>
+</div>
+
+
+		<h3>Comparisons: Check if string contains substring</h3>
+
+			"hello world" contains "hello"
+
+		<h3>Comparisons: Check if string is equal to other string</h3>
+
+			"hello world" is equal to "hello world"
+	</div>
+
+	<script src="../../../assets/js/main.min.js"></script>
+
+</body>
+</html>
