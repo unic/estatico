@@ -6,13 +6,21 @@
 
 @import "../../../node_modules/highlight.js/styles/github";
 
+@mixin boxed {
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 
 // Styleguide defaults
 // ----------------------------------------------------------------------------------------------------
 
+$sg_font: monospace;
+
 // Colors
 $sg_colorWhite: #fff;
-$sg_colorLightGray: #ddd;
+$sg_colorLightGray: #eaeaea;
 $sg_colorGray: #999;
 $sg_colorBlack: #000;
 $sg_colorUnicGreen: #a4c400;
@@ -25,20 +33,43 @@ $sg_defaultTransitionDelay: 0s;
 $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
 
 
-// Styleguide index page
+// Styleguide
 // ----------------------------------------------------------------------------------------------------
 .sg_wrapper {
-	padding: 2em;
+	section {
+		@include clearfix;
+		margin-bottom: pxToEm(70px);
+
+		&:nth-of-type(even) {
+			margin-bottom: 1em;
+			padding-bottom: pxToEm(36px);
+			background-color: $sg_colorLightGray;
+		}
+
+		.sg_h2,
+		.sg_h3,
+		.sg_documentation,
+		.sg_code,
+		.sg_variant_meta,
+		.sg_tests {
+			@include boxed;
+		}
+	}
 }
 
 .sg_main {
-	display: flex;
-	flex-flow: row wrap;
+	flex-direction: row;
+	flex-wrap: wrap;
+	display:flex;
 	justify-content: flex-start;
-	margin: 0 pxToEm(-10);
+	align-content: flex-start;
+	align-items: flex-start;
+	margin-left: pxToEm(12px);
+	margin-right: pxToEm(12px);
 
 	h2 {
 		margin: 0;
+		font-size: 1.7em;
 	}
 
 	ul,
@@ -48,43 +79,58 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
 	a {
 		display: inline-block;
-		padding: 0.2em 0;
+		padding: 0.4em 0;
 		color: $sg_colorGray;
+		text-decoration: none;
+		line-height: 1.3;
 
 		&:hover {
 			color: $sg_colorBlack;
 			text-decoration: none;
 		}
 	}
+
+	h2, a {
+		font-family: $sg_font;
+	}
 }
 
 .sg_inner_wrapper {
 	box-sizing: border-box;
-	padding: 1em;
-	background-color: rgba($sg_colorGray, 0.1);
+	border-top: 6px solid;
+	padding: 1em 0;
+	//background-color: rgba($sg_colorGray, 0.1);
 
 	// Wrapper around lists on the index page
 	&.var_sg_index {
-		border: pxToEm(10) solid $sg_colorWhite;
-		border-width: 0 pxToEm(10);
-		width: 100%;
-		margin: 0 0 pxToEm(20) 0;
+		//border: pxToEm(10) solid $sg_colorWhite;
+		//border-width: 0 pxToEm(10);
+		//width: 100%;
+		//margin: 0 0 pxToEm(20) 0;
+		font-family: $sg_font;
+		font-size: 1.3em;
 
-		@include mq($from: 500px) {
-			width: 50%;
+		margin: pxToEm(10px);
+		flex-grow: 1;
+		flex-basis: 100%;
+
+		@include mq($from: 600px) {
+			flex-basis: 45%;
+			//width: 50%;
 		}
 
-		@include mq($from: 700px) {
-			width: 33.333%;
+		@include mq($from: 900px) {
+			flex-basis: 30%;
+			//width: 33.333%;
 		}
 
-		@include mq($from: 1000px) {
+		/*@include mq($from: 1000px) {
 			width: 25%;
 		}
 
 		@include mq($from: 1300px) {
 			width: 20%;
-		}
+		}*/
 	}
 }
 
@@ -95,30 +141,96 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 
+.sg_tabs {
+	$numTabs: 5;
+	$bgcolorActive: $sg_colorLightGray;
+	//$bgcolorFocus: rgba(128,0,255,0.2);
+	//$bgcolorHover: rgba(0,128,255,0.2);
+	/*
+	 * Functionality
+	 */
+	.tab_trigger {
+		@include visuallyhidden;
+	}
+	.tab_content {
+		display: none;
+	}
+
+	$i: $numTabs;
+	@while $i > 0 {
+		.tab_trigger:nth-child(#{$i}):checked ~ .panels > .tab_content:nth-child(#{$i}) {
+			display: block;
+		}
+		.tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
+			background-color: $bgcolorActive;
+			border-left: 1px solid $bgcolorActive;
+			border-right: 1px solid $bgcolorActive;
+			border-top: 1px solid $bgcolorActive;
+			font-weight: bold;
+		}
+		/*.tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
+			background-color: $bgcolorFocus;
+		}
+		.tab_trigger:nth-child(#{$i}):hover ~ .labels > label:nth-child(#{$i}) {
+			background-color: $bgcolorHover;
+		}*/
+		$i: $i - 1;
+	}
+
+	.labels {
+		@include clearfix;
+		@include boxed;
+		border-bottom: 1px solid $sg_colorLightGray;
+		& > label {
+			border-radius: 4px 4px 0 0;
+			display: inline-block;
+			padding: 8px 18px;
+		}
+	}
+}
+
+.hljs {
+	background-color: $sg_colorLightGray;
+}
+
+
 // Styleguide content styles
 // ----------------------------------------------------------------------------------------------------
 .sg_title {
-	$sizeFont: 24px;
+	$sizeFont: 35px;
 
 	font-family: Georgia, serif;
 	font-size: pxToEm($sizeFont);
-	font-weight: 400;
-	margin: 0 0 pxToEm(50, $sizeFont) 0;
+	font-weight: 600;
+
+	//margin: pxToEm(24px, $sizeFont) pxToEm(24px, $sizeFont) pxToEm(38px, $sizeFont) pxToEm(24px, $sizeFont);
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 1em pxToEm(22px, $sizeFont);
+
+	.sg_module & {
+		//background-image: linear-gradient(white 20%, $sg_colorLightGray);
+		//color: $sg_colorWhite;
+		@include boxed;
+	}
 }
 
 .sg_logo {
-	border-bottom: 1px solid;
+	border-bottom: 3px solid;
 	color: inherit;
 	text-decoration: none;
 }
 
 %sg_sub_headings {
-	font-weight: 400;
+	font-weight: 600;
 	margin-top: 2em;
+	font-family: $sg_font;
 }
 .sg_h2 {
 	@extend %sg_sub_headings;
-	border-bottom: 1px solid rgba($sg_colorBlack, 0.2);
+	//border-bottom: 1px solid rgba($sg_colorBlack, 0.2);
+	font-size: 2em;
 }
 .sg_h3 {
 	@extend %sg_sub_headings;
@@ -231,6 +343,11 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // ----------------------------------------------------------------------------------------------------
 .sg_demo {
 	@include clearfix;
+	right: 0;
+
+	//border: 0.5em solid rgba($sg_colorBlack, 0.2);
+	//border-width: 0.5em 0;
+	//margin: 0 -2em;
 }
 
 
@@ -254,7 +371,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	}
 
 	code {
-		background: #f8f8f8;
+		background: $sg_colorLightGray;
 		color: #666;
 		padding: 0 0.2em;
 	}

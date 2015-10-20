@@ -15,74 +15,99 @@
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
-	<div class="sg_wrapper">
+	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{project}}</a>
-
-			{{#if meta.title}}{{meta.title}}{{/if}}
+			{{#if meta.title}}
+				<a href="/" class="sg_logo">{{meta.title}}</a>
+			{{else}}
+				<a href="/" class="sg_logo">{{project}}</a>
+			{{/if}}
 		</h1>
 
-		<h2 class="sg_h2">Demo</h2>
-		<div class="sg_demo">
-			{{#block "content"}}
-				{{{demo}}}
-			{{/block}}
-		</div>
+		<section>
+			<h2 class="sg_h2">Module Preview</h2>
+			<div class="sg_demo">
+				{{#block "content"}}
+					{{{demo}}}
+				{{/block}}
+			</div>
+		</section>
 
-		<h2 class="sg_h2">Code</h2>
-		<pre class="sg_code hljs">{{{meta.code}}}</pre>
+		<section>
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs">{{{meta.code}}}</pre>
+		</section>
 
 		{{#if meta.documentation}}
-			<div class="sg_documentation">
+			<section>
 				<h2 class="sg_h2">Documentation</h2>
 
-				{{{meta.documentation}}}
-			</div>
+				<div class="sg_documentation">
+					{{{meta.documentation}}}
+				</div>
+			</section>
 		{{/if}}
 
 		{{#if meta.mocks}}
-			<h2 class="sg_h2">Data mocking</h2>
+			<section>
+				<h2 class="sg_h2">Data mocking</h2>
 
-			{{#each meta.mocks}}
-				{{#if description}}
-					<h3 class="sg_h3">{{description}}</h3>
-				{{/if}}
+				{{#each meta.mocks}}
+					{{#if description}}
+						<h3 class="sg_h3">{{description}}</h3>
+					{{/if}}
 
-				<pre class="sg_code hljs">{{{data}}}</pre>
-			{{/each}}
+					<pre class="sg_code hljs">{{{data}}}</pre>
+				{{/each}}
+			</section>
 		{{/if}}
 
 		{{#if variants}}
-			<div class="sg_variants">
+			<section class="sg_variants">
 				<h2 class="sg_h2">Variants</h2>
 
-				{{#each variants}}
-					{{#if meta}}
-						<div class="sg_variant_meta">
-							{{#if meta.title}}
-								<h3>{{meta.title}}</h3>
-							{{/if}}
+				<div class="sg_tabs">
+					{{#each variants}}
+						<input type="radio" name="variants" class="tab_trigger" id="variants{{@index}}"{{#unless @index}} checked{{/unless}} aria-controls="panel{{@index}}" role="tab" />
+					{{/each}}
 
-							{{#if meta.desc}}
-								<p>{{meta.desc}}</p>
-							{{/if}}
-						</div>
-					{{/if}}
-
-					<div class="sg_demo clearfix">
-						{{{demo}}}
+					<div class="labels" aria-hidden="true">
+						{{#each variants}}
+							<label for="variants{{@index}}" id="tabLabel{{@index}}">{{meta.title}}</label>
+						{{/each}}
 					</div>
-				{{/each}}
-			</div>
+
+					<div class="panels">
+						{{#each variants}}
+							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
+								{{!-- "content" is a reserved word in Handlebars, therefore we need the "this" keyword here. --}}
+								{{#if meta}}
+									<div class="sg_variant_meta">
+										{{#if meta.desc}}
+											<p>{{meta.desc}}</p>
+										{{/if}}
+									</div>
+								{{/if}}
+
+								<div class="sg_demo">
+									{{{demo}}}
+								</div>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+			</section>
 		{{/if}}
 
 		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
 
 		{{#block "scripts"}}
 			{{#if meta.testScripts}}
-				<h2 class="sg_h2">QUnit tests</h2>
+				<section>
+					<h2 class="sg_h2">QUnit tests</h2>
 
-				{{> "preview/partials/qunit"}}
+					{{> "preview/partials/qunit"}}
+				</section>
 			{{/if}}
 		{{/block}}
 	</div>
