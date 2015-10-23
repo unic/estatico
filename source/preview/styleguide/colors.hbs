@@ -1,6 +1,7 @@
 {{#extend "preview/layouts/layout"}}
+	{{#content "class"}}sg_colors{{/content}}
 	{{#content "content"}}
-		<ul class="sg_color_list">
+		<ul class="sg_inner_wrapper sg_color_list">
 			{{#each colors}}
 				{{#unless hideFromStyleguide}}
 					<li class="sg_color_item" title="{{color}}">

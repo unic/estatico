@@ -18,13 +18,13 @@
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			{{#if meta.title}}
-				<a href="/" class="sg_logo">{{meta.title}}</a>
+				<a href="/">{{meta.title}}</a>
 			{{else}}
-				<a href="/" class="sg_logo">{{project}}</a>
+				<a href="/">{{project}}</a>
 			{{/if}}
 		</h1>
 
-		<section>
+		<section class="sg_inner_wrapper">
 			<h2 class="sg_h2">Module Preview</h2>
 			<div class="sg_demo">
 				{{#block "content"}}
@@ -33,13 +33,13 @@
 			</div>
 		</section>
 
-		<section>
+		<section class="sg_inner_wrapper">
 			<h2 class="sg_h2">Code</h2>
 			<pre class="sg_code hljs">{{{meta.code}}}</pre>
 		</section>
 
 		{{#if meta.documentation}}
-			<section>
+			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Documentation</h2>
 
 				<div class="sg_documentation">
@@ -49,7 +49,7 @@
 		{{/if}}
 
 		{{#if meta.mocks}}
-			<section>
+			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Data mocking</h2>
 
 				{{#each meta.mocks}}
@@ -103,7 +103,7 @@
 
 		{{#block "scripts"}}
 			{{#if meta.testScripts}}
-				<section>
+				<section class="sg_inner_wrapper">
 					<h2 class="sg_h2">QUnit tests</h2>
 
 					{{> "preview/partials/qunit"}}

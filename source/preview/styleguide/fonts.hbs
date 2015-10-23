@@ -7,20 +7,21 @@ diese in eigenen blöcken definiert werden.
 */}}
 
 {{#extend "preview/layouts/layout"}}
+	{{#content "class"}}sg_fonts{{/content}}
 	{{#content "content"}}
 		{{#each fonts}}
-			<h2 class="sg_h2">{{this.family}}</h2>
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">{{this.family}}</h2>
 
-			<div style="font-family: {{this.family}}">
 				{{#each this.font}}
 					<div class="sg_fonts_font">
 						{{#each this.weight}}
 							{{#each ../this.size}}
 								{{#each ../../this.style}}
-									<div class="sg_font_size" title="{{../../../../this.family}} {{this}} {{../../this}} {{../this}}px">
-										<div>{{this}} {{../../this}} {{../this}}px</div>
+									<div class="sg_subsection" title="{{../../../../this.family}} {{this}} {{../../this}} {{../this}}px">
+										<h3 class="sg_h3">{{this}} {{../../this}} {{../this}}px</h3>
 
-										<div style="font-style: {{this}}; font-size: {{../this}}px; font-weight: {{../../this}};">
+										<div style="font-family: {{../../../../family}}; font-style: {{this}}; font-size: {{../this}}px; font-weight: {{../../this}};">
 											A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 											a b c d e f g h i j k l m n o p q r s t u v w x y z
 											0 1 2 3 4 5 6 7 8 9 . , ; : - _ = { } ( ) [ ]
@@ -31,7 +32,7 @@ diese in eigenen blöcken definiert werden.
 						{{/each}}
 					</div>
 				{{/each}}
-			</div>
+			</section>
 		{{/each}}
 	{{/content}}
 {{/extend}}
