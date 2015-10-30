@@ -1918,7 +1918,7 @@
                 },
                 "inherits": {
                   "version": "2.0.1",
-                  "from": "inherits@>=2.0.1 <2.1.0",
+                  "from": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
                   "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                 },
                 "minimatch": {
@@ -3018,7 +3018,7 @@
                 },
                 "inherits": {
                   "version": "2.0.1",
-                  "from": "inherits@>=2.0.1 <2.1.0",
+                  "from": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
                   "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                 }
               }
@@ -3279,7 +3279,7 @@
               "dependencies": {
                 "inherits": {
                   "version": "2.0.1",
-                  "from": "inherits@>=2.0.1 <2.1.0",
+                  "from": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
                   "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                 },
                 "readable-stream": {
@@ -4479,7 +4479,7 @@
               "dependencies": {
                 "inherits": {
                   "version": "2.0.1",
-                  "from": "inherits@>=2.0.1 <2.1.0",
+                  "from": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
                   "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                 },
                 "typedarray": {
@@ -6791,7 +6791,7 @@
                               "dependencies": {
                                 "inflight": {
                                   "version": "1.0.4",
-                                  "from": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
+                                  "from": "inflight@>=1.0.4 <2.0.0",
                                   "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "dependencies": {
                                     "wrappy": {
@@ -6823,7 +6823,7 @@
                                         },
                                         "concat-map": {
                                           "version": "0.0.1",
-                                          "from": "concat-map@0.0.1",
+                                          "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                           "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                         }
                                       }
@@ -8226,7 +8226,7 @@
                                         },
                                         "concat-map": {
                                           "version": "0.0.1",
-                                          "from": "concat-map@0.0.1",
+                                          "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                           "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                         }
                                       }
@@ -10312,7 +10312,7 @@
                               "dependencies": {
                                 "inflight": {
                                   "version": "1.0.4",
-                                  "from": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
+                                  "from": "inflight@>=1.0.4 <2.0.0",
                                   "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "dependencies": {
                                     "wrappy": {
@@ -10344,7 +10344,7 @@
                                         },
                                         "concat-map": {
                                           "version": "0.0.1",
-                                          "from": "concat-map@0.0.1",
+                                          "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                           "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                         }
                                       }
@@ -11747,7 +11747,7 @@
                                         },
                                         "concat-map": {
                                           "version": "0.0.1",
-                                          "from": "concat-map@0.0.1",
+                                          "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                           "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                         }
                                       }
@@ -12099,7 +12099,7 @@
                                     },
                                     "concat-map": {
                                       "version": "0.0.1",
-                                      "from": "concat-map@0.0.1",
+                                      "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                     }
                                   }
@@ -13919,7 +13919,7 @@
                               "dependencies": {
                                 "inflight": {
                                   "version": "1.0.4",
-                                  "from": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
+                                  "from": "inflight@>=1.0.4 <2.0.0",
                                   "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "dependencies": {
                                     "wrappy": {
@@ -13951,7 +13951,7 @@
                                         },
                                         "concat-map": {
                                           "version": "0.0.1",
-                                          "from": "concat-map@0.0.1",
+                                          "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                           "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                         }
                                       }
@@ -15354,7 +15354,7 @@
                                         },
                                         "concat-map": {
                                           "version": "0.0.1",
-                                          "from": "concat-map@0.0.1",
+                                          "from": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
                                           "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                                         }
                                       }
@@ -16404,7 +16404,7 @@
                 },
                 "inherits": {
                   "version": "2.0.1",
-                  "from": "inherits@>=2.0.1 <2.1.0",
+                  "from": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
                   "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                 },
                 "minimatch": {
@@ -16710,7 +16710,7 @@
                 },
                 "lodash": {
                   "version": "3.10.1",
-                  "from": "lodash@>=3.1.0 <4.0.0",
+                  "from": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz",
                   "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
                 },
                 "marked": {
@@ -17812,8 +17812,8 @@
     },
     "gulp-raster": {
       "version": "0.1.0",
-      "from": "git://github.com/unic/gulp-raster.git#b3ce956",
-      "resolved": "git://github.com/unic/gulp-raster.git#b3ce956002a671ddee216bb18ca574fecb06cf3f",
+      "from": "git://github.com/unic/gulp-raster.git#6e0dba1",
+      "resolved": "git://github.com/unic/gulp-raster.git#6e0dba1782f8bde17e8135eab6da2737a08bba7b",
       "dependencies": {
         "through2": {
           "version": "2.0.0",
@@ -17996,7 +17996,7 @@
                               "dependencies": {
                                 "spdx-license-ids": {
                                   "version": "1.1.0",
-                                  "from": "spdx-license-ids@>=1.0.0 <2.0.0",
+                                  "from": "spdx-license-ids@>=1.0.2 <2.0.0",
                                   "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-1.1.0.tgz"
                                 }
                               }
@@ -18013,7 +18013,7 @@
                                 },
                                 "spdx-license-ids": {
                                   "version": "1.1.0",
-                                  "from": "spdx-license-ids@>=1.0.0 <2.0.0",
+                                  "from": "spdx-license-ids@>=1.0.2 <2.0.0",
                                   "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-1.1.0.tgz"
                                 }
                               }
@@ -18407,18 +18407,23 @@
           }
         },
         "phridge": {
-          "version": "0.1.5",
-          "from": "phridge@>=0.1.2 <0.2.0",
-          "resolved": "https://registry.npmjs.org/phridge/-/phridge-0.1.5.tgz",
+          "version": "1.1.0",
+          "from": "phridge@>=1.1.0 <1.2.0",
+          "resolved": "https://registry.npmjs.org/phridge/-/phridge-1.1.0.tgz",
           "dependencies": {
-            "getport": {
-              "version": "0.1.0",
-              "from": "getport@>=0.1.0 <0.2.0",
-              "resolved": "https://registry.npmjs.org/getport/-/getport-0.1.0.tgz"
+            "fork-stream": {
+              "version": "0.0.4",
+              "from": "fork-stream@>=0.0.4 <0.0.5",
+              "resolved": "https://registry.npmjs.org/fork-stream/-/fork-stream-0.0.4.tgz"
+            },
+            "linerstream": {
+              "version": "0.1.4",
+              "from": "linerstream@>=0.1.4 <0.2.0",
+              "resolved": "https://registry.npmjs.org/linerstream/-/linerstream-0.1.4.tgz"
             },
             "phantomjs": {
               "version": "1.9.18",
-              "from": "phantomjs@>=1.0.0 <2.0.0",
+              "from": "phantomjs@>=1.9.7-15 <2.0.0",
               "resolved": "https://registry.npmjs.org/phantomjs/-/phantomjs-1.9.18.tgz",
               "dependencies": {
                 "adm-zip": {
@@ -18829,7 +18834,7 @@
             },
             "when": {
               "version": "3.7.4",
-              "from": "when@>=3.2.3 <4.0.0",
+              "from": "when@>=3.4.2 <4.0.0",
               "resolved": "https://registry.npmjs.org/when/-/when-3.7.4.tgz"
             }
           }

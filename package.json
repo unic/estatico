@@ -41,7 +41,7 @@
     "gulp-plumber": "1.0.0",
     "gulp-prettify": "0.3.0",
     "gulp-qunit": "1.2.1",
-    "gulp-raster": "git://github.com/unic/gulp-raster.git#b3ce956",
+    "gulp-raster": "git://github.com/unic/gulp-raster.git#6e0dba1",
     "gulp-rename": "1.2.2",
     "gulp-resolve-dependencies": "2.1.0",
     "gulp-sass": "2.0.1",
