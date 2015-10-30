@@ -2,8 +2,9 @@
 
 Bugfixes:
 
+ESTATICO-177: Update gulp-raster to fix issue on Windows
 FROBOIL-155: Fix QUnit path handling to work on Windows
-FROBOIL-155: Fix npm script paths
+FROBOIL-155: Fix npm script paths to work on Windows
 
 ## 3.0.0
 
