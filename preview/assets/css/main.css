@@ -1,0 +1,357 @@
+/**
+ * Default variables
+ */
+/**
+ * Custom colors
+ */
+/**
+ * Colors imported from ColorSchemer export
+ */
+/**
+ * Helper functions
+ */
+/**
+ * Hide visually
+ *
+ * See http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ * for discussion of different solutions
+ */
+/**
+ * Contain floats with clearfix
+ *
+ * http://nicolasgallagher.com/micro-clearfix-hack/
+ */
+/**
+ * Lists with layout purpose
+ */
+/**
+ * Replace text
+ */
+/**
+ * Better font rendering (on OS X)
+ * http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+ *
+ * Usage:
+ *
+ * .var_dark_on_light {
+ * 	@include fontSmoothing;
+ * }
+ * .var_light_on_dark {
+ * 	@include fontSmoothingReset;
+ * }
+ */
+/**
+ * Placeholder in input fields
+ */
+/**
+ * Inspired from https://github.com/guardian/sass-mq.git
+ */
+/**
+ * // To enable support for browsers that do not support @media queries,
+ * (IE <= 8, Firefox <= 3, Opera <= 9) set $mqResponsive to false
+ * Create a separate stylesheet served exclusively to these browsers,
+ * meaning @media queries will be rasterized, relying on the cascade itself
+ */
+/**
+ * Name your breakpoints in a way that creates a ubiquitous language
+ * across team members. It will improve communication between
+ * stakeholders, designers, developers, and testers.
+ */
+/**
+ * Define the breakpoint from the $mqBreakpoints list that should
+ * be used as the target width when outputting a static stylesheet
+ * (i.e. when $mqResponsive is set to 'false').
+ */
+/**
+ * If you want to display the currently active breakpoint in the top
+ * right corner of your site during development, add the breakpoints
+ * to this list, ordered by width, e.g. (mobile, tablet, desktop).
+ */
+/**
+ * Media Query mixin
+ * Usage:
+ * .element {
+ *     @include mq($from: mobile) {
+ *         color: red;
+ *     }
+ *     @include mq($to: tablet) {
+ *         color: blue;
+ *     }
+ *     @include mq(mobile, tablet) {
+ *         color: green;
+ *     }
+ *     @include mq($from: tablet, $and: '(orientation: landscape)') {
+ *         color: teal;
+ *     }
+ *     @include mq(950px) {
+ *         color: hotpink;
+ *     }
+ * }
+ */
+/**
+ * Add a breakpoint
+ * Usage: $mqBreakpoints: mqAddBreakpoint(tvscreen, 1920px);
+ */
+/**
+ * Create JSON string of map of breakpoints
+ */
+/**
+ * Create JSON string of single breakpoint
+ */
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+  -webkit-text-size-adjust: none; }
+
+.hljs-comment,
+.diff .hljs-header,
+.hljs-javadoc {
+  color: #998;
+  font-style: italic; }
+
+.hljs-keyword,
+.css .rule .hljs-keyword,
+.hljs-winutils,
+.nginx .hljs-title,
+.hljs-subst,
+.hljs-request,
+.hljs-status {
+  color: #333;
+  font-weight: bold; }
+
+.hljs-number,
+.hljs-hexcolor,
+.ruby .hljs-constant {
+  color: #008080; }
+
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-phpdoc,
+.hljs-dartdoc,
+.tex .hljs-formula {
+  color: #d14; }
+
+.hljs-title,
+.hljs-id,
+.scss .hljs-preprocessor {
+  color: #900;
+  font-weight: bold; }
+
+.hljs-list .hljs-keyword,
+.hljs-subst {
+  font-weight: normal; }
+
+.hljs-class .hljs-title,
+.hljs-type,
+.vhdl .hljs-literal,
+.tex .hljs-command {
+  color: #458;
+  font-weight: bold; }
+
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-rule .hljs-property,
+.django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal; }
+
+.hljs-attribute,
+.hljs-variable,
+.lisp .hljs-body,
+.hljs-name {
+  color: #008080; }
+
+.hljs-regexp {
+  color: #009926; }
+
+.hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.lisp .hljs-keyword,
+.clojure .hljs-keyword,
+.scheme .hljs-keyword,
+.tex .hljs-special,
+.hljs-prompt {
+  color: #990073; }
+
+.hljs-built_in {
+  color: #0086b3; }
+
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-pi,
+.hljs-doctype,
+.hljs-shebang,
+.hljs-cdata {
+  color: #999;
+  font-weight: bold; }
+
+.hljs-deletion {
+  background: #fdd; }
+
+.hljs-addition {
+  background: #dfd; }
+
+.diff .hljs-change {
+  background: #0086b3; }
+
+.hljs-chunk {
+  color: #aaa; }
+
+.sg_wrapper {
+  padding: 2em; }
+
+.sg_main {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 0 -0.83333em; }
+  .sg_main h2 {
+    margin: 0; }
+  .sg_main ul,
+  .sg_main li {
+    list-style-type: none; }
+  .sg_main a {
+    display: inline-block;
+    padding: 0.2em 0;
+    color: #999; }
+    .sg_main a:hover {
+      color: #000;
+      text-decoration: none; }
+
+.sg_inner_wrapper {
+  box-sizing: border-box;
+  padding: 1em;
+  background-color: rgba(153, 153, 153, 0.1); }
+  .sg_inner_wrapper.var_sg_index {
+    border: 0.83333em solid #fff;
+    border-width: 0 0.83333em;
+    width: 100%;
+    margin: 0 0 1.66667em 0; }
+    @media all and (min-width: 31.25em) {
+      .sg_inner_wrapper.var_sg_index {
+        width: 50%; } }
+    @media all and (min-width: 43.75em) {
+      .sg_inner_wrapper.var_sg_index {
+        width: 33.333%; } }
+    @media all and (min-width: 62.5em) {
+      .sg_inner_wrapper.var_sg_index {
+        width: 25%; } }
+    @media all and (min-width: 81.25em) {
+      .sg_inner_wrapper.var_sg_index {
+        width: 20%; } }
+
+.sg_index_list {
+  margin-bottom: 0;
+  padding: 0; }
+
+.sg_title {
+  font-family: Georgia, serif;
+  font-size: 2em;
+  font-weight: 400;
+  margin: 0 0 2.08333em 0; }
+
+.sg_logo {
+  border-bottom: 1px solid;
+  color: inherit;
+  text-decoration: none; }
+
+.sg_h2, .sg_h3, .sg_h4 {
+  font-weight: 400;
+  margin-top: 2em; }
+
+.sg_h2 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+
+.sg_block {
+  border-top: 1px solid #fff;
+  padding: 0.4em 0 2em; }
+
+.sg_block_label {
+  font-weight: 700;
+  font-size: 12px; }
+
+/* Icons */
+.sg_icons_label,
+.sg_icons_icon {
+  display: table-cell;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  vertical-align: top;
+  padding: 0.5em; }
+
+.sg_icons_icon {
+  width: 20%; }
+
+.sg_icons_icon:last-of-type {
+  border-right: 1px solid #ddd; }
+
+.sg_icons {
+  display: table;
+  width: 100%;
+  border-bottom: 1px solid #ddd; }
+
+.sg_icons_item {
+  display: table-row; }
+
+.sg_color_list {
+  *zoom: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin: 0 -0.83333em; }
+  .sg_color_list:before,
+  .sg_color_list:after {
+    content: " ";
+    display: table; }
+  .sg_color_list:after {
+    clear: both; }
+
+.sg_color_item {
+  margin: 0 0.83333em 1.66667em 0.83333em;
+  min-width: 10em;
+  float: left;
+  text-align: center; }
+  .sg_color_item:hover .sg_color_preview {
+    -webkit-transform: scale(1.25);
+        -ms-transform: scale(1.25);
+            transform: scale(1.25); }
+
+.sg_color_preview {
+  width: 5em;
+  height: 5em;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+          transition: all 0.2s ease-in-out 0s; }
+
+.sg_color_name {
+  padding-top: 0.8em;
+  font-weight: bold; }
+
+.sg_font_size {
+  border-bottom: 1px solid #ddd;
+  padding: 1em 0; }
+
+.sg_documentation code {
+  background: #f8f8f8;
+  color: #666;
+  padding: 0 0.2em; }
+
+/*# sourceMappingURL=../../../preview/assets/css/main.css.map */
