@@ -744,4 +744,322 @@ nav ol {
 .js .mod_slideshow .slide + .slide {
   display: none; }
 
+.mod_tabs {
+  /*
+	 * Configuration
+	 */
+  /*
+	 * Functionality
+	 */
+  /*
+	 * Variations
+	 */
+  /*
+	 * Styling
+	 */
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  max-width: 800px; }
+  .mod_tabs .tab_trigger {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; }
+  .mod_tabs .tab_content {
+    display: none; }
+  .mod_tabs .tab_trigger:nth-child(10):checked ~ .panels > .tab_content:nth-child(10) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(10):checked ~ .labels > label:nth-child(10) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(10):focus ~ .labels > label:nth-child(10) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(10):hover ~ .labels > label:nth-child(10) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(9):checked ~ .panels > .tab_content:nth-child(9) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(9):checked ~ .labels > label:nth-child(9) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(9):focus ~ .labels > label:nth-child(9) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(9):hover ~ .labels > label:nth-child(9) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(8):checked ~ .panels > .tab_content:nth-child(8) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(8):checked ~ .labels > label:nth-child(8) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(8):focus ~ .labels > label:nth-child(8) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(8):hover ~ .labels > label:nth-child(8) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(7):checked ~ .panels > .tab_content:nth-child(7) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(7):checked ~ .labels > label:nth-child(7) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(7):focus ~ .labels > label:nth-child(7) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(7):hover ~ .labels > label:nth-child(7) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(6):checked ~ .panels > .tab_content:nth-child(6) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(6):checked ~ .labels > label:nth-child(6) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(6):focus ~ .labels > label:nth-child(6) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(6):hover ~ .labels > label:nth-child(6) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(5):checked ~ .panels > .tab_content:nth-child(5) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(5):checked ~ .labels > label:nth-child(5) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(5):focus ~ .labels > label:nth-child(5) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(5):hover ~ .labels > label:nth-child(5) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(4):checked ~ .panels > .tab_content:nth-child(4) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(4):checked ~ .labels > label:nth-child(4) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(4):focus ~ .labels > label:nth-child(4) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(4):hover ~ .labels > label:nth-child(4) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(3):checked ~ .panels > .tab_content:nth-child(3) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(3):checked ~ .labels > label:nth-child(3) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(3):focus ~ .labels > label:nth-child(3) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(3):hover ~ .labels > label:nth-child(3) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(2):checked ~ .panels > .tab_content:nth-child(2) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(2):checked ~ .labels > label:nth-child(2) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(2):focus ~ .labels > label:nth-child(2) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(2):hover ~ .labels > label:nth-child(2) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(1):checked ~ .panels > .tab_content:nth-child(1) {
+    display: block; }
+  .mod_tabs .tab_trigger:nth-child(1):checked ~ .labels > label:nth-child(1) {
+    background-color: rgba(0, 255, 0, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(1):focus ~ .labels > label:nth-child(1) {
+    background-color: rgba(128, 0, 255, 0.2); }
+  .mod_tabs .tab_trigger:nth-child(1):hover ~ .labels > label:nth-child(1) {
+    background-color: rgba(0, 128, 255, 0.2); }
+  .mod_tabs.var_centered .labels {
+    text-align: center; }
+  .mod_tabs.var_expanded .labels {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-align-content: space-around;
+        -ms-flex-line-pack: distribute;
+            align-content: space-around; }
+  .mod_tabs.var_expanded .labels label {
+    /* width: 100%; */
+    text-align: center;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; }
+  .mod_tabs.var_animated {
+    /*
+		 * It is not possible to make a transition out from the tab to be hidden
+		 * because then the contents of the 2 tabs are shown at the same time
+		 * and they show 1 above the other, because we want to avoid position: absolute;
+		 * which would force us to recalculate the height with JS :(, something to be avoided
+		 */ }
+    .mod_tabs.var_animated .panels {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-flex-wrap: no-wrap;
+          -ms-flex-wrap: no-wrap;
+              flex-wrap: no-wrap; }
+    .mod_tabs.var_animated .tab_content {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      -webkit-transition: visibility 0s cubic-bezier(0.42, 0.44, 0.08, 1.49) 0.5s, opacity 0.5s cubic-bezier(0.42, 0.44, 0.08, 1.49);
+              transition: visibility 0s cubic-bezier(0.42, 0.44, 0.08, 1.49) 0.5s, opacity 0.5s cubic-bezier(0.42, 0.44, 0.08, 1.49);
+      /*flex $transitionDuration $transitionTiming*/
+      -webkit-flex-basis: 0;
+          -ms-flex-preferred-size: 0;
+              flex-basis: 0;
+      padding: 0;
+      overflow: hidden; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(10):checked ~ .panels > .tab_content:nth-child(10) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(9):checked ~ .panels > .tab_content:nth-child(9) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(8):checked ~ .panels > .tab_content:nth-child(8) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(7):checked ~ .panels > .tab_content:nth-child(7) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(6):checked ~ .panels > .tab_content:nth-child(6) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(5):checked ~ .panels > .tab_content:nth-child(5) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(4):checked ~ .panels > .tab_content:nth-child(4) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(3):checked ~ .panels > .tab_content:nth-child(3) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(2):checked ~ .panels > .tab_content:nth-child(2) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+    .mod_tabs.var_animated .tab_trigger:nth-child(1):checked ~ .panels > .tab_content:nth-child(1) {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+      -webkit-flex-basis: 100%;
+          -ms-flex-preferred-size: 100%;
+              flex-basis: 100%;
+      padding: 1em; }
+  .mod_tabs .labels > label {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin-bottom: 0.5em; }
+  .mod_tabs .tab_content {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    box-sizing: border-box; }
+
+.mod_notification {
+  position: fixed;
+  max-height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  *zoom: 1;
+  -webkit-overflow-scrolling: touch;
+  overflow: auto; }
+  .mod_notification:before,
+  .mod_notification:after {
+    content: " ";
+    display: table; }
+  .mod_notification:after {
+    clear: both; }
+  .mod_notification .message {
+    color: white;
+    padding: 0 0.83333rem;
+    opacity: 0;
+    -webkit-transition: padding ease-in-out 0.3s, opacity ease-in-out 0.3s;
+            transition: padding ease-in-out 0.3s, opacity ease-in-out 0.3s; }
+    .mod_notification .message.is_info {
+      background: blue; }
+    .mod_notification .message.is_success {
+      background: green; }
+    .mod_notification .message.is_error {
+      background: red; }
+    .mod_notification .message.is_expanded {
+      opacity: 1;
+      padding: 0.83333rem; }
+  .mod_notification .close_button {
+    float: right;
+    cursor: pointer; }
+  .mod_notification p {
+    padding: 0;
+    margin: 0; }
+
 /*# sourceMappingURL=../../assets/css/main.css.map */
