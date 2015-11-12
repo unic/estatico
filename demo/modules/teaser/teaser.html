@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Demo: Teaser – Estático</title>
+	<title>Demo: Teaser with module variants – Estático</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="../../../assets/css/main.min.css">
@@ -19,27 +19,62 @@
 		<h1 class="sg_title">
 			<a href="../../../" class="sg_logo">Estático</a>
 
-			Demo: Teaser
+			Demo: Teaser with module variants
 		</h1>
 
 		<h2 class="sg_h2">Demo</h2>
-		<div class="clearfix">
-<div class="mod_teaser">
+		<div class="sg_demo">
+				<div class="mod_teaser">
 	<h3 class="title">Teaser title</h3>
 
-	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 </div>
+
 		</div>
 
 		<h2 class="sg_h2">Code</h2>
-		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_teaser"</span>&gt;</span>
+		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_teaser{{#if variant}} {{variant}}{{/if}}"</span>&gt;</span>
 	<span class="hljs-tag">&lt;<span class="hljs-title">h3</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"title"</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
 
-	<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{{text}}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+	{{#if text}}
+		<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{{text}}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+	{{/if}}
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </pre>
 
 
+
+			<div class="sg_variants">
+				<h2 class="sg_h2">Variants</h2>
+
+						<div class="sg_variant_meta">
+								<h3>No text</h3>
+
+								<p>Used when there are no words.</p>
+						</div>
+
+					<div class="sg_demo clearfix">
+						<div class="mod_teaser">
+	<h3 class="title">Teaser title</h3>
+
+</div>
+
+					</div>
+						<div class="sg_variant_meta">
+								<h3>Inverted</h3>
+
+								<p>Used at night. Set &#x60;variant&#x60; to &#x60;var_inverted&#x60;.</p>
+						</div>
+
+					<div class="sg_demo clearfix">
+						<div class="mod_teaser var_inverted">
+	<h3 class="title">Teaser title</h3>
+
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+</div>
+
+					</div>
+			</div>
 
 		<script src="../../../assets/js/main.min.js"></script>
 

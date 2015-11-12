@@ -656,6 +656,12 @@ nav ol {
     background-image: url("../media/sprite.png");
     background-position: -90px 0px; }
 
+.mod_teaser {
+  padding: 0.2em 1em; }
+  .mod_teaser.var_inverted {
+    background: black;
+    color: white; }
+
 .mod_teasers {
   display: -webkit-box;
   display: -webkit-flex;

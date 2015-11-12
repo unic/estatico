@@ -349,6 +349,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   border-bottom: 1px solid #ddd;
   padding: 1em 0; }
 
+.sg_demo {
+  *zoom: 1; }
+  .sg_demo:before,
+  .sg_demo:after {
+    content: " ";
+    display: table; }
+  .sg_demo:after {
+    clear: both; }
+
 .sg_documentation code {
   background: #f8f8f8;
   color: #666;
