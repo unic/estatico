@@ -182,7 +182,7 @@
 	 * @public
 	 */
 	Module.prototype.resize = function() {
-		if (parseInt(estatico.mq.currentBreakpoint.value) > parseInt(estatico.mq.breakpoints.small)) {
+		if (estatico.mq.query({ from: 'small' })) {
 			console.log('slideshow.js', 'Viewport: Above small breakpoint');
 		} else {
 			console.log('slideshow.js', 'Viewport: Below small breakpoint');

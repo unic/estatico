@@ -117,7 +117,7 @@ if (estatico.mq.currentBreakpoint.name === 'large') {
 }
 
 // Check the current viewport against a specific breakpoint:
-if (parseInt(estatico.mq.currentBreakpoint.value) > parseInt(estatico.mq.breakpoints.small)) {
+if (estatico.mq.query({ from: 'small' })) {
 	this.destroySmall();
 	this.initLarge();
 }
