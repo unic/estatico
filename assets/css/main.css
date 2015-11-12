@@ -465,7 +465,7 @@ table {
  *
  * Used in styleguide, e.g.
  */
-.icon_twitter:before {
+.icon_email:before, .icon_facebook:before, .icon_gplus:before, .icon_pinterest:before, .icon_twitter:before {
   display: inline-block;
   font-family: "Icons";
   -webkit-font-smoothing: antialiased;
@@ -477,8 +477,20 @@ table {
   text-transform: none;
   line-height: 1; }
 
-.icon_twitter:before {
+.icon_email:before {
   content: ""; }
+
+.icon_facebook:before {
+  content: ""; }
+
+.icon_gplus:before {
+  content: ""; }
+
+.icon_pinterest:before {
+  content: ""; }
+
+.icon_twitter:before {
+  content: ""; }
 
 /**
  * Map containing all icons with their dimensions and color variants
@@ -602,7 +614,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_media .iconfont:before {
   font-size: 10em; }
@@ -1061,5 +1073,70 @@ nav ol {
   .mod_notification p {
     padding: 0;
     margin: 0; }
+
+.mod_socialwidget .link.var_facebook:before {
+  display: inline-block;
+  font-family: "Icons";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  line-height: 1;
+  content: ""; }
+
+.mod_socialwidget .link.var_googleplus:before {
+  display: inline-block;
+  font-family: "Icons";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  line-height: 1;
+  content: ""; }
+
+.mod_socialwidget .link.var_twitter:before {
+  display: inline-block;
+  font-family: "Icons";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  line-height: 1;
+  content: ""; }
+
+.mod_socialwidget .link.var_pinterest:before {
+  display: inline-block;
+  font-family: "Icons";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  line-height: 1;
+  content: ""; }
+
+.mod_socialwidget .link.var_mail:before {
+  display: inline-block;
+  font-family: "Icons";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  line-height: 1;
+  content: ""; }
 
 /*# sourceMappingURL=../../assets/css/main.css.map */

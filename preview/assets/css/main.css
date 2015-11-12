@@ -358,6 +358,19 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   .sg_demo:after {
     clear: both; }
 
+.sg_documentation th {
+  border-bottom: 1px solid #ddd;
+  text-align: left; }
+
+.sg_documentation th,
+.sg_documentation td {
+  border-left: 1px solid #ddd;
+  padding: 0.2em 0.5em; }
+  .sg_documentation th:first-child,
+  .sg_documentation td:first-child {
+    border-left: none;
+    padding-left: 0; }
+
 .sg_documentation code {
   background: #f8f8f8;
   color: #666;
