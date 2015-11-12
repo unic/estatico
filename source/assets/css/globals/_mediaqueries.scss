@@ -99,7 +99,7 @@ $mqShowBreakpoints: (small, medium, large);
 		@if type-of($staticBreakpointWidth) == number {
 			$targetWidth: pxToEm($staticBreakpointWidth, 16);
 			// Output only rules that start at or span our target width
-			@if ($and == false and ($minWidth <= $targetWidth) and (($to == false) or ($maxWidth >= $targetWidth))) {
+			@if ($and == false and ($minSize <= $targetWidth) and (($to == false) or ($maxSize >= $targetWidth))) {
 				@content;
 			}
 		} @else {
