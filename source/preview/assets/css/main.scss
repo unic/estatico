@@ -227,14 +227,44 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 
+// Module preview & variants
+// ----------------------------------------------------------------------------------------------------
+.sg_demo {
+	@include clearfix;
+}
+
+
 // Markdown documentation
 // ----------------------------------------------------------------------------------------------------
 .sg_documentation {
+
+	th {
+		border-bottom: 1px solid $sg_colorLightGray;
+		text-align: left;
+	}
+	th,
+	td {
+		border-left: 1px solid $sg_colorLightGray;
+		padding: 0.2em 0.5em;
+
+		&:first-child {
+			border-left: none;
+			padding-left: 0;
+		}
+	}
 
 	code {
 		background: #f8f8f8;
 		color: #666;
 		padding: 0 0.2em;
+	}
+
+	pre {
+
+		code {
+			display: block;
+			padding: 0.5em;
+		}
 	}
 }
 

@@ -25,6 +25,9 @@ var taskName = 'js:qunit',
 		srcTemplatesBase: './build/',
 		srcQUnit: 'assets/vendor/qunit/qunit/qunit.js',
 		destTemplates: './.qunit/',
+		srcPolyfills: [
+			'./source/assets/vendor/bind-polyfill/index.js'
+		],
 		watch: [
 			'source/modules/**/*.test.js',
 			'source/demo/modules/**/*.test.js'
@@ -38,12 +41,24 @@ gulp.task(taskName, function(cb) {
 		tap = require('gulp-tap'),
 		ignore = require('gulp-ignore'),
 		qunit = require('gulp-qunit'),
-		del = require('del');
+		del = require('del'),
+		glob = require('glob');
 
-	var ignoreFiles = [];
+	var srcTests = taskConfig.srcTests,
+		ignoreFiles = [],
+		polyfills = [],
+		polyfillPathPrefix = path.relative(taskConfig.srcTemplatesBase, taskConfig.destTests);
+
+	// Add polyfills to files to be copied
+	srcTests = srcTests.concat(taskConfig.srcPolyfills);
+
+	// Resolve paths of polyfills
+	taskConfig.srcPolyfills.forEach(function(fileGlob) {
+		polyfills = polyfills.concat(glob.sync(fileGlob));
+	});
 
 	// Copy test files
-	gulp.src(taskConfig.srcTests, {
+	gulp.src(srcTests, {
 		base: taskConfig.srcBase
 	})
 		.pipe(gulp.dest(taskConfig.destTests))
@@ -54,7 +69,7 @@ gulp.task(taskName, function(cb) {
 			})
 				.pipe(tap(function(file) {
 					var content = file.contents.toString(),
-						relPathPrefix = path.join(path.relative(file.path, taskConfig.srcTemplatesBase));
+						relPathPrefix = path.relative(file.path, taskConfig.srcTemplatesBase);
 
 					relPathPrefix = relPathPrefix
 						// Normalize path separator
@@ -76,6 +91,14 @@ gulp.task(taskName, function(cb) {
 
 					// Re-enable autostart
 					content = content.replace('QUnit.config.autostart = false;', '');
+
+					// Insert polyfills for PhantomJS
+					polyfills.forEach(function(filePath) {
+						filePath = path.join(polyfillPathPrefix, path.relative(taskConfig.srcBase, filePath));
+
+						content = content
+							.replace('<script', '<script src="' + filePath + '"></script><script')
+					});
 
 					file.contents = new Buffer(content);
 				}))

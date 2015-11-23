@@ -6,7 +6,7 @@
 Create static webserver with livereload functionality, serve build directory on port 9000, watch source files.
 
 * Prompts whether the `build` task should run in advance.
-* For non-interactive mode: `gulp --interactive=false skipBuild=true`
+* For non-interactive mode: `gulp --interactive=false --skipBuild`
 
 ## Generic options
 
@@ -26,11 +26,16 @@ Read task files and create a markdown files from their JSDoc documentation (usin
 ### `gulp livereload`
 Start livereload instance.
 
+CSS is injected without page-reload. However, the corresponding source map is not.
+In order to have an updated source map after changing the CSS, the page has to be reloaded manually.
+
 ### `gulp serve`
 Serve build directory on port 9000 (using `connect`).
 
 ### `gulp watch`
 Run specific tasks when specific files have changed. Uses the `gulp-watch` package since the native `gulp.watch` currently does not pick up new folders.
+
+* Fall back to polling (e.g. in Vagrant): `gulp --pollWatch=true`
 
 ### `gulp css:colors`
 Import colors from ColorSchemer HTML export and save to Sass file (based on Handlebars template).

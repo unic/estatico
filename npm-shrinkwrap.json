@@ -6791,7 +6791,7 @@
                               "dependencies": {
                                 "inflight": {
                                   "version": "1.0.4",
-                                  "from": "inflight@>=1.0.4 <2.0.0",
+                                  "from": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "dependencies": {
                                     "wrappy": {
@@ -10312,7 +10312,7 @@
                               "dependencies": {
                                 "inflight": {
                                   "version": "1.0.4",
-                                  "from": "inflight@>=1.0.4 <2.0.0",
+                                  "from": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "dependencies": {
                                     "wrappy": {
@@ -13919,7 +13919,7 @@
                               "dependencies": {
                                 "inflight": {
                                   "version": "1.0.4",
-                                  "from": "inflight@>=1.0.4 <2.0.0",
+                                  "from": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz",
                                   "dependencies": {
                                     "wrappy": {

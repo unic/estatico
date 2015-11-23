@@ -72,25 +72,27 @@
 
 		this.$element
 			.append(this.$nav)
-			.on('click.estatico.' + this.uuid, this.options.domSelectors.prev, $.proxy(function(event) {
+			.on('click.estatico.' + this.uuid, this.options.domSelectors.prev, function(event) {
 				event.preventDefault();
 
 				this.prev();
-			}, this))
-			.on('click.estatico.' + this.uuid, this.options.domSelectors.next, $.proxy(function(event) {
+			}.bind(this))
+			.on('click.estatico.' + this.uuid, this.options.domSelectors.next, function(event) {
 				event.preventDefault();
 
 				this.next();
-			}, this))
+			}.bind(this))
 			.addClass(this.options.stateClasses.isActivated);
 
 		// Exemplary AJAX request to mocked data with optional delay parameter (works with local preview server only)
-		request = $.ajax(this.options.url).done($.proxy(function(response) {
+		request = $.ajax(this.options.url).done(function(response) {
 			// Loop through slides and add them
-			$.each(response.slides || [], $.proxy(function(i, slide) {
-				this.add(slide);
-			}, this));
-		}, this)).fail(function(jqXHR) {
+			if (response.slides) {
+				response.slides.forEach(function(slide) {
+					this.add(slide);
+				}.bind(this));
+			}
+		}.bind(this)).fail(function(jqXHR) {
 			console.log('NOO!', jqXHR.status, jqXHR.statusText);
 		});
 
@@ -112,9 +114,9 @@
 		this.resize();
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
-		$(document).on(estatico.events.mq + '.' + this.uuid, $.proxy(function() {
+		$(document).on(estatico.events.mq + '.' + this.uuid, function() {
 			this.resize();
-		}, this));
+		}.bind(this));
 
 		this.show(this.options.initialItem);
 	};
