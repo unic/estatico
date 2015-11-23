@@ -26,7 +26,7 @@ var taskName = 'js:qunit',
 		srcQUnit: 'assets/vendor/qunit/qunit/qunit.js',
 		destTemplates: './.qunit/',
 		srcPolyfills: [
-			'./source/assets/vendor/bind-polyfill/index.js'
+			'./source/assets/vendor/react-bind-polyfill/index.js'
 		],
 		watch: [
 			'source/modules/**/*.test.js',
