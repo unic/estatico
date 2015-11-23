@@ -23,8 +23,9 @@
 		</h1>
 
 		<h2 class="sg_h2">Demo</h2>
-		<div class="clearfix">
+		<div class="sg_demo">
 			{{#block "content"}}
+				{{{demo}}}
 			{{/block}}
 		</div>
 
@@ -49,6 +50,30 @@
 
 				<pre class="sg_code hljs">{{{data}}}</pre>
 			{{/each}}
+		{{/if}}
+
+		{{#if variants}}
+			<div class="sg_variants">
+				<h2 class="sg_h2">Variants</h2>
+
+				{{#each variants}}
+					{{#if meta}}
+						<div class="sg_variant_meta">
+							{{#if meta.title}}
+								<h3>{{meta.title}}</h3>
+							{{/if}}
+
+							{{#if meta.desc}}
+								<p>{{meta.desc}}</p>
+							{{/if}}
+						</div>
+					{{/if}}
+
+					<div class="sg_demo clearfix">
+						{{{demo}}}
+					</div>
+				{{/each}}
+			</div>
 		{{/if}}
 
 		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>

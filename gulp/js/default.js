@@ -52,11 +52,13 @@ var taskName = 'js',
 								includeContent: false,
 								sourceRoot: config.srcBase
 							}),
-						minify = lazypipe()
-							.pipe(gulp.dest, config.dest)
+						excludeSourcemaps = lazypipe()
 							.pipe(ignore.exclude, function(file) {
 								return path.extname(file.path) === '.map';
-							})
+							}),
+						minify = lazypipe()
+							.pipe(gulp.dest, config.dest)
+							.pipe(excludeSourcemaps)
 							.pipe(uglify, {
 								preserveComments: 'some'
 							})
@@ -82,6 +84,7 @@ var taskName = 'js',
 							showFiles: true
 						}))
 						.pipe(gulp.dest(config.dest))
+						.pipe(excludeSourcemaps())
 						.pipe(livereload());
 				});
 

@@ -91,14 +91,14 @@
 
 ```js
 // Scroll
-$(document).on(estatico.events.scroll, _.bind(function(event, originalEvent) {
+$(document).on(estatico.events.scroll, function(event, originalEvent) {
 	console.log(originalEvent);
-}, this));
+}.bind(this));
 
 // Resize
-$(document).on(estatico.events.resize, _.bind(function(event, originalEvent) {
+$(document).on(estatico.events.resize, function(event, originalEvent) {
 	console.log(originalEvent);
-}, this));
+}.bind(this));
 ```
 
 * Use custom events for media queries (see ```source/assets/js/helpers/mediaqueries.js```):

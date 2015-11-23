@@ -9,9 +9,7 @@
 
 	var $document = $(document),
 		initEvents = estatico.helpers.initEvents || {},
-		keys = $.map(initEvents, function(modules, event) {
-			return event;
-		});
+		keys = Object.keys(initEvents);
 
 	if (keys.length === 0) {
 		return;
@@ -25,7 +23,7 @@
 				plugins = $this.data('init').split(' ');
 
 			for (var i = 0; i < plugins.length; i++) {
-				if ($.inArray(plugins[i], initPlugins) !== -1) {
+				if (initPlugins.indexOf(plugins[i]) !== -1) {
 					$.fn[plugins[i]].apply($this);
 				}
 			}

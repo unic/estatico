@@ -51,11 +51,13 @@ var taskName = 'css',
 					includeContent: false,
 					sourceRoot: config.srcBase
 				}),
-			minify = lazypipe()
-				.pipe(gulp.dest, config.dest)
+			excludeSourcemaps = lazypipe()
 				.pipe(ignore.exclude, function(file) {
 					return path.extname(file.path) === '.map';
-				})
+				}),
+			minify = lazypipe()
+				.pipe(gulp.dest, config.dest)
+				.pipe(excludeSourcemaps)
 				.pipe(cssMinify)
 				.pipe(rename, {
 					suffix: '.min'
@@ -78,6 +80,7 @@ var taskName = 'css',
 				showFiles: true
 			}))
 			.pipe(gulp.dest(config.dest))
+			.pipe(excludeSourcemaps())
 			.pipe(livereload())
 			.on('end', cb);
 	};
