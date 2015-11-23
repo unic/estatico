@@ -31,7 +31,8 @@
 				prev: 'Previous Slide',
 				next: 'Next Slide'
 			}
-		};
+		},
+		log = estatico.helpers.log(name);
 
 	/**
 	 * Create an instance of the module
@@ -93,22 +94,22 @@
 				}.bind(this));
 			}
 		}.bind(this)).fail(function(jqXHR) {
-			console.log('NOO!', jqXHR.status, jqXHR.statusText);
+			log('NOO!', jqXHR.status, jqXHR.statusText);
 		});
 
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
-			console.log('slideshow.js', 'Touch support detected');
+			log('Touch support detected');
 		}
 
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
 		$(document).on(estatico.events.resize + '.' + this.uuid, function(event, originalEvent) {
-			console.log('slideshow.js', originalEvent);
+			log(originalEvent);
 		});
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
 		$(document).on(estatico.events.scroll + '.' + this.uuid, function(event, originalEvent) {
-			console.log('slideshow.js', originalEvent);
+			log(originalEvent);
 		});
 
 		this.resize();
@@ -185,9 +186,9 @@
 	 */
 	Module.prototype.resize = function() {
 		if (estatico.mq.query({ from: 'small' })) {
-			console.log('slideshow.js', 'Viewport: Above small breakpoint');
+			log('Viewport: Above small breakpoint');
 		} else {
-			console.log('slideshow.js', 'Viewport: Below small breakpoint');
+			log('Viewport: Below small breakpoint');
 		}
 	};
 

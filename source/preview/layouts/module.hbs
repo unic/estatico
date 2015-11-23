@@ -13,6 +13,10 @@
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+	{{#if env.dev}}
+		<script src="/assets/js/dev.js"></script>
+	{{/if}}
 </head>
 <body>
 	<div class="sg_wrapper">

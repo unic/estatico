@@ -13,6 +13,9 @@ var taskName = 'js',
 				main: './source/assets/js/main.js',
 				head: './source/assets/js/head.js'
 			},
+			devSrc: {
+				dev: './source/assets/js/dev.js'
+			},
 			srcBase: './source/',
 			dest: './build/assets/js/',
 			watch: [
@@ -44,6 +47,11 @@ var taskName = 'js',
 				fs = require('fs'),
 				path = require('path'),
 				merge = require('merge-stream');
+
+			// Optionally build dev scripts
+			if (util.env.dev) {
+				_.merge(config.src, config.devSrc);
+			}
 
 			var tasks = _.map(config.src, function (srcPath) {
 					var fileName = path.basename(srcPath),
