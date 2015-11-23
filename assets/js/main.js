@@ -14147,9 +14147,14 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
  * }
  *
  * // Check the current viewport against a specific breakpoint:
- * if (parseInt(estatico.mq.currentBreakpoint.value) > parseInt(estatico.mq.breakpoints.small)) {
+ * if (estatico.mq.query({ from: 'small' })) {
  * 	this.destroySmall();
  * 	this.initLarge();
+ * }
+ * // or
+ * if (estatico.mq.query({ from: 'small', to: 'medium' })) {
+ * 	this.destroySmall();
+ * 	this.initMedium();
  * }
  */
 
@@ -14182,10 +14187,56 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 		}
 	});
 
+	function getBreakpointValue(breakpoint) {
+		var value = 0;
+
+		if (typeof breakpoints[breakpoint] !== 'undefined') {
+			value = parseInt(breakpoints[breakpoint], 10);
+		} else {
+			throw 'Breakpoint not found: "' + breakpoint + '"';
+		}
+		return value;
+	}
+
+	function query(options) {
+		var breakpointFrom, breakpointTo,
+			breakpointCurrent = parseInt(estatico.mq.currentBreakpoint.value, 10);
+
+		if (typeof options !== 'object') {
+			// No or wrong arguments passed
+			throw 'Illegal argument of type "' + typeof options + '", expected "object"';
+		} else if (typeof options.to !== 'undefined' && typeof options.from !== 'undefined') {
+			breakpointFrom = getBreakpointValue(options.from);
+			breakpointTo = getBreakpointValue(options.to);
+
+			// "from" cannot be larger than "to"
+			if (breakpointFrom > breakpointTo) {
+				throw 'Breakpoint ' + breakpointFrom + ' is larger than ' + breakpointTo +  '';
+			}
+
+			// The breakpoint needs to smaller than the "to" (exclusive)
+			// but larger or the same as "from" (inclusive)
+			return breakpointFrom <= breakpointCurrent && breakpointCurrent < breakpointTo;
+		} else if (typeof options.to !== 'undefined') {
+			breakpointTo = getBreakpointValue(options.to);
+
+			// Breakpoint needs to smaller than the "to" (exclusive)
+			return breakpointCurrent < breakpointTo;
+		} else if (typeof options.from !== 'undefined') {
+			breakpointFrom = getBreakpointValue(options.from);
+
+			// Breakpoint needs larger or the same as "from" (inclusive)
+			return breakpointCurrent >= breakpointFrom;
+		} else {
+			throw 'No values for "to" or "from" received';
+		}
+	}
+
 	// Save to global namespace
 	$.extend(true, estatico, {
 		events: events,
 		mq: {
+			query: query,
 			breakpoints: breakpoints,
 			currentBreakpoint: currentBreakpoint
 		}
@@ -14396,7 +14447,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 	 * @public
 	 */
 	Module.prototype.resize = function() {
-		if (parseInt(estatico.mq.currentBreakpoint.value) > parseInt(estatico.mq.breakpoints.small)) {
+		if (estatico.mq.query({ from: 'small' })) {
 			console.log('slideshow.js', 'Viewport: Above small breakpoint');
 		} else {
 			console.log('slideshow.js', 'Viewport: Below small breakpoint');
