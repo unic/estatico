@@ -2,156 +2,142 @@
 
 /**
  * @function `gulp scaffold:delete`
- * @desc Remove modules, pages or all demo files and delete references in `main.scss` and `main.js`.
+ * @desc Remove module or page and delete references in `main.scss` and `main.js`.
  *
  * * Prompts for type and name of element to be deleted.
- * * Non-interactive mode: `gulp scaffold:delete --interactive=false type={Module|Page} name=my_module`
+ * * Non-interactive mode: `gulp scaffold:delete --interactive=false --type={Module|Page|Demo Module|Demo Page} --name=bla`
  */
 
-var gulp = require('gulp');
+var gulp = require('gulp'),
+	defaultTask = require('./default');
 
 var taskName = 'scaffold:delete',
 	taskConfig = {
-		srcModules: './source/modules/',
-		srcPages: './source/pages/',
-		srcDemos: './source/demo/',
-		srcStyles: './source/assets/css/main.scss',
-		srcScripts: './source/assets/js/main.js'
+		// Extends the default task's config
+		types: {
+			demoModule: {
+				allowRecursiveDelete: true
+			},
+			demoPage: {
+				allowRecursiveDelete: true
+			}
+		},
+		scaffold: {
+			name: null,
+			src: null,
+			deregisterStyles: false,
+			deregisterScript: false
+		}
+	},
+	getTaskScaffoldConfig = function(config, cb) {
+		var helpers = require('require-dir')('../../helpers'),
+			_ = require('lodash');
+
+		var scaffoldConfig = {};
+
+		// Get custom config and pass to task
+		helpers.scaffold.getType(config.types, {
+				prompt: 'What do you want to delete?'
+			})
+			.then(function(response) {
+				if (response.hasAssets) {
+					scaffoldConfig.deregisterStyles = true;
+					scaffoldConfig.deregisterScript = true;
+				}
+
+				return helpers.scaffold.getTarget(response.dest, response.allowRecursiveDelete);
+			})
+			.then(function(response) {
+				if (_.isArray(response)) {
+					scaffoldConfig.name = _.pluck(response, 'name');
+					scaffoldConfig.src = _.pluck(response, 'src');
+				} else {
+					scaffoldConfig.name = response.name;
+					scaffoldConfig.src = response.src;
+				}
+
+				cb(scaffoldConfig);
+			})
+			.catch(helpers.errors);
+	},
+	task = function(config, cb) {
+		var del = require('del'),
+			_ = require('lodash'),
+			helpers = require('require-dir')('../../helpers'),
+			livereload = require('gulp-livereload'),
+			tap = require('gulp-tap'),
+			path = require('path'),
+			merge = require('merge-stream');
+
+		if (!config.scaffold.src) {
+			helpers.errors({
+				task: taskName,
+				message: 'Nothing to delete'
+			});
+
+			return cb();
+		}
+
+		del(config.scaffold.src, function() {
+			var srcs = _.isArray(config.scaffold.src) ? config.scaffold.src.map(function(src, i) {
+					return path.join(src, config.scaffold.name[i]);
+				}) : [path.join(config.scaffold.src, config.scaffold.name)],
+				tasks = [],
+				deregisterStyles,
+				deregisterScript;
+
+			if (config.scaffold.deregisterStyles) {
+				deregisterStyles = gulp.src(config.registerStyles.src)
+					.pipe(tap(function(file) {
+						srcs.forEach(function(src) {
+							file.contents = helpers.scaffold.removeModule(file, src, config.registerStyles);
+						});
+					}))
+					.pipe(gulp.dest(path.dirname(config.registerStyles.src)))
+					.pipe(livereload());
+
+				tasks.push(deregisterStyles);
+			}
+
+			if (config.scaffold.deregisterScript) {
+				deregisterScript = gulp.src(config.registerScript.src)
+					.pipe(tap(function(file) {
+						srcs.forEach(function(src) {
+							file.contents = helpers.scaffold.removeModule(file, src, config.registerScript);
+						});
+					}))
+					.pipe(gulp.dest(path.dirname(config.registerScript.src)))
+					.pipe(livereload());
+
+				tasks.push(deregisterScript);
+			}
+
+			if (tasks.length > 0) {
+				merge(tasks).on('finish', cb);
+			} else {
+				cb();
+			}
+		});
 	};
 
 gulp.task(taskName, function(cb) {
-	var helpers = require('require-dir')('../../helpers'),
-		livereload = require('gulp-livereload'),
-		util = require('gulp-util'),
-		tap = require('gulp-tap'),
-		inquirer = require('inquirer'),
-		glob = require('glob'),
-		del = require('del'),
-		fs = require('fs'),
-		path = require('path'),
-		merge = require('merge-stream');
+	var _ = require('lodash');
 
-	var getDirs = function(dir) {
-			var dirs = glob.sync(dir + '*').filter(function(file) {
-					return fs.statSync(file).isDirectory();
-				}).map(function(file) {
-					return path.basename(file);
-				});
+	// Extend default task's config
+	var config = _.merge({}, defaultTask.taskConfig, taskConfig);
 
-			if (dirs.length > 0) {
-				return dirs;
-			} else {
-				return [{
-					name: '(Nothing found)',
-					value: false
-				}];
-			}
-		},
-		deleteModule = function(name, cb) {
-			var css = gulp.src(taskConfig.srcStyles)
-					.pipe(tap(function(file) {
-						var content = file.contents.toString().replace('@import "' + name + '/' + name + '";\n', '');
-
-						file.contents = new Buffer(content);
-					}))
-					.pipe(gulp.dest(path.dirname(taskConfig.srcStyles)))
-					.pipe(livereload()),
-				js = gulp.src(taskConfig.srcScripts)
-					.pipe(tap(function(file) {
-						var content = file.contents.toString().replace(' * @requires ../../modules/' + name + '/' + name + '.js\n', '');
-
-						file.contents = new Buffer(content);
-					}))
-					.pipe(gulp.dest(path.dirname(taskConfig.srcScripts)))
-					.pipe(livereload());
-
-			merge([css, js]).on('finish', function() {
-				del(path.join(taskConfig.srcModules, name), cb);
-			});
-		},
-		deletePage = function(name, cb) {
-			del(path.join(taskConfig.srcPages, name), cb);
-		},
-		deleteDemos = function(cb) {
-			var css = gulp.src(taskConfig.srcStyles)
-					.pipe(tap(function(file) {
-						var content = file.contents.toString().replace(/\/\/\*startdemomodules\*[\s\S]*\/\/\*enddemomodules\*\n/g, '');
-
-						file.contents = new Buffer(content);
-					}))
-					.pipe(gulp.dest(path.dirname(taskConfig.srcStyles)))
-					.pipe(livereload()),
-				js = gulp.src(taskConfig.srcScripts)
-					.pipe(tap(function(file) {
-						var content = file.contents.toString().replace(/ \* \/\/\*startdemomodules\*[\s\S]*\* \/\/\*enddemomodules\*\n/g, '');
-
-						file.contents = new Buffer(content);
-					}))
-					.pipe(gulp.dest(path.dirname(taskConfig.srcScripts)))
-					.pipe(livereload());
-
-			merge([css, js]).on('finish', function() {
-				del(taskConfig.srcDemos, cb);
-			});
-		},
-		callback = function(type, cb, options) {
-			if (type === 'Demos') {
-				deleteDemos(cb);
-			} else {
-				if (!options.name) {
-					helpers.errors({
-						task: taskName,
-						message: '--name not specified'
-					});
-
-					return cb();
-				}
-
-				if (type === 'Module') {
-					deleteModule(options.name, cb);
-				} else if (type === 'Page') {
-					deletePage(options.name, cb);
-				}
-			}
-		};
-
-	if (util.env.interactive !== 'false') {
-		inquirer.prompt([
-			{
-				type: 'list',
-				name: 'type',
-				message: 'What do you want to delete?',
-				choices: ['Module', 'Page', 'Demos']
-			},
-			{
-				type: 'list',
-				name: 'name',
-				message: 'Which one?',
-				choices: getDirs(taskConfig.srcModules),
-				when: function(answers) {
-					return answers.type === 'Module';
-				}
-			},
-			{
-				type: 'list',
-				name: 'name',
-				message: 'Which one?',
-				choices: getDirs(taskConfig.srcPages),
-				when: function(answers) {
-					return answers.type === 'Page';
-				}
-			}
-		], function(answers) {
-			callback(answers.type, cb, answers);
+	getTaskScaffoldConfig(config, function(scaffoldConfig) {
+		config = _.merge(config, {
+			scaffold: scaffoldConfig
 		});
-	} else {
-		callback(util.env.type, cb, {
-			name: util.env.name
-		});
-	}
+
+		task(config, cb);
+	});
 });
 
 module.exports = {
 	taskName: taskName,
-	taskConfig: taskConfig
+	taskConfig: taskConfig,
+	task: task,
+	getTaskScaffoldConfig: getTaskScaffoldConfig
 };
