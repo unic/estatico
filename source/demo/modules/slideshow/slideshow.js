@@ -214,11 +214,11 @@ Module.prototype.destroy = function() {
 
 // Make the plugin available through jQuery (and the global project moduleNamespace)
 SuperClass.register(Module, moduleName, {
-	events: events
+	moduleEvents: moduleEvents
 });
 
 module.exports = {
 	Module: module,
 	initEvents: ['ready', 'ajaxload'],
-	events: events
+	moduleEvents: moduleEvents
 };
