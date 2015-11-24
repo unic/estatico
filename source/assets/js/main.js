@@ -1,7 +1,7 @@
 /**
- * @requires ../vendor/jquery/dist/jquery.js
+ * @requires ../../../node_modules/jquery/dist/jquery.js
  * @requires ../.tmp/lodash.js
- * @requires ../vendor/handlebars/handlebars.js
+ * @requires ../../../node_modules/handlebars/dist/handlebars.js
  * @requires ../.tmp/templates.js
 
  * @requires helpers/module.js
