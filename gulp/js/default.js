@@ -16,7 +16,7 @@ var taskName = 'js',
 			devSrc: {
 				dev: './source/assets/js/dev.js'
 			},
-			srcBase: './source/',
+			srcBase: './source/assets/js/',
 			dest: './build/assets/js/',
 			watch: [
 				'source/assets/js/**/*.js',
@@ -31,14 +31,17 @@ var taskName = 'js',
 		},
 		task = function(config, cb) {
 			var helpers = require('require-dir')('../../helpers'),
+				plumber = require('gulp-plumber'),
 				size = require('gulp-size'),
 				livereload = require('gulp-livereload'),
 				util = require('gulp-util'),
-				webpack = require('gulp-webpack'),
+				sourcemaps = require('gulp-sourcemaps'),
+				webpack = require('gulp-webpack-sourcemaps'),
 				tap = require('gulp-tap'),
 				uglify = require('gulp-uglify'),
 				rename = require('gulp-rename'),
 				lazypipe = require('lazypipe'),
+				ignore = require('gulp-ignore'),
 				_ = require('lodash'),
 				path = require('path'),
 				merge = require('merge-stream');
@@ -49,8 +52,19 @@ var taskName = 'js',
 			}
 
 			var tasks = _.map(config.src, function(srcPath) {
-					var minify = lazypipe()
+					var writeSourceMaps = lazypipe()
+							.pipe(sourcemaps.write, '.', {
+								includeContent: false,
+								sourceRoot: config.srcBase
+							}),
+						excludeSourcemaps = lazypipe()
+							.pipe(ignore.exclude, function(file) {
+								return path.extname(file.path) === '.map';
+							}),
+
+						minify = lazypipe()
 							.pipe(gulp.dest, config.dest)
+							.pipe(excludeSourcemaps)
 							.pipe(uglify, {
 								preserveComments: 'some'
 							})
@@ -61,10 +75,12 @@ var taskName = 'js',
 					return gulp.src(srcPath, {
 						base: config.srcBase
 					})
+						.pipe(plumber())
 						.pipe(tap(function(file) {
 							// Add property for webpack
 							file.named = path.basename(file.path, path.extname(file.path));
 						}))
+						.pipe(sourcemaps.init())
 						.pipe(webpack({
 							resolve: {
 								alias: {
@@ -90,12 +106,14 @@ var taskName = 'js',
 								console.log(error.message);
 							});
 						}))
+						.pipe(writeSourceMaps())
 						.pipe(util.env.dev ? util.noop() : minify())
 						.pipe(size({
 							title: taskName,
 							showFiles: true
 						}))
 						.pipe(gulp.dest(config.dest))
+						.pipe(excludeSourcemaps())
 
 						// TODO: Not very reliable, seems to be triggered to early
 						.pipe(livereload());
