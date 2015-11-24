@@ -465,7 +465,7 @@ table {
  *
  * Used in styleguide, e.g.
  */
-.icon_email:before, .icon_facebook:before, .icon_gplus:before, .icon_pinterest:before, .icon_twitter:before {
+.icon_twitter:before, .icon_email:before, .icon_facebook:before, .icon_gplus:before, .icon_pinterest:before {
   display: inline-block;
   font-family: "Icons";
   -webkit-font-smoothing: antialiased;
@@ -477,19 +477,19 @@ table {
   text-transform: none;
   line-height: 1; }
 
-.icon_email:before {
+.icon_twitter:before {
   content: ""; }
 
-.icon_facebook:before {
+.icon_email:before {
   content: ""; }
 
-.icon_gplus:before {
+.icon_facebook:before {
   content: ""; }
 
-.icon_pinterest:before {
+.icon_gplus:before {
   content: ""; }
 
-.icon_twitter:before {
+.icon_pinterest:before {
   content: ""; }
 
 /**
@@ -614,7 +614,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_media .iconfont:before {
   font-size: 10em; }
@@ -1085,7 +1085,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_googleplus:before {
   display: inline-block;
@@ -1098,7 +1098,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_twitter:before {
   display: inline-block;
@@ -1111,7 +1111,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_pinterest:before {
   display: inline-block;
@@ -1124,7 +1124,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_mail:before {
   display: inline-block;
@@ -1137,6 +1137,6 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 /*# sourceMappingURL=../../assets/css/main.css.map */

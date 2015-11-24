@@ -14645,7 +14645,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 			$elem = this.messages[key].$element;
 			$elem.removeClass(this.options.stateClasses.expanded);
 
-			// TODO: replace setTimeout with proper helper function from FROBOIL-171
+			// TODO: replace setTimeout with proper helper function from ESTATICO-51
 			setTimeout($.proxy(function() {
 				clearTimeout($elem.data('timeout'));
 				$elem.remove();
