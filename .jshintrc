@@ -68,13 +68,13 @@
 	"devel"         : false,    // Development/debugging (alert, confirm, etc)
 	"dojo"          : false,    // Dojo Toolkit
 	"jasmine"       : false,    // Jasmine
-	"jquery"        : true,     // jQuery
+	"jquery"        : false,    // jQuery
 	"mocha"         : false,    // Mocha
 	"mootools"      : false,    // MooTools
 	"node"          : true,     // Node.js
 	"nonstandard"   : false,    // Widely adopted globals (escape, unescape, etc)
 	"prototypejs"   : false,    // Prototype and Scriptaculous
-	"qunit"         : true,     // QUnit
+	"qunit"         : false,    // QUnit
 	"rhino"         : false,    // Rhino
 	"shelljs"       : false,    // ShellJS
 	"worker"        : false,    // Web Workers
@@ -92,9 +92,7 @@
 	// Custom Globals
 	"globals"       : {        // additional predefined global variables
 		"estatico": true,
-		"_": true,
 		"Modernizr": false,
-		"Handlebars": false,
 		"open": true,
 		"Promise": false
 	}

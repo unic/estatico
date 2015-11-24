@@ -1,11 +1,5 @@
-/**
- * @requires ../../../../node_modules/skip-link-focus/skip-link-focus.js
- */
+'use strict';
 
-;(function(undefined) {
-	'use strict';
+var skipLinkFocus = require('skip-link-focus');
 
-	if (window.skipLinkFocus) {
-		window.skipLinkFocus.init();
-	}
-})();
+skipLinkFocus.init();

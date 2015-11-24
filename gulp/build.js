@@ -20,8 +20,6 @@ gulp.task(taskName, function(cb) {
 		[
 			'css:colors',
 			'css:fonts',
-			'js:lodash',
-			'js:templates',
 			'js:mocks',
 			'media:dataurls',
 			'media:iconfont',

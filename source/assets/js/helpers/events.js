@@ -5,35 +5,36 @@
  *
  * @example
  * // Listen to debounced scroll event:
- * $document.on(estatico.events.resize, function(event, originalEvent) {
+ * $document.on(estatico.events.resize.key, function(event, originalEvent) {
  * 	console.log(originalEvent); // original scroll event
  * });
  */
 
-;(function($, undefined) {
-	'use strict';
+'use strict';
 
-	var $document = $(document),
-		events = {
-			resize: 'debouncedresize.estatico',
-			scroll: 'debouncedscroll.estatico'
-		},
-		interval = {
-			resize: 50,
-			scroll: 50
-		};
+var $ = require('jquery'),
+	debounce = require('lodash.debounce');
 
-	$(window)
-		.on('resize.estatico', _.debounce(function(event) {
-			$document.triggerHandler(events.resize, event);
-		}, interval.resize))
-		.on('scroll.estatico', _.debounce(function(event) {
-			$document.triggerHandler(events.scroll, event);
-		}, interval.scroll));
+var interval = {
+		resize: 50,
+		scroll: 50
+	};
 
-	// Save to global namespace
-	$.extend(true, estatico, {
-		events: events
-	});
-
-})(jQuery);
+module.exports = {
+	resize: {
+		key: 'debouncedresize.estatico',
+		attach: function() {
+			$(window).on('resize.estatico', debounce(function(event) {
+				$(document).triggerHandler(this.key, event);
+			}.bind(this), interval.resize));
+		}
+	},
+	scroll: {
+		key: 'debouncedscroll.estatico',
+		attach: function() {
+			$(window).on('scroll.estatico', debounce(function(event) {
+				$(document).triggerHandler(this.key, event);
+			}.bind(this), interval.resize));
+		}
+	}
+};

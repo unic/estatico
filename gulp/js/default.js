@@ -31,17 +31,14 @@ var taskName = 'js',
 		},
 		task = function(config, cb) {
 			var helpers = require('require-dir')('../../helpers'),
-				plumber = require('gulp-plumber'),
 				size = require('gulp-size'),
 				livereload = require('gulp-livereload'),
 				util = require('gulp-util'),
-				resolveDependencies = require('gulp-resolve-dependencies'),
-				sourcemaps = require('gulp-sourcemaps'),
-				concat = require('gulp-concat'),
+				webpack = require('gulp-webpack'),
+				tap = require('gulp-tap'),
 				uglify = require('gulp-uglify'),
 				rename = require('gulp-rename'),
 				lazypipe = require('lazypipe'),
-				ignore = require('gulp-ignore'),
 				_ = require('lodash'),
 				path = require('path'),
 				merge = require('merge-stream');
@@ -52,47 +49,55 @@ var taskName = 'js',
 			}
 
 			var tasks = _.map(config.src, function(srcPath) {
-					var fileName = path.basename(srcPath),
-						writeSourceMaps = lazypipe()
-							.pipe(sourcemaps.write, '.', {
-								includeContent: false,
-								sourceRoot: config.srcBase
-							}),
-						excludeSourcemaps = lazypipe()
-							.pipe(ignore.exclude, function(file) {
-								return path.extname(file.path) === '.map';
-							}),
-
-						minify = lazypipe()
+					var minify = lazypipe()
 							.pipe(gulp.dest, config.dest)
-							.pipe(excludeSourcemaps)
 							.pipe(uglify, {
 								preserveComments: 'some'
 							})
 							.pipe(rename, {
 								suffix: '.min'
-							})
-							.pipe(writeSourceMaps);
+							});
 
 					return gulp.src(srcPath, {
 						base: config.srcBase
 					})
-						.pipe(plumber())
-						.pipe(resolveDependencies({
-							pattern: /\* @requires [\s-]*(.*\.js)/g
+						.pipe(tap(function(file) {
+							// Add property for webpack
+							file.named = path.basename(file.path, path.extname(file.path));
+						}))
+						.pipe(webpack({
+							resolve: {
+								alias: {
+									handlebars: 'handlebars/runtime.js'
+								}
+							},
+							module: {
+								loaders: [
+									{
+										test: /\.hbs$/,
+										loader: 'handlebars-loader'
+									}
+								]
+							}
+						}, null, function(err, stats) {
+							stats.compilation.errors.forEach(function(error) {
+								helpers.errors({
+									message: error.message
+								});
+							});
 
-							// log: true
-						}).on('error', helpers.errors))
-						.pipe(sourcemaps.init())
-						.pipe(concat(fileName))
-						.pipe(writeSourceMaps())
+							stats.compilation.warnings.forEach(function(error) {
+								console.log(error.message);
+							});
+						}))
 						.pipe(util.env.dev ? util.noop() : minify())
 						.pipe(size({
 							title: taskName,
 							showFiles: true
 						}))
 						.pipe(gulp.dest(config.dest))
-						.pipe(excludeSourcemaps())
+
+						// TODO: Not very reliable, seems to be triggered to early
 						.pipe(livereload());
 				});
 

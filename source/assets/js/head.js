@@ -1,12 +1,8 @@
-/**
- * @requires ../.tmp/modernizr.js
- * @requires helpers/namespace.js
- * @requires helpers/fontloader.js
- */
+'use strict';
 
-;(function(undefined) {
-	'use strict';
+require('../.tmp/modernizr.js');
 
-	estatico.helpers.fontsLoader.init();
+var namespace = require('./helpers/namespace.js');
 
-})();
+// Set up global namespace
+window.estatico = namespace;

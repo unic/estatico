@@ -12,7 +12,7 @@ var data = _.merge(defaultData, {
 			code: dataHelper.getTemplateCode('slideshow.hbs'),
 			documentation: dataHelper.getDocumentation('slideshow.md'),
 			testScripts: [
-				dataHelper.getTestScriptPath('slideshow.test.js')
+				// dataHelper.getTestScriptPath('slideshow.test.js')
 			],
 			mocks: [
 				{
