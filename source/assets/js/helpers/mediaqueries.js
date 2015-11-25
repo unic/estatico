@@ -4,25 +4,21 @@
  * @license APLv2
  *
  * @example
+ * var mediaqueries = require('./mediaqueries.js');
+ *
  * // Listen to custom (debounced) event to react to viewport changes:
- * $document.on(estatico.events.mq.key, function(event, prevBreakpoint, currentBreakpoint) {
+ * $(document).on(mediaqueries.event.key, function(event, prevBreakpoint, currentBreakpoint) {
  * 	console.log(prevBreakpoint); // { name: "small", value: "768px" }
  * 	console.log(parseInt(prevBreakpoint.value)); // "768"
  * });
  *
- * // Check the current breakpoint:
- * if (currentBreakpoint.name === 'large') {
- * 	this.destroySmall();
- * 	this.initLarge();
- * }
- *
  * // Check the current viewport against a specific breakpoint:
- * if (estatico.mq.query({ from: 'small' })) {
+ * if (mediaqueries.query({ from: 'small' })) {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
  * // or
- * if (estatico.mq.query({ from: 'small', to: 'medium' })) {
+ * if (mediaqueries.query({ from: 'small', to: 'medium' })) {
  * 	this.destroySmall();
  * 	this.initMedium();
  * }

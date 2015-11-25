@@ -94,6 +94,7 @@
 		"estatico": true,
 		"Modernizr": false,
 		"open": true,
+		"name": true,
 		"Promise": false
 	}
 }

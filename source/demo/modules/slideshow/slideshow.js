@@ -1,29 +1,32 @@
 /*!
  * Slideshow module
+ *
+ * @author Unic AG
+ * @copyright Unic AG
  */
 
 'use strict';
 
 var $ = require('jquery'),
 	SuperClass = require('../../../assets/js/helpers/module'),
-	events = require('../../../assets/js/helpers/events'),
+	globalEvents = require('../../../assets/js/helpers/events'),
 	mediaqueries = require('../../../assets/js/helpers/mediaqueries'),
 	templates = {
 		nav: require('./_slideshow_nav.js.hbs'),
 		slide: require('./_slideshow_slide.js.hbs')
 	};
 
-var moduleName = 'slideshow',
-	moduleEvents = {
-		slide: 'slide.estatico.' + moduleName
+var name = 'slideshow',
+	events = {
+		slide: 'slide.estatico.' + name
 	},
 	defaults = {
 		domSelectors: {
-			slides: '[data-' + moduleName + '="slides"]',
-			slide: '[data-' + moduleName + '="slide"]',
-			nav: '[data-' + moduleName + '="nav"]',
-			prev: '[data-' + moduleName + '="prev"]',
-			next: '[data-' + moduleName + '="next"]'
+			slides: '[data-' + name + '="slides"]',
+			slide: '[data-' + name + '="slide"]',
+			nav: '[data-' + name + '="nav"]',
+			prev: '[data-' + name + '="prev"]',
+			next: '[data-' + name + '="next"]'
 		},
 		stateClasses: {
 			isActivated: 'is_activated'
@@ -50,11 +53,11 @@ function Module(element, options) {
 	this._helper = SuperClass;
 
 	this._helper({
-		name: moduleName,
+		name: name,
 		element: element,
 		defaults: defaults,
 		options: options,
-		events: moduleEvents,
+		events: events,
 		data: data
 	});
 }
@@ -107,12 +110,12 @@ Module.prototype.init = function() {
 	}
 
 	// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
-	$(document).on(events.resize.key + '.' + this.uuid, function(event, originalEvent) {
+	$(document).on(globalEvents.resize.key + '.' + this.uuid, function(event, originalEvent) {
 		log(originalEvent);
 	});
 
 	// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
-	$(document).on(events.scroll.key + '.' + this.uuid, function(event, originalEvent) {
+	$(document).on(globalEvents.scroll.key + '.' + this.uuid, function(event, originalEvent) {
 		log(originalEvent);
 	});
 
@@ -148,7 +151,7 @@ Module.prototype.show = function(index) {
 
 	this.currentItem = index;
 
-	this.$element.trigger(moduleEvents.slide, index);
+	this.$element.trigger(events.slide, index);
 };
 
 /**
@@ -212,13 +215,13 @@ Module.prototype.destroy = function() {
 	this.$slides.removeAttr('style');
 };
 
-// Make the plugin available through jQuery (and the global project moduleNamespace)
-SuperClass.register(Module, moduleName, {
-	moduleEvents: moduleEvents
+// Make the plugin available through jQuery (and the global project namespace)
+SuperClass.register(Module, name, {
+	events: events
 });
 
 module.exports = {
-	Module: module,
+	Module: Module,
 	initEvents: ['ready', 'ajaxload'],
-	moduleEvents: moduleEvents
+	events: events
 };

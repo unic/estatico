@@ -4,8 +4,10 @@
  * @license APLv2
  *
  * @example
+ * var globalEvents = require('./events.js');
+ *
  * // Listen to debounced scroll event:
- * $document.on(estatico.events.resize.key, function(event, originalEvent) {
+ * $(document}.on(globalEvents.scroll.key, function(event, originalEvent) {
  * 	console.log(originalEvent); // original scroll event
  * });
  */
