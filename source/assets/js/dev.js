@@ -1,5 +1,6 @@
 /**
  * @requires ../vendor/bows/dist/bows.js
+ * @requires helpers/aria.js
  */
 
 // Use bows for happy, colourful logging (https://github.com/latentflip/bows)
@@ -13,5 +14,7 @@
 	}
 
 	estatico.helpers.log = window.bows;
+
+	estatico.helpers.aria();
 
 })();
