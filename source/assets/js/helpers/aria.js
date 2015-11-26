@@ -7,32 +7,14 @@ Start the debugging with ctrl+a (same to switch to next mode)
 
 */
 
-estatico.helpers.aria = function() {
+'use strict';
 
-	'use strict';
+estatico.helpers.aria = {
 
-	var mode = 0,
-		dataAttribute = 'bookmarkletlog';
+	mode: null,
+	dataAttribute: 'bookmarkletlog',
 
-	document.onkeydown = function(e) {
-		e = e || window.event;
-
-		if (e.keyCode === 65 && e.ctrlKey){ // ctrl+a
-			console.log('aria debugging started');
-			app();
-		}
-
-	};
-
-	function app(){
-
-		// Set the mode we're in (1 = active element, 2 = all aria elements):
-
-		if (!mode){
-			mode = 1;
-		} else {
-			mode++;
-		}
+	init: function(){
 
 		// Add some css to the document so we visually see which elemnt has focus:
 
@@ -46,7 +28,7 @@ estatico.helpers.aria = function() {
 		// Create the styles:
 		
 		newCSS = '.aria-debugging-bookmarklet{position:relative !important;box-shadow: '+mainBorderStyle+' !important;-webkit-box-shadow: '+mainBorderStyle+' !important;-moz-box-shadow: '+mainBorderStyle+' !important}';
-		newCSS += '.aria-debugging-bookmarklet::after{z-index:9999999 !important;position:absolute !important;top:-15px !important;left:0 !important;white-space:nowrap !important;background:'+mainColor+' !important;color:#000 !important;font-size:10px !important;content:attr(data-'+dataAttribute+') !important}';
+		newCSS += '.aria-debugging-bookmarklet::after{z-index:9999999 !important;position:absolute !important;top:-15px !important;left:0 !important;white-space:nowrap !important;background:'+mainColor+' !important;color:#000 !important;font-size:10px !important;content:attr(data-'+this.dataAttribute+') !important}';
 		newCSS += '.aria-debugging-active-bookmarklet{z-index:9999999 !important;box-shadow: '+activeBorderStyle+' !important;-webkit-box-shadow: '+activeBorderStyle+' !important;-moz-box-shadow: '+activeBorderStyle+' !important}';
 
 		// Add all new styles to the document:
@@ -60,29 +42,40 @@ estatico.helpers.aria = function() {
 			tag[ (typeof document.body.style.WebkitAppearance === 'string') ? 'innerText' : 'innerHTML' ] = newCSS;
 		}
 
-		// Do the magic! ;-)
+	},
 
-		if (mode === 1){
+	run: function(){
 
-			// Add class to the active element: 
+		// Set the mode we're in (1 = active element, 2 = all aria elements):
+
+		if (this.mode === null){
+			this.mode = 1;
+			this.init();
+		} else {
+			this.mode++;
+		}
+
+		// Run the current mode:
+
+		if (this.mode === 1){
 			
-			addActiveElement();
+			this.addActiveElement();
 
-		} else if (mode === 2) {
+		} else if (this.mode === 2) {
 
-			removeActiveElement();
+			this.removeActiveElement();
 
-			addClassToAriaElements();
+			this.addClassToAriaElements();
 			
 		} else {
 
-			removeClassFromAriaElements();
+			this.removeClassFromAriaElements();
 
 		}
 
-	}
+	},
 
-	function addActiveElement(){
+	addActiveElement: function(){
 
 		// Add class to the active element: 
 
@@ -107,9 +100,9 @@ estatico.helpers.aria = function() {
 
 		}, 200);
 
-	}
+	},
 
-	function removeActiveElement(){
+	removeActiveElement: function(){
 
 		// Remove active element:
 
@@ -119,9 +112,9 @@ estatico.helpers.aria = function() {
 		delete window._activeElInterval;
 		delete window._currentActiveEl;
 
-	}
+	},
 
-	function addClassToAriaElements(){
+	addClassToAriaElements: function(){
 
 		var nodeList,
 			log,
@@ -145,14 +138,14 @@ estatico.helpers.aria = function() {
 			if (log !== ''){
 				console.log(nodeList[i], log);
 				nodeList[i].classList.add('aria-debugging-bookmarklet');
-				nodeList[i].dataset[dataAttribute] = log;
+				nodeList[i].dataset[this.dataAttribute] = log;
 			}
 
 		}
 
-	}
+	},
 
-	function removeClassFromAriaElements(){
+	removeClassFromAriaElements: function(){
 
 		var nodeList,
 			i;
@@ -165,7 +158,7 @@ estatico.helpers.aria = function() {
 			nodeList[i].classList.remove('aria-debugging-bookmarklet');
 		}
 
-		mode = 0;
+		this.mode = 0;
 
 	}
 	
