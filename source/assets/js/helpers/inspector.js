@@ -18,7 +18,7 @@ estatico.helpers.inspector = {
 
 		// Add some css to the document so we visually see which elemnt has focus:
 
-		var mainColor = 'rgba(0,100,255,0.2)',
+		var mainColor = 'rgba(100,200,255,0.4)',
 			mainBorderStyle = 'inset 0 0 0 4px '+mainColor,
 			newCSS,
 			tag;
