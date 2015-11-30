@@ -70,6 +70,8 @@ estatico.helpers.inspector = {
 
 		var nodeList,
 			log,
+			module,
+			variations,
 			i,
 			j;
 
@@ -80,11 +82,24 @@ estatico.helpers.inspector = {
 		for (i = 0; i < nodeList.length; i++) {
 
 			log = '';
+			module = '';
+			variations = [];
 
 			for (j = nodeList[i].classList.length - 1; j >= 0; j--){
-				if (nodeList[i].classList[j].substring(0, 4) === 'mod_' || nodeList[i].classList[j].substring(0, 4) === 'var_'){
-					log += '[ '+nodeList[i].classList[j].substring(4).replace(/_/g, ' ')+' ]';
+				if (nodeList[i].classList[j].substring(0, 4) === 'mod_'){
+					module = nodeList[i].classList[j].substring(4).replace(/_/g, ' ');
 				}
+				if (nodeList[i].classList[j].substring(0, 4) === 'var_'){
+					variations.push( nodeList[i].classList[j].substring(4).replace(/_/g, ' ') );
+				}
+			}
+
+			if (module !== ''){
+				log = module;
+			}
+
+			if (variations.length > 0){
+				log += ': ' + variations.join(', ');
 			}
 
 			if (log !== ''){
