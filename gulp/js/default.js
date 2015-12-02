@@ -92,6 +92,10 @@ var taskName = 'js',
 									{
 										test: /\.hbs$/,
 										loader: 'handlebars-loader'
+									},
+									{
+										test: /jquery\.js$/,
+										loader: 'expose?jQuery'
 									}
 								]
 							}

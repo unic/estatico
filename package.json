@@ -25,6 +25,7 @@
     "connect": "3.3.5",
     "connect-livereload": "0.5.3",
     "del": "1.1.1",
+    "expose-loader": "0.7.1",
     "exports-loader": "0.6.2",
     "glob": "5.0.6",
     "gm": "1.21.1",
