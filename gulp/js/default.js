@@ -9,13 +9,13 @@ var gulp = require('gulp');
 
 var taskName = 'js',
 		taskConfig = {
-			src: {
-				main: './source/assets/js/main.js',
-				head: './source/assets/js/head.js'
-			},
-			devSrc: {
-				dev: './source/assets/js/dev.js'
-			},
+			src: [
+				'./source/assets/js/main.js',
+				'./source/assets/js/head.js'
+			],
+			devSrc: [
+				'./source/assets/js/dev.js'
+			],
 			srcBase: './source/assets/js/',
 			dest: './build/assets/js/',
 			watch: [
@@ -48,7 +48,7 @@ var taskName = 'js',
 
 			// Optionally build dev scripts
 			if (util.env.dev) {
-				_.merge(config.src, config.devSrc);
+				config.src.concat(config.devSrc);
 			}
 
 			var tasks = _.map(config.src, function(srcPath) {
