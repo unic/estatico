@@ -10,7 +10,6 @@ var gulp = require('gulp');
 var taskName = 'js:qunit',
 	taskConfig = {
 		srcTests: [
-			'./node_modules/qunitjs/qunit/*',
 			'./source/modules/**/*.test.js',
 			'./source/demo/modules/**/*.test.js'
 		],
@@ -23,7 +22,7 @@ var taskName = 'js:qunit',
 			'./build/demo/modules/**/*.html'
 		],
 		srcTemplatesBase: './build/',
-		srcQUnit: './node_modules/qunitjs/qunit/qunit.js',
+		srcQUnit: './source/preview/assets/js/test.js',
 		destTemplates: './.qunit/',
 		srcPolyfills: [
 			'./node_modules/phantomjs-polyfill/bind-polyfill.js'
@@ -37,16 +36,14 @@ var taskName = 'js:qunit',
 gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
 		path = require('path'),
-		_ = require('lodash'),
 		rename = require('gulp-rename'),
 		tap = require('gulp-tap'),
-		ignore = require('gulp-ignore'),
+		webpack = require('gulp-webpack-sourcemaps'),
 		qunit = require('gulp-qunit'),
 		del = require('del'),
 		glob = require('glob');
 
 	var srcTests = taskConfig.srcTests,
-		ignoreFiles = [],
 		polyfills = [],
 		polyfillPathPrefix = path.relative(taskConfig.srcTemplatesBase, taskConfig.destTests);
 
@@ -58,10 +55,59 @@ gulp.task(taskName, function(cb) {
 		polyfills = polyfills.concat(glob.sync(fileGlob));
 	});
 
+	// Prepare test-config
+	gulp.src(taskConfig.srcQUnit, {
+			base: taskConfig.srcBase
+		})
+		.pipe(webpack({
+			module: {
+				loaders: [
+					{
+						test: /qunit\.js$/,
+						loader: 'expose?QUnit'
+					},
+					{
+						test: /\.css$/,
+						loader: 'style-loader!css-loader'
+					}
+				]
+			},
+			externals: {
+				'jquery': 'jQuery'
+			}
+		}, null, function(err, stats) {
+			stats.compilation.errors.forEach(function(error) {
+				helpers.errors({
+					message: error.message
+				});
+			});
+
+			stats.compilation.warnings.forEach(function(error) {
+				console.log(error.message);
+			});
+		}))
+		.pipe(gulp.dest(taskConfig.destTests));
+
 	// Copy test files
 	gulp.src(srcTests, {
 		base: taskConfig.srcBase
 	})
+		.pipe(webpack({
+			externals: {
+				'qunitjs': 'QUnit',
+				'jquery': 'jQuery'
+			}
+		}, null, function(err, stats) {
+			stats.compilation.errors.forEach(function(error) {
+				helpers.errors({
+					message: error.message
+				});
+			});
+
+			stats.compilation.warnings.forEach(function(error) {
+				console.log(error.message);
+			});
+		}))
 		.pipe(rename(function(filePath) {
 			// Move node_modules into the same dest dir
 			filePath.dirname = filePath.dirname.replace(path.join('..', 'node_modules'), 'node_modules');
@@ -80,13 +126,6 @@ gulp.task(taskName, function(cb) {
 						.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
 						.replace(/\.\.$/, ''); // Remove trailing ..
 
-					// Ignore files without a QUnit script reference
-					if (content.search(taskConfig.srcQUnit) === -1) {
-						ignoreFiles.push(file.path);
-
-						return;
-					}
-
 					// Make paths relative to build directory, add base tag
 					content = content
 						.replace('<head>', '<head><base href="' + path.resolve(taskConfig.srcTemplatesBase) + path.sep + '">')
@@ -103,9 +142,6 @@ gulp.task(taskName, function(cb) {
 					});
 
 					file.contents = new Buffer(content);
-				}))
-				.pipe(ignore.exclude(function(file) {
-					return _.indexOf(ignoreFiles, file.path) !== -1;
 				}))
 
 				// Move them outside /build/ for some weird phantomJS reason
