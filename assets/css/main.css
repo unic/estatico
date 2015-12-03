@@ -1139,4 +1139,11 @@ nav ol {
   line-height: 1;
   content: ""; }
 
+.mod_cookieconfirmation {
+  display: none;
+  border: 2px solid black;
+  padding: 1rem 2rem; }
+  .mod_cookieconfirmation.is_visible {
+    display: block; }
+
 /*# sourceMappingURL=../../assets/css/main.css.map */
