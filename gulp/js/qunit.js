@@ -36,14 +36,17 @@ var taskName = 'js:qunit',
 gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
 		path = require('path'),
+		_ = require('lodash'),
 		rename = require('gulp-rename'),
 		tap = require('gulp-tap'),
+		ignore = require('gulp-ignore'),
 		webpack = require('gulp-webpack-sourcemaps'),
 		qunit = require('gulp-qunit'),
 		del = require('del'),
 		glob = require('glob');
 
 	var srcTests = taskConfig.srcTests,
+		ignoreFiles = [],
 		polyfills = [],
 		polyfillPathPrefix = path.relative(taskConfig.srcTemplatesBase, taskConfig.destTests);
 
@@ -126,6 +129,13 @@ gulp.task(taskName, function(cb) {
 						.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
 						.replace(/\.\.$/, ''); // Remove trailing ..
 
+					// Ignore files without a QUnit script reference
+					if (content.search(taskConfig.srcQUnit) === -1) {
+						ignoreFiles.push(file.path);
+
+						return;
+					}
+
 					// Make paths relative to build directory, add base tag
 					content = content
 						.replace('<head>', '<head><base href="' + path.resolve(taskConfig.srcTemplatesBase) + path.sep + '">')
@@ -142,6 +152,9 @@ gulp.task(taskName, function(cb) {
 					});
 
 					file.contents = new Buffer(content);
+				}))
+				.pipe(ignore.exclude(function(file) {
+					return _.indexOf(ignoreFiles, file.path) !== -1;
 				}))
 
 				// Move them outside /build/ for some weird phantomJS reason
