@@ -14481,8 +14481,8 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 /*!
  * @class       Notification
  * @classdesc   Plugin for centralized Notifications. Initialized on <body />.
- * @author      Thomas Jaggi, Unic AG
- * Edited By    Matthias Meier, Oriol Torrent Florensa, Patrick Lauterburg Unic AG
+ * @author      Patrick Lauterburg, Unic AG
+ * Edited by    Matthias Meier, Oriol Torrent Florensa, Thomas Jaggi, Unic AG
  * @copyright   Unic AG
  */
 
@@ -14558,17 +14558,17 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 		this.$wrapper = $(this.options.template.wrapper).appendTo(this.$element).hide();
 
 		// add notification message
-		$document.on(events.add, $.proxy(function(event, data) {
+		$document.on(events.add + '.' + this.uuid, $.proxy(function(event, data) {
 			this.addMessage(data.message, data.options);
 		}, this));
 
 		// remove all the notification messages
-		$document.on(events.removeAllMessages, $.proxy(function() {
+		$document.on(events.removeAllMessages + '.' + this.uuid, $.proxy(function() {
 			this.removeAllMessages();
 		}, this));
 
 		// destroy plugin
-		$document.on(events.destroy, $.proxy(function() {
+		$document.on(events.destroy + '.' + this.uuid, $.proxy(function() {
 			this.destroy();
 		}, this));
 
@@ -14639,16 +14639,17 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 	 * @param key Message identifier
 	 */
 	Module.prototype.removeMessage = function(key) {
-		var $elem;
+		var $element;
 
 		if (typeof this.messages[key] !== 'undefined') {
-			$elem = this.messages[key].$element;
-			$elem.removeClass(this.options.stateClasses.expanded);
+			$element = this.messages[key].$element;
+			$element.removeClass(this.options.stateClasses.expanded);
 
 			// TODO: replace setTimeout with proper helper function from ESTATICO-51
 			setTimeout($.proxy(function() {
-				clearTimeout($elem.data('timeout'));
-				$elem.remove();
+				clearTimeout($element.data('timeout'));
+
+				$element.remove();
 			}, this), 300);
 
 			delete this.messages[key];
@@ -14681,12 +14682,6 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 		estatico.helpers.SuperClass.prototype.destroy.apply(this);
 
 		this.$element.find(this.options.domSelectors.wrapper).remove();
-
-		$document.off(events.add);
-		$document.off(events.removeAllMessages);
-		$document.off(events.destroy);
-
-		this.$element.off('click.'+ this.uuid);
 	};
 
 	// Make the plugin available through jQuery (and the global project namespace)
