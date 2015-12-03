@@ -24,15 +24,12 @@
 @import "layout";
 
 // Modules
-//*autoinsertmodule*
-
-//*startdemomodules*
 @import "../../demo/modules/media/media";
 @import "../../demo/modules/teaser/teaser";
 @import "../../demo/modules/teasers/teasers";
 @import "../../demo/modules/skiplinks/skiplinks";
 @import "../../demo/modules/slideshow/slideshow";
-//*enddemomodules*
+//*autoinsertmodule*
 
 @media print {
 	@import "print";

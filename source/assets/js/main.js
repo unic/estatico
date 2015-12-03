@@ -8,12 +8,9 @@
  * @requires helpers/events.js
  * @requires helpers/mediaqueries.js
  *
- * //*autoinsertmodule*
- *
- * //*startdemomodules*
  * @requires ../../demo/modules/skiplinks/skiplinks.js
  * @requires ../../demo/modules/slideshow/slideshow.js
- * //*enddemomodules*
+ * //*autoinsertmodule*
  *
  * @requires helpers/init.js
  */
