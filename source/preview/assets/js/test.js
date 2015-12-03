@@ -6,8 +6,8 @@
 'use strict';
 
 var $ = require('jquery'),
-	QUnit = require('qunitjs');
-	//css = require('./node_modules/qunitjs/qunit/qunit.css');
+	QUnit = require('qunitjs'),
+	css = require('qunitjs/qunit/qunit.css');
 
 QUnit.config.autostart = false;
 
