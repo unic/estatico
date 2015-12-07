@@ -10,6 +10,7 @@
 	estatico.helpers.inspector = {
 		mode: null,
 		dataAttribute: 'bookmarkletlog',
+		logger: estatico.helpers.log('Inspector'),
 
 		// Add some css to the document so we visually see which elemnt has focus
 		init: function() {
@@ -89,7 +90,7 @@
 				}
 
 				if (log !== '') {
-					console.log(nodeList[i], log);
+					this.logger([ nodeList[i], log ]);
 
 					nodeList[i].classList.add('estatico-bookmarklet');
 					nodeList[i].dataset[this.dataAttribute] = log;

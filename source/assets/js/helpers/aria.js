@@ -10,6 +10,7 @@
 	estatico.helpers.aria = {
 		mode: null,
 		dataAttribute: 'bookmarkletlog',
+		logger: estatico.helpers.log('Aria'),
 
 		// Add some css to the document so we visually see which elemnt has focus
 		init: function() {
@@ -60,7 +61,8 @@
 
 		// Add class to the active element
 		addActiveElement: function() {
-			var activeEl = null;
+			var activeEl = null,
+				that = this;
 
 			window._activeElInterval = setInterval(function() {
 				window._currentActiveEl = document.activeElement;
@@ -72,7 +74,7 @@
 
 					activeEl = window._currentActiveEl;
 
-					console.log(activeEl);
+					that.logger(activeEl);
 
 					window._currentActiveEl.classList.add('aria-debugging-active-bookmarklet');
 				}
@@ -109,7 +111,7 @@
 				}
 
 				if (log !== '') {
-					console.log(nodeList[i], log);
+					this.logger([ nodeList[i], log ]);
 
 					nodeList[i].classList.add('aria-debugging-bookmarklet');
 					nodeList[i].dataset[this.dataAttribute] = log;
