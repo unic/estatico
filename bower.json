@@ -8,8 +8,8 @@
     "skiplinks": "https://gist.github.com/1900563.git"
   },
   "devDependencies": {
-    "qunit": "1.15.0",
-    "react-bind-polyfill": "1.0.0",
+    "qunit": "1.20.0",
+    "bind-polyfill": "1.0.0",
     "bows": "1.4.8"
   }
 }
