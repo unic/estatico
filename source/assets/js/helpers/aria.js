@@ -11,6 +11,8 @@
 		mode: null,
 		dataAttribute: 'bookmarkletlog',
 		logger: estatico.helpers.log('Aria'),
+		activeElInterval: null,
+		currentActiveEl: null,
 
 		// Add some css to the document so we visually see which elemnt has focus
 		init: function() {
@@ -74,31 +76,28 @@
 			var activeEl = null,
 				that = this;
 
-			window._activeElInterval = setInterval(function() {
-				window._currentActiveEl = document.activeElement;
+			this.activeElInterval = setInterval(function() {
+				that.currentActiveEl = document.activeElement;
 
-				if (window._currentActiveEl !== activeEl) {
+				if (that.currentActiveEl !== activeEl) {
 					if (activeEl !== null) {
 						activeEl.classList.remove('aria-debugging-active-bookmarklet');
 					}
 
-					activeEl = window._currentActiveEl;
+					activeEl = that.currentActiveEl;
 
 					that.logger(activeEl);
 
-					window._currentActiveEl.classList.add('aria-debugging-active-bookmarklet');
+					that.currentActiveEl.classList.add('aria-debugging-active-bookmarklet');
 				}
 			}, 200);
 		},
 
 		// Remove active element
 		removeActiveElement: function() {
-			clearInterval(window._activeElInterval);
+			clearInterval(this.activeElInterval);
 
-			window._currentActiveEl.classList.remove('aria-debugging-active-bookmarklet');
-
-			delete window._activeElInterval;
-			delete window._currentActiveEl;
+			this.currentActiveEl.classList.remove('aria-debugging-active-bookmarklet');
 
 		},
 
