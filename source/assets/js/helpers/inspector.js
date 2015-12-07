@@ -38,21 +38,31 @@
 		},
 
 		run: function() {
-			// Set the mode we're in (1 = show modules, 0 = hide modules)
-			if (this.mode === null) {
-				this.mode = 1;
 
-				this.init();
+			if (document.documentElement.classList) {
+
+				// Set the mode we're in (1 = show modules, 0 = hide modules)
+				if (this.mode === null) {
+					this.mode = 1;
+
+					this.init();
+				} else {
+					this.mode++;
+				}
+
+				// Run the current mode
+				if (this.mode === 1) {
+					this.showModules();
+				} else {
+					this.hideModules();
+				}
+
 			} else {
-				this.mode++;
+
+				this.logger('Element.classList not supported in this browser');
+				
 			}
 
-			// Run the current mode
-			if (this.mode === 1) {
-				this.showModules();
-			} else {
-				this.hideModules();
-			}
 		},
 
 		// Add class to all modules

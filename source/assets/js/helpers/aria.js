@@ -38,25 +38,35 @@
 		},
 
 		run: function() {
-			// Set the mode we're in (1 = active element, 2 = all aria elements)
-			if (this.mode === null) {
-				this.mode = 1;
 
-				this.init();
+			if (document.documentElement.classList) {
+
+				// Set the mode we're in (1 = active element, 2 = all aria elements)
+				if (this.mode === null) {
+					this.mode = 1;
+
+					this.init();
+				} else {
+					this.mode++;
+				}
+
+				// Run the current mode
+				if (this.mode === 1) {
+					this.addActiveElement();
+				} else if (this.mode === 2) {
+					this.removeActiveElement();
+
+					this.addClassToAriaElements();
+				} else {
+					this.removeClassFromAriaElements();
+				}
+
 			} else {
-				this.mode++;
+
+				this.logger('Element.classList not supported in this browser');
+
 			}
 
-			// Run the current mode
-			if (this.mode === 1) {
-				this.addActiveElement();
-			} else if (this.mode === 2) {
-				this.removeActiveElement();
-
-				this.addClassToAriaElements();
-			} else {
-				this.removeClassFromAriaElements();
-			}
 		},
 
 		// Add class to the active element
