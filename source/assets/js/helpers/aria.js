@@ -73,24 +73,23 @@
 
 		// Add class to the active element
 		addActiveElement: function() {
-			var activeEl = null,
-				that = this;
+			var activeEl = null;
 
 			this.activeElInterval = setInterval(function() {
-				that.currentActiveEl = document.activeElement;
+				this.currentActiveEl = document.activeElement;
 
-				if (that.currentActiveEl !== activeEl) {
+				if (this.currentActiveEl !== activeEl) {
 					if (activeEl !== null) {
 						activeEl.classList.remove('aria-debugging-active-bookmarklet');
 					}
 
-					activeEl = that.currentActiveEl;
+					activeEl = this.currentActiveEl;
 
-					that.logger(activeEl);
+					this.logger(activeEl);
 
-					that.currentActiveEl.classList.add('aria-debugging-active-bookmarklet');
+					this.currentActiveEl.classList.add('aria-debugging-active-bookmarklet');
 				}
-			}, 200);
+			}.bind(this), 200);
 		},
 
 		// Remove active element
