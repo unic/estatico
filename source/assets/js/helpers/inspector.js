@@ -38,9 +38,7 @@
 		},
 
 		run: function() {
-
 			if (document.documentElement.classList) {
-
 				// Set the mode we're in (1 = show modules, 0 = hide modules)
 				if (this.mode === null) {
 					this.mode = 1;
@@ -56,13 +54,10 @@
 				} else {
 					this.hideModules();
 				}
-
 			} else {
-
 				this.logger('Element.classList not supported in this browser');
-				
-			}
 
+			}
 		},
 
 		// Add class to all modules

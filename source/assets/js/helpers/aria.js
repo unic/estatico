@@ -40,9 +40,7 @@
 		},
 
 		run: function() {
-
 			if (document.documentElement.classList) {
-
 				// Set the mode we're in (1 = active element, 2 = all aria elements)
 				if (this.mode === null) {
 					this.mode = 1;
@@ -62,13 +60,9 @@
 				} else {
 					this.removeClassFromAriaElements();
 				}
-
 			} else {
-
 				this.logger('Element.classList not supported in this browser');
-
 			}
-
 		},
 
 		// Add class to the active element
@@ -97,7 +91,6 @@
 			clearInterval(this.activeElInterval);
 
 			this.currentActiveEl.classList.remove('aria-debugging-active-bookmarklet');
-
 		},
 
 		// Add class to all aria elements
@@ -124,9 +117,7 @@
 					nodeList[i].classList.add('aria-debugging-bookmarklet');
 					nodeList[i].dataset[this.dataAttribute] = log;
 				}
-
 			}
-
 		},
 
 		// Remove class from aria elements
