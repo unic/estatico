@@ -13,14 +13,18 @@ var taskName = 'media:copy',
 			'./source/assets/fonts/**/*',
 			'./source/assets/media/**/*',
 			'./source/tmp/media/**/*',
-			'./source/preview/assets/media/**/*'
+			'./source/preview/assets/media/**/*',
+			'./source/modules/**/media/*',
+			'./source/demo/modules/**/media/*'
 		],
 		dest: './build/',
 		watch: [
 			'source/assets/fonts/**/*',
 			'source/assets/media/**/*',
 			'source/tmp/media/**/*',
-			'source/preview/assets/media/**/*'
+			'source/preview/assets/media/**/*',
+			'source/modules/**/media/*',
+			'source/demo/modules/**/media/*'
 		]
 	};
 

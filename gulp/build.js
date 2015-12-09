@@ -31,7 +31,8 @@ gulp.task(taskName, function(cb) {
 			'html',
 			'js',
 			'css',
-			'media:copy'
+			'media:copy',
+			'media:imageversions'
 		],
 		'js:qunit',
 		function(err) {

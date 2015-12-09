@@ -16,6 +16,7 @@
     "connect-livereload": "0.5.3",
     "del": "1.1.1",
     "glob": "5.0.6",
+    "gm": "1.21.1",
     "gulp": "3.8.11",
     "gulp-autoprefixer": "2.2.0",
     "gulp-base64": "0.1.2",

@@ -8,3 +8,4 @@ source/assets/vendor
 atlassian-ide-plugin.xml
 .vagrant
 .qunit
+.DS_Store
