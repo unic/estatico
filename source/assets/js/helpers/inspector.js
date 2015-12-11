@@ -9,32 +9,12 @@
 
 	estatico.helpers.inspector = {
 		mode: null,
-		dataAttribute: 'bookmarkletlog',
+		dataAttribute: 'estatico',
 		logger: estatico.helpers.log('Inspector'),
 
-		// Add some css to the document so we visually see which elemnt has focus
+		// Add some initalization stuff if needed:
 		init: function() {
-			var mainColor = 'rgba(100,200,255,0.4)',
-				mainBorderStyle = 'inset 0 0 0 4px '+mainColor,
-				newCSS,
-				tag;
-
-			// Create the styles
-			newCSS = '.estatico-bookmarklet{position:relative !important;box-shadow: '+mainBorderStyle+' !important;-webkit-box-shadow: '+mainBorderStyle+' !important;-moz-box-shadow: '+mainBorderStyle+' !important}';
-			newCSS += '.estatico-bookmarklet::after{text-transform:capitalize !important;z-index:9999999 !important;position:absolute !important;top:-15px !important;left:0 !important;white-space:nowrap !important;background:'+mainColor+' !important;color:#000 !important;font-size:10px !important;content:attr(data-'+this.dataAttribute+') !important}';
-
-			// Add all new styles to the document
-			if ('\v' === 'v') {
-				document.createStyleSheet().cssText = newCSS;
-			} else {
-				tag = document.createElement('style');
-				tag.type = 'text/css';
-
-				document.getElementsByTagName('head')[0].appendChild(tag);
-
-				tag[(typeof document.body.style.WebkitAppearance === 'string') ? 'innerText' : 'innerHTML'] = newCSS;
-			}
-
+			
 		},
 
 		run: function() {
@@ -97,7 +77,7 @@
 				if (log !== '') {
 					this.logger([ nodeList[i], log ]);
 
-					nodeList[i].classList.add('estatico-bookmarklet');
+					nodeList[i].classList.add('estatico-overlay');
 					nodeList[i].dataset[this.dataAttribute] = log;
 				}
 			}
@@ -111,7 +91,7 @@
 			nodeList = document.getElementsByTagName('*');
 
 			for (i = 0; i < nodeList.length; i++) {
-				nodeList[i].classList.remove('estatico-bookmarklet');
+				nodeList[i].classList.remove('estatico-overlay');
 			}
 
 			this.mode = 0;

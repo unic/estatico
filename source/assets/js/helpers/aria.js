@@ -9,37 +9,18 @@
 
 	estatico.helpers.aria = {
 		mode: null,
-		dataAttribute: 'bookmarkletlog',
+		dataAttribute: 'estatico',
 		logger: estatico.helpers.log('Aria'),
 		activeElInterval: null,
 		currentActiveEl: null,
 
-		// Add some css to the document so we visually see which elemnt has focus
+		// Add some initalization stuff if needed:
 		init: function() {
-			var mainColor = 'rgba(0,100,255,0.2)',
-				activeColor = 'rgba(255,0,0,0.2)',
-				mainBorderStyle = 'inset 0 0 0 4px '+mainColor,
-				activeBorderStyle = 'inset 0 0 0 4px '+activeColor,
-				newCSS,
-				tag;
 
-			// Create the styles
-			newCSS = '.aria-debugging-bookmarklet{position:relative !important;box-shadow: '+mainBorderStyle+' !important;-webkit-box-shadow: '+mainBorderStyle+' !important;-moz-box-shadow: '+mainBorderStyle+' !important}';
-			newCSS += '.aria-debugging-bookmarklet::after{z-index:9999999 !important;position:absolute !important;top:-15px !important;left:0 !important;white-space:nowrap !important;background:'+mainColor+' !important;color:#000 !important;font-size:10px !important;content:attr(data-'+this.dataAttribute+') !important}';
-			newCSS += '.aria-debugging-active-bookmarklet{z-index:9999999 !important;box-shadow: '+activeBorderStyle+' !important;-webkit-box-shadow: '+activeBorderStyle+' !important;-moz-box-shadow: '+activeBorderStyle+' !important}';
-
-			// Add all new styles to the document
-			if ('\v' === 'v') {
-				document.createStyleSheet().cssText = newCSS;
-			} else {
-				tag = document.createElement('style');
-				tag.type = 'text/css';
-				document.getElementsByTagName('head')[0].appendChild(tag);
-				tag[ (typeof document.body.style.WebkitAppearance === 'string') ? 'innerText' : 'innerHTML' ] = newCSS;
-			}
 		},
 
 		run: function() {
+			
 			if (document.documentElement.classList) {
 				// Set the mode we're in (1 = active element, 2 = all aria elements)
 				if (this.mode === null) {
@@ -74,14 +55,14 @@
 
 				if (this.currentActiveEl !== activeEl) {
 					if (activeEl !== null) {
-						activeEl.classList.remove('aria-debugging-active-bookmarklet');
+						activeEl.classList.remove('estatico-overlay');
 					}
 
 					activeEl = this.currentActiveEl;
 
 					this.logger(activeEl);
 
-					this.currentActiveEl.classList.add('aria-debugging-active-bookmarklet');
+					this.currentActiveEl.classList.add('estatico-overlay');
 				}
 			}.bind(this), 200);
 		},
@@ -90,7 +71,7 @@
 		removeActiveElement: function() {
 			clearInterval(this.activeElInterval);
 
-			this.currentActiveEl.classList.remove('aria-debugging-active-bookmarklet');
+			this.currentActiveEl.classList.remove('estatico-overlay');
 		},
 
 		// Add class to all aria elements
@@ -114,7 +95,7 @@
 				if (log !== '') {
 					this.logger([ nodeList[i], log ]);
 
-					nodeList[i].classList.add('aria-debugging-bookmarklet');
+					nodeList[i].classList.add('estatico-overlay');
 					nodeList[i].dataset[this.dataAttribute] = log;
 				}
 			}
@@ -128,7 +109,7 @@
 			nodeList = document.getElementsByTagName('*');
 
 			for (i = 0; i < nodeList.length; i++) {
-				nodeList[i].classList.remove('aria-debugging-bookmarklet');
+				nodeList[i].classList.remove('estatico-overlay');
 			}
 
 			this.mode = 0;
