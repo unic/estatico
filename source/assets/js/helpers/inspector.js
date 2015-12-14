@@ -78,6 +78,9 @@
 					this.logger([ nodeList[i], log ]);
 
 					nodeList[i].classList.add('estatico-overlay');
+					if (variations.length > 0) {
+						nodeList[i].classList.add('var1');
+					}
 					nodeList[i].dataset[this.dataAttribute] = log;
 				}
 			}
@@ -92,6 +95,7 @@
 
 			for (i = 0; i < nodeList.length; i++) {
 				nodeList[i].classList.remove('estatico-overlay');
+				nodeList[i].classList.remove('var1');
 			}
 
 			this.mode = 0;
