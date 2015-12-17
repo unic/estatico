@@ -128,8 +128,8 @@ npm cache clean
 # Try again
 npm install
 
-# Re-generate npm-shrinkwrap.json
-npm shrinkwrap
+# Re-generate npm-shrinkwrap.json (including devDependencies)
+npm shrinkwrap --dev
 
 # Make sure the new npm-shrinkwrap.json works in the CI environment
 ```

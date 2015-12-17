@@ -1,7 +1,5 @@
 /*!
  * Slideshow module
- *
- * //@requires ../../../assets/vendor/some/dependency.js
  */
 
 ;(function($, undefined) {
