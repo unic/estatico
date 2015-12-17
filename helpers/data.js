@@ -8,7 +8,7 @@ var _ = require('lodash'),
 	cheerioParse = require('cheerio').load,
 	requireNew = require('require-new'),
 	fs = require('fs'),
-	highlight = require('highlight.js').highlight,
+	Highlight = require('highlight.js'),
 	marked = require('marked'),
 	fileCache = {},
 	getFile = function(requirePath) {
@@ -30,6 +30,12 @@ var _ = require('lodash'),
 
 		return cache.content;
 	};
+
+marked.setOptions({
+	highlight: function(code) {
+		return Highlight.highlightAuto(code).value;
+	}
+});
 
 module.exports = {
 	getDataGlob: function(fileGlob, dataTransform) {
@@ -68,7 +74,7 @@ module.exports = {
 			requirePath = path.resolve(path.dirname(requester), filePath),
 			content = getFile(requirePath);
 
-		return highlight('html', content).value;
+		return Highlight.highlight('html', content).value;
 	},
 	getDataMock: function(filePath) {
 		var stack = callsite(),
@@ -78,7 +84,7 @@ module.exports = {
 
 		content = JSON.stringify(content, null, '\t');
 
-		return highlight('json', content).value;
+		return Highlight.highlight('json', content).value;
 	},
 	getDocumentation: function(filePath) {
 		var stack = callsite(),

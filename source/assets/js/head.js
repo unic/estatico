@@ -28,6 +28,24 @@
 				}
 
 				return destination;
+			},
+
+			// Create a console.log wrapper with optional namespace/context
+			// Run "localStorage.debug = true;" to enable
+			// Run "localStorage.removeItem('debug');" to disable
+			// This is overwritten when in dev mode (see dev.js)
+			log: function log(context) {
+				var fn = function() {};
+
+				if (window.localStorage && localStorage.debug) {
+					if (typeof context === 'string' && context.length > 0) {
+						fn = Function.prototype.bind.call(console.log, console, context + ' ☞');
+					} else {
+						fn = Function.prototype.bind.call(console.log, console);
+					}
+				}
+
+				return fn;
 			}
 		}
 	};
