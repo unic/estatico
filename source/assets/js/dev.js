@@ -1,5 +1,5 @@
 /**
- * @requires ../vendor/bows/dist/bows.js
+ * @requires ../../../node_modules/bows/dist/bows.js
  */
 
 // Use bows for happy, colourful logging (https://github.com/latentflip/bows)
