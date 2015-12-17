@@ -14244,27 +14244,91 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 
 })(jQuery);
 
-(function(a,b,c,d) {
-	for (c in a) {
-		if ((d=a[c].hash)&&a[c].href==b+d&&a[c].addEventListener) {
-			a[c].addEventListener('click',function(e,f,g,h) {
-				if (e=(f=document).getElementById(g=this.hash.slice(1))||f.getElementsByName(g)[0]) {
-					if (h=!e.getAttribute(f='tabindex')) e.setAttribute(f,-1);
-					e.focus();
-					if (h) e.removeAttribute(f);
-				}
-			});
+/**
+ * Skip Link Focus v0.1.0
+ * https://github.com/cedaro/skip-link-focus
+ *
+ * @copyright Modifications Copyright (c) 2015 Cedaro, LLC
+ * @license BSD-3-Clause
+ */
+
+/**
+ * Make "skip to content" links work correctly in IE9, Chrome, and Opera to
+ * improve accessibility.
+ *
+ * @link http://www.nczonline.net/blog/2013/01/15/fixing-skip-to-content-links/
+ */
+(function( root, factory ) {
+	'use strict';
+
+	if ( 'function' === typeof define && define.amd ) {
+		define( [], factory );
+	} else if ( 'object' === typeof exports ) {
+		module.exports = factory();
+	} else {
+		root.skipLinkFocus = factory();
+	}
+}( this, function() {
+	'use strict';
+
+	function init() {
+		if ( window && /webkit|opera|msie/i.test( window.navigator.userAgent ) && window.addEventListener ) {
+			var i,
+				skipLinks = window.document.querySelectorAll( '.skip-link' );
+
+			window.addEventListener( 'hashchange', function() {
+				skipToElement( location.hash.substring( 1 ) );
+			}, false );
+
+			// Fix for when the address bar already contains a hash.
+			for ( i = 0; i < skipLinks.length; ++i ) {
+				skipLinks[ i ].addEventListener( 'click', skipLinkClickHandler );
+			}
 		}
 	}
-})(document.links,location.href.split('#')[0]);
+
+	function skipLinkClickHandler( e ) {
+		skipToElement( e.target.hash.substring( 1 ) );
+	}
+
+	function skipToElement( id ) {
+		var element;
+
+		if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
+			return;
+		}
+
+		element = window.document.getElementById( id );
+
+		if ( element ) {
+			if ( ! /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) {
+				element.tabIndex = -1;
+			}
+
+			element.focus();
+		}
+	}
+
+	return {
+		init: init,
+		skipToElement: skipToElement
+	};
+}));
+
 /**
- * @requires ../../../assets/vendor/skiplinks/skiplinks.js
+ * @requires ../../../../node_modules/skip-link-focus/skip-link-focus.js
  */
+
+;(function(undefined) {
+	'use strict';
+
+	if (window.skipLinkFocus) {
+		window.skipLinkFocus.init();
+	}
+})();
 
 /*!
  * Slideshow module
- *
- * //@requires ../../../assets/vendor/some/dependency.js
  */
 
 ;(function($, undefined) {
@@ -14294,7 +14358,8 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 				prev: 'Previous Slide',
 				next: 'Next Slide'
 			}
-		};
+		},
+		log = estatico.helpers.log(name);
 
 	/**
 	 * Create an instance of the module
@@ -14356,22 +14421,22 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 				}.bind(this));
 			}
 		}.bind(this)).fail(function(jqXHR) {
-			console.log('NOO!', jqXHR.status, jqXHR.statusText);
+			log('NOO!', jqXHR.status, jqXHR.statusText);
 		});
 
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
-			console.log('slideshow.js', 'Touch support detected');
+			log('Touch support detected');
 		}
 
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
 		$(document).on(estatico.events.resize + '.' + this.uuid, function(event, originalEvent) {
-			console.log('slideshow.js', originalEvent);
+			log(originalEvent);
 		});
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
 		$(document).on(estatico.events.scroll + '.' + this.uuid, function(event, originalEvent) {
-			console.log('slideshow.js', originalEvent);
+			log(originalEvent);
 		});
 
 		this.resize();
@@ -14448,9 +14513,9 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 	 */
 	Module.prototype.resize = function() {
 		if (estatico.mq.query({ from: 'small' })) {
-			console.log('slideshow.js', 'Viewport: Above small breakpoint');
+			log('Viewport: Above small breakpoint');
 		} else {
-			console.log('slideshow.js', 'Viewport: Below small breakpoint');
+			log('Viewport: Below small breakpoint');
 		}
 	};
 
@@ -14875,23 +14940,20 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 })(jQuery);
 
 /**
- * @requires ../vendor/jquery/dist/jquery.js
+ * @requires ../../../node_modules/jquery/dist/jquery.js
  * @requires ../.tmp/lodash.js
- * @requires ../vendor/handlebars/handlebars.js
+ * @requires ../../../node_modules/handlebars/dist/handlebars.js
  * @requires ../.tmp/templates.js
 
  * @requires helpers/module.js
  * @requires helpers/events.js
  * @requires helpers/mediaqueries.js
  *
- * //*autoinsertmodule*
- *
- * //*startdemomodules*
  * @requires ../../demo/modules/skiplinks/skiplinks.js
  * @requires ../../demo/modules/slideshow/slideshow.js
  * @requires ../../demo/modules/notification/notification.js
  * @requires ../../demo/modules/cookieconfirmation/cookieconfirmation.js
- * //*enddemomodules*
+ * //*autoinsertmodule*
  *
  * @requires helpers/init.js
  */

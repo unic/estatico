@@ -329,7 +329,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   text-align: center; }
   .sg_color_item:hover .sg_color_preview {
     -webkit-transform: scale(1.25);
-        -ms-transform: scale(1.25);
             transform: scale(1.25); }
 
 .sg_color_preview {

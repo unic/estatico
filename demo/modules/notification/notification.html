@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
 
 	<script src="../../../assets/js/head.min.js"></script>
+
 </head>
 <body>
 	<div class="sg_wrapper">
@@ -88,12 +89,12 @@
 <p><em>Author</em>: Patrick Lauterburg</p>
 <h2 id="event-based-triggering">Event-based triggering</h2>
 <h3 id="adding-a-notification">adding a notification</h3>
-<pre><code class="lang-javascript">$(document).trigger(estatico.modules.notification.events.add, {
-    message: &#39;&lt;p&gt;Demo: Info&lt;/p&gt;&#39;,
+<pre><code class="lang-javascript">$(<span class="hljs-built_in">document</span>).trigger(estatico.modules.notification.events.add, {
+    message: <span class="hljs-string">'&lt;p&gt;Demo: Info&lt;/p&gt;'</span>,
     options: {
-        type: &#39;info&#39;,
-        modal: false,
-        timeout: 10000
+        <span class="hljs-keyword">type</span>: <span class="hljs-string">'info'</span>,
+        modal: <span class="hljs-literal">false</span>,
+        timeout: <span class="hljs-number">10000</span>
     }
 });
 </code></pre>
@@ -129,10 +130,10 @@
 </tbody>
 </table>
 <h3 id="removing-all-notifications">removing all notifications</h3>
-<pre><code class="lang-javascript">$(document).trigger(estatico.modules.notification.events.removeAll);
+<pre><code class="lang-javascript">$<span class="hljs-comment">(document)</span>.trigger<span class="hljs-comment">(estatico.modules.notification.events.removeAll)</span>;
 </code></pre>
 <h3 id="destroying-the-plugin">destroying the plugin</h3>
-<pre><code class="lang-javascript">$(document).trigger(estatico.modules.notification.events.destroy);
+<pre><code class="lang-javascript">$<span class="hljs-comment">(document)</span>.trigger<span class="hljs-comment">(estatico.modules.notification.events.destroy)</span>;
 </code></pre>
 
 			</div>

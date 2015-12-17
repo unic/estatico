@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
 
 	<script src="../../../assets/js/head.min.js"></script>
+
 </head>
 <body>
 	<div class="sg_wrapper">
@@ -134,25 +135,25 @@
 </li>
 </ul>
 <p>Example of data that can be passed to the tabs template:</p>
-<pre><code class="lang-js">var tab4 = requireNew(&#39;./tabs_panels_content_example/tab4.data.js&#39;);
-var data = {
-    idName: &#39;recipies&#39;,
-    variation: &#39;var_centered var_animated&#39;,
-    tabs: [
+<pre><code class="lang-js"><span class="hljs-title">var</span> tab4 = requireNew('./tabs_panels_content_example/tab4.<span class="hljs-typedef"><span class="hljs-keyword">data</span>.js');</span>
+<span class="hljs-title">var</span> <span class="hljs-typedef"><span class="hljs-keyword">data</span> = <span class="hljs-container">{
+    <span class="hljs-title">idName</span>: '<span class="hljs-title">recipies'</span>,
+    <span class="hljs-title">variation</span>: '<span class="hljs-title">var_centered</span> <span class="hljs-title">var_animated'</span>,
+    <span class="hljs-title">tabs</span>: [
         {
-            title: &#39;My tab 1&#39;,
-            content: &#39;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&#39;
-        }, {
-            title: &#39;A name for tab 2&#39;,
-            content: &#39;Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&#39;
-        }, {
-            title: &#39;The best tab 3&#39;,
-            content: &#39;At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.&#39;
-        }, {
-            title: &#39;A last tab 4&#39;,
-            partial: &#39;demo/modules/tabs/tabs_panels_content_example/tab4&#39;,
-            partialData: tab4
-        }
+            <span class="hljs-title">title</span>: '<span class="hljs-type">My</span> <span class="hljs-title">tab</span> 1',
+            <span class="hljs-title">content</span>: '<span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>, <span class="hljs-title">consetetur</span> <span class="hljs-title">sadipscing</span> <span class="hljs-title">elitr</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">nonumy</span> <span class="hljs-title">eirmod</span> <span class="hljs-title">tempor</span> <span class="hljs-title">invidunt</span> <span class="hljs-title">ut</span> <span class="hljs-title">labore</span> <span class="hljs-title">et</span> <span class="hljs-title">dolore</span> <span class="hljs-title">magna</span> <span class="hljs-title">aliquyam</span> <span class="hljs-title">erat</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">voluptua</span>. <span class="hljs-type">At</span> <span class="hljs-title">vero</span> <span class="hljs-title">eos</span> <span class="hljs-title">et</span> <span class="hljs-title">accusam</span> <span class="hljs-title">et</span> <span class="hljs-title">justo</span> <span class="hljs-title">duo</span> <span class="hljs-title">dolores</span> <span class="hljs-title">et</span> <span class="hljs-title">ea</span> <span class="hljs-title">rebum</span>.'
+        }</span>, <span class="hljs-container">{
+            <span class="hljs-title">title</span>: '<span class="hljs-type">A</span> <span class="hljs-title">name</span> <span class="hljs-title">for</span> <span class="hljs-title">tab</span> 2',
+            <span class="hljs-title">content</span>: '<span class="hljs-type">Stet</span> <span class="hljs-title">clita</span> <span class="hljs-title">kasd</span> <span class="hljs-title">gubergren</span>, <span class="hljs-title">no</span> <span class="hljs-title">sea</span> <span class="hljs-title">takimata</span> <span class="hljs-title">sanctus</span> <span class="hljs-title">est</span> <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>. <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>, <span class="hljs-title">consetetur</span> <span class="hljs-title">sadipscing</span> <span class="hljs-title">elitr</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">nonumy</span> <span class="hljs-title">eirmod</span> <span class="hljs-title">tempor</span> <span class="hljs-title">invidunt</span> <span class="hljs-title">ut</span> <span class="hljs-title">labore</span> <span class="hljs-title">et</span> <span class="hljs-title">dolore</span> <span class="hljs-title">magna</span> <span class="hljs-title">aliquyam</span> <span class="hljs-title">erat</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">voluptua</span>. <span class="hljs-type">At</span> <span class="hljs-title">vero</span> <span class="hljs-title">eos</span> <span class="hljs-title">et</span> <span class="hljs-title">accusam</span> <span class="hljs-title">et</span> <span class="hljs-title">justo</span> <span class="hljs-title">duo</span> <span class="hljs-title">dolores</span> <span class="hljs-title">et</span> <span class="hljs-title">ea</span> <span class="hljs-title">rebum</span>. <span class="hljs-type">Stet</span> <span class="hljs-title">clita</span> <span class="hljs-title">kasd</span> <span class="hljs-title">gubergren</span>, <span class="hljs-title">no</span> <span class="hljs-title">sea</span> <span class="hljs-title">takimata</span> <span class="hljs-title">sanctus</span> <span class="hljs-title">est</span> <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>.'
+        }</span>, <span class="hljs-container">{
+            <span class="hljs-title">title</span>: '<span class="hljs-type">The</span> <span class="hljs-title">best</span> <span class="hljs-title">tab</span> 3',
+            <span class="hljs-title">content</span>: '<span class="hljs-type">At</span> <span class="hljs-title">vero</span> <span class="hljs-title">eos</span> <span class="hljs-title">et</span> <span class="hljs-title">accusam</span> <span class="hljs-title">et</span> <span class="hljs-title">justo</span> <span class="hljs-title">duo</span> <span class="hljs-title">dolores</span> <span class="hljs-title">et</span> <span class="hljs-title">ea</span> <span class="hljs-title">rebum</span>. <span class="hljs-type">Stet</span> <span class="hljs-title">clita</span> <span class="hljs-title">kasd</span> <span class="hljs-title">gubergren</span>, <span class="hljs-title">no</span> <span class="hljs-title">sea</span> <span class="hljs-title">takimata</span> <span class="hljs-title">sanctus</span> <span class="hljs-title">est</span> <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>.'
+        }</span>, <span class="hljs-container">{
+            <span class="hljs-title">title</span>: '<span class="hljs-type">A</span> <span class="hljs-title">last</span> <span class="hljs-title">tab</span> 4',
+            <span class="hljs-title">partial</span>: '<span class="hljs-title">demo</span>/<span class="hljs-title">modules</span>/<span class="hljs-title">tabs</span>/<span class="hljs-title">tabs_panels_content_example</span>/<span class="hljs-title">tab4'</span>,
+            <span class="hljs-title">partialData</span>: <span class="hljs-title">tab4</span>
+        }</span></span>
     ]
 };
 </code></pre>

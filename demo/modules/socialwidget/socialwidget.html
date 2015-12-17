@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
 
 	<script src="../../../assets/js/head.min.js"></script>
+
 </head>
 <body>
 	<div class="sg_wrapper">
@@ -71,7 +72,7 @@
 <h3 id="facebook">Facebook</h3>
 <p>Facebook offers a very extensive API, but for simple share functionality we can extract from their examples the following estructure:</p>
 <p>Link template snippet:</p>
-<pre><code>https://www.facebook.com/sharer/sharer.php?u={{url}}
+<pre><code><span class="hljs-string">https:</span><span class="hljs-comment">//www.facebook.com/sharer/sharer.php?u={{url}}</span>
 </code></pre><p><strong>Parameters list</strong>. Original documentation: <a href="">https://developers.facebook.com/docs/plugins/share-button/</a></p>
 <table>
 <thead>
@@ -91,7 +92,7 @@
 </table>
 <h3 id="google-">Google+</h3>
 <p>Link template snippet:</p>
-<pre><code>https://plus.google.com/share?url={{url}}
+<pre><code><span class="hljs-string">https:</span><span class="hljs-comment">//plus.google.com/share?url={{url}}</span>
 </code></pre><p><strong>Parameters list.</strong> Original documentation: <a href="">https://developers.google.com/+/web/share/#sharelink</a>.</p>
 <table>
 <thead>
@@ -112,10 +113,10 @@
 <h3 id="pinterest">Pinterest</h3>
 <p>After a too discouraging reading of Pinterest&#39;s (anti-)API documentation, where they clearly pretend to force every developer to include THEIR JS for the solely purpose of adding THEIR link to share content to THEIR system, I&#39;ve ended up with a URL structure that works to share content in Pinterest.</p>
 <p>Link template snippet:</p>
-<pre><code>http://pinterest.com/pin/create/button/?
-    url={{url}}
-    &amp;media={{image_url}}
-    &amp;description={{text_message}}
+<pre><code><span class="xml">http://pinterest.com/pin/create/button/?
+    url=</span><span class="hljs-expression">{{<span class="hljs-variable">url</span>}}</span><span class="xml">
+    &amp;media=</span><span class="hljs-expression">{{<span class="hljs-variable">image</span>_<span class="hljs-variable">url</span>}}</span><span class="xml">
+    &amp;description=</span><span class="hljs-expression">{{<span class="hljs-variable">text</span>_<span class="hljs-variable">message</span>}}</span><span class="xml"></span>
 </code></pre><p><strong>Parameters list</strong>.</p>
 <table>
 <thead>
@@ -144,11 +145,11 @@
 </table>
 <h3 id="twitter">Twitter</h3>
 <p>Link template snippet:</p>
-<pre><code>http://twitter.com/share?
-    text={{text_message}}
-    &amp;url={{url}}
-    &amp;hashtags={{hashtags}}
-    &amp;via={{username}}
+<pre><code><span class="xml">http://twitter.com/share?
+    text=</span><span class="hljs-expression">{{<span class="hljs-variable">text</span>_<span class="hljs-variable">message</span>}}</span><span class="xml">
+    &amp;url=</span><span class="hljs-expression">{{<span class="hljs-variable">url</span>}}</span><span class="xml">
+    &amp;hashtags=</span><span class="hljs-expression">{{<span class="hljs-variable">hashtags</span>}}</span><span class="xml">
+    &amp;via=</span><span class="hljs-expression">{{<span class="hljs-variable">username</span>}}</span><span class="xml"></span>
 </code></pre><p><strong>Parameters list</strong>. All of them are optional. More parameters in <a href="">https://dev.twitter.com/web/tweet-button/parameters</a>.</p>
 <table>
 <thead>
