@@ -20,9 +20,10 @@
 
 		$('[data-init]').each(function() {
 			var $this = $(this),
-				plugins = $this.data('init').split(' ');
+				plugins = $this.data('init').split(' '),
+				i = 0;
 
-			for (var i = 0; i < plugins.length; i++) {
+			for (i = 0; i < plugins.length; i++) {
 				if (initPlugins.indexOf(plugins[i]) !== -1) {
 					$.fn[plugins[i]].apply($this);
 				}
