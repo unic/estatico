@@ -125,9 +125,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 		}
 		.tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
 			background-color: $bgcolorActive;
-			border-left: 1px solid $bgcolorActive;
-			border-right: 1px solid $bgcolorActive;
-			border-top: 1px solid $bgcolorActive;
 			font-weight: bold;
 		}
 		/*.tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
@@ -143,8 +140,9 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 		@include clearfix;
 		@include sgBoxed;
 		border-bottom: 1px solid $sg_colorLightGray;
+		border-top: 1px solid $sg_colorLightGray;
 		& > label {
-			border-radius: 4px 4px 0 0;
+			//border-radius: 4px 4px 0 0;
 			display: inline-block;
 			padding: 8px 18px;
 		}

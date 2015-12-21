@@ -56,6 +56,7 @@ gulp.task(taskName, function(cb) {
 		tap = require('gulp-tap'),
 		rename = require('gulp-rename'),
 		// prettify = require('gulp-prettify'),
+		_ = require('lodash'),
 		handlebars = require('gulp-hb'),
 		Handlebars = require('handlebars');
 
@@ -79,7 +80,8 @@ gulp.task(taskName, function(cb) {
 						return {};
 					}
 				})(),
-				moduleTemplate;
+				moduleTemplate,
+				mergedData;
 
 			// Precompile module demo and variants
 			if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
@@ -95,6 +97,15 @@ gulp.task(taskName, function(cb) {
 
 						return variant;
 					});
+
+					mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
+							meta: {
+								title: 'Default',
+								desc: 'Default implemention.'
+							}
+						}
+					);
+					data.variants.unshift(mergedData);
 				}
 
 				// Replace file content with preview template
