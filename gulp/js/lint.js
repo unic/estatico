@@ -14,7 +14,9 @@ var taskName = 'js:lint',
 			'./source/modules/**/*.js',
 			'./source/demo/modules/**/*.js',
 			'!./source/modules/**/*.data.js',
-			'!./source/demo/modules/**/*.data.js'
+			'!./source/demo/modules/**/*.data.js',
+			'!./source/modules/**/*.mock.js',
+			'!./source/demo/modules/**/*.mock.js'
 		]
 	};
 
@@ -25,33 +27,30 @@ gulp.task(taskName, function() {
 		path = require('path'),
 		cached = require('gulp-cached'),
 		jshint = require('gulp-jshint'),
-		jscs = require('gulp-jscs');
+		jscs = require('gulp-jscs'),
+		lazypipe = require('lazypipe');
+
+	var failReporter = lazypipe()
+			.pipe(jshint.reporter, 'fail')
+			.pipe(jscs.reporter, 'fail');
 
 	return gulp.src(taskConfig.src)
 		.pipe(cached('linting'))
 		.pipe(jshint())
 		.pipe(jscs({
-			configPath: '.jscsrc',
-			fix: true
+			configPath: '.jscsrc'
+			// fix: true
 		}))
 		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jscs.reporter())
 		.pipe(util.env.dev ? tap(function(file) {
-			if (!file.jshint.success) {
+			if (!file.jshint.success || !file.jscs.success) {
 				helpers.errors({
 					task: taskName,
 					message: 'Linting error in file "' + path.relative('./source/', file.path) + '" (see console)'
 				});
 			}
-			if (!file.jscs.success) {
-				file.jscs.errors.reverse();
-				file.jscs.errors.forEach(function(error, index) {
-					helpers.errors({
-						task: 'js:jscs',
-						message: error.message + ' (rule: ' + error.rule + ') in file ' + path.relative('./source/', file.path) + ':' + error.line + ':' + error.column + ' (see console)'
-					});
-				});
-			}
-		}) : jshint.reporter('fail').on('error', helpers.errors));
+		}) : failReporter().on('error', helpers.errors));
 });
 
 module.exports = {
