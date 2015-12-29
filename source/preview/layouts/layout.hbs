@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 </head>
 <body>
-	<div class="sg_wrapper {{#block "class"}}{{/block}}">
+	<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
 		<h1 class="sg_title">
 			<a href="/">{{project}}</a>
 

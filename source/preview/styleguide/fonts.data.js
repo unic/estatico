@@ -32,7 +32,8 @@ var data = _.merge(defaultData, {
 					}
 				]
 			}
-		]
+		],
+		additionalLayoutClass: 'sg_fonts'
 	});
 
 module.exports = data;

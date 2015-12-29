@@ -7,7 +7,8 @@ var _ = require('lodash'),
 
 var data = _.merge(defaultData, {
 		title: 'Colors',
-		colors: dataHelper.getColors('../../assets/css/data/colors.html')
+		colors: dataHelper.getColors('../../assets/css/data/colors.html'),
+		additionalLayoutClass: 'sg_colors'
 	});
 
 module.exports = data;

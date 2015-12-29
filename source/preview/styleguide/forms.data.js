@@ -6,7 +6,8 @@ var _ = require('lodash'),
 	defaultData = requireNew('../../data/default.data.js');
 
 var data = _.merge(defaultData, {
-		title: 'Forms'
+		title: 'Forms',
+		additionalLayoutClass: 'sg_forms'
 	});
 
 module.exports = data;

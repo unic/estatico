@@ -11,7 +11,8 @@ var data = _.merge(defaultData, {
 		icons: _.map(glob.sync('./source/{,demo/}{assets/media/,modules/**/}icons/*'), function(file) {
 			return path.basename(file).replace(path.extname(file), '');
 		}),
-		sizes: [16, 32, 48, 72]
+		sizes: [16, 32, 48, 72],
+		additionalLayoutClass: 'sg_icons'
 	});
 
 module.exports = data;
