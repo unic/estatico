@@ -1,6 +1,6 @@
 /**
  * @requires ../../../node_modules/bows/dist/bows.js
- * @requires helpers/aria.js
+ * @requires helpers/a11y.js
  * @requires helpers/inspector.js
  */
 
@@ -23,7 +23,7 @@
 		if (e.keyCode === 77 && e.ctrlKey){ // ctrl+m
 			estatico.helpers.inspector.run();
 		} else if (e.keyCode === 65 && e.ctrlKey){ // ctrl+a
-			estatico.helpers.aria.run();
+			estatico.helpers.a11y.run();
 		}
 	};
 

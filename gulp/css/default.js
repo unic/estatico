@@ -14,7 +14,7 @@ var taskName = 'css',
 			'./source/preview/assets/css/*.scss'
 		],
 		devSrc: [
-			'./source/assets/css/dev/dev.scss'
+			'./source/assets/css/dev.scss'
 		],
 		srcBase: './source/',
 		include: [

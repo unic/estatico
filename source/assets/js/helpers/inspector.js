@@ -9,12 +9,14 @@
 
 	estatico.helpers.inspector = {
 		mode: null,
-		dataAttribute: 'estatico',
+		dataAttribute: 'estaticoDev',
+		className: 'estatico_dev_overlay',
+		classNameVariant: 'var_variant',
 		logger: estatico.helpers.log('Inspector'),
 
 		// Add some initalization stuff if needed:
 		init: function() {
-			
+
 		},
 
 		run: function() {
@@ -36,7 +38,6 @@
 				}
 			} else {
 				this.logger('Element.classList not supported in this browser');
-
 			}
 		},
 
@@ -77,10 +78,12 @@
 				if (log !== '') {
 					this.logger([ nodeList[i], log ]);
 
-					nodeList[i].classList.add('estatico-overlay');
+					nodeList[i].classList.add(this.className);
+
 					if (variations.length > 0) {
-						nodeList[i].classList.add('var1');
+						nodeList[i].classList.add(this.classNameVariant);
 					}
+
 					nodeList[i].dataset[this.dataAttribute] = log;
 				}
 			}
@@ -94,8 +97,8 @@
 			nodeList = document.getElementsByTagName('*');
 
 			for (i = 0; i < nodeList.length; i++) {
-				nodeList[i].classList.remove('estatico-overlay');
-				nodeList[i].classList.remove('var1');
+				nodeList[i].classList.remove(this.className);
+				nodeList[i].classList.remove(this.classNameVariant);
 			}
 
 			this.mode = 0;
