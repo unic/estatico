@@ -310,6 +310,11 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 			background-color: $sg_colorLightGray;
 		}
 	}
+
+	// Remove clearfix in before to avoid big space from non-collapsed margins between h1 and h2
+	.sg_inner_wrapper:first-of-type:before {
+		display: none;
+	}
 }
 
 
