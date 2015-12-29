@@ -1,5 +1,5 @@
 /**
- * @requires ../vendor/bows/dist/bows.js
+ * @requires ../../../node_modules/bows/dist/bows.js
  * @requires helpers/aria.js
  * @requires helpers/inspector.js
  */

@@ -19,7 +19,6 @@ var taskName = 'css',
 		srcBase: './source/',
 		include: [
 			'./source/assets/css/',
-			'./source/assets/vendor/',
 			'./source/modules/'
 		],
 		dest: './build/',

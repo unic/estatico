@@ -160,4 +160,5 @@ Data and options provided this way have higher specificity than their global cou
 The module instance will have this merged into `this.data` and `this.options`, respectively, (and explicitly keep a reference in `this._globalData` and `this._globalOptions`, respectively).
 
 ### 6. Vendor code
-* Use [Bower](http://bower.io) to manage dependencies (see ```bower.json```).
+* Use npm to manage dependencies (see `dependencies` in `package.json`).
+* If a dependency is not published in the npm registry, fork the repo to our Github account and link this fork.

@@ -4,7 +4,7 @@
  * @author
  * @copyright
  *
- * //@requires ../../assets/vendor/xy/xy.js
+ * //@requires ../../../node_modules/some/dependency.js
  */
 
 ;(function($, undefined) {
