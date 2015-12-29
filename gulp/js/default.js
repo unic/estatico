@@ -37,14 +37,12 @@ var taskName = 'js',
 				util = require('gulp-util'),
 				resolveDependencies = require('gulp-resolve-dependencies'),
 				sourcemaps = require('gulp-sourcemaps'),
-				tap = require('gulp-tap'),
 				concat = require('gulp-concat'),
 				uglify = require('gulp-uglify'),
 				rename = require('gulp-rename'),
 				lazypipe = require('lazypipe'),
 				ignore = require('gulp-ignore'),
 				_ = require('lodash'),
-				fs = require('fs'),
 				path = require('path'),
 				merge = require('merge-stream');
 
@@ -53,7 +51,7 @@ var taskName = 'js',
 				_.merge(config.src, config.devSrc);
 			}
 
-			var tasks = _.map(config.src, function (srcPath) {
+			var tasks = _.map(config.src, function(srcPath) {
 					var fileName = path.basename(srcPath),
 						writeSourceMaps = lazypipe()
 							.pipe(sourcemaps.write, '.', {
@@ -80,7 +78,7 @@ var taskName = 'js',
 					})
 						.pipe(plumber())
 						.pipe(resolveDependencies({
-							pattern: /\* @requires [\s-]*(.*\.js)/g,
+							pattern: /\* @requires [\s-]*(.*\.js)/g
 							// log: true
 						}).on('error', helpers.errors))
 						.pipe(sourcemaps.init())
