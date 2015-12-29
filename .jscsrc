@@ -91,7 +91,9 @@
 	"requireKeywordsOnNewLine": null, // Requires placing keywords on a new line.
 	"requireLineBreakAfterVariableAssignment": true, // Requires placing line feed after assigning a variable.
 	"requireLineFeedAtFileEnd": true, // Requires placing line feed at file end.
-	"requireMultipleVarDecl": "onevar", // Requires multiple var declaration.
+	"requireMultipleVarDecl": {
+		"allExcept": ["require"]
+	}, // Requires multiple var declaration.
 	"requireNamedUnassignedFunctions": null, // Require unassigned functions to be named inline
 	"requireNewlineBeforeBlockStatements": null, // Requires newline before opening curly brace of all block statements.
 	"requireOperatorBeforeLineBreak": true, // Requires operators to appear before line breaks and not after.
