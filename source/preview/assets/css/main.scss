@@ -18,6 +18,7 @@ $sg_font: monospace, serif;
 
 $sg_breakpoint: 941px;
 $sg_marginsBoxed: 20px;
+$sg_maxWidth: 900px;
 
 // Colors
 $sg_colorWhite: #fff;
@@ -44,7 +45,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 @mixin sgBoxed {
-	max-width: 900px;
+	max-width: $sg_maxWidth;
 	@include sgBoxedMargins;
 
 	@include mq($from: $sg_breakpoint) {
@@ -360,25 +361,29 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 .sg_color_item {
-	margin: 0 pxToEm(10) pxToEm(20) pxToEm(10);
-	min-width: 10em;
+	font-size: pxToEm(14);
+	padding: pxToEm(15, 14) pxToEm(10, 14) pxToEm(20, 14);
+	width: pxToEm(($sg_maxWidth/6), 14);
 	float: left;
 	text-align: center;
+	box-sizing: border-box;
 
 	&:hover {
 
 		.sg_color_preview {
 			transform: scale(1.25);
+			box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
 		}
 	}
 }
 
 .sg_color_preview {
-	width: 5em;
-	height: 5em;
+	width: 7.5em;
+	height: 7.5em;
 	margin: 0 auto;
-	border: 1px solid $sg_colorLightGray;
+	// border: 1px solid $sg_colorLightGray;
 	border-radius: 50%;
+	box-shadow: inset 0 0 0 2px rgba(0,0,0,.025);
 
 	transition: $sg_defaultTransition;
 }
