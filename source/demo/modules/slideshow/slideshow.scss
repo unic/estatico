@@ -23,15 +23,17 @@
 
 	.prev,
 	.next {
-		color: $colorOpulentCherry; // for anything smaller than a tablet
+		background-color: $colorSoulSide; // for anything smaller than a tablet
+		border: none;
 		float: left;
 
 		@include mq($from: small, $to: medium) { // for tablets
-			color: $colorGoldilocks;
+			background-color: $colorBondiBlue;
+			color: $colorAlpineAlabaster;
 		}
 
 		@include mq($from: medium) { // for anything bigger than a tablet
-			color: $colorWhatWillHappen;
+			background-color: $colorGraspingGrass;
 		}
 	}
 	.next {
