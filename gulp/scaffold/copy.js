@@ -15,8 +15,7 @@ var taskName = 'scaffold:copy',
 	taskConfig = {
 	},
 	getTaskScaffoldConfig = function(config, cb) {
-		var helpers = require('require-dir')('../../helpers'),
-			_ = require('lodash');
+		var helpers = require('require-dir')('../../helpers');
 
 		var scaffoldConfig = {},
 			hasAssets;
