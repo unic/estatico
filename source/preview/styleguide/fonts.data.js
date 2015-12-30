@@ -5,7 +5,9 @@ var _ = require('lodash'),
 	defaultData = requireNew('../../data/default.data.js');
 
 var data = _.merge(defaultData, {
-		title: 'Fonts',
+		meta: {
+			title: 'Fonts',
+		},
 		fonts: [
 			{
 				family: 'Arial',

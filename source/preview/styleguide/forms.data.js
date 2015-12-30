@@ -6,7 +6,9 @@ var _ = require('lodash'),
 	defaultData = requireNew('../../data/default.data.js');
 
 var data = _.merge(defaultData, {
-		title: 'Forms',
+		meta: {
+			title: 'Form Elements',
+		},
 		additionalLayoutClass: 'sg_forms'
 	});
 
