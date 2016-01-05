@@ -44,14 +44,18 @@
 						// cater for IE8 which does not support addEventListener or attachEvent on XMLHttpRequest
 						xhr.onreadystatechange = function() {
 							if (xhr.readyState === 4) {
+
 								// once we have the content, quickly inject the css rules
 								injectRawStyle(xhr.responseText);
+
 								// and cache the text content for further use
 								// notice that this overwrites anything that might have already been previously cached
 								localStorage.fontCssCache = xhr.responseText;
 								localStorage.fontCssCacheFile = cssHref;
 							}
+
 						};
+
 						xhr.send();
 					}
 				}
@@ -60,6 +64,7 @@
 		// this is the simple utility that injects the cached or loaded css text
 			injectRawStyle = function(text) {
 				var style = document.createElement('style');
+
 				// cater for IE8 which doesn't support style.innerHTML
 				style.setAttribute('type', 'text/css');
 				if (style.styleSheet) {
@@ -67,6 +72,7 @@
 				} else {
 					style.innerHTML = text;
 				}
+
 				document.getElementsByTagName('head')[0].appendChild(style);
 			};
 
@@ -74,10 +80,12 @@
 			init: function() {
 				// if we have the fonts in localStorage or if we've cached them using the native browser cache
 				if ((window.localStorage && localStorage.fontCssCache) || document.cookie.indexOf('fontCssCache') > -1) {
+
 					// just use the cached version
 					console.log('just use the cached version');
 					injectFontsStylesheet();
 				} else {
+
 					// otherwise, don't block the loading of the page; wait until it's done.
 					console.log('download fonts');
 					estatico.helpers.on(window, 'load', injectFontsStylesheet);
