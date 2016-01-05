@@ -101,8 +101,7 @@ gulp.task(taskName, function(cb) {
 					polyfills.forEach(function(filePath) {
 						filePath = path.join(polyfillPathPrefix, filePath);
 
-						content = content
-							.replace('<script', '<script src="' + filePath + '"></script><script')
+						content = content.replace('<script', '<script src="' + filePath + '"></script><script');
 					});
 
 					file.contents = new Buffer(content);

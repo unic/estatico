@@ -21,8 +21,7 @@ var taskName = 'js:mocks',
 	};
 
 gulp.task(taskName, function() {
-	var helpers = require('require-dir')('../../helpers'),
-		tap = require('gulp-tap'),
+	var tap = require('gulp-tap'),
 		rename = require('gulp-rename');
 
 	return gulp.src(taskConfig.src, {

@@ -41,6 +41,7 @@
     "gulp-if": "1.2.5",
     "gulp-ignore": "1.2.1",
     "gulp-imagemin": "2.2.1",
+    "gulp-jscs": "3.0.2",
     "gulp-jsdoc-to-markdown": "1.1.1",
     "gulp-jshint": "1.10.0",
     "gulp-livereload": "3.8.0",
