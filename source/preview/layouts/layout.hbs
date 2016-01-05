@@ -15,11 +15,9 @@
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
-	<div class="sg_wrapper">
+	<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
 		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{project}}</a>
-
-			{{#if title}}{{title}}{{/if}}
+			<a href="/" class="sg_logo">{{project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
 
 		{{#block "content"}}

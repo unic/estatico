@@ -5,7 +5,9 @@ var _ = require('lodash'),
 	defaultData = requireNew('../../data/default.data.js');
 
 var data = _.merge(defaultData, {
-	title: 'Fonts',
+	meta: {
+		title: 'Fonts',
+	},
 	fonts: [{
 		family: 'Roboto',
 		font: [{
@@ -20,7 +22,8 @@ var data = _.merge(defaultData, {
 			style: ['normal'],
 			size: [12, 16, 22]
 		}]
-	}]
+	}],
+	additionalLayoutClass: 'sg_fonts'
 });
 
 module.exports = data;

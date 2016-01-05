@@ -7,12 +7,22 @@
 @import "../../../node_modules/highlight.js/styles/github";
 
 
-// Styleguide defaults
+
+// Preview: defaults
 // ----------------------------------------------------------------------------------------------------
+
+// Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
+// Solution: declare monospace and then give it another fallback.
+// http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
+$sg_font: monospace, serif;
+
+$sg_breakpoint: 941px;
+$sg_marginsBoxed: 20px;
+$sg_maxWidth: 900px;
 
 // Colors
 $sg_colorWhite: #fff;
-$sg_colorLightGray: #ddd;
+$sg_colorLightGray: #eaeaea;
 $sg_colorGray: #999;
 $sg_colorBlack: #000;
 $sg_colorUnicGreen: #a4c400;
@@ -25,217 +35,165 @@ $sg_defaultTransitionDelay: 0s;
 $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
 
 
-// Styleguide index page
+
+// Preview: mixins
 // ----------------------------------------------------------------------------------------------------
-.sg_wrapper {
-	padding: 2em;
+
+@mixin sgBoxedMargins {
+	margin-left: $sg_marginsBoxed;
+	margin-right: $sg_marginsBoxed;
 }
 
-.sg_main {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-start;
-	margin: 0 pxToEm(-10);
+@mixin sgBoxed {
+	max-width: $sg_maxWidth;
+	@include sgBoxedMargins;
 
-	h2 {
-		margin: 0;
+	@include mq($from: $sg_breakpoint) {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+
+
+// Preview: generic styles
+// ----------------------------------------------------------------------------------------------------
+
+.sg_wrapper {
+	.sg_h2,
+	.sg_h3,
+	.sg_documentation,
+	.sg_code,
+	.sg_variant_meta,
+	.sg_tests {
+		@include sgBoxed;
 	}
 
-	ul,
-	li {
-		list-style-type: none;
-	}
+	.sg_title {
+		@include sgBoxedMargins;
+		margin-bottom: pxToEm(70px, 35px);
+		font-family: Georgia, serif;
+		font-size: pxToEm(35px);
 
-	a {
-		display: inline-block;
-		padding: 0.2em 0;
-		color: $sg_colorGray;
-
-		&:hover {
-			color: $sg_colorBlack;
+		a {
+			border-bottom: 3px solid;
+			color: inherit;
 			text-decoration: none;
 		}
 	}
+
+	.sg_title,
+	.sg_h2,
+	.sg_h3,
+	.sg_h4 {
+		font-weight: 600;
+	}
+
+	.sg_h2,
+	.sg_h3,
+	.sg_h4 {
+		font-family: $sg_font;
+	}
+
+	.sg_h2 {
+		font-size: pxToEm(25px);
+	}
 }
+
+
+
+// Preview: modules
+// ----------------------------------------------------------------------------------------------------
+
+.sg_tabs {
+	$numTabs: 5;
+	$bgcolorActive: $sg_colorLightGray;
+
+	/*
+	 * Functionality
+	 */
+	.tab_trigger {
+		@include visuallyhidden;
+	}
+	.tab_content {
+		display: none;
+	}
+
+	$i: $numTabs;
+	@while $i > 0 {
+		.tab_trigger:nth-child(#{$i}):checked ~ .panels > .tab_content:nth-child(#{$i}) {
+			display: block;
+		}
+		.tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
+			background-color: $bgcolorActive;
+			font-weight: bold;
+		}
+		/*.tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
+			background-color: $bgcolorFocus;
+		}
+		.tab_trigger:nth-child(#{$i}):hover ~ .labels > label:nth-child(#{$i}) {
+			background-color: $bgcolorHover;
+		}*/
+		$i: $i - 1;
+	}
+
+	.labels {
+		@include clearfix;
+		@include sgBoxed;
+		border-bottom: 1px solid $sg_colorLightGray;
+		border-top: 1px solid $sg_colorLightGray;
+		& > label {
+			//border-radius: 4px 4px 0 0;
+			display: inline-block;
+			padding: 8px 18px;
+		}
+	}
+}
+
+.hljs {
+	background-color: $sg_colorLightGray;
+}
+
+
+
+// Preview: commons
+// ----------------------------------------------------------------------------------------------------
 
 .sg_inner_wrapper {
-	box-sizing: border-box;
-	padding: 1em;
-	background-color: rgba($sg_colorGray, 0.1);
+	.sg_colors &,
+	.sg_elements &,
+	.sg_fonts &,
+	.sg_forms &,
+	.sg_icons &,
+	.sg_module & {
+		@include clearfix;
+		margin-bottom: pxToEm(70px);
+	}
 
-	// Wrapper around lists on the index page
-	&.var_sg_index {
-		border: pxToEm(10) solid $sg_colorWhite;
-		border-width: 0 pxToEm(10);
-		width: 100%;
-		margin: 0 0 pxToEm(20) 0;
-
-		@include mq($from: 500px) {
-			width: 50%;
-		}
-
-		@include mq($from: 700px) {
-			width: 33.333%;
-		}
-
-		@include mq($from: 1000px) {
-			width: 25%;
-		}
-
-		@include mq($from: 1300px) {
-			width: 20%;
-		}
+	.sg_colors &,
+	.sg_elements &,
+	.sg_fonts &,
+	.sg_forms &,
+	.sg_icons & {
+		@include sgBoxed;
 	}
 }
 
-// Lists on index page
-.sg_index_list {
-	margin-bottom: 0;
-	padding: 0;
-}
-
-
-// Styleguide content styles
-// ----------------------------------------------------------------------------------------------------
 .sg_title {
-	$sizeFont: 24px;
-
-	font-family: Georgia, serif;
-	font-size: pxToEm($sizeFont);
-	font-weight: 400;
-	margin: 0 0 pxToEm(50, $sizeFont) 0;
-}
-
-.sg_logo {
-	border-bottom: 1px solid;
-	color: inherit;
-	text-decoration: none;
-}
-
-%sg_sub_headings {
-	font-weight: 400;
-	margin-top: 2em;
-}
-.sg_h2 {
-	@extend %sg_sub_headings;
-	border-bottom: 1px solid rgba($sg_colorBlack, 0.2);
-}
-.sg_h3 {
-	@extend %sg_sub_headings;
-}
-.sg_h4 {
-	@extend %sg_sub_headings;
-}
-
-.sg_block {
-	border-top: 1px solid $sg_colorWhite;
-	padding: 0.4em 0 2em;
-}
-
-.sg_block_label {
-	font-weight: 700;
-	font-size: 12px;
-}
-
-/* Icons */
-.sg_icons_label,
-.sg_icons_icon {
-	display: table-cell;
-	border-top: 1px solid $sg_colorLightGray;
-	border-left: 1px solid $sg_colorLightGray;
-	vertical-align: top;
-	padding: 0.5em;
-}
-
-.sg_icons_icon {
-	width: 20%;
-}
-.sg_icons_icon:last-of-type {
-	border-right: 1px solid $sg_colorLightGray;
-}
-
-.sg_icons {
-	display: table;
-	width: 100%;
-
-	border-bottom: 1px solid $sg_colorLightGray;
-}
-
-.sg_icons_item {
-	display: table-row;
-}
-
-
-// Colors
-// ----------------------------------------------------------------------------------------------------
-.sg_color_list {
-	@include clearfix;
-	@include resetList;
-
-	margin: 0 pxToEm(-10);
-}
-
-.sg_color_item {
-	margin: 0 pxToEm(10) pxToEm(20) pxToEm(10);
-	min-width: 10em;
-	float: left;
-	text-align: center;
-
-	&:hover {
-
-		.sg_color_preview {
-			transform: scale(1.25);
-		}
+	.sg_colors &,
+	.sg_elements &,
+	.sg_fonts &,
+	.sg_forms &,
+	.sg_icons &,
+	.sg_module & {
+		@include sgBoxed;
 	}
 }
 
-.sg_color_preview {
-	width: 5em;
-	height: 5em;
-	margin: 0 auto;
-	border: 1px solid $sg_colorLightGray;
-	border-radius: 50%;
-
-	transition: $sg_defaultTransition;
-}
-
-.sg_color_name {
-	padding-top: 0.8em;
-	font-weight: bold;
-}
-
-.sg_color_value {
-}
-
-
-// Fonts
-// ----------------------------------------------------------------------------------------------------
-.sg_font_style {
-
-}
-
-.sg_font_size {
-	border-bottom: 1px solid $sg_colorLightGray;
-	padding: 1em 0;
-}
-
-
-// Module code preview
-// ----------------------------------------------------------------------------------------------------
-.sg_code {
-
-}
-
-
-// Module preview & variants
-// ----------------------------------------------------------------------------------------------------
 .sg_demo {
 	@include clearfix;
 }
 
-
-// Markdown documentation
-// ----------------------------------------------------------------------------------------------------
 .sg_documentation {
 
 	th {
@@ -254,7 +212,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	}
 
 	code {
-		background: #f8f8f8;
+		background: $sg_colorLightGray;
 		color: #666;
 		padding: 0 0.2em;
 	}
@@ -268,8 +226,181 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	}
 }
 
-// QUnit test results
-// ----------------------------------------------------------------------------------------------------
-.sg_tests {
 
+
+// Preview: Index page
+// ----------------------------------------------------------------------------------------------------
+
+.sg_index {
+	flex-direction: row;
+	flex-wrap: wrap;
+	display:flex;
+	//justify-content: flex-start;
+	//align-content: flex-start;
+	//align-items: flex-start;
+
+	margin-left: pxToEm(10px);
+	margin-right: pxToEm(10px);
+	font-family: $sg_font;
+	font-size: pxToEm(14px);
+
+	ul,
+	li {
+		list-style-type: none;
+	}
+
+	.sg_h2 {
+		margin: 0;
+		font-size: pxToEm(25px, 14px);
+	}
+
+	a {
+		display: inline-block;
+		padding: 0.4em 0;
+		color: $sg_colorGray;
+		text-decoration: none;
+		line-height: 1.3;
+
+		&:hover {
+			color: $sg_colorBlack;
+			text-decoration: none;
+		}
+	}
+
+	.sg_inner_wrapper {
+		border-top: 6px solid;
+		box-sizing: border-box;
+		padding: 1em 0;
+
+		margin: pxToEm(10px, 15px);
+		flex-grow: 1;
+		flex-basis: 100%;
+
+		@include mq($from: 600px) {
+			flex-basis: 45%;
+		}
+
+		@include mq($from: 900px) {
+			flex-basis: 30%;
+		}
+	}
+}
+
+// Lists on index page
+.sg_index_list {
+	margin-bottom: 0;
+	padding: 0;
+}
+
+
+
+// Preview: Modules page
+// ----------------------------------------------------------------------------------------------------
+
+.sg_module {
+	.sg_h2,
+	.sg_h3,
+	.sg_h4 {
+		margin-top: 2em;
+	}
+
+	.sg_inner_wrapper {
+		&:nth-of-type(even) {
+			margin-bottom: 1em;
+			padding-bottom: pxToEm(36px);
+			background-color: $sg_colorLightGray;
+		}
+	}
+
+	// Remove clearfix in before to avoid big space from non-collapsed margins between h1 and h2
+	.sg_inner_wrapper:first-of-type:before {
+		display: none;
+	}
+}
+
+
+
+// Preview: Icons page
+// ----------------------------------------------------------------------------------------------------
+.sg_icons_label,
+.sg_icons_icon {
+	display: table-cell;
+	border-top: 1px solid $sg_colorLightGray;
+	border-left: 1px solid $sg_colorLightGray;
+	vertical-align: top;
+	padding: 0.5em;
+}
+
+.sg_icons_icon {
+	width: 20%;
+}
+.sg_icons_icon:last-of-type {
+	border-right: 1px solid $sg_colorLightGray;
+}
+
+.sg_icons_list {
+	display: table;
+	width: 100%;
+
+	border-bottom: 1px solid $sg_colorLightGray;
+
+	.sg_icons_item {
+		display: table-row;
+	}
+}
+
+
+// Preview: Colors page
+// ----------------------------------------------------------------------------------------------------
+
+.sg_color_list {
+	@include clearfix;
+	@include resetList;
+
+	margin: 0 pxToEm(-10);
+}
+
+.sg_color_item {
+	font-size: pxToEm(14);
+	padding: pxToEm(15, 14) pxToEm(10, 14) pxToEm(20, 14);
+	width: pxToEm(($sg_maxWidth/6), 14);
+	float: left;
+	text-align: center;
+	box-sizing: border-box;
+
+	&:hover {
+
+		.sg_color_preview {
+			transform: scale(1.25);
+			box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
+		}
+	}
+}
+
+.sg_color_preview {
+	width: 7.5em;
+	height: 7.5em;
+	margin: 0 auto;
+	// border: 1px solid $sg_colorLightGray;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 2px rgba(0,0,0,.025);
+
+	transition: $sg_defaultTransition;
+}
+
+.sg_color_name {
+	padding-top: 0.8em;
+	font-weight: bold;
+}
+
+.sg_color_value {
+}
+
+
+// Preview: Fonts page
+// ----------------------------------------------------------------------------------------------------
+
+.sg_subsection {
+	border-bottom: 1px solid $sg_colorLightGray;
+	padding: 1em 0;
 }
