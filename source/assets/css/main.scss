@@ -1,5 +1,5 @@
-@import "globals/variables";
 @import "../.tmp/colors";
+@import "globals/variables";
 @import "globals/functions";
 @import "globals/mixins";
 @import "globals/mediaqueries";
@@ -7,9 +7,6 @@
 
 // Reset / normalize styles
 @import "../../../node_modules/normalize.css/normalize";
-
-// Custom web fonts
-@import "globals/fonts";
 
 // Icons (as font or dataurl), PNG sprites
 @import "../.tmp/iconfont";
@@ -24,15 +21,12 @@
 @import "layout";
 
 // Modules
-//*autoinsertmodule*
-
-//*startdemomodules*
 @import "../../demo/modules/media/media";
 @import "../../demo/modules/teaser/teaser";
 @import "../../demo/modules/teasers/teasers";
 @import "../../demo/modules/skiplinks/skiplinks";
 @import "../../demo/modules/slideshow/slideshow";
-//*enddemomodules*
+//*autoinsertmodule*
 
 @media print {
 	@import "print";

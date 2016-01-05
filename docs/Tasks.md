@@ -85,15 +85,27 @@ Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on
 ### `gulp media:pngsprite`
 Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).
 
+### `gulp scaffold:copy`
+Copy module or page
+
+* Prompts for type and name of module to be copied as well as the new name.
+* Non-interactive mode: `gulp scaffold:copy --interactive=false --type={Module|Page|Demo Module|Demo Page} --newType={Module|Page|Demo Module|Demo Page} --name=helloworld --newName=helloworld2`
+
 ### `gulp scaffold`
-Scaffold new module or page, add references to module to `main.scss` and `main.js`.
+Scaffold new module or page, add references to module to `main.scss` and `main.js` unless specified otherwise.
 
 * Prompts for type and details of new element.
-* Non-interactive mode: `gulp scaffold --interactive=false type={Module|Page} name="My Module"`
+* Non-interactive mode: `gulp scaffold --interactive=false --type={Module|Page|Demo Module|Demo Page} --name="Hello World" --createScript={true|false} --createStyles={true|false}`
 
 ### `gulp scaffold:delete`
-Remove modules, pages or all demo files and delete references in `main.scss` and `main.js`.
+Remove module or page and delete references in `main.scss` and `main.js`.
 
 * Prompts for type and name of element to be deleted.
-* Non-interactive mode: `gulp scaffold:delete --interactive=false type={Module|Page} name=my_module`
+* Non-interactive mode: `gulp scaffold:delete --interactive=false --type={Module|Page|Demo Module|Demo Page} --name=bla`
+
+### `gulp scaffold:rename`
+Rename module or page
+
+* Prompts for type and name of module to be copied as well as the new name.
+* Non-interactive mode: `gulp scaffold:rename --interactive=false --type={Module|Page|Demo Module|Demo Page} --name=helloworld --newName=helloworld2`
 

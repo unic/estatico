@@ -55,6 +55,7 @@ gulp.task(taskName, function(cb) {
 		fs = require('fs'),
 		tap = require('gulp-tap'),
 		rename = require('gulp-rename'),
+		// Format HTML (disabled due to incorrect resulting indentation)
 		// prettify = require('gulp-prettify'),
 		_ = require('lodash'),
 		handlebars = require('gulp-hb'),

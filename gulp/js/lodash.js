@@ -31,7 +31,7 @@ gulp.task(taskName, function(cb) {
 		if (util.isError(data)) {
 			helpers.errors({
 				task: taskName,
-				message: data.message,
+				message: data.message
 			});
 		}
 
