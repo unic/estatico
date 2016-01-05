@@ -54,6 +54,7 @@
     "gulp-rename": "1.2.2",
     "gulp-resolve-dependencies": "2.1.0",
     "gulp-sass": "2.0.3",
+    "gulp-simplefont64": "0.0.1",
     "gulp-size": "1.2.1",
     "gulp-sourcemaps": "1.5.2",
     "gulp-svg-dimensions": "git://github.com/unic/gulp-svg-dimensions.git#v0.1.0",
