@@ -10,6 +10,7 @@
 		setup: function() {
 			instance = Modernizr.flexbox ? undefined : $node.data(name + '-instance');
 		},
+
 		teardown: function() {
 			if (!Modernizr.flexbox) {
 				instance.destroy();

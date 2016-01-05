@@ -16,25 +16,81 @@
 
 </head>
 <body>
-	<div class="sg_wrapper">
+	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="../../../" class="sg_logo">Estático</a>
-
-			Demo: Teaser with module variants
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: Teaser with module variants
 		</h1>
 
-		<h2 class="sg_h2">Demo</h2>
-		<div class="sg_demo">
-				<div class="mod_teaser">
+			<section class="sg_variants sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+
+				<div class="sg_tabs">
+						<input type="radio" name="variants" class="tab_trigger" id="variants0" checked aria-controls="panel0" role="tab" />
+						<input type="radio" name="variants" class="tab_trigger" id="variants1" aria-controls="panel1" role="tab" />
+						<input type="radio" name="variants" class="tab_trigger" id="variants2" aria-controls="panel2" role="tab" />
+
+					<div class="panels">
+							<div class="tab_content" id="panel0" aria-labelledby="tabLabel0" role="tabpanel">
+								<div class="sg_demo">
+									<div class="mod_teaser">
 	<h3 class="title">Teaser title</h3>
 
 		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 </div>
 
-		</div>
+								</div>
+							</div>
+							<div class="tab_content" id="panel1" aria-labelledby="tabLabel1" role="tabpanel">
+								<div class="sg_demo">
+									<div class="mod_teaser">
+	<h3 class="title">Teaser title</h3>
 
-		<h2 class="sg_h2">Code</h2>
-		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_teaser{{#if variant}} {{variant}}{{/if}}"</span>&gt;</span>
+</div>
+
+								</div>
+							</div>
+							<div class="tab_content" id="panel2" aria-labelledby="tabLabel2" role="tabpanel">
+								<div class="sg_demo">
+									<div class="mod_teaser var_inverted">
+	<h3 class="title">Teaser title</h3>
+
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+</div>
+
+								</div>
+							</div>
+					</div>
+
+					<div class="labels" aria-hidden="true">
+							<label for="variants0" id="tabLabel0">Default</label>
+							<label for="variants1" id="tabLabel1">No text</label>
+							<label for="variants2" id="tabLabel2">Inverted</label>
+					</div>
+
+					<div class="panels">
+							<div class="tab_content" id="panel0" aria-labelledby="tabLabel0" role="tabpanel">
+									<div class="sg_variant_meta">
+											<p>Default implemention.</p>
+									</div>
+							</div>
+							<div class="tab_content" id="panel1" aria-labelledby="tabLabel1" role="tabpanel">
+									<div class="sg_variant_meta">
+											<p>Used when there are no words.</p>
+									</div>
+							</div>
+							<div class="tab_content" id="panel2" aria-labelledby="tabLabel2" role="tabpanel">
+									<div class="sg_variant_meta">
+											<p>Used at night. Set &#x60;variant&#x60; to &#x60;var_inverted&#x60;.</p>
+									</div>
+							</div>
+					</div>
+
+				</div>
+			</section>
+
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_teaser{{#if variant}} {{variant}}{{/if}}"</span>&gt;</span>
 	<span class="hljs-tag">&lt;<span class="hljs-title">h3</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"title"</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
 
 	{{#if text}}
@@ -42,40 +98,9 @@
 	{{/if}}
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </pre>
+		</section>
 
 
-
-			<div class="sg_variants">
-				<h2 class="sg_h2">Variants</h2>
-
-						<div class="sg_variant_meta">
-								<h3>No text</h3>
-
-								<p>Used when there are no words.</p>
-						</div>
-
-					<div class="sg_demo clearfix">
-						<div class="mod_teaser">
-	<h3 class="title">Teaser title</h3>
-
-</div>
-
-					</div>
-						<div class="sg_variant_meta">
-								<h3>Inverted</h3>
-
-								<p>Used at night. Set &#x60;variant&#x60; to &#x60;var_inverted&#x60;.</p>
-						</div>
-
-					<div class="sg_demo clearfix">
-						<div class="mod_teaser var_inverted">
-	<h3 class="title">Teaser title</h3>
-
-		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-</div>
-
-					</div>
-			</div>
 
 		<script src="../../../assets/js/main.min.js"></script>
 

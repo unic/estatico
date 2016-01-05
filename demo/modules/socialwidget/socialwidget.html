@@ -16,16 +16,15 @@
 
 </head>
 <body>
-	<div class="sg_wrapper">
+	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="../../../" class="sg_logo">Estático</a>
-
-			Demo: Socialwidget
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: Socialwidget
 		</h1>
 
-		<h2 class="sg_h2">Demo</h2>
-		<div class="sg_demo">
-				<div class="mod_socialwidget">
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+						<div class="mod_socialwidget">
 	<ul>
 			<li>
 				<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.URL.ch" target="_blank" class="link var_facebook">Share on Facebook</a>
@@ -45,10 +44,12 @@
 	</ul>
 </div>
 
-		</div>
+				</div>
+			</section>
 
-		<h2 class="sg_h2">Code</h2>
-		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_socialwidget"</span>&gt;</span>
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_socialwidget"</span>&gt;</span>
 	<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
 		{{#each links}}
 			<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
@@ -58,11 +59,13 @@
 	<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </pre>
+		</section>
 
-			<div class="sg_documentation">
+			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Documentation</h2>
 
-				<h1 id="social-sharing">Social Sharing</h1>
+				<div class="sg_documentation">
+					<h1 id="social-sharing">Social Sharing</h1>
 <p><em>Author</em>: Patrick Lauterburg</p>
 <h2 id="description">Description</h2>
 <p>Each social network has its own specificities, and APIs, but in any case we&#39;ll be using from them all the &quot;share&quot; functionality, and NOT other possible functionalities like &quot;+1&quot;, or &quot;I like&quot;. In this way we can keep consistency in users expectations and experience.</p>
@@ -183,8 +186,8 @@
 </tbody>
 </table>
 
-			</div>
-
+				</div>
+			</section>
 
 
 		<script src="../../../assets/js/main.min.js"></script>

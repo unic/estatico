@@ -16,23 +16,24 @@
 
 </head>
 <body>
-	<div class="sg_wrapper">
+	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="../../../" class="sg_logo">Estático</a>
-
-			Demo: Notification
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: Notification
 		</h1>
 
-		<h2 class="sg_h2">Demo</h2>
-		<div class="sg_demo">
-				<a href="#" class="removeall">trigger 'removeAllMessages' event</a><br>
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+						<a href="#" class="removeall">trigger 'removeAllMessages' event</a><br>
 <a href="#" class="destroy">trigger 'destroy' event</a>
 
 
-		</div>
+				</div>
+			</section>
 
-		<h2 class="sg_h2">Code</h2>
-		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"removeall"</span>&gt;</span>trigger 'removeAllMessages' event<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>&gt;</span>
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"removeall"</span>&gt;</span>trigger 'removeAllMessages' event<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span>&gt;</span>trigger 'destroy' event<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
 
 {{#content "scripts"}}
@@ -81,11 +82,13 @@
 	</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 {{/content}}
 </pre>
+		</section>
 
-			<div class="sg_documentation">
+			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Documentation</h2>
 
-				<h1 id="notification-plugin">Notification plugin</h1>
+				<div class="sg_documentation">
+					<h1 id="notification-plugin">Notification plugin</h1>
 <p><em>Author</em>: Patrick Lauterburg</p>
 <h2 id="event-based-triggering">Event-based triggering</h2>
 <h3 id="adding-a-notification">adding a notification</h3>
@@ -136,8 +139,8 @@
 <pre><code class="lang-javascript">$<span class="hljs-comment">(document)</span>.trigger<span class="hljs-comment">(estatico.modules.notification.events.destroy)</span>;
 </code></pre>
 
-			</div>
-
+				</div>
+			</section>
 
 
 		<script src="../../../assets/js/main.min.js"></script>

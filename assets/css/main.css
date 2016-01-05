@@ -1,12 +1,12 @@
 @charset "UTF-8";
 /**
+ * Colors imported from ColorSchemer export
+ */
+/**
  * Default variables
  */
 /**
  * Custom colors
- */
-/**
- * Colors imported from ColorSchemer export
  */
 /**
  * Helper functions
@@ -453,9 +453,6 @@ td,
 th {
   padding: 0; }
 
-/**
- * Custom web fonts
- */
 @font-face {
   font-family: "Icons";
   src: url("../fonts/icons/Icons.eot");
@@ -576,7 +573,7 @@ head {
   .clearfix:after {
     clear: both; }
 
-body {
+html {
   background: #ffffff;
   color: #000000;
   font-family: Arial, sans-serif;
@@ -757,16 +754,18 @@ nav ol {
 
 .mod_slideshow .prev,
 .mod_slideshow .next {
-  color: #f00e48;
+  background-color: #FF990C;
+  border: none;
   float: left; }
   @media all and (min-width: 41.3125em) and (max-width: 64.0525em) {
     .mod_slideshow .prev,
     .mod_slideshow .next {
-      color: #ffb42d; } }
+      background-color: #027E8F;
+      color: #f8f8f8; } }
   @media all and (min-width: 64.0625em) {
     .mod_slideshow .prev,
     .mod_slideshow .next {
-      color: #628277; } }
+      background-color: #92B300; } }
 
 .mod_slideshow .next {
   float: right; }

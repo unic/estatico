@@ -13980,7 +13980,6 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 		delete estatico.modules[this.name].instances[this.uuid];
 	};
 
-
 	/**
 	 * Register the module as jQuery plugin, auto-init at specified events
 	 *
@@ -14195,6 +14194,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 		} else {
 			throw 'Breakpoint not found: "' + breakpoint + '"';
 		}
+
 		return value;
 	}
 
@@ -14211,7 +14211,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 
 			// "from" cannot be larger than "to"
 			if (breakpointFrom > breakpointTo) {
-				throw 'Breakpoint ' + breakpointFrom + ' is larger than ' + breakpointTo +  '';
+				throw 'Breakpoint ' + breakpointFrom + ' is larger than ' + breakpointTo + '';
 			}
 
 			// The breakpoint needs to smaller than the "to" (exclusive)
@@ -14824,7 +14824,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 		if (this._hasCookie(this.options.cookie.name) === false) {
 			this.$element
 				.addClass(this.options.stateClasses.isVisible)
-				.on('click.estatico.' + this.uuid, this.options.domSelectors.accept, function (event) {
+				.on('click.estatico.' + this.uuid, this.options.domSelectors.accept, function(event) {
 					event.preventDefault();
 
 					this._setCookie(this.options.cookie.name, 1, this.options.cookie.expires, this.options.cookie.path);
@@ -14840,50 +14840,50 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 	};
 
 	Module.prototype._hasCookie = function(key) {
-	    if (!key) {
-	    	return false;
-	    }
+		if (!key) {
+			return false;
+		}
 
-	    return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(key).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
+		return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(key).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
 	};
 
 	Module.prototype._setCookie = function(key, value, expiration, path, domain, secure) {
-    	var expires;
+		var expires;
 
-	    if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) {
-	    	return false;
-	    }
+		if (!key || /^(?:expires|max\-age|path|domain|secure)$/i.test(key)) {
+			return false;
+		}
 
-	    expires = '';
+		expires = '';
 
-	    if (expiration) {
-	      	switch (expiration.constructor) {
-	        	case Number:
-	          		expires = expiration === Infinity ? '; expires=Fri, 31 Dec 9999 23:59:59 GMT' : '; max-age=' + expiration;
-	          		break;
-	        	case String:
-	          		expires = '; expires=' + expiration;
-	          		break;
-	        	case Date:
-	          		expires = '; expires=' + expiration.toUTCString();
-	          		break;
-	      	}
-	    }
+		if (expiration) {
+			switch (expiration.constructor) {
+				case Number:
+					expires = expiration === Infinity ? '; expires=Fri, 31 Dec 9999 23:59:59 GMT' : '; max-age=' + expiration;
+					break;
+				case String:
+					expires = '; expires=' + expiration;
+					break;
+				case Date:
+					expires = '; expires=' + expiration.toUTCString();
+					break;
+			}
+		}
 
-	    document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value) + expires + (domain ? '; domain=' + domain : '') + (path ? '; path=' + path : '') + (secure ? '; secure' : '');
+		document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value) + expires + (domain ? '; domain=' + domain : '') + (path ? '; path=' + path : '') + (secure ? '; secure' : '');
 
-	    return true;
+		return true;
 	};
 
 	Module.prototype._removeCookie = function(key, path, domain) {
-    	if (!this._hasCookie(key)) {
-    		return false;
-    	}
+		if (!this._hasCookie(key)) {
+			return false;
+		}
 
-    	document.cookie = encodeURIComponent(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT' + (domain ? '; domain=' + domain : '') + (path ? '; path=' + path : '');
+		document.cookie = encodeURIComponent(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT' + (domain ? '; domain=' + domain : '') + (path ? '; path=' + path : '');
 
-    	return true;
-  	};
+		return true;
+	};
 
 	/**
 	 * Unbind events, remove data, custom teardown
@@ -15946,7 +15946,7 @@ This test will also return `true` for Firefox 4 Multitouch support.
 		},
 		defaults = {
 			domSelectors: {
-				item: '[data-' + name + '="item"]',
+				item: '[data-' + name + '="item"]'
 			},
 			stateClasses: {
 				// isActive: 'is_active'
@@ -15988,9 +15988,9 @@ This test will also return `true` for Firefox 4 Multitouch support.
 		this.setHeights();
 		$document.on(estatico.events.resize + '.' + this.uuid, this.setHeights.bind(this));
 
-		// Keeping this lines for future implementations
-		//$document.on('picturefill.loaded', _.bind(this.setHeights, this));
-		//$document.on(estatico.modules.panels.events.AFTER_SECTIONS_TOGGLE, _.bind(this.setHeights, this));
+		/* Keeping this lines for future implementations
+		$document.on('picturefill.loaded', _.bind(this.setHeights, this));
+		$document.on(estatico.modules.panels.events.AFTER_SECTIONS_TOGGLE, _.bind(this.setHeights, this)); */
 	};
 
 	/**
@@ -16091,9 +16091,10 @@ This test will also return `true` for Firefox 4 Multitouch support.
 
 		$('[data-init]').each(function() {
 			var $this = $(this),
-				plugins = $this.data('init').split(' ');
+				plugins = $this.data('init').split(' '),
+				i = 0;
 
-			for (var i = 0; i < plugins.length; i++) {
+			for (i = 0; i < plugins.length; i++) {
 				if (initPlugins.indexOf(plugins[i]) !== -1) {
 					$.fn[plugins[i]].apply($this);
 				}

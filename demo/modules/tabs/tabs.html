@@ -16,16 +16,15 @@
 
 </head>
 <body>
-	<div class="sg_wrapper">
+	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="../../../" class="sg_logo">Estático</a>
-
-			Demo: Tabs
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: Tabs
 		</h1>
 
-		<h2 class="sg_h2">Demo</h2>
-		<div class="sg_demo">
-				<div class="mod_tabs var_animated" data-init="tabs" role="tablist">
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+						<div class="mod_tabs var_animated" data-init="tabs" role="tablist">
 		<input type="radio" name="recipies" class="tab_trigger" id="recipies0" aria-controls="panel0" role="tab" />
 		<input type="radio" name="recipies" class="tab_trigger" id="recipies1" checked aria-controls="panel1" role="tab" />
 		<input type="radio" name="recipies" class="tab_trigger" id="recipies2" aria-controls="panel2" role="tab" />
@@ -74,10 +73,12 @@
 	</div>
 </div>
 
-		</div>
+				</div>
+			</section>
 
-		<h2 class="sg_h2">Code</h2>
-		<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_tabs {{variation}}"</span> <span class="hljs-attribute">data-init</span>=<span class="hljs-value">"tabs"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"tablist"</span>&gt;</span>
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_tabs {{variation}}"</span> <span class="hljs-attribute">data-init</span>=<span class="hljs-value">"tabs"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"tablist"</span>&gt;</span>
 	{{#each tabs}}
 		<span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"radio"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"{{../idName}}"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab_trigger"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"{{../idName}}{{@index}}"</span><span class="hljs-value">{{#if</span> <span class="hljs-attribute">checked</span>}} <span class="hljs-attribute">checked</span>{{/<span class="hljs-attribute">if</span>}} <span class="hljs-attribute">aria-controls</span>=<span class="hljs-value">"panel{{@index}}"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"tab"</span> /&gt;</span>
 	{{/each}}
@@ -102,11 +103,13 @@
 	<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </pre>
+		</section>
 
-			<div class="sg_documentation">
+			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Documentation</h2>
 
-				<h1 id="tabs-css-only-">Tabs (CSS-only)</h1>
+				<div class="sg_documentation">
+					<h1 id="tabs-css-only-">Tabs (CSS-only)</h1>
 <p><em>Author</em>: <a href="mailto:oriol.torrent@unic.com?subject=Pattern Library: Tabs">oriol.torrent@unic.com</a></p>
 <h2 id="description">Description</h2>
 <p>This is a CSS-only (aka JS-free, so no need for unit tests) fully accessible tabs module.</p>
@@ -179,8 +182,8 @@
 <li>Adapt or remove the styling section at the bottom of the SCSS file</li>
 </ol>
 
-			</div>
-
+				</div>
+			</section>
 
 
 		<script src="../../../assets/js/main.min.js"></script>
