@@ -1164,4 +1164,42 @@ nav ol {
   .mod_cookieconfirmation.is_visible {
     display: block; }
 
+.mod_equalheight {
+  /**
+	 * Structure
+	 */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  /**
+	 * Styling
+	 */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  max-width: 80em;
+  padding: 0.5em; }
+  .mod_equalheight [data-equalheight=item] {
+    box-sizing: border-box;
+    max-width: 250px; }
+  .no-flexbox .mod_equalheight {
+    *zoom: 1; }
+    .no-flexbox .mod_equalheight:before,
+    .no-flexbox .mod_equalheight:after {
+      content: " ";
+      display: table; }
+    .no-flexbox .mod_equalheight:after {
+      clear: both; }
+    .no-flexbox .mod_equalheight [data-equalheight=item] {
+      float: left; }
+  .mod_equalheight [data-equalheight=item] {
+    background-color: rgba(128, 128, 0, 0.3);
+    margin: 0.5em;
+    padding: 1em; }
+
 /*# sourceMappingURL=../../assets/css/main.css.map */
