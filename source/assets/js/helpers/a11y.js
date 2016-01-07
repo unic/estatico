@@ -15,18 +15,11 @@
 		activeElInterval: null,
 		currentActiveEl: null,
 
-		// Add some initalization stuff if needed:
-		init: function() {
-
-		},
-
 		run: function() {
 			if (document.documentElement.classList) {
 				// Set the mode we're in (1 = focused element, 2 = aria elements)
 				if (this.mode === null) {
 					this.mode = 1;
-
-					this.init();
 				} else {
 					this.mode++;
 				}

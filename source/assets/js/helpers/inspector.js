@@ -14,18 +14,11 @@
 		classNameVariant: 'var_variant',
 		logger: estatico.helpers.log('Inspector'),
 
-		// Add some initalization stuff if needed:
-		init: function() {
-
-		},
-
 		run: function() {
 			if (document.documentElement.classList) {
 				// Set the mode we're in (1 = show modules, 0 = hide modules)
 				if (this.mode === null) {
 					this.mode = 1;
-
-					this.init();
 				} else {
 					this.mode++;
 				}
