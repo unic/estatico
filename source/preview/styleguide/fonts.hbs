@@ -1,29 +1,30 @@
 {{!/*
 Font definitions
 ----------------------------
-weight muss als array definiert werden auch wenn nur eine verfügbar.
-falls die sizes der einzelnen weights unterschiedelich ist können
-diese in eigenen blöcken definiert werden.
+Font weights must be defined as arrays, even wheen there's only one weight to be defined.
+In case of different sizes for each weight, they can be defined in separate objects.
 */}}
 
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
 		{{#each fonts}}
-			<h2 class="sg_h2">{{this.family}}</h2>
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">{{this.family}}</h2>
 
-			<div style="font-family: {{this.family}}">
 				{{#each this.font}}
 					<div class="sg_fonts_font">
 						{{#each this.weight}}
 							{{#each ../this.size}}
 								{{#each ../../this.style}}
-									<div class="sg_font_size" title="{{../../../../this.family}} {{this}} {{../../this}} {{../this}}px">
-										<div>{{this}} {{../../this}} {{../this}}px</div>
+									<div class="sg_subsection" title="{{../../../../this.family}} {{this}} {{../../this}} {{../this}}px">
+										<h3 class="sg_h3">{{this}} {{../../this}} {{../this}}px</h3>
 
 										<div style="font-style: {{this}}; font-size: {{../this}}px; font-weight: {{../../this}};">
-											A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-											a b c d e f g h i j k l m n o p q r s t u v w x y z
-											0 1 2 3 4 5 6 7 8 9 . , ; : - _ = { } ( ) [ ]
+											A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br />
+											a b c d e f g h i j k l m n o p q r s t u v w x y z<br />
+											À È Ì Ò Ù Á É Í Ó Ú Ä Ë Ï Ö Ü Â Ê Î Ô Û Ç<br />
+											à è ì ò ù á é í ó ú ä ë ï ö ü â ê î ô û ç<br />
+											0 1 2 3 4 5 6 7 8 9 . , ; : - _ = { } ( ) [ ] ? ! $ £ & % * " ' § °<br />
 										</div>
 									</div>
 								{{/each}}
@@ -31,7 +32,7 @@ diese in eigenen blöcken definiert werden.
 						{{/each}}
 					</div>
 				{{/each}}
-			</div>
+			</section>
 		{{/each}}
 	{{/content}}
 {{/extend}}

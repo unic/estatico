@@ -10,7 +10,7 @@ var gulp = require('gulp');
 var taskName = 'js:qunit',
 	taskConfig = {
 		srcTests: [
-			'./source/assets/vendor/qunit/qunit/*',
+			'./node_modules/qunitjs/qunit/*',
 			'./source/modules/**/*.test.js',
 			'./source/demo/modules/**/*.test.js'
 		],
@@ -23,10 +23,10 @@ var taskName = 'js:qunit',
 			'./build/demo/modules/**/*.html'
 		],
 		srcTemplatesBase: './build/',
-		srcQUnit: 'assets/vendor/qunit/qunit/qunit.js',
+		srcQUnit: './node_modules/qunitjs/qunit/qunit.js',
 		destTemplates: './.qunit/',
 		srcPolyfills: [
-			'./source/assets/vendor/react-bind-polyfill/index.js'
+			'./node_modules/phantomjs-polyfill/bind-polyfill.js'
 		],
 		watch: [
 			'source/modules/**/*.test.js',
@@ -38,6 +38,7 @@ gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
 		path = require('path'),
 		_ = require('lodash'),
+		rename = require('gulp-rename'),
 		tap = require('gulp-tap'),
 		ignore = require('gulp-ignore'),
 		qunit = require('gulp-qunit'),
@@ -61,6 +62,10 @@ gulp.task(taskName, function(cb) {
 	gulp.src(srcTests, {
 		base: taskConfig.srcBase
 	})
+		.pipe(rename(function(filePath) {
+			// Move node_modules into the same dest dir
+			filePath.dirname = filePath.dirname.replace(path.join('..', 'node_modules'), 'node_modules');
+		}))
 		.pipe(gulp.dest(taskConfig.destTests))
 		.on('finish', function() {
 			// Run tests
@@ -94,10 +99,9 @@ gulp.task(taskName, function(cb) {
 
 					// Insert polyfills for PhantomJS
 					polyfills.forEach(function(filePath) {
-						filePath = path.join(polyfillPathPrefix, path.relative(taskConfig.srcBase, filePath));
+						filePath = path.join(polyfillPathPrefix, filePath);
 
-						content = content
-							.replace('<script', '<script src="' + filePath + '"></script><script')
+						content = content.replace('<script', '<script src="' + filePath + '"></script><script');
 					});
 
 					file.contents = new Buffer(content);

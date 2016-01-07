@@ -6,7 +6,7 @@ module.exports = {
 			focusPoint: '750,750'
 		},
 		{
-			size: '800x400'
+			width: '800'
 		},
 		{
 			size: '800x400',

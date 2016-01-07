@@ -38,7 +38,7 @@ data.modules = _.sortBy(data.modules, function(item) {
 }));
 
 data.styleguide = _.sortBy(data.styleguide, function(item) {
-	return item.title;
+	return item.meta.title;
 });
 
 module.exports = data;

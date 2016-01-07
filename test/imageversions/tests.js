@@ -11,7 +11,7 @@ module.exports = {
 					'./test/imageversions/fixtures/'
 				],
 				fileExtensions: '{jpg, png}',
-				configFileName: 'imageversions.js',
+				configFileName: 'imageversions.config.js',
 				srcBase: './test/imageversions/fixtures/',
 				dest: './test/imageversions/results/'
 			};
@@ -25,6 +25,6 @@ module.exports = {
 	},
 	after: function(done) {
 		// Removing temporary results directory after test execution
-		del(__dirname + '/results', done);
+		//del(__dirname + '/results', done);
 	}
 };

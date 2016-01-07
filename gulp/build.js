@@ -19,6 +19,7 @@ gulp.task(taskName, function(cb) {
 		'clean',
 		[
 			'css:colors',
+			'css:fonts',
 			'js:lodash',
 			'js:templates',
 			'js:mocks',

@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp media:imageversions`
- * @desc Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /docs/ImageVersions.md for more details and config examples.
+ * @desc Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /source/demo/modules/imageversions module for more details and further documentation.
  */
 
 var gulp = require('gulp');
@@ -21,7 +21,7 @@ var taskName = 'media:imageversions',
 			'source/demo/modules/**/media/'
 		],
 		fileExtensionPattern: '*.{jpg, png}',
-		configFileName: 'imageversions.js',
+		configFileName: 'imageversions.config.js',
 		srcBase: './source/',
 		dest: './build/'
 	},
@@ -74,7 +74,6 @@ var taskName = 'media:imageversions',
 					// resolving glob paths
 					glob(configPath, function (er, files) {
 						_.each(files, function (file) {
-							console.log(file);
 							var sizeConfig = (function() {
 								try {
 									return requireNew(path.resolve(file));
@@ -154,7 +153,8 @@ var taskName = 'media:imageversions',
 							focusPointCoordinates = [],
 							focusPoint = {},
 							fileNamePostfix,
-							img;
+							img,
+							newFile;
 
 						if (typeof crop === 'string') {
 							newSizeValues = crop.split('x');
@@ -183,11 +183,10 @@ var taskName = 'media:imageversions',
 						img = morphImage(imgData, focusPoint, { width: newSizeValues[0], height: newSizeValues[1] });
 
 						// forming a file name for generated version
-						//newPath = imgData.path.replace(fileName, fileNamePrefix);
 						newPath = imgData.path.replace(extension, '_' + fileNamePostfix + '$1');
 
 						// adding a new image file to stream
-						var newFile = new gutil.File({
+						newFile = new gutil.File({
 							base: imgData.base,
 							path: newPath,
 							contents: img.stream()
@@ -198,7 +197,7 @@ var taskName = 'media:imageversions',
 					return done();
 				}
 			}))
-			.pipe(buffer())// need to convert streams to buffers, to be able to use imagemin
+			.pipe(buffer()) // need to convert streams to buffers, to be able to use imagemin
 			.pipe(imagemin())
 			.pipe(tap(function (file) {
 				console.log('Generated image version: ' + path.relative(config.srcBase, file.path));

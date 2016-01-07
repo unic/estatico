@@ -106,10 +106,8 @@ var taskName = 'scaffold',
 			.catch(helpers.errors);
 	},
 	task = function(config, cb) {
-		var util = require('gulp-util'),
-			tap = require('gulp-tap'),
+		var tap = require('gulp-tap'),
 			through = require('through2'),
-			ignore = require('gulp-ignore'),
 			path = require('path'),
 			rename = require('gulp-rename'),
 			helpers = require('require-dir')('../../helpers'),
