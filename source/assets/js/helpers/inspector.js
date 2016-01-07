@@ -43,29 +43,20 @@
 
 		// Add class to all modules
 		showModules: function() {
-			var nodeList,
-				log,
-				module,
-				variations,
-				i,
-				j;
+			[].forEach.call(document.querySelectorAll('[class]'), function(node) {
+				var log = '',
+					module = '',
+					variations = [];
 
-			nodeList = document.getElementsByTagName('*');
-
-			for (i = 0; i < nodeList.length; i++) {
-				log = '';
-				module = '';
-				variations = [];
-
-				for (j = nodeList[i].classList.length - 1; j >= 0; j--) {
-					if (nodeList[i].classList[j].substring(0, 4) === 'mod_') {
-						module = nodeList[i].classList[j].substring(4).replace(/_/g, ' ');
+				node.classList.forEach(function(className) {
+					if (className.substring(0, 4) === 'mod_') {
+						module = className.substring(4).replace(/_/g, ' ');
 					}
 
-					if (nodeList[i].classList[j].substring(0, 4) === 'var_') {
-						variations.push( nodeList[i].classList[j].substring(4).replace(/_/g, ' ') );
+					if (className.substring(0, 4) === 'var_') {
+						variations.push(className.substring(4).replace(/_/g, ' '));
 					}
-				}
+				});
 
 				if (module !== '') {
 					log = module;
@@ -76,32 +67,25 @@
 				}
 
 				if (log !== '') {
-					this.logger([ nodeList[i], log ]);
+					this.logger([node, log]);
 
-					nodeList[i].classList.add(this.className);
+					node.classList.add(this.className);
 
 					if (variations.length > 0) {
-						nodeList[i].classList.add(this.classNameVariant);
+						node.classList.add(this.classNameVariant);
 					}
 
-					nodeList[i].dataset[this.dataAttribute] = log;
+					node.dataset[this.dataAttribute] = log;
 				}
-			}
+			}.bind(this));
 		},
 
 		// Remove class from modules
 		hideModules: function() {
-			var nodeList,
-				i;
-
-			nodeList = document.getElementsByTagName('*');
-
-			for (i = 0; i < nodeList.length; i++) {
-				nodeList[i].classList.remove(this.className);
-				nodeList[i].classList.remove(this.classNameVariant);
-			}
-
-			this.mode = 0;
+			[].forEach.call(document.querySelectorAll('[class]'), function(node) {
+				node.classList.remove(this.className);
+				node.classList.remove(this.classNameVariant);
+			}.bind(this));
 		}
 	};
 

@@ -76,41 +76,29 @@
 
 		// Add class to all aria elements
 		addClassToAriaElements: function() {
-			var nodeList,
-				log,
-				i,
-				j;
+			[].forEach.call(document.querySelectorAll('[*]'), function(node) {
+				var log = '';
 
-			nodeList = document.getElementsByTagName('*');
-
-			for (i = 0; i < nodeList.length; i++) {
-				log = '';
-
-				for (j = nodeList[i].attributes.length - 1; j >= 0; j--) {
-					if (nodeList[i].attributes[j].name === 'role' || nodeList[i].attributes[j].name.substring(0, 5) === 'aria-') {
-						log += '[' + nodeList[i].attributes[j].name + '=' + nodeList[i].attributes[j].value + ']';
+				node.attributes.forEach(function(attribute) {
+					if (attribute.name === 'role' || attribute.name.substring(0, 5) === 'aria-') {
+						log += '[' + attribute.name + '=' + attribute.value + ']';
 					}
-				}
+				});
 
 				if (log !== '') {
-					this.logger([ nodeList[i], log ]);
+					this.logger([node, log]);
 
-					nodeList[i].classList.add(this.className);
-					nodeList[i].dataset[this.dataAttribute] = log;
+					node.classList.add(this.className);
+					node.dataset[this.dataAttribute] = log;
 				}
-			}
+			});
 		},
 
 		// Remove class from aria elements
 		removeClassFromAriaElements: function() {
-			var nodeList,
-				i;
-
-			nodeList = document.getElementsByTagName('*');
-
-			for (i = 0; i < nodeList.length; i++) {
-				nodeList[i].classList.remove(this.className);
-			}
+			[].forEach.call(document.querySelectorAll('[*]'), function(node) {
+				node.classList.remove(this.className);
+			}.bind(this));
 
 			this.mode = 0;
 		}
