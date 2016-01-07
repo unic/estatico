@@ -86,6 +86,8 @@
 				node.classList.remove(this.className);
 				node.classList.remove(this.classNameVariant);
 			}.bind(this));
+
+			this.mode = 0;
 		}
 	};
 
