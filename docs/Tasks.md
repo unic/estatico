@@ -46,6 +46,9 @@ Works with JSON, too. Just replace the HTML file with a JSON one (containing "co
 ### `gulp css`
 Compile Sass to CSS (using `LibSass`), run autoprefixer on the generated CSS.
 
+### `gulp css:fonts`
+Encode *.otf or *.ttf or *.woff fonts to base64 data
+
 ### `gulp html`
 Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
 
@@ -81,6 +84,9 @@ Generate Sass file with base64 encoded SVG data urls and PNG fallbacks.
 
 ### `gulp media:iconfont`
 Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Handlebars template).
+
+### `gulp media:imageversions`
+Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /source/demo/modules/imageversions module for more details and further documentation.
 
 ### `gulp media:pngsprite`
 Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).

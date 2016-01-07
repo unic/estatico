@@ -19,11 +19,13 @@ module.exports = {
 		// Calling the task function
 		task.task(testTaskConfig, done);
 	},
+
 	// Using task name as key
 	default: function() {
 		helpers.compareResultFilesToExpected('css');
 	},
 	after: function(done) {
+
 		// Removing temporary results directory after test execution
 		del(__dirname + '/results', done);
 	}

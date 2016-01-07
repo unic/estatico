@@ -1,5 +1,5 @@
 module.exports = {
-	'george.jpg' : [
+	'george.jpg': [
 		'300x300',
 		{
 			size: '100x50',

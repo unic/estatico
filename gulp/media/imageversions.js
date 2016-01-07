@@ -39,41 +39,50 @@ var taskName = 'media:imageversions',
 			glob = require('glob'),
 			buffer = require('vinyl-buffer'),
 			size = require('gulp-size'),
-			imagemin = require('gulp-imagemin');
+			imagemin = require('gulp-imagemin'),
+			morphImage,
+			combineConfigs,
+			extensionRegExp = '(\\.\\w+)$',
+			extension = new RegExp(extensionRegExp),
+			configPaths,
+			mergedConfig;
 
 		// Helper functions
-		var morphImage = function (imgData, focus, newSize) {
-				// calculating proportion coefficient for future size
-				var k = newSize.width/newSize.height;
+		morphImage = function(imgData, focus, newSize) {
+			// calculating proportion coefficient for future size
+			var k = newSize.width / newSize.height,
+				Wm, Hm, fx2, fy2;
 
-				// calculating necessary crop values
-				var Wm = imgData.imgSize.width,
-					Hm = Math.round(imgData.imgSize.width/k);
+			// calculating necessary crop values
+			Wm = imgData.imgSize.width;
+			Hm = Math.round(imgData.imgSize.width / k);
 
-				if (Hm > imgData.imgSize.height) {
-					Hm = imgData.imgSize.height;
-					Wm = Math.round(imgData.imgSize.height*k);
-				}
+			if (Hm > imgData.imgSize.height) {
+				Hm = imgData.imgSize.height;
+				Wm = Math.round(imgData.imgSize.height * k);
+			}
 
-				var fx2 = Math.round(focus.width*Wm/imgData.imgSize.width);
-				var fy2 = Math.round(focus.height*Hm/imgData.imgSize.height);
+			fx2 = Math.round(focus.width * Wm / imgData.imgSize.width);
+			fy2 = Math.round(focus.height * Hm / imgData.imgSize.height);
 
-				// crop
-				// params: resulting width, resulting height, left top corner x coordinate, left top corner y coordinate
-				imgData.img.crop(Wm, Hm, focus.width-fx2, focus.height-fy2);
+			// crop
+			// params: resulting width, resulting height, left top corner x coordinate, left top corner y coordinate
+			imgData.img.crop(Wm, Hm, focus.width - fx2, focus.height - fy2);
 
-				// resize crop result to requested size
-				imgData.img.resize(newSize.width, newSize.height, '!');
+			// resize crop result to requested size
+			imgData.img.resize(newSize.width, newSize.height, '!');
 
-				return imgData.img;
-			},
-			combineConfigs = function (configPaths) {
+			return imgData.img;
+		},
+
+			combineConfigs = function(configPaths) {
 				var mergedConfig = {};
+
 				// Going through all existing configs and creating one universal, where keys are paths to original files
-				_.each(configPaths, function (configPath) {
+				_.each(configPaths, function(configPath) {
 					// resolving glob paths
-					glob(configPath, function (er, files) {
-						_.each(files, function (file) {
+					glob(configPath, function(er, files) {
+						_.each(files, function(file) {
 							var sizeConfig = (function() {
 								try {
 									return requireNew(path.resolve(file));
@@ -82,7 +91,7 @@ var taskName = 'media:imageversions',
 								}
 							})();
 
-							_.forOwn(sizeConfig, function (value, key) {
+							_.forOwn(sizeConfig, function(value, key) {
 								var newkey = path.relative('./', path.dirname(file)) + '/' + key;
 
 								sizeConfig[newkey] = value;
@@ -93,26 +102,29 @@ var taskName = 'media:imageversions',
 						});
 					});
 				});
-				return mergedConfig;
-			};
 
-		var extensionRegExp = '(\\.\\w+)$',
+				return mergedConfig;
+			},
+
+			extensionRegExp = '(\\.\\w+)$',
 			extension = new RegExp(extensionRegExp),
-			configPaths = _.map(config.src, function (path) {
-				return path + config.configFileName
+			configPaths = _.map(config.src, function(path) {
+				return path + config.configFileName;
 			}),
+
 			mergedConfig = combineConfigs(configPaths);
 
 		gulp.src(
-			_.map(config.src, function (path) {
-				return path + config.fileExtensionPattern
+			_.map(config.src, function(path) {
+				return path + config.fileExtensionPattern;
 			}),
+
 			{
 				base: config.srcBase
 			})
 
 			// Checking if an image has defined crops and if yes - push it further through version creating pipe
-			.pipe(through.obj(function (imgData, enc, done) {
+			.pipe(through.obj(function(imgData, enc, done) {
 				// getting config for current image
 				var crops = mergedConfig[path.relative('./', imgData.path)];
 
@@ -128,6 +140,7 @@ var taskName = 'media:imageversions',
 						if (err) {
 							throw err;
 						}
+
 						// attaching size to image file object
 						imgData.imgSize = size;
 						return done(null, imgData);
@@ -136,7 +149,7 @@ var taskName = 'media:imageversions',
 			}))
 
 			// Creating versions
-			.pipe(through.obj(function (imgData, enc, done) {
+			.pipe(through.obj(function(imgData, enc, done) {
 				if (imgData.img && imgData.imgSize && imgData.imgCrops) {
 					var fileName = path.basename(imgData.path);
 
@@ -194,16 +207,17 @@ var taskName = 'media:imageversions',
 
 						this.push(newFile);
 					}
+
 					return done();
 				}
 			}))
 			.pipe(buffer()) // need to convert streams to buffers, to be able to use imagemin
 			.pipe(imagemin())
-			.pipe(tap(function (file) {
+			.pipe(tap(function(file) {
 				console.log('Generated image version: ' + path.relative(config.srcBase, file.path));
 			}))
 			.pipe(gulp.dest(config.dest))
-			.on('end', cb);
+			.on('finish', cb);
 	};
 
 gulp.task(taskName, function(cb) {
