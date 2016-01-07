@@ -1,5 +1,5 @@
-@import "globals/variables";
 @import "../.tmp/colors";
+@import "globals/variables";
 @import "globals/functions";
 @import "globals/mixins";
 @import "globals/mediaqueries";
@@ -7,9 +7,6 @@
 
 // Reset / normalize styles
 @import "../../../node_modules/normalize.css/normalize";
-
-// Custom web fonts
-@import "globals/fonts";
 
 // Icons (as font or dataurl), PNG sprites
 @import "../.tmp/iconfont";
