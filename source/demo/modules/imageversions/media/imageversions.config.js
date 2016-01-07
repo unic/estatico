@@ -1,6 +1,5 @@
 module.exports = {
 	'george.jpg': [
-		'100x50',
 		{
 			size: '100x50',
 			focusPoint: '750,750'
@@ -8,6 +7,14 @@ module.exports = {
 		{
 			size: '800x400'
 		},
+		{
+			width: 301
+		},
+		{
+			height: 200
+		},
+		'100x50',
+		110,
 		{
 			size: '800x400',
 			focusPoint: '750,750'

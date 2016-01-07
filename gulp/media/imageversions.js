@@ -181,6 +181,28 @@ var taskName = 'media:imageversions',
 							}
 						}
 
+						// if only one dimension is defined
+						else {
+
+							// if only width is defined
+							if (crop.width || typeof crop === 'number') {
+								if (crop.width) {
+									newSizeValues[0] = crop.width;
+								} else if (typeof crop === 'number') {
+									newSizeValues[0] = crop;
+								}
+								newSizeValues[1] = Math.floor(imgData.imgSize.height * newSizeValues[0] / imgData.imgSize.width);
+							}
+
+							// if only height is defined
+							else if (crop.height) {
+								newSizeValues[1] = crop.height;
+								newSizeValues[0] = Math.floor(imgData.imgSize.width * newSizeValues[1] / imgData.imgSize.height);
+							}
+
+							fileNamePostfix = newSizeValues[0] + 'x' + newSizeValues[1];
+						}
+
 						// setting focus point
 						if (focusPointCoordinates.length > 0) {
 							focusPoint = { width: focusPointCoordinates[0], height: focusPointCoordinates[1] };
