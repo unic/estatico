@@ -1,0 +1,164 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Demo: Image versions – Estático</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../../assets/css/main.min.css">
+	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
+
+
+	<script src="../../../assets/js/head.min.js"></script>
+
+</head>
+<body>
+	<div class="sg_wrapper sg_module">
+		<h1 class="sg_title">
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: Image versions
+		</h1>
+
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+						<div class="mod_imageversions" data-init="test">
+	<ul>
+		<li>
+			<h3>Original image (400x400)</h3>
+			<img src="media/george.jpg" alt="Original George" />
+		</li>
+		<li>
+			<h3>Scaled down to 100x50 with default (image center) focus point</h3>
+			<img src="media/george_100x50.jpg" alt="Small centered George" />
+			</li>
+		<li>
+			<h3>Scaled down to 100x50 with (400,400) focus point</h3>
+			<img src="media/george_100x50_400,400.jpg" alt="Scaled down George's paws" />
+			</li>
+		<li>
+			<h3>Scaled up to 600x300 with default (image center) focus point</h3>
+			<img src="media/george_600x300.jpg" alt="Large centered George" />
+			</li>
+		<li>
+			<h3>Scaled up to 600x300 with (0,400) focus point</h3>
+			<img src="media/george_600x300_0,400.jpg" alt="Enlarged George's paws" /></li>
+		<li>
+			<h3>Resized proportionally by only specifying width (300)</h3>
+			<img src="media/george_300x300.jpg" alt="George resized by specifying width only" /></li>
+		<li>
+			<h3>Resized proportionally by only specifying height (200)</h3>
+			<img src="media/george_200x200.jpg" alt="George resized by specifying height only" /></li>
+		<li>
+			<h3>Resized proportionally by only specifying width (150) as a number (shorthand)</h3>
+			<img src="media/george_150x150.jpg" alt="George resized by specifying width only (shorthand)" /></li>
+	</ul>
+</div>
+
+				</div>
+			</section>
+
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_imageversions"</span> <span class="hljs-attribute">data-init</span>=<span class="hljs-value">"test"</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Original image (400x400)<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"Original George"</span> /&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Scaled down to 100x50 with default (image center) focus point<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_100x50.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"Small centered George"</span> /&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Scaled down to 100x50 with (400,400) focus point<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_100x50_400,400.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"Scaled down George's paws"</span> /&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Scaled up to 600x300 with default (image center) focus point<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_600x300.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"Large centered George"</span> /&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Scaled up to 600x300 with (0,400) focus point<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_600x300_0,400.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"Enlarged George's paws"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Resized proportionally by only specifying width (300)<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_300x300.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"George resized by specifying width only"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Resized proportionally by only specifying height (200)<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_200x200.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"George resized by specifying height only"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Resized proportionally by only specifying width (150) as a number (shorthand)<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"media/george_150x150.jpg"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">"George resized by specifying width only (shorthand)"</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</pre>
+		</section>
+
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Documentation</h2>
+
+				<div class="sg_documentation">
+					<h2 id="description">Description</h2>
+<p>Example setup for media:imageversions gulp task</p>
+<p>To have versions of an image created automatically, a config file &quot;imageversions.js&quot; is required in the same folder
+as original image.</p>
+<p>Config may look like this:</p>
+<pre><code>module.exports = {
+    <span class="hljs-string">'george.jpg'</span>: [
+        <span class="hljs-string">'100x50'</span>,
+        {
+            <span class="hljs-built_in">size</span>: <span class="hljs-string">'100x50'</span>,
+            focusPoint: <span class="hljs-string">'400,400'</span>
+        },
+        {
+            <span class="hljs-built_in">size</span>: <span class="hljs-string">'600x300'</span>
+        },
+        {
+            <span class="hljs-built_in">size</span>: <span class="hljs-string">'600x300'</span>,
+            focusPoint: <span class="hljs-string">'0,400'</span>
+        },
+        {
+            <span class="hljs-variable">width</span>: <span class="hljs-number">300</span>
+        },
+        {
+            <span class="hljs-variable">height</span>: <span class="hljs-number">200</span>
+        },
+        <span class="hljs-number">150</span>
+    ]
+};
+</code></pre><p>Where &#39;george.jpg&#39; is a filename of original image to generate crops from.</p>
+<p>Each crop can be defined in one of the following formats:</p>
+<ul>
+<li>a size string, like &#39;100x50&#39;<pre><code><span class="hljs-string">'100x50'</span>
+</code></pre></li>
+<li>an object, containing size and optionally focusPoint properties (focus point has to be specified as coordinates on original, not resized image)<pre><code>{
+  <span class="hljs-attribute">size</span>: <span class="hljs-string">'100x50'</span>,
+  <span class="hljs-attribute">focusPoint</span>: <span class="hljs-string">'400,400'</span>
+}
+</code></pre></li>
+<li>an object, containing just width or just height property<pre><code>{
+  <span class="hljs-tag">width</span>: <span class="hljs-tag">300</span>
+}
+<span class="hljs-tag">or</span>
+{
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">200</span>
+}
+</code></pre></li>
+<li>a number (which would be interpreted as a desired width)<pre><code>150
+</code></pre></li>
+</ul>
+<p>Special thanks to <a href="https://www.instagram.com/george2legs/?hl=en">george2legs</a> for a test image.</p>
+
+				</div>
+			</section>
+
+
+		<script src="../../../assets/js/main.min.js"></script>
+
+	</div>
+</body>
+</html>
