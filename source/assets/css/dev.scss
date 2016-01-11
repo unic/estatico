@@ -1,0 +1,33 @@
+/**
+ * Overlay for inspection of elements (see dev.js)
+ */
+
+.estatico_dev_overlay {
+	$color: rgba(100,200,255,0.4);
+
+	position: relative;
+	box-shadow: inset 0 0 0 4px $color;
+
+	&:after {
+		text-transform: capitalize;
+		z-index: 9999999;
+		position: absolute;
+		top: -15px;
+		left: 0;
+		white-space: nowrap;
+		background: $color;
+		color: #000;
+		font-size: 10px;
+		content: attr(data-estatico-dev);
+	}
+
+	&.var_variant {
+		$color: rgba(208,235,98,0.4);
+
+		box-shadow: inset 0 0 0 4px $color;
+
+		&:after {
+			background: $color;
+		}
+	}
+}

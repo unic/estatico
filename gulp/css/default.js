@@ -13,6 +13,9 @@ var taskName = 'css',
 			'./source/assets/css/*.scss',
 			'./source/preview/assets/css/*.scss'
 		],
+		devSrc: [
+			'./source/assets/css/dev.scss'
+		],
 		srcBase: './source/',
 		include: [
 			'./source/assets/css/',
@@ -44,6 +47,11 @@ var taskName = 'css',
 			lazypipe = require('lazypipe'),
 			ignore = require('gulp-ignore'),
 			path = require('path');
+
+		// Optionally build dev styles
+		if (util.env.dev) {
+			config.src = config.src.concat(config.devSrc);
+		}
 
 		var writeSourceMaps = lazypipe()
 				.pipe(sourcemaps.write, '.', {
