@@ -20,9 +20,9 @@
 	document.onkeydown = function(e) {
 		e = e || window.event;
 
-		if (e.keyCode === 77 && e.ctrlKey){ // ctrl+m
+		if (e.keyCode === 77 && e.ctrlKey) { // ctrl+m
 			estatico.helpers.inspector.run();
-		} else if (e.keyCode === 65 && e.ctrlKey){ // ctrl+a
+		} else if (e.keyCode === 65 && e.ctrlKey) { // ctrl+a
 			estatico.helpers.a11y.run();
 		}
 	};
