@@ -7,3 +7,4 @@ source/assets/.tmp
 atlassian-ide-plugin.xml
 .vagrant
 .qunit
+.DS_Store

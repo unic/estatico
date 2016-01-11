@@ -24,6 +24,7 @@
     "connect-livereload": "0.5.3",
     "del": "1.1.1",
     "glob": "5.0.6",
+    "gm": "1.21.1",
     "gulp": "3.8.11",
     "gulp-autoprefixer": "2.2.0",
     "gulp-base64": "0.1.2",
@@ -87,6 +88,7 @@
     "serve-static": "1.9.2",
     "should": "6.0.1",
     "through2": "2.0.0",
+    "vinyl-buffer": "1.0.0",
     "vinyl-paths": "1.0.0"
   },
   "scripts": {
