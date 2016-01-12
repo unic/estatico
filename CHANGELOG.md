@@ -1,3 +1,43 @@
+## 4.0.0
+
+We're terribly sorry, but some of the changes may be **slightly** backwards incompatible.
+
+Features:
+
+* **ESTATICO-153: JSCS code style check has been added to js:lint gulp task.**
+* [Pull request #5](https://github
+.com/unic/estatico/pull/5): A built-in comparison function for media queries in JavaScript (courtesy of @d-simon).
+* ESTATICO-103: Modules can now have variants - different implementations of modules, based on same Handlebars
+markup, but different sets of data. Module preview page is now able to preview all variants.
+* ESTATICO-30: Magic colorful console logging (as proposed by @d-simon in [Pull request #3](https://github.com/unic/estatico/pull/3)), based on
+[Bows](https://github.com/latentflip/bows).
+* ESTATICO-42: Added scaffold:copy task to copy demo module to source folder structure.
+* ESTATICO-180: Added scaffold:rename task for renaming modules.
+* ESTATICO-102: Stylish code highlighting in module markdown docs.
+* ESTATICO-191: Highlighting modules when pressing CTRL+M in a browser.
+* ESTATICO-192: Highlighting elements with aria attributes when pressing CTRL+A in a browser.
+* ESTATICO-54: Asynchronous font loading with base64 encoding and localStorage caching (inspired by [localFont](https://github.com/jaicab/localFont/blob/gh-pages/core.js)).
+* ESTATICO-201: New subtle styling of preview and index pages
+* ESTATICO-69: media:imageversions gulp task to automatically generate different size versions of your placeholder cat images.
+
+Changes:
+
+* **ESTATICO-187: npm is used instead of bower**
+* ESTATICO-181: gulp-sass and node-sass have been updated to the latest versions, which are still able to work with
+sorcemaps (gulp-sass -> 2.0.3, node-sass -> 3.3.3)
+* ESTATICO-186: QUnit updated to version 1.20.0
+* ESTATICO-178: JQuery updated to version 2.1.3
+* ESTATICO-178: native JavaScript methods are used instead of jQuery ones (e.g. bind instead of proxy)
+* sourcemaps are now generated after livereload
+* ESTATICO-196: Moved colors.scss to the top of main.scss, so that colors can be used in globals/variables.scss file
+
+Bugfixes:
+
+* [Pull request #6](https://github
+.com/unic/estatico/pull/6): Wrong variable names have been corrected in mq mixin (thanks to @matthiasmeier)
+* ESTATICO-4: Scaffolding task used to generate javascript file even if user said NO explicitly. As a special Christmas gift it doesn't do it anymore.
+* ESTATICO-202: Moved styles from body to html to allow for rem sizing
+
 ## 3.0.1
 
 Bugfixes:
