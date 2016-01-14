@@ -1,0 +1,193 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Demo: Tabs – Estático</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../../assets/css/main.min.css">
+	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
+
+	<script src="../../../assets/js/head.min.js"></script>
+
+</head>
+<body>
+	<div class="sg_wrapper sg_module">
+		<h1 class="sg_title">
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: Tabs
+		</h1>
+
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+						<div class="mod_tabs var_animated" data-init="tabs" role="tablist">
+		<input type="radio" name="recipies" class="tab_trigger" id="recipies0" aria-controls="panel0" role="tab" />
+		<input type="radio" name="recipies" class="tab_trigger" id="recipies1" checked aria-controls="panel1" role="tab" />
+		<input type="radio" name="recipies" class="tab_trigger" id="recipies2" aria-controls="panel2" role="tab" />
+		<input type="radio" name="recipies" class="tab_trigger" id="recipies3" aria-controls="panel3" role="tab" />
+
+	<div class="labels" aria-hidden="true">
+			<label for="recipies0" id="tabLabel0">My tab 1</label>
+			<label for="recipies1" id="tabLabel1">A name for tab 2</label>
+			<label for="recipies2" id="tabLabel2">The best tab 3</label>
+			<label for="recipies3" id="tabLabel3">A last tab 4</label>
+	</div>
+
+	<div class="panels">
+			<div class="tab_content" id="panel0" aria-labelledby="tabLabel0" role="tabpanel">
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+			</div>
+			<div class="tab_content" id="panel1" aria-labelledby="tabLabel1" role="tabpanel">
+					Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+			</div>
+			<div class="tab_content" id="panel2" aria-labelledby="tabLabel2" role="tabpanel">
+					<div class="mod_teasers">
+	<form action="#">
+			<div>
+				<input type="radio" value="radio1" id="radio10" name="dishes" />
+				<label for="radio10">Deep Dish</label>
+			</div>
+			<div>
+				<input type="radio" value="radio2" id="radio21" name="dishes" />
+				<label for="radio21">Thick and cheesy</label>
+			</div>
+			<div>
+				<input type="radio" value="radio3" id="radio32" name="dishes" />
+				<label for="radio32">Thick and spicy</label>
+			</div>
+			<div>
+				<input type="radio" value="radio4" id="radio43" name="dishes" />
+				<label for="radio43">Thin</label>
+			</div>
+	</form>
+</div>
+
+			</div>
+			<div class="tab_content" id="panel3" aria-labelledby="tabLabel3" role="tabpanel">
+					At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+			</div>
+	</div>
+</div>
+
+				</div>
+			</section>
+
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_tabs {{variation}}"</span> <span class="hljs-attribute">data-init</span>=<span class="hljs-value">"tabs"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"tablist"</span>&gt;</span>
+	{{#each tabs}}
+		<span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"radio"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"{{../idName}}"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab_trigger"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"{{../idName}}{{@index}}"</span><span class="hljs-value">{{#if</span> <span class="hljs-attribute">checked</span>}} <span class="hljs-attribute">checked</span>{{/<span class="hljs-attribute">if</span>}} <span class="hljs-attribute">aria-controls</span>=<span class="hljs-value">"panel{{@index}}"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"tab"</span> /&gt;</span>
+	{{/each}}
+
+	<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"labels"</span> <span class="hljs-attribute">aria-hidden</span>=<span class="hljs-value">"true"</span>&gt;</span>
+		{{#each tabs}}
+			<span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"{{../idName}}{{@index}}"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"tabLabel{{@index}}"</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+		{{/each}}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"panels"</span>&gt;</span>
+		{{#each tabs}}
+			<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab_content"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"panel{{@index}}"</span> <span class="hljs-attribute">aria-labelledby</span>=<span class="hljs-value">"tabLabel{{@index}}"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"tabpanel"</span>&gt;</span>
+				{{#if partial}}
+					{{dynamicPartial "{{partial}}" partialData replacementContext=this}}
+				{{else}}
+					{{!-- handlebars-layouts registers a "content" helper which takes precendence, therefore we need the "this" keyword here. --}}
+					{{this.content}}
+				{{/if}}
+			<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+		{{/each}}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</pre>
+		</section>
+
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Documentation</h2>
+
+				<div class="sg_documentation">
+					<h1 id="tabs-css-only-">Tabs (CSS-only)</h1>
+<p><em>Author</em>: <a href="mailto:oriol.torrent@unic.com?subject=Pattern Library: Tabs">oriol.torrent@unic.com</a></p>
+<h2 id="description">Description</h2>
+<p>This is a CSS-only (aka JS-free, so no need for unit tests) fully accessible tabs module.</p>
+<p>The module works using <strong>input radios and labels</strong> to manage the active tab, therefore it is absolutely important to keep the sort order from inputs, labels and panels respecitively in the implementation.</p>
+<p>The drawback of a CSS only implementation is the maximum number of allowed tabs (10 by default), which on the other hand it is something pretty easy to configure in the first line of the SCSS file.</p>
+<h3 id="configuration">Configuration</h3>
+<p>The module expects at least 2 objects as data:</p>
+<ul>
+<li><strong>idName</strong>: <em>String</em>. This should be a unique ID in the whole page, and it is used to generate IDs and bind together inputs, labels and panels. </li>
+<li><strong>tabs</strong>: <em>Array</em>. This Array will include 1 or more <em>Objects</em>, one for each panel of the tabs module, Each object contains: a <strong>title</strong>, a <strong>checked</strong> status, and a content (either <strong>content</strong> or <strong>partial</strong> and <strong>partialData</strong>) options:<ul>
+<li><strong>title</strong>: <em>String</em>: This is the text that will be displayed in the tab of the panel.</li>
+<li><strong>checked</strong>: <em>Boolean</em>: This attribute sets one of the tabs as active and it is the one that will be displayed on page load. If there&#39;s no tab with a checked attribute given, the first tab is the checked one.</li>
+<li><strong>content</strong>: <em>String</em>: This is the content that will be showed in the tab panel.</li>
+<li><strong>partial</strong>: <em>String</em>: This is the partial template to be used as panel content. If &quot;partial&quot; is defined, it takes precedence over &quot;content&quot;.</li>
+<li><strong>partialData</strong>: <em>Variable</em> or <em>Require</em>: this is a reference to the <em>.data.js</em> exported object needed to compile the partial template.</li>
+</ul>
+</li>
+</ul>
+<p>There&#39;s another optional object that the template can accept:</p>
+<ul>
+<li><strong>variation</strong>: <em>String</em>. This can contain 1 or more of the following class names that apply some visual variations in the module:<ul>
+<li><strong>var_centered</strong>: Displays the tabs centered in the available width of the module.</li>
+<li><strong>var_expanded</strong>: Displays the tabs using the whole available width of the module. This one has precedence over <em>var_centered</em>.</li>
+<li><strong>var_var_animated</strong>: Adds CSS-based fade-out/fade-in transition effect when selecting a new tab. This one can be applied together with the previous classes.</li>
+</ul>
+</li>
+</ul>
+<p>Example of data that can be passed to the tabs template:</p>
+<pre><code class="lang-js"><span class="hljs-title">var</span> tab4 = requireNew('./tabs_panels_content_example/tab4.<span class="hljs-typedef"><span class="hljs-keyword">data</span>.js');</span>
+<span class="hljs-title">var</span> <span class="hljs-typedef"><span class="hljs-keyword">data</span> = <span class="hljs-container">{
+    <span class="hljs-title">idName</span>: '<span class="hljs-title">recipies'</span>,
+    <span class="hljs-title">variation</span>: '<span class="hljs-title">var_centered</span> <span class="hljs-title">var_animated'</span>,
+    <span class="hljs-title">tabs</span>: [
+        {
+            <span class="hljs-title">title</span>: '<span class="hljs-type">My</span> <span class="hljs-title">tab</span> 1',
+            <span class="hljs-title">content</span>: '<span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>, <span class="hljs-title">consetetur</span> <span class="hljs-title">sadipscing</span> <span class="hljs-title">elitr</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">nonumy</span> <span class="hljs-title">eirmod</span> <span class="hljs-title">tempor</span> <span class="hljs-title">invidunt</span> <span class="hljs-title">ut</span> <span class="hljs-title">labore</span> <span class="hljs-title">et</span> <span class="hljs-title">dolore</span> <span class="hljs-title">magna</span> <span class="hljs-title">aliquyam</span> <span class="hljs-title">erat</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">voluptua</span>. <span class="hljs-type">At</span> <span class="hljs-title">vero</span> <span class="hljs-title">eos</span> <span class="hljs-title">et</span> <span class="hljs-title">accusam</span> <span class="hljs-title">et</span> <span class="hljs-title">justo</span> <span class="hljs-title">duo</span> <span class="hljs-title">dolores</span> <span class="hljs-title">et</span> <span class="hljs-title">ea</span> <span class="hljs-title">rebum</span>.'
+        }</span>, <span class="hljs-container">{
+            <span class="hljs-title">title</span>: '<span class="hljs-type">A</span> <span class="hljs-title">name</span> <span class="hljs-title">for</span> <span class="hljs-title">tab</span> 2',
+            <span class="hljs-title">content</span>: '<span class="hljs-type">Stet</span> <span class="hljs-title">clita</span> <span class="hljs-title">kasd</span> <span class="hljs-title">gubergren</span>, <span class="hljs-title">no</span> <span class="hljs-title">sea</span> <span class="hljs-title">takimata</span> <span class="hljs-title">sanctus</span> <span class="hljs-title">est</span> <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>. <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>, <span class="hljs-title">consetetur</span> <span class="hljs-title">sadipscing</span> <span class="hljs-title">elitr</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">nonumy</span> <span class="hljs-title">eirmod</span> <span class="hljs-title">tempor</span> <span class="hljs-title">invidunt</span> <span class="hljs-title">ut</span> <span class="hljs-title">labore</span> <span class="hljs-title">et</span> <span class="hljs-title">dolore</span> <span class="hljs-title">magna</span> <span class="hljs-title">aliquyam</span> <span class="hljs-title">erat</span>, <span class="hljs-title">sed</span> <span class="hljs-title">diam</span> <span class="hljs-title">voluptua</span>. <span class="hljs-type">At</span> <span class="hljs-title">vero</span> <span class="hljs-title">eos</span> <span class="hljs-title">et</span> <span class="hljs-title">accusam</span> <span class="hljs-title">et</span> <span class="hljs-title">justo</span> <span class="hljs-title">duo</span> <span class="hljs-title">dolores</span> <span class="hljs-title">et</span> <span class="hljs-title">ea</span> <span class="hljs-title">rebum</span>. <span class="hljs-type">Stet</span> <span class="hljs-title">clita</span> <span class="hljs-title">kasd</span> <span class="hljs-title">gubergren</span>, <span class="hljs-title">no</span> <span class="hljs-title">sea</span> <span class="hljs-title">takimata</span> <span class="hljs-title">sanctus</span> <span class="hljs-title">est</span> <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>.'
+        }</span>, <span class="hljs-container">{
+            <span class="hljs-title">title</span>: '<span class="hljs-type">The</span> <span class="hljs-title">best</span> <span class="hljs-title">tab</span> 3',
+            <span class="hljs-title">content</span>: '<span class="hljs-type">At</span> <span class="hljs-title">vero</span> <span class="hljs-title">eos</span> <span class="hljs-title">et</span> <span class="hljs-title">accusam</span> <span class="hljs-title">et</span> <span class="hljs-title">justo</span> <span class="hljs-title">duo</span> <span class="hljs-title">dolores</span> <span class="hljs-title">et</span> <span class="hljs-title">ea</span> <span class="hljs-title">rebum</span>. <span class="hljs-type">Stet</span> <span class="hljs-title">clita</span> <span class="hljs-title">kasd</span> <span class="hljs-title">gubergren</span>, <span class="hljs-title">no</span> <span class="hljs-title">sea</span> <span class="hljs-title">takimata</span> <span class="hljs-title">sanctus</span> <span class="hljs-title">est</span> <span class="hljs-type">Lorem</span> <span class="hljs-title">ipsum</span> <span class="hljs-title">dolor</span> <span class="hljs-title">sit</span> <span class="hljs-title">amet</span>.'
+        }</span>, <span class="hljs-container">{
+            <span class="hljs-title">title</span>: '<span class="hljs-type">A</span> <span class="hljs-title">last</span> <span class="hljs-title">tab</span> 4',
+            <span class="hljs-title">partial</span>: '<span class="hljs-title">demo</span>/<span class="hljs-title">modules</span>/<span class="hljs-title">tabs</span>/<span class="hljs-title">tabs_panels_content_example</span>/<span class="hljs-title">tab4'</span>,
+            <span class="hljs-title">partialData</span>: <span class="hljs-title">tab4</span>
+        }</span></span>
+    ]
+};
+</code></pre>
+<p>Don&#39;t forget to <strong>configure in tabs.scss the maximum number of tabs</strong> that such a component can have in your project. Decreasing the number will make your css smaller, a quick win ;).</p>
+<h3 id="styles">Styles</h3>
+<p>The SCSS file has 4 parts, each properly marked at its begining with a block comment:</p>
+<ul>
+<li>Configuration</li>
+<li>Functionality</li>
+<li>Variations</li>
+<li>Styling</li>
+</ul>
+<p>The module example has already some styles. Some of them can easily be removed: the sizing and the grey background color, and they are all placed in the &quot;<em>Styling</em>&quot; area, at the very bottom of the file.</p>
+<p>Others, however are part of the &quot;<em>Functionality</em>&quot; part: the background colors for the different states that a tab can have. They are however configurable as variables in the &quot;<em>Configuration</em>&quot; area. If you need to add more styles (like text color), then you&#39;ll need to edit the &quot;Functionality&quot; area.</p>
+<h3 id="accessibility">Accessibility</h3>
+<p>To make this module accessible, the corresponding aria and role tabs have been provided in the markup. Moreover, it has been made so that it works exactly in the same way than the tabs example provided in the <strong>tab panel</strong> example from the &quot;Open AJAX Alliance&quot;: <a href="http://oaa-accessibility.org/example/36/">Tab Panel: ARIA CSS Selectors</a>, where Access for all is usually referring to as good examples for accessible components.</p>
+<p>The benefit of the current module in comparison the to the module in the example is that this one is not using a single line of JS to reach the same functionality, at least tested in VoiceOver under OSX 10.10.5.</p>
+<h2 id="integration">Integration</h2>
+<ol>
+<li>Copy the HTML</li>
+<li>Adapt the number of tabs in the SCSS</li>
+<li>Adapt the styling for active (checked), focus and hover state</li>
+<li>Adapt or remove the styling section at the bottom of the SCSS file</li>
+</ol>
+
+				</div>
+			</section>
+
+
+		<script src="../../../assets/js/main.min.js"></script>
+
+	</div>
+</body>
+</html>
