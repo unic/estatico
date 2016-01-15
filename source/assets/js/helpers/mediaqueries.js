@@ -49,6 +49,7 @@ function getBreakpointValue(breakpoint) {
 	} else {
 		throw 'Breakpoint not found: "' + breakpoint + '"';
 	}
+
 	return value;
 }
 
