@@ -10,6 +10,7 @@ var taskName = 'document',
 		src: './gulp/**/*.js',
 		template: './docs/templates/tasks.hbs',
 		dest: './docs/'
+
 		// watch: [
 		// 	'./gulp/**/*.js',
 		// 	'./docs/templates/tasks.hbs'

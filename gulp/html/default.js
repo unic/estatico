@@ -55,6 +55,7 @@ gulp.task(taskName, function(cb) {
 		fs = require('fs'),
 		tap = require('gulp-tap'),
 		rename = require('gulp-rename'),
+
 		// Format HTML (disabled due to incorrect resulting indentation)
 		// prettify = require('gulp-prettify'),
 		_ = require('lodash'),
@@ -81,6 +82,7 @@ gulp.task(taskName, function(cb) {
 						return {};
 					}
 				})(),
+
 				moduleTemplate,
 				mergedData;
 
@@ -118,27 +120,27 @@ gulp.task(taskName, function(cb) {
 		}))
 		.pipe(plumber())
 		.pipe(handlebars({
+			partials: taskConfig.partials,
+			bustCache: true,
 			dataEach: function(context, file) {
 				return file.data;
-			},
-			partials: taskConfig.partials,
-			bustCache: true
+			}
 		}).on('error', helpers.errors))
+
 		// Relativify absolute paths
 		.pipe(tap(function(file) {
 			var content = file.contents.toString(),
 				relPathPrefix = path.join(path.relative(file.path, './source'));
 
 			relPathPrefix = relPathPrefix
-				// Normalize path separator
-				.replace(new RegExp('\\' + path.sep, 'g'), '/')
-				// Remove trailing ..
-				.replace(/\.\.$/, '');
+				.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
+				.replace(/\.\.$/, ''); // Remove trailing ..
 
 			content = content.replace(/('|")\//g, '$1' + relPathPrefix);
 
 			file.contents = new Buffer(content);
 		}))
+
 		// .pipe(prettify({
 		// 	indent_with_tabs: true,
 		// 	max_preserve_newlines: 1

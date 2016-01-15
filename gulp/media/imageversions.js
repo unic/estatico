@@ -28,52 +28,43 @@ var taskName = 'media:imageversions',
 	task = function(config, cb) {
 		var tap = require('gulp-tap'),
 			gm = require('gm'),
-			helpers = require('require-dir')('../../helpers'),
 			path = require('path'),
-			fs = require('fs'),
-			rename = require('gulp-rename'),
 			_ = require('lodash'),
 			through = require('through2'),
 			gutil = require('gulp-util'),
 			requireNew = require('require-new'),
 			glob = require('glob'),
 			buffer = require('vinyl-buffer'),
-			size = require('gulp-size'),
 			imagemin = require('gulp-imagemin'),
-			morphImage,
-			combineConfigs,
 			extensionRegExp = '(\\.\\w+)$',
 			extension = new RegExp(extensionRegExp),
-			configPaths,
-			mergedConfig;
 
-		// Helper functions
-		morphImage = function(imgData, focus, newSize) {
-			// calculating proportion coefficient for future size
-			var k = newSize.width / newSize.height,
-				Wm, Hm, fx2, fy2;
+			morphImage = function(imgData, focus, newSize) {
+				// calculating proportion coefficient for future size
+				var k = newSize.width / newSize.height,
+					Wm, Hm, fx2, fy2;
 
-			// calculating necessary crop values
-			Wm = imgData.imgSize.width;
-			Hm = Math.round(imgData.imgSize.width / k);
+				// calculating necessary crop values
+				Wm = imgData.imgSize.width;
+				Hm = Math.round(imgData.imgSize.width / k);
 
-			if (Hm > imgData.imgSize.height) {
-				Hm = imgData.imgSize.height;
-				Wm = Math.round(imgData.imgSize.height * k);
-			}
+				if (Hm > imgData.imgSize.height) {
+					Hm = imgData.imgSize.height;
+					Wm = Math.round(imgData.imgSize.height * k);
+				}
 
-			fx2 = Math.round(focus.width * Wm / imgData.imgSize.width);
-			fy2 = Math.round(focus.height * Hm / imgData.imgSize.height);
+				fx2 = Math.round(focus.width * Wm / imgData.imgSize.width);
+				fy2 = Math.round(focus.height * Hm / imgData.imgSize.height);
 
-			// crop
-			// params: resulting width, resulting height, left top corner x coordinate, left top corner y coordinate
-			imgData.img.crop(Wm, Hm, focus.width - fx2, focus.height - fy2);
+				// crop
+				// params: resulting width, resulting height, left top corner x coordinate, left top corner y coordinate
+				imgData.img.crop(Wm, Hm, focus.width - fx2, focus.height - fy2);
 
-			// resize crop result to requested size
-			imgData.img.resize(newSize.width, newSize.height, '!');
+				// resize crop result to requested size
+				imgData.img.resize(newSize.width, newSize.height, '!');
 
-			return imgData.img;
-		},
+				return imgData.img;
+			},
 
 			combineConfigs = function(configPaths) {
 				var mergedConfig = {};
@@ -106,8 +97,6 @@ var taskName = 'media:imageversions',
 				return mergedConfig;
 			},
 
-			extensionRegExp = '(\\.\\w+)$',
-			extension = new RegExp(extensionRegExp),
 			configPaths = _.map(config.src, function(path) {
 				return path + config.configFileName;
 			}),
@@ -150,88 +139,87 @@ var taskName = 'media:imageversions',
 
 			// Creating versions
 			.pipe(through.obj(function(imgData, enc, done) {
-				if (imgData.img && imgData.imgSize && imgData.imgCrops) {
-					var fileName = path.basename(imgData.path);
-
-					// 1. Iterate through all defined crops
-					// 2. Get resizing and cropping values
-					// 3. Call morphImage procedure
-					// 4. Generate version file name
-					// 5. Add generated file to stream
-
-					for (var index in imgData.imgCrops) {
-						var crop = imgData.imgCrops[index],
-							newPath,
-							newSizeValues,
-							focusPointCoordinates = [],
-							focusPoint = {},
-							fileNamePostfix,
-							img,
-							newFile;
-
-						if (typeof crop === 'string') {
-							newSizeValues = crop.split('x');
-							fileNamePostfix = crop;
-						} else if (crop.size) {
-							newSizeValues = crop.size.split('x');
-							fileNamePostfix = crop.size;
-							if (crop.focusPoint) {
-								focusPointCoordinates = crop.focusPoint.split(',');
-								fileNamePostfix += '_' + crop.focusPoint;
-							}
-						}
-
-						// if only one dimension is defined
-						else {
-
-							// if only width is defined
-							if (crop.width || typeof crop === 'number') {
-								if (crop.width) {
-									newSizeValues[0] = crop.width;
-								} else if (typeof crop === 'number') {
-									newSizeValues[0] = crop;
-								}
-								newSizeValues[1] = Math.floor(imgData.imgSize.height * newSizeValues[0] / imgData.imgSize.width);
-							}
-
-							// if only height is defined
-							else if (crop.height) {
-								newSizeValues[1] = crop.height;
-								newSizeValues[0] = Math.floor(imgData.imgSize.width * newSizeValues[1] / imgData.imgSize.height);
-							}
-
-							fileNamePostfix = newSizeValues[0] + 'x' + newSizeValues[1];
-						}
-
-						// setting focus point
-						if (focusPointCoordinates.length > 0) {
-							focusPoint = { width: focusPointCoordinates[0], height: focusPointCoordinates[1] };
-						} else {
-							// default focus point is image center
-							focusPoint = {
-								width: imgData.imgSize.width / 2,
-								height: imgData.imgSize.height / 2
-							};
-						}
-
-						// image transformation based on size and focus point
-						img = morphImage(imgData, focusPoint, { width: newSizeValues[0], height: newSizeValues[1] });
-
-						// forming a file name for generated version
-						newPath = imgData.path.replace(extension, '_' + fileNamePostfix + '$1');
-
-						// adding a new image file to stream
-						newFile = new gutil.File({
-							base: imgData.base,
-							path: newPath,
-							contents: img.stream()
-						});
-
-						this.push(newFile);
-					}
-
+				if (!imgData.img || !imgData.imgSize || !imgData.imgCrops) {
 					return done();
 				}
+
+				// 1. Iterate through all defined crops
+				// 2. Get resizing and cropping values
+				// 3. Call morphImage procedure
+				// 4. Generate version file name
+				// 5. Add generated file to stream
+				imgData.imgCrops.forEach(function(crop) {
+					var newPath,
+						newSizeValues,
+						focusPointCoordinates = [],
+						focusPoint = {},
+						fileNamePostfix,
+						img,
+						newFile;
+
+					if (typeof crop === 'string') {
+						newSizeValues = crop.split('x');
+						fileNamePostfix = crop;
+					} else if (crop.size) {
+						newSizeValues = crop.size.split('x');
+						fileNamePostfix = crop.size;
+						if (crop.focusPoint) {
+							focusPointCoordinates = crop.focusPoint.split(',');
+							fileNamePostfix += '_' + crop.focusPoint;
+						}
+					}
+
+					// if only one dimension is defined
+					else {
+
+						// if only width is defined
+						if (crop.width || typeof crop === 'number') {
+							if (crop.width) {
+								newSizeValues[0] = crop.width;
+							} else if (typeof crop === 'number') {
+								newSizeValues[0] = crop;
+							}
+
+							newSizeValues[1] = Math.floor(imgData.imgSize.height * newSizeValues[0] / imgData.imgSize.width);
+						}
+
+						// if only height is defined
+						else if (crop.height) {
+							newSizeValues[1] = crop.height;
+							newSizeValues[0] = Math.floor(imgData.imgSize.width * newSizeValues[1] / imgData.imgSize.height);
+						}
+
+						fileNamePostfix = newSizeValues[0] + 'x' + newSizeValues[1];
+					}
+
+					// setting focus point
+					if (focusPointCoordinates.length > 0) {
+						focusPoint = { width: focusPointCoordinates[0], height: focusPointCoordinates[1] };
+					} else {
+						// default focus point is image center
+						focusPoint = {
+							width: imgData.imgSize.width / 2,
+							height: imgData.imgSize.height / 2
+						};
+					}
+
+					// image transformation based on size and focus point
+					img = morphImage(imgData, focusPoint, { width: newSizeValues[0], height: newSizeValues[1] });
+
+					// forming a file name for generated version
+					newPath = imgData.path.replace(extension, '_' + fileNamePostfix + '$1');
+
+					// adding a new image file to stream
+					newFile = new gutil.File({
+						base: imgData.base,
+						path: newPath,
+						contents: img.stream()
+					});
+
+					this.push(newFile);
+				}.bind(this));
+
+				done();
 			}))
 			.pipe(buffer()) // need to convert streams to buffers, to be able to use imagemin
 			.pipe(imagemin())

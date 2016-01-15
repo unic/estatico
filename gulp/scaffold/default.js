@@ -50,6 +50,7 @@ var taskName = 'scaffold',
 			insertionPrefix: ' * @requires ',
 			insertionSuffix: '.js\n'
 		},
+
 		// Generated dynamically
 		scaffold: {
 			name: null,
@@ -60,17 +61,16 @@ var taskName = 'scaffold',
 			dest: null,
 			createStyles: false,
 			createScript: false,
+			replaceContentExtensions: ['.js', '.scss', '.hbs', '.md'],
 			replaceContent: function(content, config) {
 				return content.replace(/\{\{name\}\}/g, config.name)
 					.replace(/\{\{originalName\}\}/g, config.originalName);
-			},
-			replaceContentExtensions: ['.js', '.scss', '.hbs', '.md']
+			}
 		}
 	},
 	getTaskScaffoldConfig = function(config, cb) {
-		var helpers = require('require-dir')('../../helpers');
-
-		var scaffoldConfig = {},
+		var helpers = require('require-dir')('../../helpers'),
+			scaffoldConfig = {},
 			hasAssets;
 
 		// Get custom config and pass to task
@@ -105,6 +105,7 @@ var taskName = 'scaffold',
 			})
 			.catch(helpers.errors);
 	},
+
 	task = function(config, cb) {
 		var tap = require('gulp-tap'),
 			through = require('through2'),
@@ -122,6 +123,7 @@ var taskName = 'scaffold',
 			scriptFound;
 
 		gulp.src(src)
+
 			// Replace {{name|originalName}}
 			.pipe(tap(function(file) {
 				if (!file.stat.isDirectory() && config.scaffold.replaceContentExtensions.indexOf(path.extname(file.path)) !== -1) {
@@ -132,6 +134,7 @@ var taskName = 'scaffold',
 					file.contents = new Buffer(content);
 				}
 			}))
+
 			// Skip creation of SCSS file if specified
 			.pipe(through.obj(function(file, enc, done) {
 				var match = (path.extname(file.path) === '.scss');
@@ -148,6 +151,7 @@ var taskName = 'scaffold',
 
 				done();
 			}))
+
 			// Skip creation of JS file if specified
 			.pipe(through.obj(function(file, enc, done) {
 				var match = (path.extname(file.path) === '.js' && !path.basename(file.path).match(/.data.js$/));
@@ -164,6 +168,7 @@ var taskName = 'scaffold',
 
 				done();
 			}))
+
 			// Rename files as specified in scaffolding config
 			.pipe(rename(function(filePath) {
 				filePath.basename = filePath.basename.replace(config.scaffold.previousName, config.scaffold.name);
@@ -180,6 +185,7 @@ var taskName = 'scaffold',
 							fn();
 						}
 					},
+
 					registerStyles,
 					registerScript,
 					deleteConfig;

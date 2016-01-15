@@ -1,3 +1,5 @@
+'use strict';
+
 var helpers = require('../../helpers/tests.js'),
 	del = require('del');
 

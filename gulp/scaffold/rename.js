@@ -18,9 +18,8 @@ var taskName = 'scaffold:rename',
 		}
 	},
 	getTaskScaffoldConfig = function(config, cb) {
-		var helpers = require('require-dir')('../../helpers');
-
-		var scaffoldConfig = {},
+		var helpers = require('require-dir')('../../helpers'),
+			scaffoldConfig = {},
 			type;
 
 		// Get custom config and pass to task
@@ -61,6 +60,7 @@ var taskName = 'scaffold:rename',
 			})
 			.catch(helpers.errors);
 	},
+
 	task = defaultTask.task;
 
 gulp.task(taskName, function(cb) {
