@@ -36,6 +36,7 @@
     "gulp-cached": "1.1.0",
     "gulp-changed": "1.2.1",
     "gulp-colorize-svgs": "git://github.com/unic/gulp-colorize-svgs.git#v0.1.0",
+    "gulp-concat": "2.5.2",
     "gulp-file": "0.2.0",
     "gulp-flatten": "0.0.4",
     "gulp-hb": "2.5.0",
