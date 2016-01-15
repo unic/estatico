@@ -48,7 +48,7 @@ var taskName = 'js',
 
 			// Optionally build dev scripts
 			if (util.env.dev) {
-				config.src.concat(config.devSrc);
+				config.src = config.src.concat(config.devSrc);
 			}
 
 			var tasks = _.map(config.src, function(srcPath) {
