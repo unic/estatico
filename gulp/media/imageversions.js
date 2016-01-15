@@ -150,7 +150,7 @@ var taskName = 'media:imageversions',
 				// 5. Add generated file to stream
 				imgData.imgCrops.forEach(function(crop) {
 					var newPath,
-						newSizeValues,
+						newSizeValues = [],
 						focusPointCoordinates = [],
 						focusPoint = {},
 						fileNamePostfix,
@@ -163,6 +163,7 @@ var taskName = 'media:imageversions',
 					} else if (crop.size) {
 						newSizeValues = crop.size.split('x');
 						fileNamePostfix = crop.size;
+
 						if (crop.focusPoint) {
 							focusPointCoordinates = crop.focusPoint.split(',');
 							fileNamePostfix += '_' + crop.focusPoint;
