@@ -46,8 +46,10 @@ gulp.task(taskName, function(cb) {
 		icons = {};
 
 	gulp.src(taskConfig.src)
+
 		// Use flat file structure (move every icon into same directory)
 		.pipe(flatten())
+
 		// Create colorized versions and add them to stream
 		.pipe(colorize({
 			colors: {
@@ -55,6 +57,7 @@ gulp.task(taskName, function(cb) {
 					primary: '000000',
 					active: 'A4C400'
 				}
+
 				// Use: @include iconDataurl(FILENAME, "primary") and @include iconDataurl(FILENAME, "active")
 
 				// Example 1: Custom colors for file "twitter"
@@ -79,12 +82,15 @@ gulp.task(taskName, function(cb) {
 			replaceColor: function(content, hex) {
 				return content.replace(/fill="#(.*?)"/g, 'fill="#' + hex + '"');
 			},
+
 			replacePath: function(path, colorKey) {
 				return path.replace(/\.svg/, pathSeparator + colorKey + '.svg');
 			}
 		}))
+
 		// Save dimensions
 		.pipe(svgDimensions())
+
 		// Save paths and dimensions
 		.pipe(tap(function(file) {
 			var fileName = path.basename(file.path),
@@ -116,23 +122,27 @@ gulp.task(taskName, function(cb) {
 				png: relPathPng
 			};
 		}))
+
 		// Optimize SVGs
 		.pipe(imagemin())
 		.pipe(size({
 			title: 'media:icons (SVG files)'
 		}))
 		.pipe(gulp.dest(taskConfig.dest))
+
 		// Create PNGs using PhantomJS
 		.pipe(raster().on('error', helpers.errors))
 		.pipe(rename({
 			extname: '.png'
 		}))
+
 		// Optimize PNGs
 		.pipe(imagemin())
 		.pipe(size({
 			title: 'media:icons (PNG files)'
 		}))
 		.pipe(gulp.dest(taskConfig.dest))
+
 		// Create SCSS file
 		.on('end', function() {
 			gulp.src(taskConfig.srcStyles)

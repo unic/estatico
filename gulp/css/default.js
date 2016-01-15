@@ -62,6 +62,7 @@ var taskName = 'css',
 				.pipe(ignore.exclude, function(file) {
 					return path.extname(file.path) === '.map';
 				}),
+
 			minify = lazypipe()
 				.pipe(gulp.dest, config.dest)
 				.pipe(excludeSourcemaps)

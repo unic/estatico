@@ -10,6 +10,10 @@ var gulp = require('gulp');
 var taskName = 'js:lint',
 	taskConfig = {
 		src: [
+
+			// './gulp/**/*.js',
+			// './test/**/*.js',
+			// '!./test/**/expected/**/*.js',
 			'./source/assets/js/**/*.js',
 			'./source/modules/**/*.js',
 			'./source/demo/modules/**/*.js'
@@ -29,6 +33,7 @@ gulp.task(taskName, function() {
 		.pipe(jshint())
 		.pipe(jscs({
 			configPath: '.jscsrc'
+
 			// Automatically fix invalid code (files would have to be saved back to disk below)
 			// fix: true
 		}))

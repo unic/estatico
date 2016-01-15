@@ -30,10 +30,10 @@ var taskName = 'scaffold:delete',
 		}
 	},
 	getTaskScaffoldConfig = function(config, cb) {
-		var helpers = require('require-dir')('../../helpers'),
-			_ = require('lodash');
+		var _ = require('lodash');
 
-		var scaffoldConfig = {};
+		var helpers = require('require-dir')('../../helpers'),
+			scaffoldConfig = {};
 
 		// Get custom config and pass to task
 		helpers.scaffold.getType(config.types, {
@@ -60,6 +60,7 @@ var taskName = 'scaffold:delete',
 			})
 			.catch(helpers.errors);
 	},
+
 	task = function(config, cb) {
 		var del = require('del'),
 			_ = require('lodash'),

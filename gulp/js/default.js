@@ -62,6 +62,7 @@ var taskName = 'js',
 							.pipe(ignore.exclude, function(file) {
 								return path.extname(file.path) === '.map';
 							}),
+
 						minify = lazypipe()
 							.pipe(gulp.dest, config.dest)
 							.pipe(excludeSourcemaps)
@@ -79,6 +80,7 @@ var taskName = 'js',
 						.pipe(plumber())
 						.pipe(resolveDependencies({
 							pattern: /\* @requires [\s-]*(.*\.js)/g
+
 							// log: true
 						}).on('error', helpers.errors))
 						.pipe(sourcemaps.init())

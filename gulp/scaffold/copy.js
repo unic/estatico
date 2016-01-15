@@ -15,9 +15,8 @@ var taskName = 'scaffold:copy',
 	taskConfig = {
 	},
 	getTaskScaffoldConfig = function(config, cb) {
-		var helpers = require('require-dir')('../../helpers');
-
-		var scaffoldConfig = {},
+		var helpers = require('require-dir')('../../helpers'),
+			scaffoldConfig = {},
 			hasAssets;
 
 		// Get custom config and pass to task
@@ -66,6 +65,7 @@ var taskName = 'scaffold:copy',
 			})
 			.catch(helpers.errors);
 	},
+
 	task = defaultTask.task;
 
 gulp.task(taskName, function(cb) {

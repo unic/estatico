@@ -77,10 +77,8 @@ gulp.task(taskName, function(cb) {
 						relPathPrefix = path.relative(file.path, taskConfig.srcTemplatesBase);
 
 					relPathPrefix = relPathPrefix
-						// Normalize path separator
-						.replace(new RegExp('\\' + path.sep, 'g'), '/')
-						// Remove trailing ..
-						.replace(/\.\.$/, '');
+						.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
+						.replace(/\.\.$/, ''); // Remove trailing ..
 
 					// Ignore files without a QUnit script reference
 					if (content.search(taskConfig.srcQUnit) === -1) {
@@ -109,6 +107,7 @@ gulp.task(taskName, function(cb) {
 				.pipe(ignore.exclude(function(file) {
 					return _.indexOf(ignoreFiles, file.path) !== -1;
 				}))
+
 				// Move them outside /build/ for some weird phantomJS reason
 				.pipe(gulp.dest(taskConfig.destTemplates))
 				.pipe(qunit().on('error', helpers.errors))

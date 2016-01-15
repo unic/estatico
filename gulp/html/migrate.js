@@ -64,6 +64,7 @@ gulp.task(taskName, function(cb) {
 			extname: '.data.js'
 		}))
 		.pipe(gulp.dest(taskConfig.dest))
+
 		// Delete original files
 		.on('end', function() {
 			inquirer.prompt([

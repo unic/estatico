@@ -63,6 +63,7 @@ gulp.task(taskName, function(cb) {
 			title: taskName
 		}))
 		.pipe(gulp.dest(taskConfig.dest))
+
 		// Create SCSS file
 		.on('end', function() {
 			gulp.src(taskConfig.srcStyles)
