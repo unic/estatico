@@ -16,7 +16,7 @@ module.exports = {
 					main: './test/js/fixtures/assets/js/main.js',
 					head: './test/js/fixtures/assets/js/head.js'
 				},
-				srcBase: './test/js/fixtures/',
+				srcBase: './test/js/fixtures/assets/js/',
 				dest: './test/js/results/assets/js/'
 			};
 

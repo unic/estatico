@@ -1,3 +1,5 @@
-/**
- * @requires subfolder/includefile.js
- */
+'use strict';
+
+var bla = require('./subfolder/includefile.js');
+
+bla();
