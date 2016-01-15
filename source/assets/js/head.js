@@ -2,11 +2,8 @@
 
 require('../.tmp/modernizr.js');
 
-var namespace = require('./helpers/namespace.js'),
-	fontLoader = require('./helpers/fontloader.js');
-
 // Set up global namespace
-window.estatico = namespace;
+window.estatico = require('./helpers/namespace.js');
 
 // Init font loader
-fontLoader.init();
+require('./helpers/fontloader.js').init();
