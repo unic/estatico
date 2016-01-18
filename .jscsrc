@@ -162,7 +162,7 @@
 
 	"validateAlignedFunctionParameters": null, // Validates proper alignment of function parameters.
 	"validateIndentation": "\t", // Validates indentation for switch statements and block statements
-	"validateLineBreaks": "LF", // Option to check line break characters
+	"validateLineBreaks": false, // Option to check line break characters (NOTE: disabled until we have figured out a sane way of enforcing "LF" on windows)
 	"validateNewlineAfterArrayElements": null, // Requires each element in array on a single line when array length is more than passed maximum number or array fills more than one line. Set ignoreBrackets to true to allow elements on the same line with brackets.
 	"validateParameterSeparator": ", ", // Enable validation of separators between function parameters. Will ignore newlines.
 	"validateQuoteMarks": "'" // Requires all quote marks to be either the supplied value, or consistent if true
