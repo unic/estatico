@@ -12,6 +12,21 @@
 				return window.localStorage && localStorage.fontCssCache && (localStorage.fontCssCacheFile === href);
 			},
 
+			// this is the simple utility that injects the cached or loaded css text
+			injectRawStyle = function(text) {
+				var style = document.createElement('style');
+
+				// cater for IE8 which doesn't support style.innerHTML
+				style.setAttribute('type', 'text/css');
+				if (style.styleSheet) {
+					style.styleSheet.cssText = text;
+				} else {
+					style.innerHTML = text;
+				}
+
+				document.getElementsByTagName('head')[0].appendChild(style);
+			},
+
 		// get the actual css file
 			injectFontsStylesheet = function() {
 				var xhr,
@@ -59,21 +74,6 @@
 						xhr.send();
 					}
 				}
-			},
-
-		// this is the simple utility that injects the cached or loaded css text
-			injectRawStyle = function(text) {
-				var style = document.createElement('style');
-
-				// cater for IE8 which doesn't support style.innerHTML
-				style.setAttribute('type', 'text/css');
-				if (style.styleSheet) {
-					style.styleSheet.cssText = text;
-				} else {
-					style.innerHTML = text;
-				}
-
-				document.getElementsByTagName('head')[0].appendChild(style);
 			};
 
 		return {
