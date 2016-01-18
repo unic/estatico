@@ -57,6 +57,7 @@ module.exports = {
 
 		return data;
 	},
+
 	getTestScriptPath: function(filePath) {
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
@@ -68,6 +69,7 @@ module.exports = {
 
 		return scriptPath;
 	},
+
 	getTemplateCode: function(filePath) {
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
@@ -76,6 +78,7 @@ module.exports = {
 
 		return Highlight.highlight('html', content).value;
 	},
+
 	getDataMock: function(filePath) {
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
@@ -86,6 +89,7 @@ module.exports = {
 
 		return Highlight.highlight('json', content).value;
 	},
+
 	getDocumentation: function(filePath) {
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
@@ -94,6 +98,7 @@ module.exports = {
 
 		return marked(content);
 	},
+
 	getColors: function(filePath) {
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
@@ -126,7 +131,7 @@ module.exports = {
 					return {
 						name: key,
 						color: value
-					}
+					};
 				});
 			}
 
@@ -136,7 +141,7 @@ module.exports = {
 
 				return color;
 			});
-		} catch(err) {
+		} catch (err) {
 			errors(err);
 		}
 

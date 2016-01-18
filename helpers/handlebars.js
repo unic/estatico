@@ -14,10 +14,9 @@ handlebars.registerHelper(layouts(handlebars));
 //
 // Example: Use the comparisons provided by the handlebars-helpers package
 require('../node_modules/handlebars-helpers/lib/helpers/helpers-comparisons.js').register(handlebars);
-//
+
 // WARNING: For some helpers, grunt has to be installed (npm install grunt --save && npm shrinkwrap)
 // This might be fixed at some point: https://github.com/assemble/handlebars-helpers/pull/157
-
 
 // Custom Handlebars helpers
 
@@ -78,7 +77,7 @@ handlebars.registerHelper('dynamicPartial', function(name, partialData, options)
 	if (template === undefined) {
 		errors({
 			task: 'helpers/handlebars.js',
-			message: 'Dynamic template "'+ name +'" not found'
+			message: 'Dynamic template "' + name + '" not found'
 		});
 
 		return '';

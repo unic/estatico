@@ -1,4 +1,6 @@
-var should = require('should'),
+'use strict';
+
+var should = require('should'), // jshint ignore:line
 	glob = require('glob'),
 	path = require('path'),
 	fs = require('fs');
