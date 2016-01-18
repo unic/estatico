@@ -5,7 +5,7 @@ var should = require('should'),
 
 module.exports = {
 	compareResultFilesToExpected: function(testCaseFolderName, options) {
-		var	pathPrefix = __dirname + '/../test/' + testCaseFolderName,
+		var	pathPrefix = path.join(__dirname, '/../test/', testCaseFolderName),
 			expectedResults = glob.sync(pathPrefix + '/expected/**/*', {
 				nodir: true
 			});
