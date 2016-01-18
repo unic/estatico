@@ -5,6 +5,7 @@ var helpers = require('../../helpers/tests.js'),
 
 module.exports = {
 	before: function(done) {
+		this.timeout(5000);
 		var task = require('../../gulp/css/default.js'),
 
 			// Configuration of task should use fixtures as src and results directory in testcase folder as dest
