@@ -1,16 +1,23 @@
 module.exports = {
 	'george.jpg': [
-		'300x300',
+		'100x50',
 		{
 			size: '100x50',
-			focusPoint: '750,750'
+			focusPoint: '400,400'
 		},
 		{
-			size: '150x150'
+			size: '600x300'
 		},
 		{
-			size: '800x400',
-			focusPoint: '750,750'
-		}
+			size: '600x300',
+			focusPoint: '0,400'
+		},
+		{
+			width: 300
+		},
+		{
+			height: 200
+		},
+		150
 	]
 };
