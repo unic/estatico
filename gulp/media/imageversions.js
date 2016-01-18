@@ -26,7 +26,9 @@ var taskName = 'media:imageversions',
 		dest: './build/'
 	},
 	task = function(config, cb) {
-		var tap = require('gulp-tap'),
+		var helpers = require('require-dir')('../../helpers'),
+			plumber = require('gulp-plumber'),
+			tap = require('gulp-tap'),
 			gm = require('gm'),
 			path = require('path'),
 			_ = require('lodash'),
@@ -83,9 +85,9 @@ var taskName = 'media:imageversions',
 							})();
 
 							_.forOwn(sizeConfig, function(value, key) {
-								var newkey = path.relative('./', path.dirname(file)) + '/' + key;
+								var newKey = path.relative('./', path.join(path.dirname(file), '/', key));
 
-								sizeConfig[newkey] = value;
+								sizeConfig[newKey] = value;
 								delete sizeConfig[key];
 							});
 
@@ -111,31 +113,38 @@ var taskName = 'media:imageversions',
 			{
 				base: config.srcBase
 			})
+			.pipe(plumber())
 
 			// Checking if an image has defined crops and if yes - push it further through version creating pipe
 			.pipe(through.obj(function(imgData, enc, done) {
 				// getting config for current image
-				var crops = mergedConfig[path.relative('./', imgData.path)];
+				var crops = mergedConfig[path.relative('./', imgData.path)],
+					fileName;
 
-				if (crops) {
-					var fileName = path.resolve(imgData.path);
-
-					// attaching additional data to image file object to pipe further
-					imgData.imgCrops = crops;
-					imgData.img = gm(fileName).noProfile();
-
-					// calculating original image size asynchronously
-					imgData.img.size(function(err, size) {
-						if (err) {
-							throw err;
-						}
-
-						// attaching size to image file object
-						imgData.imgSize = size;
-						return done(null, imgData);
-					});
+				if (!crops) {
+					return done();
 				}
-			}))
+
+				fileName = path.resolve(imgData.path);
+
+				// attaching additional data to image file object to pipe further
+				imgData.imgCrops = crops;
+				imgData.img = gm(fileName).noProfile();
+
+				// calculating original image size asynchronously
+				imgData.img.size(function(err, size) {
+					if (err) {
+						err.task = taskName;
+
+						this.emit('error', err);
+					}
+
+					// attaching size to image file object
+					imgData.imgSize = size;
+
+					return done(null, imgData);
+				}.bind(this));
+			}).on('error', helpers.errors))
 
 			// Creating versions
 			.pipe(through.obj(function(imgData, enc, done) {
