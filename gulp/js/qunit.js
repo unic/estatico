@@ -110,7 +110,9 @@ gulp.task(taskName, function(cb) {
 
 				// Move them outside /build/ for some weird phantomJS reason
 				.pipe(gulp.dest(taskConfig.destTemplates))
-				.pipe(qunit().on('error', helpers.errors))
+				.pipe(qunit({
+					'phantomjs-options': ['--web-security=no']
+				}).on('error', helpers.errors))
 				.on('finish', function() {
 					// Remove .qunit tmp folder
 					del(taskConfig.destTemplates, cb);
