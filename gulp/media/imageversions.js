@@ -3,7 +3,7 @@
 /**
  * @function `gulp media:imageversions`
  * @desc Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /source/demo/modules/imageversions module for more details and further documentation.
- * Depends on either ImageMagick or GraphicsMagick.
+ * Depends on GraphicsMagick being installed.
  */
 
 var gulp = require('gulp');
