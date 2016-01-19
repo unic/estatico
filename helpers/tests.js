@@ -1,11 +1,13 @@
-var should = require('should'),
+'use strict';
+
+var should = require('should'), // jshint ignore:line
 	glob = require('glob'),
 	path = require('path'),
 	fs = require('fs');
 
 module.exports = {
 	compareResultFilesToExpected: function(testCaseFolderName, options) {
-		var	pathPrefix = __dirname + '/../test/' + testCaseFolderName,
+		var	pathPrefix = path.join(__dirname, '/../test/', testCaseFolderName),
 			expectedResults = glob.sync(pathPrefix + '/expected/**/*', {
 				nodir: true
 			});

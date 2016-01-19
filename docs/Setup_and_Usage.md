@@ -3,6 +3,7 @@
 ## Dependencies
 
 * Node, npm (preferably using [nvm](https://github.com/creationix/nvm))
+* [ImageMagick](http://www.imagemagick.org/) or [GraphicsMagick](http://www.graphicsmagick.org/) for resizing images using the `media:imageversions` tasks
 * Optional: [Vagrant](https://www.vagrantup.com/)
 
 ## Install

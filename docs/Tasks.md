@@ -87,6 +87,7 @@ Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on
 
 ### `gulp media:imageversions`
 Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /source/demo/modules/imageversions module for more details and further documentation.
+Depends on either ImageMagick or GraphicsMagick.
 
 ### `gulp media:pngsprite`
 Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).

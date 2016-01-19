@@ -120,7 +120,7 @@ module.exports = {
 								name: type.name,
 								value: type
 							};
-						}).filter(options.filter || function(type) {
+						}).filter(options.filter || function() {
 							return true;
 						})
 					}
@@ -248,20 +248,20 @@ module.exports = {
 	 * @return {Promise} resolved with {Object}
 	 */
 	getAssetsToCreate: function() {
-		return new Promise(function(resolve, reject) {
+		return new Promise(function(resolve) {
 			if (isInteractive()) {
 				inquirer.prompt([
 					{
 						type: 'confirm',
 						name: 'script',
 						message: 'Do you want me to create and register a JavaScript file?',
-						default: true,
+						default: true
 					},
 					{
 						type: 'confirm',
 						name: 'styles',
 						message: 'Do you want me to create and register a SCSS file?',
-						default: true,
+						default: true
 					}
 				], function(answers) {
 					resolve(answers);

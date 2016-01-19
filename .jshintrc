@@ -95,6 +95,7 @@
 		"_": true,
 		"Modernizr": false,
 		"Handlebars": false,
-		"open": true
+		"open": true,
+		"Promise": false
 	}
 }

@@ -12,6 +12,7 @@ var taskName = 'js:lint',
 		src: [
 
 			// './gulp/**/*.js',
+			// './helpers/**/*.js',
 			// './test/**/*.js',
 			// '!./test/**/expected/**/*.js',
 			'./source/assets/js/**/*.js',
