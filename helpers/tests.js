@@ -4,6 +4,9 @@ var should = require('should'), // jshint ignore:line
 	glob = require('glob'),
 	path = require('path'),
 	fs = require('fs'),
+	Promise = require('promise'),
+	gm = require('gm'),
+
 	stringComparison = function(expectedFilePath, resultFilePath) {
 		// reading files as strings and trimming them - good for non-binary files
 		var expectedFile = fs.readFileSync(expectedFilePath, 'utf8').trim(),
@@ -39,40 +42,34 @@ module.exports = {
 		});
 	},
 
-	compareResultImagesToExpected: function(testCaseFolderName, callback) {
+	compareImagesToExpected: function(testCaseFolderName, cb) {
 		var pathPrefix = path.join(__dirname, '/../test/', testCaseFolderName),
 			expectedResults = glob.sync(pathPrefix + '/expected/**/*', {
 				nodir: true
-			}),
-			filesChecked = 0,
-			unequalFiles = [],
-			gm = require('gm'),
-			onFilesChecked = function() {
-				if (filesChecked < expectedResults.length) {
-					setTimeout(onFilesChecked, 50);
-				} else {
-					try {
-						unequalFiles.length.should.equal(0, 'Images different from expected: ' + unequalFiles.join(', '));
-						callback();
-					} catch (error) {
-						callback(error);
-					}
-				}
-			};
+			});
 
-		// Compares files from expected folder and the results of gulp task, executed with fixtures as test data
-		expectedResults.forEach(function(expectedFilePath) {
+		console.log('Starting image comparison...');
+
+		Promise.all(expectedResults.map(function(expectedFilePath) {
 			var expectedFileName = path.relative(pathPrefix + '/expected/', expectedFilePath),
 				resultFilePath = path.resolve(pathPrefix + '/results/' + expectedFileName);
 
-			gm.compare(expectedFilePath, resultFilePath, 0.01, function(error, equal) {
-				filesChecked++;
-				if (!equal) {
-					unequalFiles.push(expectedFilePath);
-				}
+			return new Promise(function(resolve, reject) {
+				gm.compare(expectedFilePath, resultFilePath, 0.01, function(error, equal) {
+					if (equal) {
+						resolve();
+					} else {
+						reject(expectedFileName + ': differs from expected.');
+					}
+				});
 			});
-		});
+		})).then(function(message) {
+			console.log('All images are equal.');
+			cb();
+		},
 
-		onFilesChecked();
+		function(error) {
+			cb(new Error(error));
+		});
 	}
 };

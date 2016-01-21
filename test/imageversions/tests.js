@@ -29,8 +29,7 @@ module.exports = {
 
 	// Using task name as key
 	default: function(done) {
-		this.timeout(5000);
-		helpers.compareResultImagesToExpected('imageversions', done);
+		helpers.compareImagesToExpected('imageversions', done);
 	},
 
 	after: function(done) {

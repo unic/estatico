@@ -81,6 +81,7 @@
     "node-sass": "3.3.3",
     "open": "0.0.5",
     "phantomjs-polyfill": "0.0.1",
+    "promise": "7.1.1",
     "qunitjs": "1.20.0",
     "require-dir": "0.3.0",
     "require-new": "1.0.2",
