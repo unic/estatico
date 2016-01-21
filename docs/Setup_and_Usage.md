@@ -3,6 +3,7 @@
 ## Dependencies
 
 * Node, npm (preferably using [nvm](https://github.com/creationix/nvm))
+* [GraphicsMagick](http://www.graphicsmagick.org/) for resizing images using the `media:imageversions` tasks
 * Optional: [Vagrant](https://www.vagrantup.com/)
 
 ## Install
@@ -128,8 +129,8 @@ npm cache clean
 # Try again
 npm install
 
-# Re-generate npm-shrinkwrap.json
-npm shrinkwrap
+# Re-generate npm-shrinkwrap.json (including devDependencies)
+npm shrinkwrap --dev
 
 # Make sure the new npm-shrinkwrap.json works in the CI environment
 ```

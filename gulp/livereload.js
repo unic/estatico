@@ -3,6 +3,9 @@
 /**
  * @function `gulp livereload`
  * @desc Start livereload instance.
+ *
+ * CSS is injected without page-reload. However, the corresponding source map is not.
+ * In order to have an updated source map after changing the CSS, the page has to be reloaded manually.
  */
 
 var gulp = require('gulp');

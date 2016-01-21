@@ -10,34 +10,46 @@ var gulp = require('gulp');
 var taskName = 'js:lint',
 	taskConfig = {
 		src: [
+
+			// './gulp/**/*.js',
+			// './helpers/**/*.js',
+			// './test/**/*.js',
+			// '!./test/**/expected/**/*.js',
 			'./source/assets/js/**/*.js',
 			'./source/modules/**/*.js',
+			'./source/pages/**/*.js',
 			'./source/demo/modules/**/*.js',
-			'!./source/modules/**/*.data.js',
-			'!./source/demo/modules/**/*.data.js'
+			'./source/demo/pages/**/*.js'
 		]
 	};
 
 gulp.task(taskName, function() {
 	var helpers = require('require-dir')('../../helpers'),
-		util = require('gulp-util'),
 		tap = require('gulp-tap'),
 		path = require('path'),
 		cached = require('gulp-cached'),
-		jshint = require('gulp-jshint');
+		jshint = require('gulp-jshint'),
+		jscs = require('gulp-jscs');
 
 	return gulp.src(taskConfig.src)
 		.pipe(cached('linting'))
 		.pipe(jshint())
+		.pipe(jscs({
+			configPath: '.jscsrc'
+
+			// Automatically fix invalid code (files would have to be saved back to disk below)
+			// fix: true
+		}))
 		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(util.env.dev ? tap(function(file) {
-			if (!file.jshint.success) {
+		.pipe(jscs.reporter())
+		.pipe(tap(function(file) {
+			if (!file.jshint.success || !file.jscs.success) {
 				helpers.errors({
 					task: taskName,
-					message: 'Linting error in file "' + path.relative('./source/', file.path) + '" (see console)'
+					message: 'Linting error in file "' + path.relative('./source/', file.path) + '" (details above)'
 				});
 			}
-		}) : jshint.reporter('fail').on('error', helpers.errors));
+		}));
 });
 
 module.exports = {

@@ -1,7 +1,5 @@
 /*!
  * Slideshow module
- *
- * //@requires ../../../assets/vendor/some/dependency.js
  */
 
 ;(function($, undefined) {
@@ -31,7 +29,8 @@
 				prev: 'Previous Slide',
 				next: 'Next Slide'
 			}
-		};
+		},
+		log = estatico.helpers.log(name);
 
 	/**
 	 * Create an instance of the module
@@ -72,49 +71,51 @@
 
 		this.$element
 			.append(this.$nav)
-			.on('click.estatico.' + this.uuid, this.options.domSelectors.prev, $.proxy(function(event) {
+			.on('click.estatico.' + this.uuid, this.options.domSelectors.prev, function(event) {
 				event.preventDefault();
 
 				this.prev();
-			}, this))
-			.on('click.estatico.' + this.uuid, this.options.domSelectors.next, $.proxy(function(event) {
+			}.bind(this))
+			.on('click.estatico.' + this.uuid, this.options.domSelectors.next, function(event) {
 				event.preventDefault();
 
 				this.next();
-			}, this))
+			}.bind(this))
 			.addClass(this.options.stateClasses.isActivated);
 
 		// Exemplary AJAX request to mocked data with optional delay parameter (works with local preview server only)
-		request = $.ajax(this.options.url).done($.proxy(function(response) {
+		request = $.ajax(this.options.url).done(function(response) {
 			// Loop through slides and add them
-			$.each(response.slides || [], $.proxy(function(i, slide) {
-				this.add(slide);
-			}, this));
-		}, this)).fail(function(jqXHR) {
-			console.log('NOO!', jqXHR.status, jqXHR.statusText);
+			if (response.slides) {
+				response.slides.forEach(function(slide) {
+					this.add(slide);
+				}.bind(this));
+			}
+		}.bind(this)).fail(function(jqXHR) {
+			log('NOO!', jqXHR.status, jqXHR.statusText);
 		});
 
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
-			console.log('slideshow.js', 'Touch support detected');
+			log('Touch support detected');
 		}
 
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
 		$(document).on(estatico.events.resize + '.' + this.uuid, function(event, originalEvent) {
-			console.log('slideshow.js', originalEvent);
+			log(originalEvent);
 		});
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
 		$(document).on(estatico.events.scroll + '.' + this.uuid, function(event, originalEvent) {
-			console.log('slideshow.js', originalEvent);
+			log(originalEvent);
 		});
 
 		this.resize();
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
-		$(document).on(estatico.events.mq + '.' + this.uuid, $.proxy(function() {
+		$(document).on(estatico.events.mq + '.' + this.uuid, function() {
 			this.resize();
-		}, this));
+		}.bind(this));
 
 		this.show(this.options.initialItem);
 	};
@@ -183,9 +184,9 @@
 	 */
 	Module.prototype.resize = function() {
 		if (estatico.mq.query({ from: 'small' })) {
-			console.log('slideshow.js', 'Viewport: Above small breakpoint');
+			log('Viewport: Above small breakpoint');
 		} else {
-			console.log('slideshow.js', 'Viewport: Below small breakpoint');
+			log('Viewport: Below small breakpoint');
 		}
 	};
 

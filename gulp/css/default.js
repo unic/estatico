@@ -13,10 +13,12 @@ var taskName = 'css',
 			'./source/assets/css/*.scss',
 			'./source/preview/assets/css/*.scss'
 		],
+		devSrc: [
+			'./source/assets/css/dev.scss'
+		],
 		srcBase: './source/',
 		include: [
 			'./source/assets/css/',
-			'./source/assets/vendor/',
 			'./source/modules/'
 		],
 		dest: './build/',
@@ -46,16 +48,24 @@ var taskName = 'css',
 			ignore = require('gulp-ignore'),
 			path = require('path');
 
+		// Optionally build dev styles
+		if (util.env.dev) {
+			config.src = config.src.concat(config.devSrc);
+		}
+
 		var writeSourceMaps = lazypipe()
 				.pipe(sourcemaps.write, '.', {
 					includeContent: false,
 					sourceRoot: config.srcBase
 				}),
-			minify = lazypipe()
-				.pipe(gulp.dest, config.dest)
+			excludeSourcemaps = lazypipe()
 				.pipe(ignore.exclude, function(file) {
 					return path.extname(file.path) === '.map';
-				})
+				}),
+
+			minify = lazypipe()
+				.pipe(gulp.dest, config.dest)
+				.pipe(excludeSourcemaps)
 				.pipe(cssMinify)
 				.pipe(rename, {
 					suffix: '.min'
@@ -78,6 +88,7 @@ var taskName = 'css',
 				showFiles: true
 			}))
 			.pipe(gulp.dest(config.dest))
+			.pipe(excludeSourcemaps())
 			.pipe(livereload())
 			.on('end', cb);
 	};

@@ -1,0 +1,169 @@
+{
+	"disallowAnonymousFunctions": null, // Requires that a function expression be named.
+	"disallowCapitalizedComments": null, // Requires the first alphabetical character of a comment to be lowercase.
+	"disallowCommaBeforeLineBreak": null, // Disallows commas as last token on a line in lists.
+	"disallowCurlyBraces": null, // Disallows curly braces after statements.
+	"disallowDanglingUnderscores": null, // Disallows identifiers that start or end in _. Some popular identifiers are automatically listed as exceptions
+	"disallowEmptyBlocks": true, // Disallows empty blocks (except for catch blocks).
+	"disallowFunctionDeclarations": null, // Disallows function declarations.
+	"disallowIdentifierNames": null, // Disallows a specified set of identifier names.
+	"disallowImplicitTypeConversion": null, // Disallows implicit type conversion.
+	"disallowKeywordsInComments": null, // Disallows keywords in your comments, such as TODO or FIXME
+	"disallowKeywordsOnNewLine": ["else", "catch"], // Disallows placing keywords on a new line.
+	"disallowKeywords": null, // Disallows usage of specified keywords.
+	"disallowMixedSpacesAndTabs": true, // Requires lines to not contain both spaces and tabs consecutively, or spaces after tabs only for alignment if "smart"
+	"disallowMultipleLineBreaks": true, // Disallows multiple blank lines in a row.
+	"disallowMultipleLineStrings": null, // Disallows strings that span multiple lines without using concatenation.
+	"disallowMultipleSpaces": true, // Disallows multiple indentation characters (tabs or spaces) between identifiers, keywords, and any other token
+	"disallowMultipleVarDecl": null, // Disallows multiple var declaration (except for-loop).
+	"disallowNamedUnassignedFunctions": null, // Disallows unassigned functions to be named inline
+	"disallowNewlineBeforeBlockStatements": true, // Disallows newline before opening curly brace of all block statements.
+	"disallowNotOperatorsInConditionals": null, // Disallows the not, not equals, and strict not equals operators in conditionals.
+	"disallowOperatorBeforeLineBreak": ["+", "."], // Requires putting certain operators on the next line rather than on the current line before a line break.
+	"disallowPaddingNewLinesAfterBlocks": null, // Disallow a newline after blocks
+	"disallowPaddingNewLinesAfterUseStrict": null, // Disallow a blank line after 'use strict'; statements
+	"disallowPaddingNewLinesBeforeExport": null, // Disallows newline before module.exports
+	"disallowPaddingNewlinesBeforeKeywords": null, // Disallow an empty line above the specified keywords.
+	"disallowPaddingNewLinesBeforeLineComments": null, // Disallows newline before line comments
+	"disallowPaddingNewlinesInBlocks": null, // Disallows blocks from beginning or ending with 2 newlines.
+	"disallowPaddingNewLinesInObjects": null, // Disallows newline inside curly braces of all objects.
+	"disallowQuotedKeysInObjects": null, // Disallows quoted keys in object if possible.
+	"disallowSemicolons": null, // Disallows lines from ending in a semicolon.
+	"disallowSpaceAfterBinaryOperators": null, // Requires sticking binary operators to the right.
+	"disallowSpaceAfterKeywords": null, // Disallows space after keyword.
+	"disallowSpaceAfterLineComment": null, // Requires that a line comment (//) not be followed by a space.
+	"disallowSpaceAfterObjectKeys": true, // Disallows space after object keys.
+	"disallowSpaceAfterPrefixUnaryOperators": true, // Requires sticking unary operators to the right.
+	"disallowSpaceBeforeBinaryOperators": [","], // Requires sticking binary operators to the left.
+	"disallowSpaceBeforeBlockStatements": null, // Disallows space before block statements (for loops, control structures).
+	"disallowSpaceBeforeKeywords": null, // Disallows space before keyword.
+	"disallowSpaceBeforeObjectValues": null, // Disallows space after object keys.
+	"disallowSpaceBeforePostfixUnaryOperators": true, // Requires sticking unary operators to the left.
+	"disallowSpaceBetweenArguments": null, // Ensure there are no spaces after argument separators in call expressions.
+	"disallowSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	}, // Disallows space before () or {} in anonymous function expressions.
+	"disallowSpacesInCallExpression": true, // Disallows space before () in call expressions.
+	"disallowSpacesInConditionalExpression": null, // Disallows space before and/or after ? or : in conditional expressions.
+	"disallowSpacesInForStatement": null, // Disallow spaces in between for statement.
+	"disallowSpacesInFunctionDeclaration": {
+		"beforeOpeningRoundBrace": true
+	}, // Disallows space before () or {} in function declarations.
+	"disallowSpacesInFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	}, // Disallows space before () or {} in function expressions (both named and anonymous).
+	"disallowSpacesInFunction": null, // Expression
+	"disallowSpacesInNamedFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	}, // Disallows space before () or {} in named function expressions.
+	"disallowSpacesInsideArrayBrackets": true, // Disallows space after opening array square bracket and before closing.
+	"disallowSpacesInsideBrackets": null, // Disallows space after opening square bracket and before closing.
+	"disallowSpacesInsideObjectBrackets": null, // Disallows space after opening object curly brace and before closing.
+	"disallowSpacesInsideParentheses": true, // Disallows space after opening round bracket and before closing.
+	"disallowTrailingComma": true, // Disallows an extra comma following the final element of an array or object literal.
+	"disallowTrailingWhitespace": true, // Requires all lines to end on a non-whitespace character
+	"disallowYodaConditions": true, // Requires the variable to be the left hand operator when doing a boolean comparison
+
+	"maximumLineLength": null, // Requires all lines to be at most the number of characters specified
+	"maximumNumberOfLines": null, // Requires the file to be at most the number of lines specified
+
+	"requireAlignedObjectValues": null, // Requires proper alignment in object literals.
+	"requireAnonymousFunctions": null, // Requires that a function expression be anonymous.
+	"requireBlocksOnNewline": true, // Requires blocks to begin and end with a newline
+	"requireCamelCaseOrUpperCaseIdentifiers": true, // Requires identifiers to be camelCased or UPPERCASE_WITH_UNDERSCORES
+	"requireCapitalizedComments": null, // Requires the first alphabetical character of a comment to be uppercase, unless it is part of a multi-line textblock.
+	"requireCapitalizedConstructors": true, // Requires constructors to be capitalized (except for this)
+	"requireCommaBeforeLineBreak": true, // Requires commas as last token on a line in lists.
+	"requireCurlyBraces": [
+		"if",
+		"else",
+		"for",
+		"while",
+		"do",
+		"try",
+		"catch"/*,
+		"case",
+		"default"*/
+	], // Requires curly braces after statements.
+	"requireDollarBeforejQueryAssignment": true, // Require a $ before variable names that are jquery assignments.
+	"requireDotNotation": true, // Requires member expressions to use dot notation when possible
+	"requireFunctionDeclarations": null, // Requires function declarations by disallowing assignment of functions expressions to variables. Function expressions are allowed in all other contexts, including when passed as function arguments or immediately invoked.
+	"requireKeywordsOnNewLine": null, // Requires placing keywords on a new line.
+	"requireLineBreakAfterVariableAssignment": true, // Requires placing line feed after assigning a variable.
+	"requireLineFeedAtFileEnd": true, // Requires placing line feed at file end.
+	"requireMultipleVarDecl": {
+		"allExcept": ["require"]
+	}, // Requires multiple var declaration.
+	"requireNamedUnassignedFunctions": null, // Require unassigned functions to be named inline
+	"requireNewlineBeforeBlockStatements": null, // Requires newline before opening curly brace of all block statements.
+	"requireOperatorBeforeLineBreak": true, // Requires operators to appear before line breaks and not after.
+	"requirePaddingNewLineAfterVariableDeclaration": true, // Requires an extra blank newline after var declarations, as long as it is not the last expression in the current block.
+	"requirePaddingNewLinesAfterBlocks": true, // Requires newline after blocks
+	"requirePaddingNewLinesAfterUseStrict": true, // Requires a blank line after 'use strict'; statements
+	"requirePaddingNewLinesBeforeExport": null, // Requires newline before module.exports
+	"requirePaddingNewlinesBeforeKeywords": null, // Requires an empty line above the specified keywords unless the keyword is the first expression in a block.
+	"requirePaddingNewLinesBeforeLineComments": {
+		"allExcept": "firstAfterCurly"
+	}, // Requires newline before line comments
+	"requirePaddingNewlinesInBlocks": null, // Requires blocks to begin and end with 2 newlines
+	"requirePaddingNewLinesInObjects": null, // Requires newline inside curly braces of all objects.
+	"requireParenthesesAroundIIFE": true, // Requires parentheses around immediately invoked function expressions.
+	"requireQuotedKeysInObjects": null, // Requires quoted keys in objects.
+	"requireSemicolons": true, // Requires semicolon after:
+	"requireSpaceAfterBinaryOperators": true, // Disallows sticking binary operators to the right.
+	"requireSpaceAfterKeywords": [
+		"do",
+		"for",
+		"if",
+		"else",
+		"switch",
+		"case",
+		"try",
+		"catch",
+		"void",
+		"while",
+		"with",
+		"typeof"
+	], // Requires space after keyword.
+	"requireSpaceAfterLineComment": true, // Requires that a line comment (//) be followed by a space.
+	"requireSpaceAfterObjectKeys": null, // Requires space after object keys.
+	"requireSpaceAfterPrefixUnaryOperators": null, // Disallows sticking unary operators to the right.
+	"requireSpaceBeforeBinaryOperators": null, //Disallows sticking binary operators to the left.
+	"requireSpaceBeforeBlockStatements": true, // Requires space(s) before block statements (for loops, control structures).
+	"requireSpaceBeforeKeywords": [
+		"else",
+		"while",
+		"catch",
+		"in"
+	], // Requires space before keyword.
+	"requireSpaceBeforeObjectValues": true, // Requires space after object keys.
+	"requireSpaceBeforePostfixUnaryOperators": null, // Disallows sticking unary operators to the left.
+	"requireSpaceBetweenArguments": true, // Ensure there are spaces after argument separators in call expressions.
+	"requireSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	}, // Requires space before () or {} in anonymous function expressions.
+	"requireSpacesInCallExpression": null, // Requires space before () in call expressions.
+	"requireSpacesInConditionalExpression": true, // Requires space before and/or after ? or : in conditional expressions.
+	"requireSpacesInForStatement": true, // Requires spaces inbetween for statement.
+	"requireSpacesInFunctionDeclaration": null, // Requires space before () or {} in function declarations.
+	"requireSpacesInFunctionExpression": null, // Requires space before () or {} in function expressions (both named and anonymous).
+	"requireSpacesInFunction": null, // Expression
+	"requireSpacesInNamedFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	}, // Requires space before () or {} in named function expressions.
+	"requireSpacesInsideArrayBrackets": null, // Requires space after opening array square bracket and before closing.
+	"requireSpacesInsideBrackets": null, // Requires space after opening square bracket and before closing.
+	"requireSpacesInsideObjectBrackets": null, // Requires space after opening object curly brace and before closing.
+	"requireSpacesInsideParentheses": null, // Requires space after opening round bracket and before closing.
+	"requireTrailingComma": null, // Requires an extra comma following the final element of an array or object literal.
+	"requireYodaConditions": null, // Requires the variable to be the right hand operator when doing a boolean comparison
+
+	"safeContextKeyword": null, // Option to check var that = this expressions
+
+	"validateAlignedFunctionParameters": null, // Validates proper alignment of function parameters.
+	"validateIndentation": "\t", // Validates indentation for switch statements and block statements
+	"validateLineBreaks": false, // Option to check line break characters (NOTE: disabled until we have figured out a sane way of enforcing "LF" on windows)
+	"validateNewlineAfterArrayElements": null, // Requires each element in array on a single line when array length is more than passed maximum number or array fills more than one line. Set ignoreBrackets to true to allow elements on the same line with brackets.
+	"validateParameterSeparator": ", ", // Enable validation of separators between function parameters. Will ignore newlines.
+	"validateQuoteMarks": "'" // Requires all quote marks to be either the supplied value, or consistent if true
+}

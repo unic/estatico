@@ -81,7 +81,6 @@
 		delete estatico.modules[this.name].instances[this.uuid];
 	};
 
-
 	/**
 	 * Register the module as jQuery plugin, auto-init at specified events
 	 *

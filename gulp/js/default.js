@@ -13,6 +13,9 @@ var taskName = 'js',
 				main: './source/assets/js/main.js',
 				head: './source/assets/js/head.js'
 			},
+			devSrc: {
+				dev: './source/assets/js/dev.js'
+			},
 			srcBase: './source/',
 			dest: './build/assets/js/',
 			watch: [
@@ -34,29 +37,35 @@ var taskName = 'js',
 				util = require('gulp-util'),
 				resolveDependencies = require('gulp-resolve-dependencies'),
 				sourcemaps = require('gulp-sourcemaps'),
-				tap = require('gulp-tap'),
 				concat = require('gulp-concat'),
 				uglify = require('gulp-uglify'),
 				rename = require('gulp-rename'),
 				lazypipe = require('lazypipe'),
 				ignore = require('gulp-ignore'),
 				_ = require('lodash'),
-				fs = require('fs'),
 				path = require('path'),
 				merge = require('merge-stream');
 
-			var tasks = _.map(config.src, function (srcPath) {
+			// Optionally build dev scripts
+			if (util.env.dev) {
+				_.merge(config.src, config.devSrc);
+			}
+
+			var tasks = _.map(config.src, function(srcPath) {
 					var fileName = path.basename(srcPath),
 						writeSourceMaps = lazypipe()
 							.pipe(sourcemaps.write, '.', {
 								includeContent: false,
 								sourceRoot: config.srcBase
 							}),
-						minify = lazypipe()
-							.pipe(gulp.dest, config.dest)
+						excludeSourcemaps = lazypipe()
 							.pipe(ignore.exclude, function(file) {
 								return path.extname(file.path) === '.map';
-							})
+							}),
+
+						minify = lazypipe()
+							.pipe(gulp.dest, config.dest)
+							.pipe(excludeSourcemaps)
 							.pipe(uglify, {
 								preserveComments: 'some'
 							})
@@ -70,7 +79,8 @@ var taskName = 'js',
 					})
 						.pipe(plumber())
 						.pipe(resolveDependencies({
-							pattern: /\* @requires [\s-]*(.*\.js)/g,
+							pattern: /\* @requires [\s-]*(.*\.js)/g
+
 							// log: true
 						}).on('error', helpers.errors))
 						.pipe(sourcemaps.init())
@@ -82,6 +92,7 @@ var taskName = 'js',
 							showFiles: true
 						}))
 						.pipe(gulp.dest(config.dest))
+						.pipe(excludeSourcemaps())
 						.pipe(livereload());
 				});
 
