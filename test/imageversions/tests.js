@@ -23,13 +23,14 @@ module.exports = {
 
 		// Calling the task function
 		task.task(testTaskConfig, done);
+
+		//
 	},
 
 	// Using task name as key
-	default: function() {
-		helpers.compareResultFilesToExpected('imageversions', {
-			asBuffer: true
-		});
+	default: function(done) {
+		this.timeout(5000);
+		helpers.compareResultImagesToExpected('imageversions', done);
 	},
 
 	after: function(done) {
