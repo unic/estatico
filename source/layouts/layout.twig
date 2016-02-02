@@ -6,36 +6,36 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
+	<title>{% if title %}{{title}} – {% endif %}{{project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+	<link rel="stylesheet" href="/assets/css/main{% if not env.dev %}.min{% endif %}.css">
 
-	{{#if env.dev}}
+	{% if env.dev %}
 		<link rel="stylesheet" href="/assets/css/dev.css">
-	{{/if}}
+	{% endif %}
 
-	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+	<script src="/assets/js/head{% if not env.dev %}.min{% endif %}.js"></script>
 
-	{{#if env.dev}}
+	{% if env.dev %}
 		<script src="/assets/js/dev.js"></script>
-	{{/if}}
+	{% endif %}
 </head>
 <body>
-	{{#block "header"}}
-	{{/block}}
+	{% block header %}
+	{% endblock %}
 
 	<div class="layout_wrapper" id="main">
-		{{#block "content"}}
-		{{/block}}
+		{% block content %}
+		{% endblock %}
 	</div>
 
-	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+	<script src="/assets/js/main{% if not env.dev %}.min{% endif %}.js"></script>
 
-	{{#block "scripts"}}
-		{{#if meta.testScripts}}
-			{{> "preview/partials/qunit"}}
-		{{/if}}
-	{{/block}}
+	{% block scripts %}
+		{% if meta.testScripts %}
+			{% include "preview/partials/qunit.twig" %}
+		{% endif %}
+	{% endblock %}
 </body>
 </html>

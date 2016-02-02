@@ -11,7 +11,7 @@ var data = _.merge(defaultData, {
 			title: 'Demo: Teasers',
 			jira: 'JIRA-1',
 			feature: 'Feature X',
-			code: dataHelper.getTemplateCode('teasers.hbs')
+			code: dataHelper.getTemplateCode('teasers.twig')
 		},
 		teasers: _.map(['Teaser 1', 'Teaser 2', 'Teaser 3', 'Teaser 4'], function(value) {
 			return _.merge({}, teaserData, {

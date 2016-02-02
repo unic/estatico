@@ -1,0 +1,16 @@
+{% extends "preview/layouts/layout.twig" %}
+
+{% block content %}
+	<ul class="sg_inner_wrapper sg_color_list">
+		{% for color in colors %}
+			{% if not color.hideFromStyleguide %}
+				<li class="sg_color_item" title="{{color.color}}">
+					<div class="sg_color_preview" style="background-color: {{color.color}}"></div>
+					<div class="sg_color_name">{{color.name}}</div>
+					<div class="sg_color_variable_name">$color{{color.name}}</div>
+					<div class="sg_color_value">{{color.color}}</div>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+{% endblock %}

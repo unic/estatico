@@ -1,0 +1,20 @@
+{% extends "preview/layouts/layout.twig" %}
+
+{% block content %}
+	<!-- todo: add icons from all icon folders -->
+	<section class="sg_inner_wrapper">
+		<div class="sg_icons_list">
+			{% for icon in icons %}
+				<div class="sg_icons_item">
+					<div class="sg_icons_label">{{icon}}</div>
+
+					{% for size in sizes %}
+						<div class="sg_icons_icon" style="font-size: {{size}}px" title="{{icon}} {{size}}px">
+							<span class="icon_{{icon}}"></span>
+						</div>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

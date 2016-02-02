@@ -1,5 +1,7 @@
-{{#extend "layouts/layout"}}
-	{{#content "header"}}
+{% extends "layouts/layout.twig" %}
+
+{% block header %}
+	{#
 		<script>
 			// Global content data, will be extended by data-slideshow-data
 			estatico.helpers.extend(estatico.data, {
@@ -19,17 +21,17 @@
 				}
 			});
 		</script>
+	#}
 
-		{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
-	{{/content}}
+	{% include "demo/modules/skiplinks/skiplinks.twig" with modules.skiplinks %}
+{% endblock %}
 
-	{{#content "content"}}
-		<h2>{{title}}</h2>
+{% block content %}
+	<h2>{{title}}</h2>
 
-		<p>{{text}}</p>
+	<p>{{text}}</p>
 
-		<hr>
+	<hr>
 
-		{{> "demo/modules/slideshow/slideshow" modules.slideshow}}
-	{{/content}}
-{{/extend}}
+	{% include "demo/modules/slideshow/slideshow.twig" with modules.slideshow %}
+{% endblock %}

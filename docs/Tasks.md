@@ -38,7 +38,7 @@ Run specific tasks when specific files have changed. Uses the `gulp-watch` packa
 * Fall back to polling (e.g. in Vagrant): `gulp --pollWatch=true`
 
 ### `gulp css:colors`
-Import colors from ColorSchemer HTML export and save to Sass file (based on Handlebars template).
+Import colors from ColorSchemer HTML export and save to Sass file (based on Twig template).
 
 Non-alphanumeric characters are removed from the name.
 Works with JSON, too. Just replace the HTML file with a JSON one (containing "colorName": "#000000" pairs).
@@ -50,7 +50,7 @@ Compile Sass to CSS (using `LibSass`), run autoprefixer on the generated CSS.
 Encode *.otf or *.ttf or *.woff fonts to base64 data
 
 ### `gulp html`
-Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
+Compile Twig templates to HTML. Use `.data.js` files for - surprise! - data.
 
 ### `gulp html:migrate`
 Transform old `.json` data files to `.data.js`.
@@ -74,7 +74,7 @@ Generate customized Modernizr build (using `Customizr`, crawling through files a
 Run QUnit tests (using PhantomJS).
 
 ### `gulp js:templates`
-Precompile handlebars templates.
+Precompile Twig templates.
 
 ### `gulp media:copy`
 Copy specific media files to build directory.
@@ -83,14 +83,14 @@ Copy specific media files to build directory.
 Generate Sass file with base64 encoded SVG data urls and PNG fallbacks.
 
 ### `gulp media:iconfont`
-Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Handlebars template).
+Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Twig template).
 
 ### `gulp media:imageversions`
 Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /source/demo/modules/imageversions module for more details and further documentation.
 Depends on GraphicsMagick being installed.
 
 ### `gulp media:pngsprite`
-Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).
+Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Twig template).
 
 ### `gulp scaffold:copy`
 Copy module or page

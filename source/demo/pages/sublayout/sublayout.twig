@@ -1,0 +1,17 @@
+{% extends "layouts/sublayout.twig" %}
+
+{% block header %}
+	{% include "demo/modules/skiplinks/skiplinks.twig" with modules.skiplinks %}
+{% endblock %}
+
+{% block main %}
+	<h2>{{title}}</h2>
+
+	<p>{{text}}</p>
+{% endblock %}
+
+{% block sidebar %}
+	<h2>Sidebar area</h2>
+
+	<p>{{sidebar}}</p>
+{% endblock %}

@@ -1,7 +1,7 @@
-{{#extend "layouts/layout"}}
-	{{#content "content"}}
+{% extends "layouts/layout" %}
+	{% block content %}
 		<h2>{{title}}</h2>
 
 		<p>{{text}}</p>
-	{{/content}}
-{{/extend}}
+	{% endblock %}
+

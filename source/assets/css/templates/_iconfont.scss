@@ -15,10 +15,10 @@
  */
 
 $icons: (
-	{{#each icons}}"{{@key}}": (
-		"char": "\\{{this.codepoint}}"
+	{% for name, icon in icons %}"{{ name }}": (
+		"char": "\{{ icon.codepoint }}"
 	),
-	{{/each}}
+	{% endfor %}
 );
 
 
@@ -83,12 +83,12 @@ $icons: (
 	@include iconDefaultStyles;
 }
 
-{{#each icons}}.icon_{{@key}} {
+{% for name, icon in icons %}.icon_{{ name }} {
 
 	&:before {
 		@extend %icon;
 	}
 
-	@include icon("{{@key}}", $skipDefaultsStyles: true);
+	@include icon("{{ name }}", $skipDefaultsStyles: true);
 }
-{{/each}}
+{% endfor %}

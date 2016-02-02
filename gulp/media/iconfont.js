@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp media:iconfont`
- * @desc Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Handlebars template).
+ * @desc Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Twig template).
  */
 
 var gulp = require('gulp');
@@ -30,7 +30,7 @@ gulp.task(taskName, function(cb) {
 		plumber = require('gulp-plumber'),
 		size = require('gulp-size'),
 		iconfont = require('gulp-iconfont'),
-		handlebars = require('gulp-hb'),
+		twig = require('gulp-twig'),
 		_ = require('lodash');
 
 	var data = {
@@ -68,12 +68,11 @@ gulp.task(taskName, function(cb) {
 		.on('end', function() {
 			gulp.src(taskConfig.srcStyles)
 				.pipe(plumber())
-				.pipe(handlebars({
+				.pipe(twig({
 					data: {
 						icons: data.icons,
 						options: data.options
-					},
-					bustCache: true
+					}
 				}).on('error', helpers.errors))
 				.pipe(gulp.dest(taskConfig.destStyles))
 				.on('end', function() {

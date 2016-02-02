@@ -1,0 +1,37 @@
+{# Font definitions
+----------------------------
+Font weights must be defined as arrays, even wheen there's only one weight to be defined.
+In case of different sizes for each weight, they can be defined in separate objects.
+#}
+
+{% extends "preview/layouts/layout.twig" %}
+
+{% block content %}
+	{% for font in fonts %}
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">{{font.family}}</h2>
+
+			{% for style in font.font %}
+				<div class="sg_fonts_font">
+					{% for weight in style.weight %}
+						{% for size in style.size %}
+							{% for myStyle in style.style %}
+								<div class="sg_subsection" title="{{font.family}} {{myStyle}} {{weight}} {{size}}px">
+									<h3 class="sg_h3">{{myStyle}} {{weight}} {{size}}px</h3>
+
+									<div style="font-style: {{myStyle}}; font-size: {{size}}px; font-weight: {{weight}};">
+										A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br />
+										a b c d e f g h i j k l m n o p q r s t u v w x y z<br />
+										À È Ì Ò Ù Á É Í Ó Ú Ä Ë Ï Ö Ü Â Ê Î Ô Û Ç<br />
+										à è ì ò ù á é í ó ú ä ë ï ö ü â ê î ô û ç<br />
+										0 1 2 3 4 5 6 7 8 9 . , ; : - _ = { } ( ) [ ] ? ! $ £ & % * " ' § °<br />
+									</div>
+								</div>
+							{% endfor %}
+						{% endfor %}
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</section>
+	{% endfor %}
+{% endblock %}

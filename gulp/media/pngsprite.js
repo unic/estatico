@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp media:pngsprite`
- * @desc Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).
+ * @desc Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Twig template).
  */
 
 var gulp = require('gulp');
@@ -32,7 +32,7 @@ gulp.task(taskName, function(cb) {
 		spritesmith = require('gulp.spritesmith'),
 		tap = require('gulp-tap'),
 		_ = require('lodash'),
-		handlebars = require('gulp-hb');
+		twig = require('gulp-twig');
 
 	var spriteData = {},
 		streams = gulp.src(taskConfig.src)
@@ -73,11 +73,10 @@ gulp.task(taskName, function(cb) {
 
 			gulp.src(taskConfig.srcStyles)
 				.pipe(plumber())
-				.pipe(handlebars({
+				.pipe(twig({
 					data: {
 						images: images
-					},
-					bustCache: true
+					}
 				}).on('error', helpers.errors))
 				.pipe(gulp.dest(taskConfig.destStyles));
 

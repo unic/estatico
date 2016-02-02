@@ -1,0 +1,15 @@
+{% extends "layouts/layout.twig" %}
+
+{% block header %}
+	{% include "demo/modules/skiplinks/skiplinks.twig" with modules.skiplinks %}
+{% endblock %}
+
+{% block content %}
+	<h2>{{title}}</h2>
+
+	<p>{{text}}</p>
+
+	<hr>
+
+	{% include "demo/modules/teasers/teasers.twig" with modules.teasers %}
+{% endblock %}

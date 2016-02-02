@@ -1,11 +1,11 @@
 <div class="mod_skiplinks">
 	<ul>
-		{{#each links}}
+		{% for bla in links %}
 			<li>
 				<a href="{{this.href}}" accesskey="{{this.accesskey}}" title="{{this.title}}">
 					{{this.label}}
 				</a>
 			</li>
-		{{/each}}
+		{% endfor %}
 	</ul>
 </div>

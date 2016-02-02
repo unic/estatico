@@ -1,0 +1,15 @@
+{% extends "layouts/layout.twig" %}
+
+{% block content %}
+	<div class="layout_columns">
+		<main class="layout_main" role="main">
+			{% block main %}
+			{% endblock %}
+		</main>
+
+		<aside class="layout_sidebar" role="complementary">
+			{% block sidebar %}
+			{% endblock %}
+		</aside>
+	</div>
+{% endblock %}

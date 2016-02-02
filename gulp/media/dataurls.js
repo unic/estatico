@@ -39,7 +39,7 @@ gulp.task(taskName, function(cb) {
 		imagemin = require('gulp-imagemin'),
 		raster = require('gulp-raster'),
 		rename = require('gulp-rename'),
-		handlebars = require('gulp-hb'),
+		twig = require('gulp-twig'),
 		base64 = require('gulp-base64');
 
 	var pathSeparator = '--',
@@ -147,11 +147,10 @@ gulp.task(taskName, function(cb) {
 		.on('end', function() {
 			gulp.src(taskConfig.srcStyles)
 				.pipe(plumber())
-				.pipe(handlebars({
+				.pipe(twig({
 					data: {
 						icons: icons
-					},
-					bustCache: true
+					}
 				}).on('error', helpers.errors))
 				.pipe(base64({
 					baseDir: taskConfig.relStyles

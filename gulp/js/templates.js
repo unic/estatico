@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp js:templates`
- * @desc Precompile handlebars templates.
+ * @desc Precompile Twig templates.
  */
 
 var gulp = require('gulp');
@@ -30,7 +30,7 @@ gulp.task(taskName, function(cb) {
 		concat = require('gulp-concat'),
 		tap = require('gulp-tap'),
 		file = require('gulp-file'),
-		handlebars = require('gulp-handlebars'),
+		twig = require('gulp-twig'),
 		path = require('path');
 
 	var c = 0;
@@ -40,18 +40,20 @@ gulp.task(taskName, function(cb) {
 		.pipe(tap(function() {
 			c++;
 		}))
-		.pipe(handlebars().on('error', helpers.errors))
+		.pipe(twig({
+			precompile: true
+		}).on('error', helpers.errors))
 		.pipe(defineModule('plain', { // RequireJS: use 'amd' over plain and uncomment lines below
 			// require: {
-			// 	Handlebars: 'handlebars'
+			//     Twig: 'twig'
 			// },
 			context: {
-				handlebars: 'Handlebars.template(<%= contents %>)'
+				twig: 'Twig.twig({ data: <%= contents %>, precompiled: true })'
 			},
-			wrapper: '<%= handlebars %>'
+			wrapper: '<%= twig %>'
 		}))
 		.pipe(declare({
-			namespace: 'Handlebars.partials',
+			namespace: 'Twig.partials',
 			processName: function(filePath) {
 				// Use "modules/x/y" as partial name, e.g.
 				var name = path.relative('./source/', filePath);

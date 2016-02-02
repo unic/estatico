@@ -9,7 +9,7 @@ var data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Slideshow',
 			jira: 'JIRA-4',
-			code: dataHelper.getTemplateCode('slideshow.hbs'),
+			code: dataHelper.getTemplateCode('slideshow.twig'),
 			documentation: dataHelper.getDocumentation('slideshow.md'),
 			testScripts: [
 				dataHelper.getTestScriptPath('slideshow.test.js')

@@ -5,22 +5,22 @@
  */
 
 $iconsDataurls: (
-	{{#each icons}}"{{@key}}": (
+	{% for name, icon in icons %}"{{ name }}": (
 		"dimensions": (
-			"x": {{this.dimensions.x}},
-			"y": {{this.dimensions.y}}
+			"x": {{ icon.dimensions.x }},
+			"y": {{ icon.dimensions.y }}
 		),
 		"urls": (
-			{{#each this.urls}}"{{@key}}": (
-				"svg": "{{this.svg}}",
-				"svgInline": "url({{this.svg}})",
-				"png": "{{this.png}}",
-				"pngInline": "url({{this.png}})"
+			{% for key, url in icon.urls %}"{{ key }}": (
+				"svg": "{{ url.svg }}",
+				"svgInline": "url({{ url.svg }})",
+				"png": "{{ url.png }}",
+				"pngInline": "url({{ url.png }})"
 			),
-			{{/each}}
+			{% endfor %}
 		)
 	),
-	{{/each}}
+	{% endfor %}
 );
 
 

@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp html`
- * @desc Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
+ * @desc Compile Twig templates to HTML. Use `.data.js` files for - surprise! - data.
  */
 
 var gulp = require('gulp');
@@ -10,29 +10,30 @@ var gulp = require('gulp');
 var taskName = 'html',
 	taskConfig = {
 		src: [
-			'./source/*.hbs',
-			'./source/pages/**/*.hbs',
-			'./source/demo/pages/**/*.hbs',
-			'./source/modules/**/!(_)*.hbs',
-			'./source/demo/modules/**/!(_)*.hbs',
-			'./source/preview/styleguide/*.hbs'
+			'./source/*.twig',
+			'./source/pages/**/*.twig',
+			'./source/demo/pages/**/*.twig',
+			'./source/modules/**/!(_)*.twig',
+			'./source/demo/modules/**/!(_)*.twig',
+			'./source/preview/styleguide/*.twig'
 		],
-		srcModulePreview: './source/preview/layouts/module.hbs',
+		srcBase: './source',
+		srcModulePreview: './source/preview/layouts/module.twig',
 		partials: [
-			'source/layouts/*.hbs',
-			'source/modules/**/*.hbs',
-			'source/demo/modules/**/*.hbs',
-			'source/preview/**/*.hbs'
+			'source/layouts/*.twig',
+			'source/modules/**/*.twig',
+			'source/demo/modules/**/*.twig',
+			'source/preview/**/*.twig'
 		],
 		dest: './build/',
 		watch: [
-			'source/*.hbs',
-			'source/layouts/*.hbs',
-			'source/pages/**/*.hbs',
-			'source/demo/pages/**/*.hbs',
-			'source/modules/**/*.hbs',
-			'source/demo/modules/**/*.hbs',
-			'source/preview/**/*.hbs',
+			'source/*.twig',
+			'source/layouts/*.twig',
+			'source/pages/**/*.twig',
+			'source/demo/pages/**/*.twig',
+			'source/modules/**/*.twig',
+			'source/demo/modules/**/*.twig',
+			'source/preview/**/*.twig',
 			'source/data/**/*.data.js',
 			'source/pages/**/*.data.js',
 			'source/demo/pages/**/*.data.js',
@@ -59,8 +60,8 @@ gulp.task(taskName, function(cb) {
 		// Format HTML (disabled due to incorrect resulting indentation)
 		// prettify = require('gulp-prettify'),
 		_ = require('lodash'),
-		handlebars = require('gulp-hb'),
-		Handlebars = require('handlebars');
+		twig = require('gulp-twig'),
+		Twig = require('twig');
 
 	var modulePreviewTemplate;
 
@@ -91,12 +92,16 @@ gulp.task(taskName, function(cb) {
 				moduleTemplate = file.contents.toString();
 				modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(taskConfig.srcModulePreview, 'utf8');
 
-				data.demo = Handlebars.compile(moduleTemplate)(data);
+				data.demo = Twig.twig({
+					data: moduleTemplate
+				}).render(data);
 
 				// Compile variants
 				if (data.variants) {
 					data.variants = data.variants.map(function(variant) {
-						variant.demo = Handlebars.compile(moduleTemplate)(variant);
+						variant.demo = Twig.twig({
+							data: moduleTemplate
+						}).render(variant);
 
 						return variant;
 					});
@@ -119,11 +124,14 @@ gulp.task(taskName, function(cb) {
 			file.data = data;
 		}))
 		.pipe(plumber())
-		.pipe(handlebars({
-			partials: taskConfig.partials,
-			bustCache: true,
-			dataEach: function(context, file) {
+		.pipe(twig({
+			includes: taskConfig.partials,
+			data: function(file) {
 				return file.data;
+			},
+
+			getIncludeId: function(filePath) {
+				return path.relative('./source', filePath);
 			}
 		}).on('error', helpers.errors))
 

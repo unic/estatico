@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp css:colors`
- * @desc Import colors from ColorSchemer HTML export and save to Sass file (based on Handlebars template).
+ * @desc Import colors from ColorSchemer HTML export and save to Sass file (based on Twig template).
  *
  * Non-alphanumeric characters are removed from the name.
  * Works with JSON, too. Just replace the HTML file with a JSON one (containing "colorName": "#000000" pairs).
@@ -23,18 +23,17 @@ gulp.task(taskName, function() {
 		plumber = require('gulp-plumber'),
 		path = require('path'),
 		dataHelper = require('../../helpers/data.js'),
-		handlebars = require('gulp-hb');
+		twig = require('gulp-twig');
 
 	var filePath = path.resolve(taskConfig.input),
 		colors = dataHelper.getColors(filePath);
 
 	return gulp.src(taskConfig.src)
 		.pipe(plumber())
-		.pipe(handlebars({
+		.pipe(twig({
 			data: {
 				colors: colors
-			},
-			bustCache: true
+			}
 		}).on('error', helpers.errors))
 		.pipe(gulp.dest(taskConfig.dest));
 });

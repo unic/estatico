@@ -9,7 +9,7 @@ var data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Skiplinks',
 			jira: 'JIRA-5',
-			code: dataHelper.getTemplateCode('skiplinks.hbs')
+			code: dataHelper.getTemplateCode('skiplinks.twig')
 		},
 		links: [
 			{

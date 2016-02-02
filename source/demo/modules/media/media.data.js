@@ -9,7 +9,7 @@ var data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Media demo',
 			jira: 'JIRA-3',
-			code: dataHelper.getTemplateCode('media.hbs')
+			code: dataHelper.getTemplateCode('media.twig')
 		}
 	});
 
