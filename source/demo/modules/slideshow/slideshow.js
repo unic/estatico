@@ -59,15 +59,15 @@
 	 * @public
 	 */
 	Module.prototype.init = function() {
-		var navTemplate = Handlebars.partials['demo/modules/slideshow/_slideshow_nav'],
+		var navTemplate = Twig.partials['demo/modules/slideshow/_slideshow_nav'],
 			request;
 
 		this.currentItem = -1;
-		this.slideTemplate = Handlebars.partials['demo/modules/slideshow/_slideshow_slide'];
+		this.slideTemplate = Twig.partials['demo/modules/slideshow/_slideshow_slide'];
 
 		this.$wrapper = this.$element.find(this.options.domSelectors.slides);
 		this.$slides = this.$element.find(this.options.domSelectors.slide);
-		this.$nav = $(navTemplate(this.data));
+		this.$nav = $(navTemplate.render(this.data));
 
 		this.$element
 			.append(this.$nav)
@@ -169,7 +169,7 @@
 	 * @public
 	 */
 	Module.prototype.add = function(data) {
-		var slide = this.slideTemplate(data),
+		var slide = this.slideTemplate.render(data),
 			$slide = $(slide);
 
 		this.$slides = this.$slides.add($slide);

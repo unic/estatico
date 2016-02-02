@@ -99,12 +99,12 @@
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Data mocking</h2>
 
-				{% for bla in meta.mocks %}
+				{% for mock in meta.mocks %}
 					{% if description %}
-						<h3 class="sg_h3">{{description}}</h3>
+						<h3 class="sg_h3">{{mock.description}}</h3>
 					{% endif %}
 
-					<pre class="sg_code hljs">{{{data}}}</pre>
+					<pre class="sg_code hljs">{{mock.data}}</pre>
 				{% endfor %}
 			</section>
 		{% endif %}

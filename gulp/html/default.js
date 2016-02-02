@@ -19,7 +19,7 @@ var taskName = 'html',
 		],
 		srcBase: './source',
 		srcModulePreview: './source/preview/layouts/module.twig',
-		partials: [
+		includes: [
 			'source/layouts/*.twig',
 			'source/modules/**/*.twig',
 			'source/demo/modules/**/*.twig',
@@ -44,7 +44,8 @@ var taskName = 'html',
 			'source/demo/modules/**/*.md',
 			'source/assets/css/data/colors.html'
 		]
-	};
+	},
+	includeCache = {};
 
 gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
@@ -59,17 +60,19 @@ gulp.task(taskName, function(cb) {
 
 		// Format HTML (disabled due to incorrect resulting indentation)
 		// prettify = require('gulp-prettify'),
-		_ = require('lodash'),
-		twig = require('gulp-twig'),
-		Twig = require('twig');
+		_ = require('lodash');
 
 	var modulePreviewTemplate;
+
+	helpers.twig.registerIncludes(taskConfig.includes, includeCache);
 
 	gulp.src(taskConfig.src, {
 			base: './source'
 		})
+		.pipe(plumber())
 		.pipe(tap(function(file) {
-			var dataFile = util.replaceExtension(file.path, '.data.js'),
+			var content = file.contents.toString(),
+				dataFile = util.replaceExtension(file.path, '.data.js'),
 				data = (function() {
 					try {
 						return requireNew(dataFile);
@@ -84,54 +87,45 @@ gulp.task(taskName, function(cb) {
 					}
 				})(),
 
-				moduleTemplate,
 				mergedData;
 
-			// Precompile module demo and variants
-			if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
-				moduleTemplate = file.contents.toString();
-				modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(taskConfig.srcModulePreview, 'utf8');
+			// Render template
+			try {
+				// Precompile module demo and variants
+				if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
+					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(taskConfig.srcModulePreview, 'utf8');
 
-				data.demo = Twig.twig({
-					data: moduleTemplate
-				}).render(data);
+					data.demo = helpers.twig.render(content, data);
 
-				// Compile variants
-				if (data.variants) {
-					data.variants = data.variants.map(function(variant) {
-						variant.demo = Twig.twig({
-							data: moduleTemplate
-						}).render(variant);
+					// Compile variants
+					if (data.variants) {
+						data.variants = data.variants.map(function(variant) {
+							variant.demo = helpers.twig.render(content, variant);
+						});
 
-						return variant;
-					});
-
-					mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
-							meta: {
-								title: 'Default',
-								desc: 'Default implemention.'
+						mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
+								meta: {
+									title: 'Default',
+									desc: 'Default implemention.'
+								}
 							}
-						}
-					);
-					data.variants.unshift(mergedData);
+						);
+
+						data.variants.unshift(mergedData);
+					}
+
+					// Replace file content with preview template
+					content = modulePreviewTemplate;
 				}
 
-				// Replace file content with preview template
-				file.contents = new Buffer(modulePreviewTemplate);
-			}
+				file.contents = new Buffer(helpers.twig.render(content, data));
+			} catch (err) {
+				helpers.errors({
+					task: taskName,
+					message: 'Error rendering "' + path.relative('./', file.path) + '": ' + err
 
-			// Save data by file name
-			file.data = data;
-		}))
-		.pipe(plumber())
-		.pipe(twig({
-			includes: taskConfig.partials,
-			data: function(file) {
-				return file.data;
-			},
-
-			getIncludeId: function(filePath) {
-				return path.relative('./source', filePath);
+					// stack: err.stack
+				});
 			}
 		}).on('error', helpers.errors))
 

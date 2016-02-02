@@ -1,0 +1,11 @@
+{% extends "layouts/layout.twig" %}
+
+{% block header %}
+	{% include "modules/skiplinks/skiplinks.twig" with modules.skiplinks %}
+{% endblock %}
+
+{% block content %}
+	<h2>{{title}}</h2>
+
+	<p>{{text}}</p>
+{% endblock %}
