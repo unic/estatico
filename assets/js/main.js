@@ -14906,8 +14906,8 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 })(jQuery);
 
 /*!
- * modernizr v3.2.0
- * Build http://modernizr.com/download?-flexbox-flexboxlegacy-flexboxtweener-json-svg-template-touchevents-dontmin
+ * modernizr v3.3.1
+ * Build http://modernizr.com/download?-flexbox-flexboxlegacy-flexboxtweener-json-svg-template-touchevents-setclasses-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
@@ -14943,15 +14943,15 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 
   var ModernizrProto = {
     // The current version, dummy
-    _version: '3.2.0',
+    _version: '3.3.1',
 
     // Any settings that don't work as separate modules
     // can go in here as configuration.
     _config: {
-      'classPrefix' : '',
-      'enableClasses' : true,
-      'enableJSClass' : true,
-      'usePrefixes' : true
+      'classPrefix': '',
+      'enableClasses': true,
+      'enableJSClass': true,
+      'usePrefixes': true
     },
 
     // Queue of tests
@@ -14972,11 +14972,11 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
     },
 
     addTest: function(name, fn, options) {
-      tests.push({name : name, fn : fn, options : options});
+      tests.push({name: name, fn: fn, options: options});
     },
 
     addAsyncTest: function(fn) {
-      tests.push({name : null, fn : fn});
+      tests.push({name: null, fn: fn});
     }
   };
 
@@ -15208,7 +15208,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
    */
 
   var modElem = {
-    elem : createElement('modernizr')
+    elem: createElement('modernizr')
   };
 
   // Clean up this element
@@ -15219,7 +15219,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
   
 
   var mStyle = {
-    style : modElem.elem.style
+    style: modElem.elem.style
   };
 
   // kill ref for gc, must happen before mod.elem is removed, so we unshift on to
@@ -15359,7 +15359,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
 
   // Accepts a list of property names and a single value
   // Returns `undefined` if native detection not available
-  function nativeTestProps (props, value) {
+  function nativeTestProps(props, value) {
     var i = props.length;
     // Start with the JS API: http://www.w3.org/TR/css3-conditional/#the-css-interface
     if ('CSS' in window && 'supports' in window.CSS) {
@@ -15540,6 +15540,12 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
   /**
    * testDOMProps is a generic DOM property test; if a browser supports
    *   a certain property, it won't return undefined for it.
+   *
+   * @access private
+   * @function testDOMProps
+   * @param {array.<string>} props - An array of properties to test for
+   * @param {object} obj - An object or Element you want to use to test the parameters again
+   * @param {boolean|object} elem - An Element to bind the property lookup again. Use `false` to prevent the check
    */
   function testDOMProps(props, obj, elem) {
     var item;
@@ -15574,6 +15580,14 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
    * We specify literally ALL possible (known and/or likely) properties on
    * the element including the non-vendor prefixed one, for forward-
    * compatibility.
+   *
+   * @access private
+   * @function testPropsAll
+   * @param {string} prop - A string of the property to test for
+   * @param {string|object} [prefixed] - An object to check the prefixed properties on. Use a string to skip
+   * @param {HTMLElement|SVGElement} [elem] - An element used to test the property and value against
+   * @param {string} [value] - A string of a css value
+   * @param {boolean} [skipValueTest] - An boolean representing if you want to test if value sticks when set
    */
   function testPropsAll(prop, prefixed, elem, value, skipValueTest) {
 
@@ -15637,7 +15651,7 @@ this["Handlebars"]["partials"]["demo/modules/slideshow/_slideshow_slide"] = Hand
    * ```
    */
 
-  function testAllProps (prop, value, skipValueTest) {
+  function testAllProps(prop, value, skipValueTest) {
     return testPropsAll(prop, undefined, undefined, value, skipValueTest);
   }
   ModernizrProto.testAllProps = testAllProps;
@@ -15671,7 +15685,7 @@ Detects support for the Flexible Box Layout model, a.k.a. Flexbox, which allows 
   "polyfills": ["flexie"],
   "notes": [{
     "name": "The _old_ flexbox",
-    "href": "http://www.w3.org/TR/2009/WD-css3-flexbox-20090723/"
+    "href": "https://www.w3.org/TR/2009/WD-css3-flexbox-20090723/"
   }]
 }
 */
@@ -15686,7 +15700,7 @@ Detects support for the Flexible Box Layout model, a.k.a. Flexbox, which allows 
   "polyfills": ["flexie"],
   "notes": [{
     "name": "The _inbetween_ flexbox",
-    "href": "http://www.w3.org/TR/2011/WD-css3-flexbox-20111129/"
+    "href": "https://www.w3.org/TR/2011/WD-css3-flexbox-20111129/"
   }],
   "warnings": ["This represents an old syntax, not the latest standard syntax."]
 }
@@ -15743,7 +15757,7 @@ Detects support for SVG in `<embed>` or `<object>` elements.
   "caniuse": "json",
   "notes": [{
     "name": "MDN documentation",
-    "href": "http://developer.mozilla.org/en/JSON"
+    "href": "https://developer.mozilla.org/en-US/docs/Glossary/JSON"
   }],
   "polyfills": ["json2"]
 }
@@ -15864,7 +15878,7 @@ Detects native support for JSON handling functions.
   "tags": ["media", "attribute"],
   "notes": [{
     "name": "Touch Events spec",
-    "href": "http://www.w3.org/TR/2013/WD-touch-events-20130124/"
+    "href": "https://www.w3.org/TR/2013/WD-touch-events-20130124/"
   }],
   "warnings": [
     "Indicates if the browser supports the Touch Events spec, and does not necessarily reflect a touchscreen device"
@@ -15898,6 +15912,8 @@ This test will also return `true` for Firefox 4 Multitouch support.
     if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
       bool = true;
     } else {
+      // include the 'heartz' as a way to have a non matching MQ to help terminate the join
+      // https://git.io/vznFH
       var query = ['@media (', prefixes.join('touch-enabled),('), 'heartz', ')', '{#modernizr{top:9px;position:absolute}}'].join('');
       testStyles(query, function(node) {
         bool = node.offsetTop === 9;
