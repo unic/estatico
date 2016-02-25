@@ -84,7 +84,8 @@ var taskName = 'js',
 						.pipe(webpack({
 							resolve: {
 								alias: {
-									handlebars: 'handlebars/runtime.js'
+									handlebars: 'handlebars/runtime.js',
+									jquery: path.join(__dirname, '../../node_modules/jquery/dist/jquery.js')
 								}
 							},
 							module: {
@@ -99,15 +100,10 @@ var taskName = 'js',
 									}
 								]
 							}
-						}, null, function(err, stats) {
-							stats.compilation.errors.forEach(function(error) {
-								helpers.errors({
-									message: error.message
-								});
-							});
-
-							stats.compilation.warnings.forEach(function(error) {
-								console.log(error.message);
+						}).on('error', function(error) {
+							helpers.errors({
+								task: taskName,
+								message: error.message
 							});
 						}))
 						.pipe(writeSourceMaps())
