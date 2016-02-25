@@ -9,8 +9,9 @@
 
 var $ = require('jquery'),
 	SuperClass = require('../../assets/js/helpers/module');
-	// globalEvents = require('../../assets/js/helpers/events'),
-	// mediaqueries = require('../../assets/js/helpers/mediaqueries');
+
+// globalEvents = require('../../assets/js/helpers/events'),
+// mediaqueries = require('../../assets/js/helpers/mediaqueries');
 
 var name = '{{name}}',
 	events = {

@@ -31,7 +31,9 @@ gulp.task(taskName, function() {
 		jshint = require('gulp-jshint'),
 		jscs = require('gulp-jscs');
 
-	return gulp.src(taskConfig.src)
+	return gulp.src(taskConfig.src, {
+		dot: true
+	})
 		.pipe(cached('linting'))
 		.pipe(jshint())
 		.pipe(jscs({
