@@ -97,6 +97,14 @@ var taskName = 'js',
 									{
 										test: /jquery\.js$/,
 										loader: 'expose?jQuery'
+									},
+									{
+										test: /\.babel\.js$/,
+										exclude: /node_modules/,
+										loader: 'babel-loader',
+										query: {
+											presets: ['es2015']
+										}
 									}
 								]
 							}

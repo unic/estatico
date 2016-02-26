@@ -5,7 +5,8 @@ var $ = require('jquery'),
 	mediaqueries = require('./helpers/mediaqueries.js'),
 	modules = {
 		skiplinks: require('../../demo/modules/skiplinks/skiplinks.js'),
-		slideshow: require('../../demo/modules/slideshow/slideshow.js')
+		slideshow: require('../../demo/modules/slideshow/slideshow.js'),
+		es2015: require('../../demo/modules/es2015/es2015.babel.js')
 	},
 	initEvents = {};
 
