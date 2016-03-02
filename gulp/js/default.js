@@ -99,11 +99,11 @@ var taskName = 'js',
 										loader: 'expose?jQuery'
 									},
 									{
-										test: /\.babel\.js$/,
+										test: /(\.babel\.js|\.jsx)$/,
 										exclude: /node_modules/,
 										loader: 'babel-loader',
 										query: {
-											presets: ['es2015']
+											presets: ['es2015', 'react']
 										}
 									}
 								]
@@ -113,6 +113,8 @@ var taskName = 'js',
 								task: taskName,
 								message: error.message
 							});
+						}).on('warning', function(warning) {
+							console.log(warning.message);
 						}))
 						.pipe(writeSourceMaps())
 						.pipe(util.env.dev ? util.noop() : minify())
