@@ -96,5 +96,7 @@
 		"open": true,
 		"name": true,
 		"Promise": false
-	}
+	},
+
+	"esversion": 6
 }

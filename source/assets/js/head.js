@@ -1,9 +1,6 @@
-'use strict';
+import '../.tmp/modernizr';
+import FontLoader from './helpers/fontloader';
 
-require('../.tmp/modernizr.js');
-
-// Set up global namespace
-window.estatico = require('./helpers/namespace.js');
-
-// Init font loader
-require('./helpers/fontloader.js').init();
+window.estatico = {
+	fontLoader: new FontLoader()
+};

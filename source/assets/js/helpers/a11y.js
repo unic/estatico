@@ -4,17 +4,22 @@
  * Start the debugging with ctrl+a (same to switch to next mode)
  */
 
-'use strict';
+import Helper from './helper';
 
-module.exports = {
-	mode: null,
-	dataAttribute: 'estaticoDev',
-	className: 'estatico_dev_overlay',
-	logger: estatico.helpers.log('A11y'),
-	activeElInterval: null,
-	currentActiveEl: null,
+class A11y extends Helper {
 
-	run: function() {
+	constructor() {
+		super();
+
+		this.mode = null;
+		this.dataAttribute = 'estaticoDev';
+		this.className = 'estatico_dev_overlay';
+		this.logger = this.log('A11y');
+		this.activeElInterval = null;
+		this.currentActiveEl = null;
+	}
+
+	run() {
 		if (document.documentElement.classList) {
 			// Set the mode we're in (1 = focused element, 2 = aria elements)
 			if (this.mode === null) {
@@ -36,10 +41,10 @@ module.exports = {
 		} else {
 			this.logger('Element.classList not supported in this browser');
 		}
-	},
+	}
 
 	// Add class to the active element
-	addActiveElement: function() {
+	addActiveElement() {
 		var activeEl = null;
 
 		this.activeElInterval = setInterval(function() {
@@ -57,17 +62,17 @@ module.exports = {
 				this.currentActiveEl.classList.add(this.className);
 			}
 		}.bind(this), 200);
-	},
+	}
 
 	// Remove active element
-	removeActiveElement: function() {
+	removeActiveElement() {
 		clearInterval(this.activeElInterval);
 
 		this.currentActiveEl.classList.remove(this.className);
-	},
+	}
 
 	// Add class to all aria elements
-	addClassToAriaElements: function() {
+	addClassToAriaElements() {
 		[].forEach.call(document.querySelectorAll('[*]'), function(node) {
 			var log = '';
 
@@ -84,14 +89,16 @@ module.exports = {
 				node.dataset[this.dataAttribute] = log;
 			}
 		});
-	},
+	}
 
 	// Remove class from aria elements
-	removeClassFromAriaElements: function() {
+	removeClassFromAriaElements() {
 		[].forEach.call(document.querySelectorAll('[*]'), function(node) {
 			node.classList.remove(this.className);
 		}.bind(this));
 
 		this.mode = 0;
 	}
-};
+}
+
+export default A11y;

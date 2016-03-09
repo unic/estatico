@@ -25,6 +25,7 @@
     "babel-loader": "6.2.3",
     "babel-preset-es2015": "6.5.0",
     "babel-preset-react": "6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
     "callsite": "1.0.0",
     "change-case": "2.3.0",
     "cheerio": "0.19.0",

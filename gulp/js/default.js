@@ -9,7 +9,7 @@ var gulp = require('gulp');
 
 var taskName = 'js',
 		taskConfig = {
-			src: [
+			mainSrc: [
 				'./source/assets/js/main.js',
 				'./source/assets/js/head.js'
 			],
@@ -45,6 +45,8 @@ var taskName = 'js',
 				_ = require('lodash'),
 				path = require('path'),
 				merge = require('merge-stream');
+
+			config.src = config.mainSrc;
 
 			// Optionally build dev scripts
 			if (util.env.dev) {
@@ -96,14 +98,18 @@ var taskName = 'js',
 									},
 									{
 										test: /jquery\.js$/,
-										loader: 'expose?jQuery'
+										loader: 'expose?$!expose?jQuery'
 									},
 									{
-										test: /(\.babel\.js|\.jsx)$/,
+										test: /handlebars\.js$/,
+										loader: 'expose?Handlebars'
+									},
+									{
+										test: /(\.js|\.jsx)$/,
 										exclude: /node_modules/,
 										loader: 'babel-loader',
 										query: {
-											presets: ['es2015', 'react']
+											presets: ['es2015', 'stage-0', 'react']
 										}
 									}
 								]

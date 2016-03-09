@@ -1,227 +1,186 @@
-/*!
- * Slideshow module
- *
- * @author Unic AG
- * @copyright Unic AG
- */
+import $ from '../../../../node_modules/jquery/dist/jquery';
+import Handlebars from '../../../../node_modules/handlebars/dist/handlebars';
+import EstaticoModule from '../../../assets/js/helpers/module';
 
-'use strict';
-
-var $ = require('jquery'),
-	SuperClass = require('../../../assets/js/helpers/module'),
-	globalEvents = require('../../../assets/js/helpers/events'),
-	mediaqueries = require('../../../assets/js/helpers/mediaqueries'),
-	templates = {
+var templates = {
 		nav: require('./_slideshow_nav.js.hbs'),
 		slide: require('./_slideshow_slide.js.hbs')
 	};
 
-var name = 'slideshow',
-	events = {
-		slide: 'slide.estatico.' + name
-	},
-	defaults = {
-		domSelectors: {
-			slides: '[data-' + name + '="slides"]',
-			slide: '[data-' + name + '="slide"]',
-			nav: '[data-' + name + '="nav"]',
-			prev: '[data-' + name + '="prev"]',
-			next: '[data-' + name + '="next"]'
+class SlideShow extends EstaticoModule {
+
+	constructor($element, state, props) {
+		let _defaultState = {
+			currentItem: -1
 		},
-		stateClasses: {
-			isActivated: 'is_activated'
-		},
-		initialItem: 0,
-		animationDuration: 300,
-		url: '/mocks/demo/modules/slideshow/slideshow.json?delay=5000'
-	},
-	data = {
-		i18n: {
-			prev: 'Previous Slide',
-			next: 'Next Slide'
+		_defaultProps = {
+			initialItem: 0,
+			animationDuration: 300,
+			url: '/mocks/demo/modules/slideshow/slideshow.json?delay=5000',
+			i18n: {
+				prev: 'Previous Slide',
+				next: 'Next Slide'
+			}
+		};
+
+		super($element, _defaultState, _defaultProps, state, props);
+
+		this.domSelectors = {
+			slides: '[data-' + SlideShow.name + '="slides"]',
+			slide: '[data-' + SlideShow.name + '="slide"]',
+			nav: '[data-' + SlideShow.name + '="nav"]',
+			prev: '[data-' + SlideShow.name + '="prev"]',
+			next: '[data-' + SlideShow.name + '="next"]'
+		};
+
+		this._initUi();
+		this._fetchSlides();
+
+		this.resize();
+		this.show(this.props.initialItem);
+	}
+
+	static get events() {
+		return {
+			slide: 'slide.estatico.' + SlideShow.name
+		};
+	}
+
+	/**
+	 * Shows a specific slide according the given index.
+	 * @method
+	 * @public
+	 * @param {Number} index - The index of the slide to show as integer.
+	 */
+	show(index) {
+		if (index === this.currentItem) {
+			return;
 		}
-	},
-	log = estatico.helpers.log(name);
 
-/**
- * Create an instance of the module
- * @param {object} element - DOM element to init the module on
- * @param {object} options - Options overwriting the defaults
- * @constructor
- */
-function Module(element, options) {
-	this._helper = SuperClass;
+		if (index >= this.ui.$slides.length) {
+			index = 0;
+		} else if (index < 0) {
+			index = this.ui.$slides.length - 1;
+		}
 
-	this._helper({
-		name: name,
-		element: element,
-		defaults: defaults,
-		options: options,
-		events: events,
-		data: data
-	});
+		this.ui.$slides.eq(this.state.currentItem).stop(true, true).slideUp(this.props.animationDuration);
+		this.ui.$slides.eq(index).stop(true, true).slideDown(this.props.animationDuration);
+
+		this.state.currentItem = index;
+
+		this.ui.$element.trigger(SlideShow.events.slide, index);
+	}
+
+	/**
+	 * Shows the previous slide in the slideshow.
+	 * @method
+	 * @public
+	 */
+	prev() {
+		this.show(this.state.currentItem - 1);
+	}
+
+	/**
+	 * Shows the next slide in the slideshow.
+	 * @method
+	 * @public
+	 */
+	next() {
+		this.show(this.state.currentItem + 1);
+	}
+
+	/**
+	 * Add slide.
+	 * @method
+	 * @public
+	 */
+	add(data) {
+		var slide = templates.slide(data);
+
+		$(slide).appendTo(this.ui.$wrapper);
+	}
+
+	/**
+	 * Does things based on current viewport.
+	 * @method
+	 * @public
+	 */
+	resize() {
+		if (this.query({ from: 'small' })) {
+			this.log('Viewport: Above small breakpoint');
+		} else {
+			this.log('Viewport: Below small breakpoint');
+		}
+	}
+
+	_initUi() {
+		this.ui.$wrapper = this.ui.$element.find(this.domSelectors.slides);
+		this.ui.$slides = this.ui.$element.find(this.domSelectors.slide);
+		this.ui.$nav = $(templates.nav(this.state));
+
+		this.ui.$element
+			.append(this.ui.$nav)
+			.on('click.' + SlideShow.name + '.' + this.uuid, this.domSelectors.prev, (event) => {
+				event.preventDefault();
+				this.prev();
+			})
+			.on('click.' + SlideShow.name + '.' + this.uuid, this.domSelectors.next, (event) => {
+				event.preventDefault();
+				this.next();
+			})
+			.addClass('is_activated');
+	}
+
+	_initEventListeners() {
+		// Exemplary touch detection
+		if (Modernizr.touchevents) {
+			this.log('Touch support detected');
+		}
+
+		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
+		$(document).on(estatico.events.resize + '.' + this.uuid, function(event, originalEvent) {
+			this.log(originalEvent);
+		});
+
+		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
+		$(document).on(estatico.events.scroll + '.' + this.uuid, function(event, originalEvent) {
+			this.log(originalEvent);
+		});
+
+		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
+		$(document).on(estatico.events.mq + '.' + this.uuid, () => {
+			this.resize();
+		});
+	}
+
+	_fetchSlides() {
+		// Exemplary AJAX request to mocked data with optional delay parameter (works with local preview server only)
+		$.ajax(this.props.url).done((response) => {
+			// Loop through slides and add them
+			if (response.slides) {
+				response.slides.forEach((slide) => {
+					this.add(slide);
+				});
+			}
+		}).fail((jqXHR) => {
+			this.log('NOO!', jqXHR.status, jqXHR.statusText);
+		});
+	}
+
+	/**
+	 * Unbind events, remove data, custom teardown
+	 * @method
+	 * @public
+	 */
+	destroy() {
+		super.destroy();
+
+		// Remove custom DOM elements
+		this.ui.$nav.remove();
+
+		// Remove style definitions applied by $.slideUp / $.slideDown
+		this.ui.$slides.removeAttr('style');
+	}
 }
 
-Module.prototype = $.extend(true, {}, SuperClass.prototype, Module.prototype);
-
-/**
- * Initialize module, bind events
- * @method
- * @public
- */
-Module.prototype.init = function() {
-	var request;
-
-	this.currentItem = -1;
-
-	this.$wrapper = this.$element.find(this.options.domSelectors.slides);
-	this.$slides = this.$element.find(this.options.domSelectors.slide);
-	this.$nav = $(templates.nav(this.data));
-
-	this.$element
-		.append(this.$nav)
-		.on('click.estatico.' + this.uuid, this.options.domSelectors.prev, function(event) {
-			event.preventDefault();
-
-			this.prev();
-		}.bind(this))
-		.on('click.estatico.' + this.uuid, this.options.domSelectors.next, function(event) {
-			event.preventDefault();
-
-			this.next();
-		}.bind(this))
-		.addClass(this.options.stateClasses.isActivated);
-
-	// Exemplary AJAX request to mocked data with optional delay parameter (works with local preview server only)
-	request = $.ajax(this.options.url).done(function(response) {
-		// Loop through slides and add them
-		if (response.slides) {
-			response.slides.forEach(function(slide) {
-				this.add(slide);
-			}.bind(this));
-		}
-	}.bind(this)).fail(function(jqXHR) {
-		console.log('NOO!', jqXHR.status, jqXHR.statusText);
-	});
-
-	// Exemplary touch detection
-	if (Modernizr.touchevents) {
-		log('Touch support detected');
-	}
-
-	// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
-	$(document).on(globalEvents.resize.key + '.' + this.uuid, function(event, originalEvent) {
-		log(originalEvent);
-	});
-
-	// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
-	$(document).on(globalEvents.scroll.key + '.' + this.uuid, function(event, originalEvent) {
-		log(originalEvent);
-	});
-
-	this.resize();
-
-	// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
-	$(document).on(mediaqueries.event.key + '.' + this.uuid, function() {
-		this.resize();
-	}.bind(this));
-
-	this.show(this.options.initialItem);
-};
-
-/**
- * Shows a specific slide according the given index.
- * @method
- * @public
- * @param {Number} index - The index of the slide to show as integer.
- */
-Module.prototype.show = function(index) {
-	if (index === this.currentItem) {
-		return;
-	}
-
-	if (index >= this.$slides.length) {
-		index = 0;
-	} else if (index < 0) {
-		index = this.$slides.length - 1;
-	}
-
-	this.$slides.eq(this.currentItem).stop(true, true).slideUp(this.options.animationDuration);
-	this.$slides.eq(index).stop(true, true).slideDown(this.options.animationDuration);
-
-	this.currentItem = index;
-
-	this.$element.trigger(events.slide, index);
-};
-
-/**
- * Shows the previous slide in the slideshow.
- * @method
- * @public
- */
-Module.prototype.prev = function() {
-	this.show(this.currentItem - 1);
-};
-
-/**
- * Shows the next slide in the slideshow.
- * @method
- * @public
- */
-Module.prototype.next = function() {
-	this.show(this.currentItem + 1);
-};
-
-/**
- * Add slide.
- * @method
- * @public
- */
-Module.prototype.add = function(data) {
-	var slide = templates.slide(data),
-		$slide = $(slide);
-
-	this.$slides = this.$slides.add($slide);
-
-	$slide.appendTo(this.$wrapper);
-};
-
-/**
- * Does things based on current viewport.
- * @method
- * @public
- */
-Module.prototype.resize = function() {
-	if (mediaqueries.query({ from: 'small' })) {
-		log('Viewport: Above small breakpoint');
-	} else {
-		log('Viewport: Below small breakpoint');
-	}
-};
-
-/**
- * Unbind events, remove data, custom teardown
- * @method
- * @public
- */
-Module.prototype.destroy = function() {
-	// Unbind events, remove data
-	SuperClass.prototype.destroy.apply(this);
-
-	// Remove custom DOM elements
-	this.$nav.remove();
-
-	// Remove style definitions applied by $.slideUp / $.slideDown
-	this.$slides.removeAttr('style');
-};
-
-// Make the plugin available through jQuery (and the global project namespace)
-SuperClass.register(Module, name, {
-	events: events
-});
-
-module.exports = {
-	Module: Module,
-	initEvents: ['ready', 'ajaxload'],
-	events: events
-};
+export default SlideShow;

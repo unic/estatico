@@ -1,0 +1,49 @@
+<a href="#" class="removeall">trigger 'removeAllMessages' event</a><br>
+<a href="#" class="destroy">trigger 'destroy' event</a>
+
+{{#content "modulesInit"}}
+ data-init="NotificationCenter"
+{{/content}}
+
+{{#content "scripts"}}
+	<script>
+		$(document).on('ready', function() {
+			$('body').trigger(estatico.modules.NotificationCenter.events.addNotification, {
+				message: '<p>Demo: Success</p>',
+				type: 'success',
+				modal: false,
+				timeout: 5000
+			});
+		});
+
+		$(document).on('ready', function() {
+			$('body').trigger(estatico.modules.NotificationCenter.events.addNotification, {
+				message: '<p>Demo: Error</p>',
+				type: 'error',
+				modal: false,
+				timeout: 7000
+			});
+		});
+
+		$(document).on('ready', function() {
+			$('body').trigger(estatico.modules.NotificationCenter.events.addNotification, {
+				message: '<p>Demo: Info</p>',
+				type: 'info',
+				modal: true,
+				i18n: {
+					close: 'Zamknij'
+				}
+			});
+		});
+
+		$('.removeall').on('click', function(event) {
+			event.preventDefault();
+			$('body').trigger(estatico.modules.NotificationCenter.events.removeAllNotifications);
+		});
+
+		// $('.destroy').on('click', function(event) {
+		// 	event.preventDefault();
+		// 	$(document).trigger(estatico.modules.notification.events.destroy);
+		// });
+	</script>
+{{/content}}

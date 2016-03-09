@@ -3,17 +3,21 @@
  *
  * Start inspection with ctrl+m (same to switch off module inspection)
  */
+import Helper from './helper';
 
-'use strict';
+class Inspector extends Helper {
 
-module.exports = {
-	mode: null,
-	dataAttribute: 'estaticoDev',
-	className: 'estatico_dev_overlay',
-	classNameVariant: 'var_variant',
-	logger: estatico.helpers.log('Inspector'),
+	constructor() {
+		super();
 
-	run: function() {
+		this.mode = null;
+		this.dataAttribute = 'estaticoDev';
+		this.className = 'estatico_dev_overlay';
+		this.classNameVariant = 'var_variant';
+		this.logger = this.log('Inspector');
+	}
+
+	run() {
 		if (document.documentElement.classList) {
 			// Set the mode we're in (1 = show modules, 0 = hide modules)
 			if (this.mode === null) {
@@ -31,10 +35,10 @@ module.exports = {
 		} else {
 			this.logger('Element.classList not supported in this browser');
 		}
-	},
+	}
 
 	// Add class to all modules
-	showModules: function() {
+	showModules() {
 		[].forEach.call(document.querySelectorAll('[class]'), function(node) {
 			var log = '',
 				module = '',
@@ -70,10 +74,10 @@ module.exports = {
 				node.dataset[this.dataAttribute] = log;
 			}
 		}.bind(this));
-	},
+	}
 
 	// Remove class from modules
-	hideModules: function() {
+	hideModules() {
 		[].forEach.call(document.querySelectorAll('[class]'), function(node) {
 			node.classList.remove(this.className);
 			node.classList.remove(this.classNameVariant);
@@ -81,4 +85,6 @@ module.exports = {
 
 		this.mode = 0;
 	}
-};
+}
+
+export default Inspector;
