@@ -1,9 +1,7 @@
 import '../../../node_modules/handlebars/dist/handlebars';
 import _ from '../../../node_modules/lodash';
 
-import './helpers/module';
-import './helpers/events';
-import './helpers/mediaqueries';
+import './module/module';
 
 // *autoinsertmodule*
 

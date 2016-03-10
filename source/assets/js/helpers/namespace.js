@@ -1,12 +1,6 @@
 'use strict';
 
 module.exports = {
-	// Content data
-	data: {},
-
-	// Module options
-	options: {},
-
 	// Helper methods
 	helpers: {
 		// Deep extend (before $.extend is available)

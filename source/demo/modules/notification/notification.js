@@ -7,7 +7,7 @@
  */
 
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import EstaticoModule from '../../../assets/js/helpers/module';
+import EstaticoModule from '../../../assets/js/module/module';
 
 class Notification extends EstaticoModule {
 

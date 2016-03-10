@@ -1,6 +1,8 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
 import _ from '../../../../node_modules/lodash';
 import bows from '../../../../node_modules/bows/bows';
+import MediaQuery from './mediaqueries';
+import WindowEventListener from './events';
 
 class EstaticoModule {
 
@@ -13,27 +15,44 @@ class EstaticoModule {
 	 * @param {object} config.options - Custom options
 	 * @param {object} config.data - Custom data
 	 */
-	constructor($element, _defaultState, _defaultProps, state, props) {
+	constructor($element, _defaultState, _defaultProps, state, props, mixins) {
 		this.ui = {
 			$element
 		};
 
 		let _globalState = window.globals.estatico.state[this.name],
-			_metaState = $element ? this.ui.$element.data(this.name + '-state') : {},
-			_globalProps = window.globals.estatico.props[this.name],
-			_metaProps = $element ? this.ui.$element.data(this.name + '-props') : {};
+			_globalProps = window.globals.estatico.props[this.name];
 
-		this.state = _.extend({}, _defaultState, state, _globalState, _metaState);
-		this.props = _.extend({}, _defaultProps, props, _globalProps, _metaProps);
+		this.state = _.extend({}, _defaultState, _globalState, state);
+		this.props = _.extend({}, _defaultProps, _globalProps, props);
 
 		// Identify instance by UUID
 		this.uuid = _.uniqueId(this.name);
 
 		this.log = bows;
+
+		this._addMixins(mixins);
 	}
 
 	static get initEvents() {
 		return ['ready', 'ajax_loaded'];
+	}
+
+	_addMixins(mixins) {
+		this.mixins = {};
+
+		if (mixins) {
+			mixins.forEach((mixin) => {
+				switch (mixin) {
+					case MediaQuery.name:
+						this.mixins.mq = new MediaQuery();
+						break;
+					case WindowEventListener.name:
+						this.mixins.events = new WindowEventListener();
+						break;
+				}
+			});
+		}
 	}
 
 	/**

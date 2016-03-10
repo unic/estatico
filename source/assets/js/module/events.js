@@ -1,5 +1,5 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import _ from '../../../../node_modules/lodash/function/debounce';
+import debounce from '../../../../node_modules/lodash/function/debounce';
 
 /**
  * Add debounced global resize and scroll events
@@ -25,11 +25,15 @@ class WindowEventListener {
 	}
 
 	addResizeListener(callback) {
-		this.$window.on('resize.estatico', _.debounce(callback, this.interval.resize));
+		this.$window.on('resize.estatico', () => {
+			debounce(callback, this.interval.resize)();
+		});
 	}
 
 	addScrollListener(callback) {
-		this.$window.on('scroll.estatico', _.debounce(callback, this.interval.scroll));
+		this.$window.on('scroll.estatico', () => {
+			debounce(callback, this.interval.scroll)();
+		});
 	}
 }
 
