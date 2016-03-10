@@ -9,5 +9,5 @@ window.estatico = {
 	// Module options
 	options: {},
 	fontLoader: new FontLoader(),
-	helpers: Helper
+	helpers: new Helper()
 };

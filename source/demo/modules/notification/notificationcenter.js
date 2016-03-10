@@ -67,12 +67,13 @@ class NotificationCenter extends EstaticoModule {
 	}
 
 	_initUi() {
-		this.ui.$wrapper = $(this.template.wrapper).appendTo(this.ui.$element).hide();
+		this.ui.$target = $('body');
+		this.ui.$wrapper = $(this.template.wrapper).appendTo(this.ui.$target).hide();
 	}
 
 	_initEventListeners() {
-		this.ui.$element.on(NotificationCenter.events.addNotification, this.addNotification.bind(this));
-		this.ui.$element.on(NotificationCenter.events.removeAllNotifications, this.removeAllNotifications.bind(this));
+		this.ui.$target.on(NotificationCenter.events.addNotification, this.addNotification.bind(this));
+		this.ui.$target.on(NotificationCenter.events.removeAllNotifications, this.removeAllNotifications.bind(this));
 	}
 
 	/**

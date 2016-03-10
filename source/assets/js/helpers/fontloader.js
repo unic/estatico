@@ -4,45 +4,19 @@ class FontLoader extends Helper {
 
 	constructor() {
 		super();
+		this.logger = this.log(FontLoader.name);
 
 		// once cached, the css file is stored on the client forever unless
 		// the URL below is changed. Any change will invalidate the cache
 		this.cssHref = '/assets/css/fonts.css?v1';
-		this.logger = this.log('FontLoader');
 
-		// if we have the fonts in localStorage or if we've cached them using the native browser cache
-		if ((window.localStorage && localStorage.fontCssCache) || document.cookie.indexOf('fontCssCache') > -1) {
-			// just use the cached version
+		if (this._fileIsCached()) {
 			this.logger('just use the cached version');
-
 			this.injectFontsStylesheet();
 		} else {
-			// otherwise, don't block the loading of the page; wait until it's done.
-			this.logger('download fonts');
-
+			this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
 			this.on(window, 'load', this.injectFontsStylesheet);
 		}
-	}
-
-	// determine whether a css file has been cached locally
-	fileIsCached(href) {
-		return window.localStorage && localStorage.fontCssCache && (localStorage.fontCssCacheFile === href);
-	}
-
-	// this is the simple utility that injects the cached or loaded css text
-	injectRawStyle(text) {
-		var style = document.createElement('style');
-
-		// cater for IE8 which doesn't support style.innerHTML
-		style.setAttribute('type', 'text/css');
-
-		if (style.styleSheet) {
-			style.styleSheet.cssText = text;
-		} else {
-			style.innerHTML = text;
-		}
-
-		document.getElementsByTagName('head')[0].appendChild(style);
 	}
 
 	// get the actual css file
@@ -50,9 +24,8 @@ class FontLoader extends Helper {
 		var xhr,
 			stylesheet;
 
+		// if this is an older browser
 		if (!window.localStorage || !window.XMLHttpRequest) {
-			// if this is an older browser
-
 			stylesheet = document.createElement('link');
 			stylesheet.href = this.cssHref;
 			stylesheet.rel = 'stylesheet';
@@ -65,11 +38,9 @@ class FontLoader extends Helper {
 			document.cookie = 'fontCssCache';
 
 		} else {
-			// if this isn't an old browser
-
 			// use the cached version if we already have it
-			if (this.fileIsCached(this.cssHref)) {
-				this.injectRawStyle(localStorage.fontCssCache);
+			if (this._cacheIsValid(this.cssHref)) {
+				this._injectRawStyle(localStorage.fontCssCache);
 			} else {
 				// otherwise, load it with ajax
 				xhr = new XMLHttpRequest();
@@ -80,19 +51,55 @@ class FontLoader extends Helper {
 					if (xhr.readyState === 4) {
 
 						// once we have the content, quickly inject the css rules
-						this.injectRawStyle(xhr.responseText);
+						this._injectRawStyle(xhr.responseText);
 
 						// and cache the text content for further use
 						// notice that this overwrites anything that might have already been previously cached
 						localStorage.fontCssCache = xhr.responseText;
 						localStorage.fontCssCacheFile = this.cssHref;
 					}
-
 				};
 
 				xhr.send();
 			}
 		}
+	}
+
+	/**
+	 * If we have the fonts in localStorage or if we've cached them using the native browser cache
+	 *
+	 * @return {Boolean}
+	 */
+	_fileIsCached() {
+		return (window.localStorage && localStorage.fontCssCache) || document.cookie.indexOf('fontCssCache') > -1;
+	}
+
+	/**
+	 * Determine whether a css file has been cached locally
+	 * and if it's the current version
+	 *
+	 * @param  {String} href	- CSS path to check vs the cached one
+	 *
+	 * @return {Boolean}
+	 */
+	_cacheIsValid(href) {
+		return localStorage.fontCssCache && (localStorage.fontCssCacheFile === href);
+	}
+
+	// this is the simple utility that injects the cached or loaded css text
+	_injectRawStyle(text) {
+		var style = document.createElement('style');
+
+		// cater for IE8 which doesn't support style.innerHTML
+		style.setAttribute('type', 'text/css');
+
+		if (style.styleSheet) {
+			style.styleSheet.cssText = text;
+		} else {
+			style.innerHTML = text;
+		}
+
+		document.getElementsByTagName('head')[0].appendChild(style);
 	}
 }
 

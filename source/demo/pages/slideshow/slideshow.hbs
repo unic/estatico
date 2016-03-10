@@ -2,7 +2,7 @@
 	{{#content "header"}}
 		<script>
 			// Global content data, will be extended by data-slideshow-data
-			window.globals.estatico.state.extend(estatico.data, {
+			estatico.helpers.extend(estatico.data, {
 				slideshow: {
 					i18n: {
 						prev: 'Previous',
@@ -31,6 +31,6 @@
 		<hr>
 
 		{{> "demo/modules/slideshow/slideshow" modules.slideshow}}
-		{{> "demo/modules/notification/notification"}}
+		{{> "demo/modules/notification/notification" }}
 	{{/content}}
 {{/extend}}
