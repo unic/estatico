@@ -1,6 +1,7 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import Handlebars from '../../../../node_modules/handlebars/dist/handlebars';
-import EstaticoModule from '../../../assets/js/helpers/module';
+import EstaticoModule from '../../../assets/js/module/module';
+import MediaQuery from '../../../assets/js/module/mediaqueries';
+import WindowEventListener from '../../../assets/js/module/events';
 
 var templates = {
 		nav: require('./_slideshow_nav.js.hbs'),
@@ -23,7 +24,9 @@ class SlideShow extends EstaticoModule {
 			}
 		};
 
-		super($element, _defaultState, _defaultProps, state, props);
+		super($element, _defaultState, _defaultProps, state, props, [MediaQuery.name, WindowEventListener.name]);
+
+		this.logger = this.log(SlideShow.name);
 
 		this.domSelectors = {
 			slides: '[data-' + SlideShow.name + '="slides"]',
@@ -34,6 +37,7 @@ class SlideShow extends EstaticoModule {
 		};
 
 		this._initUi();
+		this._initEventListeners();
 		this._fetchSlides();
 
 		this.resize();
@@ -106,18 +110,17 @@ class SlideShow extends EstaticoModule {
 	 * @public
 	 */
 	resize() {
-		if (this.query({ from: 'small' })) {
-			this.log('Viewport: Above small breakpoint');
+		if (this.mixins.mq.query({ from: 'small' })) {
+			this.logger('Viewport: Above small breakpoint');
 		} else {
-			this.log('Viewport: Below small breakpoint');
+			this.logger('Viewport: Below small breakpoint');
 		}
 	}
 
 	_initUi() {
 		this.ui.$wrapper = this.ui.$element.find(this.domSelectors.slides);
 		this.ui.$slides = this.ui.$element.find(this.domSelectors.slide);
-		this.ui.$nav = $(templates.nav(this.state));
-
+		this.ui.$nav = $(templates.nav(this.props));
 		this.ui.$element
 			.append(this.ui.$nav)
 			.on('click.' + SlideShow.name + '.' + this.uuid, this.domSelectors.prev, (event) => {
@@ -134,23 +137,21 @@ class SlideShow extends EstaticoModule {
 	_initEventListeners() {
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
-			this.log('Touch support detected');
+			this.logger('Touch support detected');
 		}
 
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
-		$(document).on(estatico.events.resize + '.' + this.uuid, function(event, originalEvent) {
-			this.log(originalEvent);
+		this.mixins.events.addResizeListener(() => {
+			this.logger('originalEvent');
 		});
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
-		$(document).on(estatico.events.scroll + '.' + this.uuid, function(event, originalEvent) {
-			this.log(originalEvent);
+		this.mixins.events.addScrollListener((event, originalEvent) => {
+			this.logger('originalEvent');
 		});
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
-		$(document).on(estatico.events.mq + '.' + this.uuid, () => {
-			this.resize();
-		});
+		this.mixins.mq.addMQChangeListener(this.resize.bind(this));
 	}
 
 	_fetchSlides() {
@@ -163,7 +164,7 @@ class SlideShow extends EstaticoModule {
 				});
 			}
 		}).fail((jqXHR) => {
-			this.log('NOO!', jqXHR.status, jqXHR.statusText);
+			this.logger('NOO!', jqXHR.status, jqXHR.statusText);
 		});
 	}
 

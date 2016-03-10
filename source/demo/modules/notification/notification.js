@@ -7,12 +7,7 @@
  */
 
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import EstaticoModule from '../../../assets/js/helpers/module';
-
-var templates = {
-		nav: require('../slideshow/_slideshow_nav.js.hbs'),
-		slide: require('../slideshow/_slideshow_slide.js.hbs')
-	};
+import EstaticoModule from '../../../assets/js/module/module';
 
 class Notification extends EstaticoModule {
 
