@@ -19,7 +19,6 @@ class Estatico {
 	}
 
 	static getModule(moduleName) {
-		console.log(moduleName);
 		switch (moduleName) {
 			case 'NotificationCenter':
 				return NotificationCenter;

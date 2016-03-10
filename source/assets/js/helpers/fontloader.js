@@ -15,54 +15,60 @@ class FontLoader extends Helper {
 			this.injectFontsStylesheet();
 		} else {
 			this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
-			this.on(window, 'load', this.injectFontsStylesheet);
+			this.on(window, 'load', this.injectFontsStylesheet.bind(this));
 		}
 	}
 
-	// get the actual css file
 	injectFontsStylesheet() {
-		var xhr,
-			stylesheet;
-
-		// if this is an older browser
-		if (!window.localStorage || !window.XMLHttpRequest) {
-			stylesheet = document.createElement('link');
-			stylesheet.href = this.cssHref;
-			stylesheet.rel = 'stylesheet';
-			stylesheet.type = 'text/css';
-
-			document.getElementsByTagName('head')[0].appendChild(stylesheet);
-
-			// just use the native browser cache
-			// this requires a good expires header on the server
-			document.cookie = 'fontCssCache';
-
-		} else {
-			// use the cached version if we already have it
+		if (this._supportsLocalStorageAndXHR()) {
 			if (this._cacheIsValid(this.cssHref)) {
 				this._injectRawStyle(localStorage.fontCssCache);
 			} else {
-				// otherwise, load it with ajax
-				xhr = new XMLHttpRequest();
-				xhr.open('GET', this.cssHref, true);
-
-				// cater for IE8 which does not support addEventListener or attachEvent on XMLHttpRequest
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState === 4) {
-
-						// once we have the content, quickly inject the css rules
-						this._injectRawStyle(xhr.responseText);
-
-						// and cache the text content for further use
-						// notice that this overwrites anything that might have already been previously cached
-						localStorage.fontCssCache = xhr.responseText;
-						localStorage.fontCssCacheFile = this.cssHref;
-					}
-				};
-
-				xhr.send();
+				this._fetchAndStoreStylesheet();
 			}
+		} else {
+			this._createFontStylesheet();
 		}
+	}
+
+	_fetchAndStoreStylesheet() {
+		let xhr = new XMLHttpRequest();
+
+		xhr.open('GET', this.cssHref, true);
+
+		// cater for IE8 which does not support addEventListener or attachEvent on XMLHttpRequest
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+
+				// once we have the content, quickly inject the css rules
+				this._injectRawStyle(xhr.responseText);
+
+				// and cache the text content for further use
+				// notice that this overwrites anything that might have already been previously cached
+				localStorage.fontCssCache = xhr.responseText;
+				localStorage.fontCssCacheFile = this.cssHref;
+			}
+		};
+
+		xhr.send();
+	}
+
+	_createFontStylesheet() {
+		let stylesheet = document.createElement('link');
+
+		stylesheet.href = this.cssHref;
+		stylesheet.rel = 'stylesheet';
+		stylesheet.type = 'text/css';
+
+		document.getElementsByTagName('head')[0].appendChild(stylesheet);
+
+		// just use the native browser cache
+		// this requires a good expires header on the server
+		document.cookie = 'fontCssCache';
+	}
+
+	_supportsLocalStorageAndXHR() {
+		return window.localStorage && window.XMLHttpRequest;
 	}
 
 	/**
