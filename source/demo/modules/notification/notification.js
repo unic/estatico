@@ -2,7 +2,7 @@
  * @class       Notification
  * @classdesc   Plugin for centralized Notifications. Initialized on <body />.
  * @author      Patrick Lauterburg, Unic AG
- * Edited by    Matthias Meier, Oriol Torrent Florensa, Thomas Jaggi, Unic AG
+ * Edited by    Matthias Meier, Oriol Torrent Florensa, Thomas Jaggi, Marcin Borowski, Olga Skurativska Unic AG
  * @copyright   Unic AG
  */
 
@@ -22,6 +22,9 @@ class Notification extends EstaticoModule {
 			message: '',
 			i18n: {
 				close: 'Close'
+			},
+			CSSClasses: {
+				expanded: 'is_expanded'
 			}
 		};
 
@@ -46,14 +49,14 @@ class Notification extends EstaticoModule {
 	}
 
 	show() {
-		this.ui.$element.addClass('is_expanded');
+		this.ui.$element.addClass(this.props.CSSClasses.expanded);
 	}
 
 	/**
 	 * Remove specific notification
 	 */
 	hide() {
-		this.ui.$element.removeClass('is_expanded');
+		this.ui.$element.removeClass(this.props.CSSClasses.expanded);
 
 		// TODO: replace setTimeout with proper helper function from ESTATICO-51
 		setTimeout(() => {

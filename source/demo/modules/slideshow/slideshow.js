@@ -21,6 +21,9 @@ class SlideShow extends EstaticoModule {
 			i18n: {
 				prev: 'Previous Slide',
 				next: 'Next Slide'
+			},
+			CSSClasses: {
+				activated: 'is_activated'
 			}
 		};
 
@@ -122,7 +125,12 @@ class SlideShow extends EstaticoModule {
 		this.ui.$slides = this.ui.$element.find(this.domSelectors.slide);
 		this.ui.$nav = $(templates.nav(this.props));
 		this.ui.$element
-			.append(this.ui.$nav)
+			.append(this.ui.$nav);
+
+	}
+
+	_initEventListeners() {
+		this.ui.$element
 			.on('click.' + SlideShow.name + '.' + this.uuid, this.domSelectors.prev, (event) => {
 				event.preventDefault();
 				this.prev();
@@ -131,10 +139,8 @@ class SlideShow extends EstaticoModule {
 				event.preventDefault();
 				this.next();
 			})
-			.addClass('is_activated');
-	}
+			.addClass(this.props.CSSClasses.activated);
 
-	_initEventListeners() {
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
 			this.logger('Touch support detected');
