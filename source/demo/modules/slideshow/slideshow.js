@@ -1,7 +1,7 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import EstaticoModule from '../../../assets/js/module/module';
-import MediaQuery from '../../../assets/js/module/mediaqueries';
-import WindowEventListener from '../../../assets/js/module/events';
+import EstaticoModule from '../../../assets/js/modules/module';
+import MediaQuery from '../../../assets/js/modules/mediaqueries';
+import WindowEventListener from '../../../assets/js/modules/events';
 
 var templates = {
 		nav: require('./_slideshow_nav.js.hbs'),
@@ -10,41 +10,40 @@ var templates = {
 
 class SlideShow extends EstaticoModule {
 
-	constructor($element, state, props) {
-		let _defaultState = {
-			currentItem: -1
-		},
-		_defaultProps = {
-			initialItem: 0,
-			animationDuration: 300,
-			url: '/mocks/demo/modules/slideshow/slideshow.json?delay=5000',
+	constructor($element, data, options) {
+		let _defaultData = {
 			i18n: {
 				prev: 'Previous Slide',
 				next: 'Next Slide'
-			},
-			CSSClasses: {
+			}
+		},
+		_defaultOptions = {
+			initialItem: 0,
+			animationDuration: 300,
+			url: '/mocks/demo/modules/slideshow/slideshow.json?delay=5000',
+			stateClasses: {
 				activated: 'is_activated'
+			},
+			domSelectors: {
+				slides: '[data-' + SlideShow.name + '="slides"]',
+				slide: '[data-' + SlideShow.name + '="slide"]',
+				nav: '[data-' + SlideShow.name + '="nav"]',
+				prev: '[data-' + SlideShow.name + '="prev"]',
+				next: '[data-' + SlideShow.name + '="next"]'
 			}
 		};
 
-		super($element, _defaultState, _defaultProps, state, props, [MediaQuery.name, WindowEventListener.name]);
+		super($element, _defaultData, _defaultOptions, data, options, [MediaQuery.name, WindowEventListener.name]);
 
+		this.currentItem = -1;
 		this.logger = this.log(SlideShow.name);
-
-		this.domSelectors = {
-			slides: '[data-' + SlideShow.name + '="slides"]',
-			slide: '[data-' + SlideShow.name + '="slide"]',
-			nav: '[data-' + SlideShow.name + '="nav"]',
-			prev: '[data-' + SlideShow.name + '="prev"]',
-			next: '[data-' + SlideShow.name + '="next"]'
-		};
 
 		this._initUi();
 		this._initEventListeners();
 		this._fetchSlides();
 
 		this.resize();
-		this.show(this.props.initialItem);
+		this.show(this.options.initialItem);
 	}
 
 	static get events() {
@@ -70,10 +69,10 @@ class SlideShow extends EstaticoModule {
 			index = this.ui.$slides.length - 1;
 		}
 
-		this.ui.$slides.eq(this.state.currentItem).stop(true, true).slideUp(this.props.animationDuration);
-		this.ui.$slides.eq(index).stop(true, true).slideDown(this.props.animationDuration);
+		this.ui.$slides.eq(this.currentItem).stop(true, true).slideUp(this.options.animationDuration);
+		this.ui.$slides.eq(index).stop(true, true).slideDown(this.options.animationDuration);
 
-		this.state.currentItem = index;
+		this.currentItem = index;
 
 		this.ui.$element.trigger(SlideShow.events.slide, index);
 	}
@@ -84,7 +83,7 @@ class SlideShow extends EstaticoModule {
 	 * @public
 	 */
 	prev() {
-		this.show(this.state.currentItem - 1);
+		this.show(this.currentItem - 1);
 	}
 
 	/**
@@ -93,7 +92,7 @@ class SlideShow extends EstaticoModule {
 	 * @public
 	 */
 	next() {
-		this.show(this.state.currentItem + 1);
+		this.show(this.currentItem + 1);
 	}
 
 	/**
@@ -121,9 +120,9 @@ class SlideShow extends EstaticoModule {
 	}
 
 	_initUi() {
-		this.ui.$wrapper = this.ui.$element.find(this.domSelectors.slides);
-		this.ui.$slides = this.ui.$element.find(this.domSelectors.slide);
-		this.ui.$nav = $(templates.nav(this.props));
+		this.ui.$wrapper = this.ui.$element.find(this.options.domSelectors.slides);
+		this.ui.$slides = this.ui.$element.find(this.options.domSelectors.slide);
+		this.ui.$nav = $(templates.nav(this.data));
 		this.ui.$element
 			.append(this.ui.$nav);
 
@@ -131,15 +130,15 @@ class SlideShow extends EstaticoModule {
 
 	_initEventListeners() {
 		this.ui.$element
-			.on('click.' + SlideShow.name + '.' + this.uuid, this.domSelectors.prev, (event) => {
+			.on('click.' + SlideShow.name + '.' + this.uuid, this.options.domSelectors.prev, (event) => {
 				event.preventDefault();
 				this.prev();
 			})
-			.on('click.' + SlideShow.name + '.' + this.uuid, this.domSelectors.next, (event) => {
+			.on('click.' + SlideShow.name + '.' + this.uuid, this.options.domSelectors.next, (event) => {
 				event.preventDefault();
 				this.next();
 			})
-			.addClass(this.props.CSSClasses.activated);
+			.addClass(this.options.stateClasses.activated);
 
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
@@ -153,7 +152,7 @@ class SlideShow extends EstaticoModule {
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
 		this.mixins.events.addScrollListener((event, originalEvent) => {
-			this.logger('originalEvent');
+			this.logger(originalEvent);
 		});
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
@@ -162,7 +161,7 @@ class SlideShow extends EstaticoModule {
 
 	_fetchSlides() {
 		// Exemplary AJAX request to mocked data with optional delay parameter (works with local preview server only)
-		$.ajax(this.props.url).done((response) => {
+		$.ajax(this.options.url).done((response) => {
 			// Loop through slides and add them
 			if (response.slides) {
 				response.slides.forEach((slide) => {

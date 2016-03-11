@@ -8,10 +8,10 @@ var _ = require('lodash'),
 var data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Notification',
+			className: 'Notification',
 			jira: 'ESTATICO-137',
 			code: dataHelper.getTemplateCode('notification.hbs'),
-			documentation: dataHelper.getDocumentation('notification.md'),
-			initModules: 'NotificationCenter'
+			documentation: dataHelper.getDocumentation('notification.md')
 		}
 	});
 

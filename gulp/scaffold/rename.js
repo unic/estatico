@@ -36,6 +36,7 @@ var taskName = 'scaffold:rename',
 			.then(function(response) {
 				scaffoldConfig.src = response.src;
 				scaffoldConfig.previousName = response.name;
+				scaffoldConfig.previousClassName = response.className;
 
 				if (type.hasAssets) {
 					scaffoldConfig.createStyles = true;
@@ -50,10 +51,10 @@ var taskName = 'scaffold:rename',
 			})
 			.then(function(response) {
 				scaffoldConfig.name = response.sanitized;
-				scaffoldConfig.originalName = response.original;
+				scaffoldConfig.className = response.original;
 
 				scaffoldConfig.replaceContent = function(content, config) {
-					return content.replace(new RegExp(config.previousName, 'g'), config.name);
+					return content.replace(new RegExp(config.previousClassName, 'g'), config.className).replace(new RegExp(config.previousName, 'g'), config.name);
 				};
 
 				cb(scaffoldConfig);
