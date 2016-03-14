@@ -15,7 +15,7 @@ class EstaticoModule {
 	 * @param {object} config.options - Custom options
 	 * @param {object} config.data - Custom data
 	 */
-	constructor($element, _defaultState, _defaultProps, data, options, mixins) {
+	constructor($element, _defaultData, _defaultOptions, data, options, mixins) {
 		this.ui = {
 			$element
 		};
@@ -23,8 +23,8 @@ class EstaticoModule {
 		let _globalData = window.estatico.data[this.name],
 			_globalOptions = window.estatico.options[this.name];
 
-		this.data = _.extend({}, _defaultState, _globalData, data);
-		this.options = _.extend({}, _defaultProps, _globalOptions, options);
+		this.data = _.extend({}, _defaultData, _globalData, data);
+		this.options = _.extend({}, _defaultOptions, _globalOptions, options);
 
 		// Identify instance by UUID
 		this.uuid = _.uniqueId(this.name);

@@ -68,9 +68,9 @@ class EstaticoApp {
 					if (moduleName && !$element.data(moduleName + '-instance') &&
 						estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
 						let Module = this.moduleRegistry.getModuleByName(moduleName),
-							_metaState = $element.data(moduleName + '-data') || {},
-							_metaProps = $element.data(moduleName + '-options') || {},
-							moduleInstance = new Module($element, _metaState, _metaProps);
+							_metaData = $element.data(moduleName + '-data') || {},
+							_metaOptions = $element.data(moduleName + '-options') || {},
+							moduleInstance = new Module($element, _metaData, _metaOptions);
 
 						estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
 						$(element).data(moduleName + '-instance', moduleInstance);
