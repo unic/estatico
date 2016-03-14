@@ -4,7 +4,11 @@
  * @license APLv2
  */
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import ModuleRegistry from './moduleregistry';
+
+/** Demo modules **/
+import Notification from '../../../demo/modules/notification/notification';
+import SlideShow from '../../../demo/modules/slideshow/slideshow';
+/* autoinsertmodulereference */
 
 class EstaticoApp {
 
@@ -13,7 +17,12 @@ class EstaticoApp {
 		window.estatico.modules = {};
 
 		this.initEvents = [];
-		this.moduleRegistry = new ModuleRegistry();
+
+		// Module registry - mapping module name (used in data-init) to module Class
+		this.modules = {};
+		this.modules.notification = Notification;
+		this.modules.slideshow = SlideShow;
+		/* autoinsertmodule */
 	}
 
 	start() {
@@ -35,7 +44,7 @@ class EstaticoApp {
 
 	_registerModule(moduleName) {
 		if (!estatico.modules[moduleName]) {
-			let Module = this.moduleRegistry.getModuleByName(moduleName);
+			let Module = this.modules[moduleName];
 
 			estatico.modules[moduleName] = {
 				initEvents: Module.initEvents,
@@ -61,7 +70,7 @@ class EstaticoApp {
 				modules.forEach((moduleName) => {
 					if (moduleName && !$element.data(moduleName + '-instance') &&
 						estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
-						let Module = this.moduleRegistry.getModuleByName(moduleName),
+						let Module = this.modules[moduleName],
 							_metaData = $element.data(moduleName + '-data') || {},
 							_metaOptions = $element.data(moduleName + '-options') || {},
 							moduleInstance = new Module($element, _metaData, _metaOptions);

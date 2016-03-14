@@ -1,7 +1,7 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import EstaticoModule from '../../../assets/js/modules/module';
-import MediaQuery from '../../../assets/js/modules/mediaqueries';
-import WindowEventListener from '../../../assets/js/modules/events';
+import EstaticoModule from '../../../assets/js/helpers/module';
+import MediaQuery from '../../../assets/js/helpers/mediaqueries';
+import WindowEventListener from '../../../assets/js/helpers/events';
 
 var templates = {
 		nav: require('./_slideshow_nav.js.hbs'),
@@ -33,7 +33,7 @@ class SlideShow extends EstaticoModule {
 			}
 		};
 
-		super($element, _defaultData, _defaultOptions, data, options, [MediaQuery.name, WindowEventListener.name]);
+		super($element, _defaultData, _defaultOptions, data, options);
 
 		this.currentItem = -1;
 		this.logger = this.log(SlideShow.name);
@@ -112,7 +112,7 @@ class SlideShow extends EstaticoModule {
 	 * @public
 	 */
 	resize() {
-		if (this.mixins.mq.query({ from: 'small' })) {
+		if (MediaQuery.query({ from: 'small' })) {
 			this.logger('Viewport: Above small breakpoint');
 		} else {
 			this.logger('Viewport: Below small breakpoint');
@@ -146,17 +146,17 @@ class SlideShow extends EstaticoModule {
 		}
 
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
-		this.mixins.events.addResizeListener(() => {
-			this.logger('originalEvent');
+		WindowEventListener.addDebouncedResizeListener((originalEvent, event) => {
+			this.logger(event, originalEvent);
 		});
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
-		this.mixins.events.addScrollListener((event, originalEvent) => {
-			this.logger(originalEvent);
+		WindowEventListener.addDebouncedScrollListener((originalEvent, event) => {
+			this.logger(event, originalEvent);
 		});
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
-		this.mixins.mq.addMQChangeListener(this.resize.bind(this));
+		MediaQuery.addMQChangeListener(this.resize.bind(this));
 	}
 
 	_fetchSlides() {

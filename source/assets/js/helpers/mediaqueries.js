@@ -4,21 +4,21 @@
  * @license APLv2
  *
  * @example
- * var mediaqueries = require('./mediaqueries.js');
+ * import MediaQuery from '../../../assets/js/modules/mediaqueries';
  *
  * // Listen to custom (debounced) event to react to viewport changes:
- * $(document).on(mediaqueries.event.key, function(event, prevBreakpoint, currentBreakpoint) {
+ * MediaQuery.addMQChangeListener(function(event, prevBreakpoint, currentBreakpoint) {
  * 	console.log(prevBreakpoint); // { name: "small", value: "768px" }
  * 	console.log(parseInt(prevBreakpoint.value)); // "768"
  * });
  *
  * // Check the current viewport against a specific breakpoint:
- * if (mediaqueries.query({ from: 'small' })) {
+ * if (MediaQuery.query({ from: 'small' })) {
  * 	this.destroySmall();
  * 	this.initLarge();
  * }
  * // or
- * if (mediaqueries.query({ from: 'small', to: 'medium' })) {
+ * if (MediaQuery.query({ from: 'small', to: 'medium' })) {
  * 	this.destroySmall();
  * 	this.initMedium();
  * }
@@ -27,10 +27,8 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
 import WindowEventListener from './events';
 
-class MediaQuery extends WindowEventListener {
+class MediaQuery {
 	constructor() {
-		super();
-
 		this.$document = $(document);
 
 		this.$head = this.$document.find('head');
@@ -44,7 +42,7 @@ class MediaQuery extends WindowEventListener {
 	}
 
 	addMQChangeListener(callback) {
-		this.addResizeListener(() => {
+		WindowEventListener.addDebouncedResizeListener(() => {
 			var breakpoint = this.parseCssProperty(this.$title.css('font-family')),
 				prevBreakpoint = this.currentBreakpoint;
 
@@ -106,4 +104,5 @@ class MediaQuery extends WindowEventListener {
 	}
 }
 
-export default MediaQuery;
+// Exports an INSTANCE
+export default new MediaQuery();

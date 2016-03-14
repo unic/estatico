@@ -1,7 +1,7 @@
 import '../../../node_modules/handlebars/dist/handlebars';
-import './modules/module';
+import './helpers/module';
 
-import EstaticoApp from './modules/estaticoapp';
+import EstaticoApp from './helpers/estaticoapp';
 
 let app = new EstaticoApp();
 

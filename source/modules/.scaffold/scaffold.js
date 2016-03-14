@@ -4,6 +4,7 @@
  * @author
  * @copyright
  */
+import EstaticoModule from '../../../assets/js/helpers/module';
 
 class {{className}} extends EstaticoModule {
 
@@ -18,8 +19,6 @@ class {{className}} extends EstaticoModule {
 				}
 			};
 
-		/* Use the following syntax to add dependencies from other Modules
-		   super($element, _defaultState, _defaultProps, data, options, [MediaQuery.name, WindowEventListener.name]); */
 		super(null, _defaultData, _defaultOptions, data, options);
 
 		this._initUi();
