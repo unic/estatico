@@ -25,6 +25,7 @@ var taskName = 'scaffold:delete',
 		scaffold: {
 			name: null,
 			src: null,
+			className: null,
 			deregisterStyles: false,
 			deregisterScript: false
 		}
@@ -53,7 +54,9 @@ var taskName = 'scaffold:delete',
 					scaffoldConfig.src = _.pluck(response, 'src');
 				} else {
 					scaffoldConfig.name = response.name;
+					scaffoldConfig.className = response.className;
 					scaffoldConfig.src = response.src;
+					console.log(response.className);
 				}
 
 				cb(scaffoldConfig);
@@ -104,7 +107,7 @@ var taskName = 'scaffold:delete',
 				deregisterScript = gulp.src(config.registerScript.src)
 					.pipe(tap(function(file) {
 						srcs.forEach(function(src) {
-							file.contents = helpers.scaffold.removeModule(file, src, config.registerScript);
+							file.contents = helpers.scaffold.removeModule(file, src, _.extend({}, config.registerScript, config.scaffold));
 						});
 					}))
 					.pipe(gulp.dest(path.dirname(config.registerScript.src)))

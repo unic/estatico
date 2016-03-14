@@ -45,17 +45,19 @@ var taskName = 'scaffold',
 			insertionSuffix: '";\n'
 		},
 		registerScript: {
-			src: './source/assets/js/main.js',
-			insertionPoint: ' * //*autoinsertmodule*',
-			insertionPrefix: ' * @requires ',
-			insertionSuffix: '.js\n'
+			src: './source/assets/js/modules/estaticoapp.js',
+			insertionPoint: '/* autoinsertmodule */',
+			importInsertionPoint: '/* autoinsertmodulereference */',
+			insertionTemplate: 'this.modules.{{name}} = {{className}};\n		',
+			importInsertionTemplate: 'import {{className}} from \'{{modulePath}}\';\n'
 		},
 
 		// Generated dynamically
 		scaffold: {
 			name: null,
-			originalName: null,
+			className: null,
 			previousName: 'scaffold',
+			previousClassName: 'Scaffold',
 			deletePrevious: false,
 			src: null,
 			dest: null,
@@ -64,7 +66,7 @@ var taskName = 'scaffold',
 			replaceContentExtensions: ['.js', '.scss', '.hbs', '.md'],
 			replaceContent: function(content, config) {
 				return content.replace(/\{\{name\}\}/g, config.name)
-					.replace(/\{\{originalName\}\}/g, config.originalName);
+					.replace(/\{\{className\}\}/g, config.className);
 			}
 		}
 	},
@@ -89,7 +91,7 @@ var taskName = 'scaffold',
 			})
 			.then(function(response) {
 				scaffoldConfig.name = response.sanitized;
-				scaffoldConfig.originalName = response.original;
+				scaffoldConfig.className = response.original;
 
 				if (hasAssets) {
 					return helpers.scaffold.getAssetsToCreate();
@@ -124,8 +126,9 @@ var taskName = 'scaffold',
 
 		gulp.src(src)
 
-			// Replace {{name|originalName}}
+			// Replace {{name|className}}
 			.pipe(tap(function(file) {
+				console.log();
 				if (!file.stat.isDirectory() && config.scaffold.replaceContentExtensions.indexOf(path.extname(file.path)) !== -1) {
 					var content = file.contents.toString();
 
@@ -206,7 +209,7 @@ var taskName = 'scaffold',
 				if (config.scaffold.createScript && scriptFound) {
 					registerScript = gulp.src(config.registerScript.src)
 						.pipe(tap(function(file) {
-							file.contents = helpers.scaffold.addModule(file, destAssets, config.registerScript);
+							file.contents = helpers.scaffold.addModule(file, destAssets, _.extend({}, config.registerScript, config.scaffold));
 						}))
 						.pipe(gulp.dest(path.dirname(config.registerScript.src)))
 						.pipe(livereload());
@@ -219,6 +222,7 @@ var taskName = 'scaffold',
 					deleteConfig = _.merge({}, config, {
 						scaffold: {
 							name: config.scaffold.previousName,
+							className: config.scaffold.previousClassName,
 							deregisterStyles: config.scaffold.createStyles,
 							deregisterScript: config.scaffold.createScript
 						}

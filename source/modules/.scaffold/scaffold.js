@@ -1,84 +1,58 @@
 /*!
- * {{originalName}}
+ * {{className}}
  *
  * @author
  * @copyright
  */
+import EstaticoModule from '../../../assets/js/helpers/module';
 
-'use strict';
+class {{className}} extends EstaticoModule {
 
-var $ = require('jquery'),
-	SuperClass = require('../../assets/js/helpers/module');
+	constructor(data, options) {
+		let _defaultData = {},
+			_defaultOptions = {
+				domSelectors: {
+					// item: '[data-' + name + '="item"]'
+				},
+				stateClasses: {
+					// activated: 'is_activated'
+				}
+			};
 
-// globalEvents = require('../../assets/js/helpers/events'),
-// mediaqueries = require('../../assets/js/helpers/mediaqueries');
+		super(null, _defaultData, _defaultOptions, data, options);
 
-var name = '{{name}}',
-	events = {
-		// eventname: 'eventname.estatico.' + name
-	},
-	defaults = {
-		domSelectors: {
-			// item: '[data-' + name + '="item"]'
-		},
-		stateClasses: {
-			// isActive: 'is_active'
-		}
-	},
-	data = {
-		// items: ["Item 1", "Item 2"]
-	};
+		this._initUi();
+		this._initEventListeners();
+	}
 
-/**
- * Create an instance of the module
- * @constructor
- * @param {object} element - The DOM element to bind the module
- * @param {object} options - Options overwriting the defaults
- */
-function Module(element, options) {
-	this._helper = SuperClass;
+	static get events() {
+		return {
+			// eventname: 'eventname.estatico.' + {{className}}.name
+		};
+	}
 
-	this._helper({
-		name: name,
-		element: element,
-		defaults: defaults,
-		options: options,
-		events: events,
-		data: data
-	});
+	/**
+	 * Initialisation of variables, which point to DOM elements
+	 */
+	_initUi() {
+		// DOM element pointers
+	}
+
+	/**
+	 * Event listeners initialisation
+	 */
+	_initEventListeners() {
+		// Event listeners
+	}
+
+	/**
+	 * Unbind events, remove data, custom teardown
+	 */
+	destroy() {
+		super.destroy();
+
+		// Custom destroy actions go here
+	}
 }
 
-Module.prototype = $.extend(true, {}, SuperClass.prototype, Module.prototype);
-
-/**
- * Initialize module, bind events.
- * @method
- * @public
- */
-Module.prototype.init = function() {
-	// console.log('Module "{{name}}" initialized');
-};
-
-/**
- * Unbind events, remove data, custom teardown
- * @method
- * @public
- */
-Module.prototype.destroy = function() {
-	// Unbind events, remove data
-	SuperClass.prototype.destroy.apply(this);
-
-	// Custom teardown (removing added DOM elements etc.)
-	// If there is no need for a custom teardown, this method can be removed
-};
-
-// Make the plugin available through jQuery (and the global project namespace)
-SuperClass.register(Module, name, {
-	events: events
-});
-
-module.exports = {
-	Module: Module,
-	initEvents: ['ready', 'ajaxload'],
-	events: events
-};
+export default {{className}};

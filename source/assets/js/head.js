@@ -3,11 +3,8 @@ import FontLoader from './helpers/fontloader';
 import Helper from './helpers/helper';
 
 window.estatico = {
-	// Content data
-	data: {},
-
-	// Module options
-	options: {},
+	data: {}, // Content data
+	options: {}, // Module options
 	fontLoader: new FontLoader(),
 	helpers: new Helper()
 };

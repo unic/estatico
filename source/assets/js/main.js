@@ -1,17 +1,8 @@
 import '../../../node_modules/handlebars/dist/handlebars';
-import _ from '../../../node_modules/lodash';
+import './helpers/module';
 
-import './module/module';
+import EstaticoApp from './helpers/estaticoapp';
 
-// *autoinsertmodule*
+let app = new EstaticoApp();
 
-import Estatico from './estatico';
-
-window.globals = _.extend({
-	estatico: {
-		options: {}
-	}
-}, window.globals);
-
-window.estatico = new Estatico();
-window.estatico.startApp();
+app.start();

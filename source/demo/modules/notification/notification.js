@@ -2,111 +2,93 @@
  * @class       Notification
  * @classdesc   Plugin for centralized Notifications. Initialized on <body />.
  * @author      Patrick Lauterburg, Unic AG
- * Edited by    Matthias Meier, Oriol Torrent Florensa, Thomas Jaggi, Marcin Borowski, Olga Skurativska Unic AG
+ * Edited by    Matthias Meier, Oriol Torrent Florensa, Thomas Jaggi, Unic AG
  * @copyright   Unic AG
  */
 
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import EstaticoModule from '../../../assets/js/module/module';
+import NotificationMessage from './notificationmessage';
+import EstaticoModule from '../../../assets/js/helpers/module';
 
 class Notification extends EstaticoModule {
 
-	constructor($element, options) {
-		let _defaultOptions = {
-			timer: null,
-			modal: false,
-			timeout: 2000,
-			type: 'info', // info, error, success,
-			message: '',
-			i18n: {
-				close: 'Close'
-			},
-			DOM: {
-				selectors: {
-					target: '[data-' + Notification.name + '=target]'
-				},
-				classes: {
-					expanded: 'is_expanded'
-				}
-			}
-		};
-
-		super($element, _defaultOptions, options);
-
-		this.$document = $(document);
+	constructor($element, data, options) {
+		super($element, {}, {}, data, options);
 
 		this.template = {
-			buttonClose: `<a class="close_button">${this.options.i18n.close}</a>`,
-			message: '<div class="message" />'
+			wrapper: '<div class="mod_notification" role="alert" />'
 		};
 
+		this.isVisible = false;
+		this.notifications = [];
+
 		this._initUi();
+		this._initEventListeners();
 	}
 
 	static get events() {
 		return {
-			show: 'show.estatico.' + Notification.name,
-			removeAll: 'removeAll.estatico.' + Notification.name,
+			addNotification: 'addNotification.estatico.' + Notification.name,
+			removeAllNotifications: 'removeAllNotifications.estatico.' + Notification.name,
 			destroy: 'destroy.estatico.' + Notification.name
 		};
 	}
 
-	static getCSSClassByType(type) {
-		let typeClasses = {
-			info: 'is_info',
-			error: 'is_error',
-			success: 'is_success'
-		};
+	/**
+	 * Add notification
+	 * @param message Content to display
+	 * @param options Custom settings
+	 */
+	addNotification(event, options, data) {
+		var notification = new NotificationMessage(data, options);
 
-		return typeClasses[type];
-	}
+		if (!this.isVisible) {
+			this._show();
+		}
 
-	show() {
-		this.ui.$element.addClass(this.options.DOM.classes.expanded);
+		notification.ui.$element.appendTo(this.ui.$wrapper);
+
+		// there has to be a delay to trigger transitions initially
+		setTimeout(notification.show.bind(notification), 1);
+		this.notifications.push(notification);
 	}
 
 	/**
-	 * Remove specific notification
+	 * Remove all notifications
 	 */
-	hide() {
-		this.ui.$element.removeClass(this.options.DOM.classes.expanded);
+	removeAllNotifications() {
+		this.notifications.forEach((notification) => {
+			notification.hide();
+		});
 
-		// TODO: replace setTimeout with proper helper function from ESTATICO-51
-		setTimeout(() => {
-			clearTimeout(this.options.timer);
-			this.ui.$element.remove();
-		}, 300);
+		this.notifications = [];
 	}
 
 	_initUi() {
-		this.ui.$target = this.$document.find(this.options.DOM.selectors.target);
-
-		this.ui.$element = $(this.template.message)
-			.append(this.options.message)
-			.addClass(Notification.getCSSClassByType(this.options.type) || '');
-
-		if (this.options.modal) {
-			this._initModalUi();
-		} else {
-			this._initTimerUi();
-		}
-	}
-
-	_initModalUi() {
-		this.ui.$closeButton = $(this.template.buttonClose);
-		this.ui.$closeButton.prependTo(this.ui.$element);
-	}
-
-	_initTimerUi() {
-		this.options.timer = setTimeout(this.hide.bind(this), this.options.timeout);
+		this.ui.$target = $('body');
+		this.ui.$wrapper = $(this.template.wrapper).appendTo(this.ui.$target).hide();
 	}
 
 	_initEventListeners() {
-		if (this.options.modal) {
-			this.ui.$closeButton.on('click.' + Notification.name, this.hide.bind(this));
-		} else {
-			this.ui.$element.on('click.' + Notification.name, this.hide.bind(this));
-		}
+		this.ui.$target.on(Notification.events.addNotification, this.addNotification.bind(this));
+		this.ui.$target.on(Notification.events.removeAllNotifications, this.removeAllNotifications.bind(this));
+	}
+
+	/**
+	 * Show overlay
+	 */
+	_show() {
+		this.ui.$wrapper.show();
+		this.isVisible = true;
+	}
+
+	/**
+	 * Unbind events, remove data, custom teardown
+	 * @method
+	 * @public
+	 */
+	destroy() {
+		this.ui.$wrapper.remove();
 	}
 }
 

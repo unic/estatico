@@ -3,33 +3,29 @@
  *
  * @license APLv2
  */
-import $ from '../../../node_modules/jquery/dist/jquery';
-import NotificationCenter from '../../demo/modules/notification/notificationcenter';
-import SlideShow from '../../demo/modules/slideshow/slideshow';
-import '../../demo/modules/skiplinks/skiplinks';
+import $ from '../../../../node_modules/jquery/dist/jquery';
 
-// import '../../demo/modules/cookieconfirmation/cookieconfirmation';
-// import '../../demo/modules/equalheight/equalheight';
+/** Demo modules **/
+import Notification from '../../../demo/modules/notification/notification';
+import SlideShow from '../../../demo/modules/slideshow/slideshow';
+/* autoinsertmodulereference */
 
-class Estatico {
+class EstaticoApp {
 
 	constructor() {
-		this.modules = {};
+		// Module instances
+		window.estatico.modules = {};
+
 		this.initEvents = [];
+
+		// Module registry - mapping module name (used in data-init) to module Class
+		this.modules = {};
+		this.modules.notification = Notification;
+		this.modules.slideshow = SlideShow;
+		/* autoinsertmodule */
 	}
 
-	static getModule(moduleName) {
-		switch (moduleName) {
-			case 'NotificationCenter':
-				return NotificationCenter;
-			case 'SlideShow':
-				return SlideShow;
-			default:
-				throw new Error(`Could not instantiate ${moduleName}.`);
-		}
-	}
-
-	startApp() {
+	start() {
 		this._registerModules();
 		this._initModuleInitialiser();
 	}
@@ -47,13 +43,14 @@ class Estatico {
 	}
 
 	_registerModule(moduleName) {
-		if (!this.modules[moduleName]) {
-			let Module = Estatico.getModule(moduleName);
+		if (!estatico.modules[moduleName]) {
+			let Module = this.modules[moduleName];
 
-			this.modules[moduleName] = {
+			estatico.modules[moduleName] = {
 				initEvents: Module.initEvents,
 				events: Module.events,
-				instances: []
+				instances: [],
+				Class: Module
 			};
 
 			this.initEvents = this.initEvents.concat(Module.initEvents);
@@ -72,12 +69,13 @@ class Estatico {
 
 				modules.forEach((moduleName) => {
 					if (moduleName && !$element.data(moduleName + '-instance') &&
-						this.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
-						let Module = Estatico.getModule(moduleName),
+						estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
+						let Module = this.modules[moduleName],
+							_metaData = $element.data(moduleName + '-data') || {},
 							_metaOptions = $element.data(moduleName + '-options') || {},
-							moduleInstance = new Module($element, _metaOptions);
+							moduleInstance = new Module($element, _metaData, _metaOptions);
 
-						this.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
+						estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
 						$(element).data(moduleName + '-instance', moduleInstance);
 					}
 				});
@@ -86,4 +84,4 @@ class Estatico {
 	}
 }
 
-export default Estatico;
+export default EstaticoApp;
