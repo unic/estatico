@@ -9,12 +9,6 @@ import ModuleRegistry from './moduleregistry';
 class EstaticoApp {
 
 	constructor() {
-		// Content data
-		window.estatico.data = {};
-
-		// Module options
-		window.estatico.options = {};
-
 		// Module instances
 		window.estatico.modules = {};
 
