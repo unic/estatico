@@ -15,6 +15,7 @@
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <body>
+	<div class="mod_notification" role="alert" data-notification="target"></div>
 	<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}

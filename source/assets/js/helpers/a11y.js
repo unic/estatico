@@ -10,13 +10,15 @@ class A11y extends Helper {
 
 	constructor() {
 		super();
+		this.logger = this.log(A11y.name);
 
 		this.mode = null;
 		this.dataAttribute = 'estaticoDev';
 		this.className = 'estatico_dev_overlay';
-		this.logger = this.log('A11y');
 		this.activeElInterval = null;
 		this.currentActiveEl = null;
+
+		this.logger('Initialized ' + A11y.name);
 	}
 
 	run() {
@@ -47,7 +49,7 @@ class A11y extends Helper {
 	addActiveElement() {
 		var activeEl = null;
 
-		this.activeElInterval = setInterval(function() {
+		this.activeElInterval = setInterval(() => {
 			this.currentActiveEl = document.activeElement;
 
 			if (this.currentActiveEl !== activeEl) {
@@ -61,7 +63,7 @@ class A11y extends Helper {
 
 				this.currentActiveEl.classList.add(this.className);
 			}
-		}.bind(this), 200);
+		}, 200);
 	}
 
 	// Remove active element
@@ -73,7 +75,7 @@ class A11y extends Helper {
 
 	// Add class to all aria elements
 	addClassToAriaElements() {
-		[].forEach.call(document.querySelectorAll('[*]'), function(node) {
+		[].forEach.call(document.querySelectorAll('[*]'), (node) => {
 			var log = '';
 
 			node.attributes.forEach(function(attribute) {
@@ -93,9 +95,9 @@ class A11y extends Helper {
 
 	// Remove class from aria elements
 	removeClassFromAriaElements() {
-		[].forEach.call(document.querySelectorAll('[*]'), function(node) {
+		[].forEach.call(document.querySelectorAll('[*]'), (node) => {
 			node.classList.remove(this.className);
-		}.bind(this));
+		});
 
 		this.mode = 0;
 	}

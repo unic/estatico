@@ -9,25 +9,27 @@ class Inspector extends Helper {
 
 	constructor() {
 		super();
+		this.logger = this.log(Inspector.name);
 
-		this.mode = null;
-		this.dataAttribute = 'estaticoDev';
-		this.className = 'estatico_dev_overlay';
-		this.classNameVariant = 'var_variant';
-		this.logger = this.log('Inspector');
+		this.state = {
+			visible: false
+		};
+
+		this.DOM = {
+			dataAttribute: 'estaticoDev',
+			class: {
+				moduleDecorator: 'estatico_dev_overlay',
+				variantDecorator: 'var_variant'
+			}
+		};
+
+		this.logger('Initialized ' + Inspector.name);
 	}
 
 	run() {
 		if (document.documentElement.classList) {
 			// Set the mode we're in (1 = show modules, 0 = hide modules)
-			if (this.mode === null) {
-				this.mode = 1;
-			} else {
-				this.mode++;
-			}
-
-			// Run the current mode
-			if (this.mode === 1) {
+			if (!this.state.visible) {
 				this.showModules();
 			} else {
 				this.hideModules();
@@ -39,7 +41,7 @@ class Inspector extends Helper {
 
 	// Add class to all modules
 	showModules() {
-		[].forEach.call(document.querySelectorAll('[class]'), function(node) {
+		[].forEach.call(document.querySelectorAll('[class]'), (node) => {
 			var log = '',
 				module = '',
 				variations = [];
@@ -65,25 +67,27 @@ class Inspector extends Helper {
 			if (log !== '') {
 				this.logger([node, log]);
 
-				node.classList.add(this.className);
+				node.classList.add(this.DOM.class.moduleDecorator);
 
 				if (variations.length > 0) {
-					node.classList.add(this.classNameVariant);
+					node.classList.add(this.DOM.class.variantDecorator);
 				}
 
-				node.dataset[this.dataAttribute] = log;
+				node.dataset[this.DOM.dataAttribute] = log;
 			}
-		}.bind(this));
+		});
+
+		this.state.visible = 1;
 	}
 
 	// Remove class from modules
 	hideModules() {
-		[].forEach.call(document.querySelectorAll('[class]'), function(node) {
-			node.classList.remove(this.className);
-			node.classList.remove(this.classNameVariant);
-		}.bind(this));
+		[].forEach.call(document.querySelectorAll('[class]'), (node) => {
+			node.classList.remove(this.DOM.class.moduleDecorator);
+			node.classList.remove(this.DOM.class.variantDecorator);
+		});
 
-		this.mode = 0;
+		this.state.visible = 0;
 	}
 }
 

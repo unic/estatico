@@ -1,5 +1,3 @@
-'use strict';
+import SkipLinkFocus from 'skip-link-focus';
 
-var skipLinkFocus = require('skip-link-focus');
-
-skipLinkFocus.init();
+SkipLinkFocus.init();
