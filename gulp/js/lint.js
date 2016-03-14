@@ -20,8 +20,7 @@ var taskName = 'js:lint',
 			'./source/pages/**/*.js',
 			'./source/demo/modules/**/*.js',
 			'./source/demo/pages/**/*.js',
-			'!./source/modules/.scaffold/scaffold.js',
-			'!./source/assets/modules/moduleregistry.js'
+			'!./source/modules/.scaffold/scaffold.js'
 		]
 	};
 

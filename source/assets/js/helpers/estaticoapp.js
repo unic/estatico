@@ -6,6 +6,7 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
 
 /** Demo modules **/
+import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 import Notification from '../../../demo/modules/notification/notification';
 import SlideShow from '../../../demo/modules/slideshow/slideshow';
 /* autoinsertmodulereference */
@@ -22,6 +23,7 @@ class EstaticoApp {
 		this.modules = {};
 		this.modules.notification = Notification;
 		this.modules.slideshow = SlideShow;
+		this.modules.skiplinks = SkipLinks;
 		/* autoinsertmodule */
 	}
 

@@ -45,7 +45,7 @@ var taskName = 'scaffold',
 			insertionSuffix: '";\n'
 		},
 		registerScript: {
-			src: './source/assets/js/modules/estaticoapp.js',
+			src: './source/assets/js/helpers/estaticoapp.js',
 			insertionPoint: '/* autoinsertmodule */',
 			importInsertionPoint: '/* autoinsertmodulereference */',
 			insertionTemplate: 'this.modules.{{name}} = {{className}};\n		',
