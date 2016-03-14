@@ -6,8 +6,8 @@
 import $ from '../../../node_modules/jquery/dist/jquery';
 import NotificationCenter from '../../demo/modules/notification/notificationcenter';
 import SlideShow from '../../demo/modules/slideshow/slideshow';
+import '../../demo/modules/skiplinks/skiplinks';
 
-// import '../../demo/modules/skiplinks/skiplinks';
 // import '../../demo/modules/cookieconfirmation/cookieconfirmation';
 // import '../../demo/modules/equalheight/equalheight';
 
@@ -74,9 +74,8 @@ class Estatico {
 					if (moduleName && !$element.data(moduleName + '-instance') &&
 						this.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
 						let Module = Estatico.getModule(moduleName),
-							_metaState = $element.data(moduleName + '-state') || {},
-							_metaProps = $element.data(moduleName + '-props') || {},
-							moduleInstance = new Module($element, _metaState, _metaProps);
+							_metaOptions = $element.data(moduleName + '-options') || {},
+							moduleInstance = new Module($element, _metaOptions);
 
 						this.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
 						$(element).data(moduleName + '-instance', moduleInstance);

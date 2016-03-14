@@ -11,11 +11,9 @@ import EstaticoModule from '../../../assets/js/module/module';
 
 class Notification extends EstaticoModule {
 
-	constructor(state, props) {
-		let _defaultState = {
-			timer: null
-		},
-		_defaultProps = {
+	constructor($element, options) {
+		let _defaultOptions = {
+			timer: null,
 			modal: false,
 			timeout: 2000,
 			type: 'info', // info, error, success,
@@ -23,19 +21,34 @@ class Notification extends EstaticoModule {
 			i18n: {
 				close: 'Close'
 			},
-			CSSClasses: {
-				expanded: 'is_expanded'
+			DOM: {
+				selectors: {
+					target: '[data-' + Notification.name + '=target]'
+				},
+				classes: {
+					expanded: 'is_expanded'
+				}
 			}
 		};
 
-		super(null, _defaultState, _defaultProps, state, props);
+		super($element, _defaultOptions, options);
+
+		this.$document = $(document);
 
 		this.template = {
-			buttonClose: `<a class="close_button">${this.props.i18n.close}</a>`,
+			buttonClose: `<a class="close_button">${this.options.i18n.close}</a>`,
 			message: '<div class="message" />'
 		};
 
 		this._initUi();
+	}
+
+	static get events() {
+		return {
+			show: 'show.estatico.' + Notification.name,
+			removeAll: 'removeAll.estatico.' + Notification.name,
+			destroy: 'destroy.estatico.' + Notification.name
+		};
 	}
 
 	static getCSSClassByType(type) {
@@ -49,28 +62,30 @@ class Notification extends EstaticoModule {
 	}
 
 	show() {
-		this.ui.$element.addClass(this.props.CSSClasses.expanded);
+		this.ui.$element.addClass(this.options.DOM.classes.expanded);
 	}
 
 	/**
 	 * Remove specific notification
 	 */
 	hide() {
-		this.ui.$element.removeClass(this.props.CSSClasses.expanded);
+		this.ui.$element.removeClass(this.options.DOM.classes.expanded);
 
 		// TODO: replace setTimeout with proper helper function from ESTATICO-51
 		setTimeout(() => {
-			clearTimeout(this.state.timer);
+			clearTimeout(this.options.timer);
 			this.ui.$element.remove();
 		}, 300);
 	}
 
 	_initUi() {
-		this.ui.$element = $(this.template.message)
-			.append(this.props.message)
-			.addClass(Notification.getCSSClassByType(this.props.type) || '');
+		this.ui.$target = this.$document.find(this.options.DOM.selectors.target);
 
-		if (this.props.modal) {
+		this.ui.$element = $(this.template.message)
+			.append(this.options.message)
+			.addClass(Notification.getCSSClassByType(this.options.type) || '');
+
+		if (this.options.modal) {
 			this._initModalUi();
 		} else {
 			this._initTimerUi();
@@ -79,23 +94,19 @@ class Notification extends EstaticoModule {
 
 	_initModalUi() {
 		this.ui.$closeButton = $(this.template.buttonClose);
-		this.ui.$closeButton
-			.prependTo(this.ui.$element)
-			.on('click.' + Notification.name, (event) => {
-				event.preventDefault();
-				this.hide();
-			});
+		this.ui.$closeButton.prependTo(this.ui.$element);
 	}
 
 	_initTimerUi() {
-		this.state.timer = setTimeout(() => {
-			this.hide();
-		}, this.props.timeout);
+		this.options.timer = setTimeout(this.hide.bind(this), this.options.timeout);
+	}
 
-		this.ui.$element.on('click.' + Notification.name, (event) => {
-			event.preventDefault();
-			this.hide();
-		});
+	_initEventListeners() {
+		if (this.options.modal) {
+			this.ui.$closeButton.on('click.' + Notification.name, this.hide.bind(this));
+		} else {
+			this.ui.$element.on('click.' + Notification.name, this.hide.bind(this));
+		}
 	}
 }
 

@@ -9,8 +9,7 @@ import Estatico from './estatico';
 
 window.globals = _.extend({
 	estatico: {
-		state: {},
-		props: {}
+		options: {}
 	}
 }, window.globals);
 

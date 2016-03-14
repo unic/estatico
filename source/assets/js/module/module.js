@@ -15,16 +15,14 @@ class EstaticoModule {
 	 * @param {object} config.options - Custom options
 	 * @param {object} config.data - Custom data
 	 */
-	constructor($element, _defaultState, _defaultProps, state, props, mixins) {
+	constructor($element, _defaultOptions, options, mixins) {
 		this.ui = {
 			$element
 		};
 
-		let _globalState = window.globals.estatico.state[this.name],
-			_globalProps = window.globals.estatico.props[this.name];
+		let _globalOptions = window.globals.estatico.options[this.name];
 
-		this.state = _.extend({}, _defaultState, _globalState, state);
-		this.props = _.extend({}, _defaultProps, _globalProps, props);
+		this.options = _.extend({}, _defaultOptions, _globalOptions, options);
 
 		// Identify instance by UUID
 		this.uuid = _.uniqueId(this.name);

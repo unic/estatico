@@ -12,13 +12,18 @@ import EstaticoModule from '../../../assets/js/module/module';
 
 class NotificationCenter extends EstaticoModule {
 
-	constructor($element, state, props) {
-		let _defaultState = {
+	constructor($element, options) {
+		let _defaultOptions = {
 			notifications: [],
-			isVisible: false
+			isVisible: false,
+			DOM: {
+				selectors: {
+					target: '[data-' + Notification.name + '=target]'
+				}
+			}
 		};
 
-		super($element, _defaultState, {}, state, props);
+		super($element, _defaultOptions, options);
 
 		this.template = {
 			wrapper: '<div class="mod_notification" role="alert" />'
@@ -41,10 +46,10 @@ class NotificationCenter extends EstaticoModule {
 	 * @param message Content to display
 	 * @param options Custom settings
 	 */
-	addNotification(event, props) {
-		var notification = new Notification({}, props);
+	addNotification(event, options) {
+		var notification = new Notification(null, options);
 
-		if (!this.state.isVisible) {
+		if (!this.options.isVisible) {
 			this._show();
 		}
 
@@ -52,18 +57,18 @@ class NotificationCenter extends EstaticoModule {
 
 		// there has to be a delay to trigger transitions initially
 		setTimeout(notification.show.bind(notification), 1);
-		this.state.notifications.push(notification);
+		this.options.notifications.push(notification);
 	}
 
 	/**
 	 * Remove all notifications
 	 */
 	removeAllNotifications() {
-		this.state.notifications.forEach((notification) => {
+		this.options.notifications.forEach((notification) => {
 			notification.hide();
 		});
 
-		this.state.notifications = [];
+		this.options.notifications = [];
 	}
 
 	_initUi() {
@@ -81,7 +86,7 @@ class NotificationCenter extends EstaticoModule {
 	 */
 	_show() {
 		this.ui.$wrapper.show();
-		this.state.isVisible = true;
+		this.options.isVisible = true;
 	}
 
 	/**
