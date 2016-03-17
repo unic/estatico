@@ -8,7 +8,7 @@ import EstaticoModule from '../../../assets/js/helpers/module';
 
 class {{className}} extends EstaticoModule {
 
-	constructor(data, options) {
+	constructor($element, data, options) {
 		let _defaultData = {},
 			_defaultOptions = {
 				domSelectors: {
@@ -19,7 +19,7 @@ class {{className}} extends EstaticoModule {
 				}
 			};
 
-		super(null, _defaultData, _defaultOptions, data, options);
+		super($element, _defaultData, _defaultOptions, data, options);
 
 		this._initUi();
 		this._initEventListeners();
