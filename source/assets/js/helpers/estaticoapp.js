@@ -9,7 +9,7 @@ import $ from '../../../../node_modules/jquery/dist/jquery';
 import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 import Notification from '../../../demo/modules/notification/notification';
 import SlideShow from '../../../demo/modules/slideshow/slideshow';
-import HelloMessage from '../../../demo/modules/react/react';
+import HelloMessage from '../../../demo/modules/react/react.jsx';
 /* autoinsertmodulereference */
 
 class EstaticoApp {
