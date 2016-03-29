@@ -9,6 +9,7 @@ import $ from '../../../../node_modules/jquery/dist/jquery';
 import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 import Notification from '../../../demo/modules/notification/notification';
 import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import HelloMessage from '../../../demo/modules/react/react';
 /* autoinsertmodulereference */
 
 class EstaticoApp {
@@ -24,6 +25,7 @@ class EstaticoApp {
 		this.modules.notification = Notification;
 		this.modules.slideshow = SlideShow;
 		this.modules.skiplinks = SkipLinks;
+		this.modules.hellomessage = HelloMessage;
 		/* autoinsertmodule */
 	}
 
