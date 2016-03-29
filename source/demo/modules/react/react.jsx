@@ -18,9 +18,11 @@ class HelloMessage extends React.Component {
 	}
 }
 
-ReactDOM.render(
-	<HelloMessage />,
-	$('[data-init~="hellomessage"]').get(0)
-);
+if ($('[data-init~="hellomessage"]').length) {
+	ReactDOM.render(
+		<HelloMessage />,
+		$('[data-init~="hellomessage"]').get(0)
+	);
+}
 
 export default HelloMessage;
