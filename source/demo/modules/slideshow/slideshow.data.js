@@ -27,6 +27,7 @@ var data = _.merge(defaultData, {
 				alt: 'Bill Murray ' + (index + 1)
 			};
 		}),
+
 		i18n: {
 			prev: 'Previous Slide',
 			next: 'Next Slide'

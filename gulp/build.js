@@ -19,6 +19,7 @@ gulp.task(taskName, function(cb) {
 		'clean',
 		[
 			'css:colors',
+			'css:fonts',
 			'js:lodash',
 			'js:templates',
 			'js:mocks',
@@ -31,7 +32,8 @@ gulp.task(taskName, function(cb) {
 			'html',
 			'js',
 			'css',
-			'media:copy'
+			'media:copy',
+			'media:imageversions'
 		],
 		'js:qunit',
 		function(err) {

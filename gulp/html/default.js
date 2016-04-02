@@ -17,6 +17,7 @@ var taskName = 'html',
 			'./source/demo/modules/**/!(_)*.hbs',
 			'./source/preview/styleguide/*.hbs'
 		],
+		srcModulePreview: './source/preview/layouts/module.hbs',
 		partials: [
 			'source/layouts/*.hbs',
 			'source/modules/**/*.hbs',
@@ -51,10 +52,17 @@ gulp.task(taskName, function(cb) {
 		util = require('gulp-util'),
 		requireNew = require('require-new'),
 		path = require('path'),
+		fs = require('fs'),
 		tap = require('gulp-tap'),
 		rename = require('gulp-rename'),
+
+		// Format HTML (disabled due to incorrect resulting indentation)
 		// prettify = require('gulp-prettify'),
-		handlebars = require('gulp-hb');
+		_ = require('lodash'),
+		handlebars = require('gulp-hb'),
+		Handlebars = require('handlebars');
+
+	var modulePreviewTemplate;
 
 	gulp.src(taskConfig.src, {
 			base: './source'
@@ -70,42 +78,69 @@ gulp.task(taskName, function(cb) {
 							message: 'Error reading "' + path.relative('./', dataFile) + '": ' + err,
 							stack: err.stack
 						});
+
+						return {};
 					}
 				})(),
-				modulePrepend = new Buffer('{{#extend "preview/layouts/module"}}{{#content "content" mode="replace"}}'),
-				moduleAppend = new Buffer('{{/content}}{{/extend}}');
+
+				moduleTemplate,
+				mergedData;
+
+			// Precompile module demo and variants
+			if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
+				moduleTemplate = file.contents.toString();
+				modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(taskConfig.srcModulePreview, 'utf8');
+
+				data.demo = Handlebars.compile(moduleTemplate)(data);
+
+				// Compile variants
+				if (data.variants) {
+					data.variants = data.variants.map(function(variant) {
+						variant.demo = Handlebars.compile(moduleTemplate)(variant);
+
+						return variant;
+					});
+
+					mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
+							meta: {
+								title: 'Default',
+								desc: 'Default implemention.'
+							}
+						}
+					);
+					data.variants.unshift(mergedData);
+				}
+
+				// Replace file content with preview template
+				file.contents = new Buffer(modulePreviewTemplate);
+			}
 
 			// Save data by file name
 			file.data = data;
-
-			// Wrap modules with custom layout for preview purposes
-			if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
-				file.contents = Buffer.concat([modulePrepend, file.contents, moduleAppend]);
-			}
 		}))
 		.pipe(plumber())
 		.pipe(handlebars({
+			partials: taskConfig.partials,
+			bustCache: true,
 			dataEach: function(context, file) {
 				return file.data;
-			},
-			partials: taskConfig.partials,
-			bustCache: true
+			}
 		}).on('error', helpers.errors))
+
 		// Relativify absolute paths
 		.pipe(tap(function(file) {
 			var content = file.contents.toString(),
 				relPathPrefix = path.join(path.relative(file.path, './source'));
 
 			relPathPrefix = relPathPrefix
-				// Normalize path separator
-				.replace(new RegExp('\\' + path.sep, 'g'), '/')
-				// Remove trailing ..
-				.replace(/\.\.$/, '');
+				.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
+				.replace(/\.\.$/, ''); // Remove trailing ..
 
 			content = content.replace(/('|")\//g, '$1' + relPathPrefix);
 
 			file.contents = new Buffer(content);
 		}))
+
 		// .pipe(prettify({
 		// 	indent_with_tabs: true,
 		// 	max_preserve_newlines: 1

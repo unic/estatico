@@ -10,6 +10,7 @@
 		setup: function() {
 			instance = $node.data(name + '-instance');
 		},
+
 		teardown: function() {
 			instance.destroy();
 
@@ -36,12 +37,15 @@
 			clickEvents = $.grep(events.click || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			}),
+
 			resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			}),
+
 			scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			}),
+
 			mqEvent = $.grep(docEvents[estatico.events.mq.split('.')[0]] || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			});
@@ -69,12 +73,15 @@
 			clickEvents = $.grep(events.click || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			}),
+
 			resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			}),
+
 			scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			}),
+
 			mqEvent = $.grep(docEvents[estatico.events.mq.split('.')[0]] || [], function(event) {
 				return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 			});

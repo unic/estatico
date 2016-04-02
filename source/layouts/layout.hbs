@@ -11,7 +11,15 @@
 
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
+	{{#if env.dev}}
+		<link rel="stylesheet" href="/assets/css/dev.css">
+	{{/if}}
+
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+	{{#if env.dev}}
+		<script src="/assets/js/dev.js"></script>
+	{{/if}}
 </head>
 <body>
 	{{#block "header"}}

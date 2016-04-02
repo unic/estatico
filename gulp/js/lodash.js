@@ -17,6 +17,7 @@ gulp.task(taskName, function(cb) {
 	var build = require('lodash-cli'),
 		helpers = require('require-dir')('../../helpers'),
 		size = require('gulp-size'),
+
 		// uglify = require('gulp-uglify'),
 		file = require('gulp-file'),
 		util = require('util');
@@ -31,7 +32,7 @@ gulp.task(taskName, function(cb) {
 		if (util.isError(data)) {
 			helpers.errors({
 				task: taskName,
-				message: data.message,
+				message: data.message
 			});
 		}
 
@@ -42,6 +43,7 @@ gulp.task(taskName, function(cb) {
 				title: taskName,
 				showFiles: true
 			}))
+
 			// // Test minified size
 			// .pipe(uglify({
 			// 	preserveComments: 'some'
