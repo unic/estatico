@@ -19,9 +19,11 @@ Install dependencies:
 
 ```shell
 npm install
+# Shortcut: npm i
 
 # Install Gulp globally (optional)
 npm install -g gulp
+# Shortcut: npm i -g gulp
 ```
 
 ## Options
@@ -66,11 +68,22 @@ gulp build
 # local version: node node_modules/.bin/gulp build
 ```
 
-Install new bower dependency "foo":
+Install new npm dependency "foo" (used for client-side code, saved to `dependencies`):
 
 ```shell
-bower install foo --save --save-exact
-# local version: node node_modules/.bin/bower install foo --save --save-exact
+npm install foo --save --save-exact
+# Shortcut: npm i foo -S -E
+
+npm shrinkwrap --dev
+```
+
+Install new npm dependency "bar" (used for the build environment, saved to  `devDependencies`):
+
+```shell
+npm install bar --save-dev --save-exact
+# Shortcut: npm i bar -D -E
+
+npm shrinkwrap --dev
 ```
 
 
