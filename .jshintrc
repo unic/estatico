@@ -94,7 +94,7 @@
 		"estatico": true,
 		"_": true,
 		"Modernizr": false,
-		"Handlebars": false,
+		"Twig": false,
 		"open": true,
 		"Promise": false
 	}
