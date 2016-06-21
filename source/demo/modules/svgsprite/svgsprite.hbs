@@ -1,0 +1,17 @@
+{{#each preview}}
+	<div class="mod_svgsprite">
+		<h3 class="mod_svgsprite_title">Sprite Name: {{@key}}</h3>
+		<ul class="mod_svgsprite_list">
+			{{#each this}}
+			<li class="mod_svgsprite_list_item" title="{{this}}">
+				<svg class="mod_svgsprite_icon var_{{this}}" focusable="false">
+					<use xlink:href="#{{this}}" />
+				</svg>
+				<span>
+					{{this}}
+				</span>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+{{/each}}
