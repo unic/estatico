@@ -28,6 +28,7 @@ var sprites = _.mapValues(spriteTask.taskConfig.src, function(globs) {
 	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: SVG icons',
+			jira: 'ESTATICO-212',
 			code: dataHelper.getTemplateCode('svgsprite.hbs'),
 			documentation: dataHelper.getDocumentation('svgsprite.md')
 		},
