@@ -5,16 +5,16 @@
 
 'use strict';
 
-import $ from '../../../../node_modules/jquery/dist/jquery';
-import QUnit from 'qunitjs';
-// import css from 'qunitjs/qunit/qunit.css';
+var $ = require('jquery'),
+	QUnit = require('qunitjs'),
+	css = require('qunitjs/qunit/qunit.css');
 
 QUnit.config.autostart = false;
 
 $(document).on('ready', function(){
-	let $container = $('#qunit'),
+	var $container = $('#qunit'),
 		$button = $('<button>Run QUnit tests</button>'),
-		startTests() {
+		startTests = function() {
 			$container.show();
 			$button.remove();
 
