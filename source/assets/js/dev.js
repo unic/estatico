@@ -1,11 +1,14 @@
 import A11y from './helpers/a11y';
 import Inspector from './helpers/inspector';
+import bows from '../../../node_modules/bows/bows';
 
 // Enable by default
 // Remove these lines and run "localStorage.removeItem('debug');" to disable
 if (window.localStorage && !localStorage.debug) {
 	localStorage.debug = true;
 }
+
+window.estatico.helpers.log = bows;
 
 var inspector = new Inspector(),
 	a11y = new A11y();

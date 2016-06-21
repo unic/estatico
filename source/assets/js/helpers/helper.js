@@ -1,17 +1,22 @@
-import bows from '../../../../node_modules/bows/bows';
-
 class Helper {
 
-	constructor() {
-		// Use bows for happy, colourful logging (https://github.com/latentflip/bows)
-		this.log = bows;
-	}
+	/*
+		Create a console.log wrapper with optional namespace/context
+		Run "localStorage.debug = true;" to enable
+		Run "localStorage.removeItem('debug');" to disable
+		This is overwritten when in dev mode (see dev.js)
 
-	// Create a console.log wrapper with optional namespace/context
-	// Run "localStorage.debug = true;" to enable
-	// Run "localStorage.removeItem('debug');" to disable
-	// This is overwritten when in dev mode (see dev.js)
-	cLog(context) {
+		Usage inside a module:
+		"this.logger = this.log('MyModule');"
+		"this.logger('it's now initialised);"
+
+		Output:
+		`MyModule -> it's now initialised`
+
+		The output form depends on build flag - without --dev it will be plain message
+		with the --dev flag it will be more corefull message using bows plugin
+	 */
+	log(context) {
 		var fn = function() {};
 
 		if (window.localStorage && localStorage.debug) {

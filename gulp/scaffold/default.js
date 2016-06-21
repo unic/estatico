@@ -128,7 +128,6 @@ var taskName = 'scaffold',
 
 			// Replace {{name|className}}
 			.pipe(tap(function(file) {
-				console.log();
 				if (!file.stat.isDirectory() && config.scaffold.replaceContentExtensions.indexOf(path.extname(file.path)) !== -1) {
 					var content = file.contents.toString();
 

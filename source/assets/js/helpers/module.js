@@ -1,18 +1,16 @@
 import $ from '../../../../node_modules/jquery/dist/jquery';
 import _ from '../../../../node_modules/lodash';
-import bows from '../../../../node_modules/bows/bows';
 
 class EstaticoModule {
 
 	/**
-	 * Helper class
-	 * @param {object} config
-	 * @param {string} config.name - Module name (used as namespace for all kinds of things)
-	 * @param {object} config.defaults - Default options
-	 * @param {object} config.element - DOM element to init the module on
-	 * @param {object} config.options - Custom options
-	 * @param {object} config.data - Custom data
-	 */
+	* Helper Class
+	* @param  {jQuery DOM} $element - jQuery DOM element where to initialise the module
+	* @param  {object} _defaultData - The default data object
+	* @param  {object} _defaultOptions - The default options object
+	* @param  {object} data - The data passed for this Module
+	* @param  {object} options - The options passed as data attribute in the Module
+	*/
 	constructor($element, _defaultData, _defaultOptions, data, options) {
 		this.ui = {
 			$element
@@ -27,7 +25,7 @@ class EstaticoModule {
 		// Identify instance by UUID
 		this.uuid = _.uniqueId(this.name);
 
-		this.log = bows;
+		this.log = window.estatico.helpers.log;
 	}
 
 	static get initEvents() {
