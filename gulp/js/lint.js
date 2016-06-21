@@ -37,7 +37,7 @@ gulp.task(taskName, function() {
 		dot: true
 	})
 		.pipe(cached('linting'))
-		.pipe(jshint({ linter: require('jshint-jsx').JSXHINT }))
+		.pipe(jshint(/*{ linter: require('jshint-jsx').JSXHINT })*/)
 		.pipe(jscs({
 			configPath: '.jscsrc'
 
