@@ -30,7 +30,8 @@ gulp.task(taskName, function(cb) {
 						'js:mocks',
 						'media:dataurls',
 						'media:iconfont',
-						'media:pngsprite'
+						'media:pngsprite',
+						'media:svgsprite'
 					],
 					'js:modernizr',
 					[
