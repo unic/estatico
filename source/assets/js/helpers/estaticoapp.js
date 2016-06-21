@@ -45,7 +45,7 @@ class EstaticoApp {
 	}
 
 	_registerModule(moduleName) {
-		if (!estatico.modules[moduleName]) {
+		if (!estatico.modules[moduleName] && this.modules[moduleName]) {
 			let Module = this.modules[moduleName];
 
 			estatico.modules[moduleName] = {
