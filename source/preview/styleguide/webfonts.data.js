@@ -6,22 +6,28 @@ var _ = require('lodash'),
 
 var data = _.merge(defaultData, {
 	meta: {
-		title: 'Fonts',
+		title: 'Webfonts'
 	},
 	fonts: [{
 		family: 'Roboto',
-		font: [{
-			weight: [400, 700],
-			style: ['normal', 'italic'],
-			size: [16]
-		}]
-	}, {
-		family: 'Courier',
-		font: [{
-			weight: [400, 700],
-			style: ['normal'],
-			size: [12, 16, 22]
-		}]
+		variants: [
+			{
+				weight: 400,
+				style: 'normal'
+			},
+			{
+				weight: 400,
+				style: 'italic'
+			},
+			{
+				weight: 700,
+				style: 'normal'
+			},
+			{
+				weight: 700,
+				style: 'italic'
+			}
+		]
 	}],
 	additionalLayoutClass: 'sg_fonts'
 });
