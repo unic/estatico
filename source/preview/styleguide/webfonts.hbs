@@ -13,7 +13,7 @@ In case of different sizes for each weight, they can be defined in separate obje
 				{{#each this.variants}}
 					<div class="sg_fonts_font">
 						<div class="sg_subsection">
-							<h3 class="sg_h3">weight: {{this.weight}} &mdash; style: {{this.style}}</h3>
+							<h3 class="sg_h3">weight: {{this.weight}} <br/>style: {{this.style}}</h3>
 							<div style="font-family: {{../this.family}}; font-style: {{this.style}}; font-weight: {{this.weight}}; font-size: 16px;">
 								<p>
 									A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br />
@@ -22,6 +22,9 @@ In case of different sizes for each weight, they can be defined in separate obje
 									à è ì ò ù á é í ó ú ä ë ï ö ü â ê î ô û ç<br />
 									0 1 2 3 4 5 6 7 8 9 . , ; : - _ = { } ( ) [ ] ? ! $ £ & % * " ' § °<br />
 								</p>
+							</div>
+							<h3 class="sg_h3">example text</h3>
+							<div style="font-family: {{../this.family}}; font-style: {{this.style}}; font-weight: {{this.weight}}; font-size: 16px;">
 								<p>
 									A static build is a compiled version of a program which has been statically linked against libraries.
 								</p>
@@ -37,6 +40,13 @@ In case of different sizes for each weight, they can be defined in separate obje
 									Modern operating system environments allow dynamic linking, or the postponing of the resolving of some undefined symbols until a program is run. That means that the executable still contains undefined symbols, plus a list of objects or libraries that will provide definitions for these. Loading the program will load these objects/libraries as well, and perform a final linking.
 								</p>
 							</div>
+							<pre class="sg_code sg_code_font">
+.selector {
+	font-family: Roboto;
+	font-weight: {{this.weight}};
+	font-style: {{this.style}};
+}
+							</pre>
 						</div>
 					</div>
 				{{/each}}

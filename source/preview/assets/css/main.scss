@@ -401,15 +401,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // ----------------------------------------------------------------------------------------------------
 
 .sg_subsection {
-
+	border-bottom: 2px solid $sg_colorBlack;
 	padding: 1em 0;
 	position: relative;
-	&:after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 20%;
-		border-bottom: 2px solid $sg_colorBlack;
-	}
 }
