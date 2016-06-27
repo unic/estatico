@@ -37,9 +37,7 @@ class EstaticoApp {
 			let modules = $(element).data('init').split(' ');
 
 			modules.forEach((moduleName) => {
-				if (moduleName) {
-					this._registerModule(moduleName);
-				}
+				this._registerModule(moduleName);
 			});
 		});
 	}
