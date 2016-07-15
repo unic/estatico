@@ -9,12 +9,12 @@ In case of different sizes for each weight, they can be defined in separate obje
 	{{#content "content"}}
 		{{#each fonts}}
 			<section class="sg_inner_wrapper">
-				<h2 class="sg_h2">family: {{this.family}}</h2>
-				{{#each this.variants}}
+				<h2 class="sg_h2">family: {{family}}</h2>
+				{{#each variants}}
 					<div class="sg_fonts_font">
 						<div class="sg_subsection">
-							<h3 class="sg_h3">weight: {{this.weight}} <br/>style: {{this.style}}</h3>
-							<div style="font-family: {{../this.family}}; font-style: {{this.style}}; font-weight: {{this.weight}}; font-size: 16px;">
+							<h3 class="sg_h3">weight: {{weight}} <br/>style: {{style}}</h3>
+							<div style="font-family: {{../family}}; font-style: {{style}}; font-weight: {{weight}}; font-size: 16px;">
 								<p>
 									A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br />
 									a b c d e f g h i j k l m n o p q r s t u v w x y z<br />
@@ -24,7 +24,7 @@ In case of different sizes for each weight, they can be defined in separate obje
 								</p>
 							</div>
 							<h3 class="sg_h3">example text</h3>
-							<div style="font-family: {{../this.family}}; font-style: {{this.style}}; font-weight: {{this.weight}}; font-size: 16px;">
+							<div style="font-family: {{../family}}; font-style: {{style}}; font-weight: {{weight}}; font-size: 16px;">
 								<p>
 									A static build is a compiled version of a program which has been statically linked against libraries.
 								</p>
@@ -42,9 +42,9 @@ In case of different sizes for each weight, they can be defined in separate obje
 							</div>
 							<pre class="sg_code sg_code_font">
 .selector {
-	font-family: Roboto;
-	font-weight: {{this.weight}};
-	font-style: {{this.style}};
+	font-family: {{../family}};
+	font-weight: {{weight}};
+	font-style: {{style}};
 }
 							</pre>
 						</div>
