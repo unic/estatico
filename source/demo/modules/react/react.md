@@ -1,7 +1,0 @@
-## Description
-
-
-
-## Integration
-
-Copy HTML.
