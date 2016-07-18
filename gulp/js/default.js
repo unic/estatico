@@ -112,6 +112,8 @@ var taskName = 'js',
 										query: {
 											presets: ['es2015', 'stage-0', 'react'],
 											plugins: [
+												'transform-class-properties',
+												'transform-proto-to-assign', // it looks like also this plugin is needed, taken from https://github.com/babel/babelify/issues/133#issuecomment-172392178
 												['transform-es2015-classes', {
 													loose: true
 												}]
