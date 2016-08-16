@@ -112,14 +112,16 @@ gulp.task(taskName, function(cb) {
 			})
 				.pipe(tap(function(file) {
 					var content = file.contents.toString(),
-						relPathPrefix = path.relative(file.path, taskConfig.srcTemplatesBase);
+						relPathPrefix = path.relative(file.path, taskConfig.srcTemplatesBase),
+						QUnitPath = taskConfig.srcQUnit.replace(taskConfig.srcBase, '');
 
 					relPathPrefix = relPathPrefix
 						.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
-						.replace(/\.\.$/, ''); // Remove trailing ..
+						.replace(/\.\.$/, '') // Remove trailing ..
+						.replace(new RegExp(/\./g), '\\.').replace(new RegExp(/\//g), '\\/'); // Escape special characters
 
 					// Ignore files without a QUnit script reference
-					if (content.search(taskConfig.srcQUnit) === -1) {
+					if (content.search(QUnitPath) === -1) {
 						ignoreFiles.push(file.path);
 
 						return;
@@ -131,7 +133,7 @@ gulp.task(taskName, function(cb) {
 						.replace(new RegExp(relPathPrefix, 'g'), '');
 
 					// Re-enable autostart
-					content = content.replace('QUnit.config.autostart = false;', '');
+					content = content.replace('</body>', '<script>QUnit.config.autostart = true;</script></body>');
 
 					// Insert polyfills for PhantomJS
 					polyfills.forEach(function(filePath) {
