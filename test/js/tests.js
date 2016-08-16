@@ -5,19 +5,19 @@ var helpers = require('../../helpers/tests.js'),
 
 module.exports = {
 	before: function(done) {
-		this.timeout(5000);
+		this.timeout(10000);
 
 		var task = require('../../gulp/js/default.js'),
 
 			// Configuration of task should use fixtures as src and results directory in testcase folder as dest
 			// All paths should be relative to gulpfile.js
 			testTaskConfig = {
-				src: {
-					main: './test/js/fixtures/assets/js/main.js',
-					head: './test/js/fixtures/assets/js/head.js'
-				},
+				src: [
+					'./test/js/fixtures/assets/js/main.js'
+				],
 				srcBase: './test/js/fixtures/assets/js/',
-				dest: './test/js/results/assets/js/'
+				dest: './test/js/results/assets/js/',
+				destBase: './test/js/results/assets/js/'
 			};
 
 		// Calling the task function
