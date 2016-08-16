@@ -2,156 +2,147 @@
 
 /**
  * @function `gulp js`
- * @desc Generate `main.js` and `head.js` by concatenating their dependencies (using `gulp-resolve-dependencies`) and optionally minifying the result (using `uglifyJS`).
+ * @desc Use Webpack to transpile and bundle JavaScript sources. Add the `--webpackWatch` flag to use Webpack's built-in, faster file watcher while developing.
  */
 
-var gulp = require('gulp');
+var gulp = require('gulp'),
+	util = require('gulp-util');
 
 var taskName = 'js',
-		taskConfig = {
-			mainSrc: [
-				'./source/assets/js/main.js',
-				'./source/assets/js/head.js'
-			],
-			devSrc: [
-				'./source/assets/js/dev.js'
-			],
-			srcBase: './source/assets/js/',
-			dest: './build/assets/js/',
-			watch: [
-				'source/assets/js/**/*.js',
-				'source/assets/.tmp/**/*.js',
-				'source/modules/**/*.js',
-				'source/demo/modules/**/*.js',
-				'source/demo/modules/**/*.jsx',
-				'!source/modules/**/*.data.js',
-				'!source/demo/modules/**/*.data.js',
-				'!source/modules/**/*.mock.js',
-				'!source/demo/modules/**/*.mock.js'
-			]
-		},
-		task = function(config, cb) {
-			var helpers = require('require-dir')('../../helpers'),
-				plumber = require('gulp-plumber'),
-				size = require('gulp-size'),
-				livereload = require('gulp-livereload'),
-				util = require('gulp-util'),
-				glob = require('glob'),
-				sourcemaps = require('gulp-sourcemaps'),
-				concat = require('gulp-concat'),
-				webpack = require('gulp-webpack-sourcemaps'),
-				tap = require('gulp-tap'),
-				uglify = require('gulp-uglify'),
-				rename = require('gulp-rename'),
-				lazypipe = require('lazypipe'),
-				ignore = require('gulp-ignore'),
-				_ = require('lodash'),
-				path = require('path'),
-				merge = require('merge-stream');
+	taskConfig = {
+		src: [
+			'./source/assets/js/main.js',
+			'./source/assets/js/head.js'
+		],
+		devSrc: [
+			'./source/assets/js/dev.js'
+		],
+		srcBase: './source/assets/js/',
+		dest: './build/assets/js/',
+		destBase: './build/',
+		destAsyncSuffix: 'async/',
+		watch: util.env.webpackWatch ? null : [
+			'source/assets/js/**/*.js',
+			'source/assets/js/**/*.jsx',
+			'source/assets/.tmp/**/*.js',
+			'source/modules/**/*.js',
+			'source/modules/**/*.jsx',
+			'source/demo/modules/**/*.js',
+			'source/demo/modules/**/*.jsx',
+			'!source/modules/**/*.data.js',
+			'!source/demo/modules/**/*.data.js',
+			'!source/modules/**/*.mock.js',
+			'!source/demo/modules/**/*.mock.js'
+		]
+	},
+	task = function(config, cb) {
+		var helpers = require('require-dir')('../../helpers'),
+			_ = require('lodash'),
+			path = require('path'),
+			webpack = require('webpack'),
+			livereload = require('gulp-livereload');
 
-				var tasks,
-					src = config.src.map(function(pattern) {
-						return glob.sync(pattern);
-					});
+		var src = config.src,
+			compiler;
 
-				src = _.flatten(src);
+		// Optionally build dev scripts
+		if (util.env.dev) {
+			src = src.concat(config.devSrc);
+		}
 
-				// Optionally build dev scripts
-				if (util.env.dev) {
-					src = src.concat(config.devSrc);
+		compiler = webpack({
+			// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
+			entry: helpers.webpack.getEntries(src, config.srcBase),
+			resolve: {
+				alias: {
+					handlebars: 'handlebars/runtime.js'
+
+					// jquery: path.join(__dirname, '../../node_modules/jquery/dist/jquery.js')
 				}
+			},
+			module: {
+				loaders: [
+					{
+						test: /\.hbs$/,
+						loader: 'handlebars-loader'
+					},
+					{
+						test: /jquery\.js$/,
+						loader: 'expose?$!expose?jQuery'
+					},
+					{
+						test: /handlebars\.js$/,
+						loader: 'expose?Handlebars'
+					},
+					{
+						test: /(\.js|\.jsx)$/,
+						exclude: /node_modules/,
+						loader: 'babel-loader',
+						query: {
+							presets: ['es2015', 'react'],
+							plugins: [
+								// Work around some issues in IE
+								'transform-class-properties',
+								'transform-proto-to-assign',
+								['transform-es2015-classes', {
+									loose: true
+								}]
+							]
+						}
+					}
+				]
+			},
 
-				tasks = _.map(config.src, function(srcPath) {
-					var writeSourceMaps = lazypipe()
-							.pipe(sourcemaps.write, '.', {
-								includeContent: false,
-								sourceRoot: config.srcBase
-							}),
-						excludeSourcemaps = lazypipe()
-							.pipe(ignore.exclude, function(file) {
-								return path.extname(file.path) === '.map';
-							}),
+			// Minifiy in prod mode
+			plugins: [
 
-						minify = lazypipe()
-							.pipe(gulp.dest, config.dest)
-							.pipe(excludeSourcemaps)
-							.pipe(uglify, {
-								preserveComments: 'some'
-							})
-							.pipe(rename, {
-								suffix: '.min'
-							});
+			].concat(util.env.dev ? [] : [
+				new webpack.DefinePlugin({
+					'process.env': {
+						'NODE_ENV': JSON.stringify('production')
+					}
+				}),
+				new webpack.optimize.UglifyJsPlugin({
+					mangle: {
+						'keep_fnames': true
+					}
+				})
+			]),
+			output: {
+				path: config.dest,
+				filename: util.env.dev ? '[name].js' : '[name].min.js',
 
-					return gulp.src(srcPath, {
-						base: config.srcBase
-					})
-						.pipe(plumber())
-						.pipe(tap(function(file) {
-							// Add property for webpack
-							file.named = path.basename(file.path, path.extname(file.path));
-						}))
-						.pipe(sourcemaps.init())
-						.pipe(webpack({
-							resolve: {
-								alias: {
-									handlebars: 'handlebars/runtime.js',
-									jquery: path.join(__dirname, '../../node_modules/jquery/dist/jquery.js')
-								}
-							},
-							module: {
-								loaders: [
-									{
-										test: /\.hbs$/,
-										loader: 'handlebars-loader'
-									},
-									{
-										test: /jquery\.js$/,
-										loader: 'expose?$!expose?jQuery'
-									},
-									{
-										test: /handlebars\.js$/,
-										loader: 'expose?Handlebars'
-									},
-									{
-										test: /(\.js|\.jsx)$/,
-										exclude: /node_modules/,
-										loader: 'babel-loader',
-										query: {
-											presets: ['es2015', 'stage-0', 'react'],
-											plugins: [
-												'transform-class-properties',
-												'transform-proto-to-assign', // it looks like also this plugin is needed, taken from https://github.com/babel/babelify/issues/133#issuecomment-172392178
-												['transform-es2015-classes', {
-													loose: true
-												}]
-											]
-										}
-									}
-								]
-							}
-						}).on('error', function(error) {
-							helpers.errors({
-								task: taskName,
-								message: error.message
-							});
-						}).on('warning', function(warning) {
-							console.log(warning.message);
-						}))
-						.pipe(writeSourceMaps())
-						.pipe(util.env.dev ? util.noop() : minify())
-						.pipe(size({
-							title: taskName,
-							showFiles: true
-						}))
-						.pipe(gulp.dest(config.dest))
-						.pipe(excludeSourcemaps())
+				// Save async loaded files (using require.ensurce) in special dir
+				chunkFilename: config.destAsyncSuffix + (util.env.dev ? '[name].js' : '[name].min.js'),
 
-						// TODO: Not very reliable, seems to be triggered to early
-						.pipe(livereload());
-				});
+				// Tell webpack about the asset path structure in the browser to be able to load async files
+				publicPath: path.join('/', path.relative(config.destBase, config.dest), '/')
+			},
+			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null
+		});
 
-			merge(tasks).on('finish', cb);
-		};
+		if (util.env.webpackWatch) {
+			cb = _.once(cb);
+
+			compiler.watch({
+
+			}, function(err, stats) {
+				helpers.webpack.log(err, stats, taskName);
+
+				livereload.reload();
+
+				cb();
+			});
+		} else {
+			compiler.run(function(err, stats) {
+				helpers.webpack.log(err, stats, taskName);
+
+				livereload.reload();
+
+				cb();
+			});
+		}
+	};
 
 gulp.task(taskName, ['js:lint'], function(cb) {
 	return task(taskConfig, cb);

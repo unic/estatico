@@ -56,13 +56,10 @@ Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - dat
 Transform old `.json` data files to `.data.js`.
 
 ### `gulp js`
-Generate `main.js` and `head.js` by concatenating their dependencies (using `gulp-resolve-dependencies`) and optionally minifying the result (using `uglifyJS`).
+Use Webpack to transpile and bundle JavaScript sources. Add the `--webpackWatch` flag to use Webpack's built-in, faster file watcher while developing.
 
 ### `gulp js:lint`
 Lint JavaScript files (using `JSHint`).
-
-### `gulp js:lodash`
-Generate customized lodash build.
 
 ### `gulp js:mocks`
 Create static JSON data mocks
@@ -72,9 +69,6 @@ Generate customized Modernizr build (using `Customizr`, crawling through files a
 
 ### `gulp js:qunit`
 Run QUnit tests (using PhantomJS).
-
-### `gulp js:templates`
-Precompile handlebars templates.
 
 ### `gulp media:copy`
 Copy specific media files to build directory.
