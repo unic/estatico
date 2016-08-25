@@ -36,6 +36,7 @@ var taskName = 'js',
 				size = require('gulp-size'),
 				livereload = require('gulp-livereload'),
 				util = require('gulp-util'),
+				glob = require('glob'),
 				sourcemaps = require('gulp-sourcemaps'),
 				webpack = require('gulp-webpack-sourcemaps'),
 				tap = require('gulp-tap'),
@@ -47,14 +48,19 @@ var taskName = 'js',
 				path = require('path'),
 				merge = require('merge-stream');
 
-			config.src = config.mainSrc;
+				var tasks,
+					src = config.src.map(function(pattern) {
+						return glob.sync(pattern);
+					});
 
-			// Optionally build dev scripts
-			if (util.env.dev) {
-				config.src = config.src.concat(config.devSrc);
-			}
+				src = _.flatten(src);
 
-			var tasks = _.map(config.src, function(srcPath) {
+				// Optionally build dev scripts
+				if (util.env.dev) {
+					src = src.concat(config.devSrc);
+				}
+
+				tasks = _.map(config.src, function(srcPath) {
 					var writeSourceMaps = lazypipe()
 							.pipe(sourcemaps.write, '.', {
 								includeContent: false,
