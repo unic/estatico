@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp js`
- * @desc Use Webpack to transpile and bundle JavaScript sources. Add the `--webpackWatch` flag to use Webpack's built-in, faster file watcher while developing.
+ * @desc Use Webpack to transpile and bundle JavaScript sources. By default, Webpack's built-in, faster file watcher is used while developing. Add the `--skipWebpackWatch` flag to fall back to a simple gulp watcher.
  */
 
 var gulp = require('gulp'),
@@ -121,7 +121,7 @@ var taskName = 'js',
 			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null
 		});
 
-		if (util.env.webpackWatch) {
+		if (!util.env.skipWebpackWatch) {
 			cb = _.once(cb);
 
 			compiler.watch({

@@ -56,7 +56,7 @@ Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - dat
 Transform old `.json` data files to `.data.js`.
 
 ### `gulp js`
-Use Webpack to transpile and bundle JavaScript sources. Add the `--webpackWatch` flag to use Webpack's built-in, faster file watcher while developing.
+Use Webpack to transpile and bundle JavaScript sources. By default, Webpack's built-in, faster file watcher is used while developing. Add the `--skipWebpackWatch` flag to fall back to a simple gulp watcher.
 
 ### `gulp js:lint`
 Lint JavaScript files (using `JSHint`).
