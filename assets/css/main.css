@@ -480,7 +480,7 @@ th {
  *
  * Used in styleguide, e.g.
  */
-.icon_email:before, .icon_facebook:before, .icon_gplus:before, .icon_pinterest:before, .icon_twitter:before {
+.icon_twitter:before, .icon_email:before, .icon_facebook:before, .icon_gplus:before, .icon_pinterest:before {
   display: inline-block;
   font-family: "Icons";
   -webkit-font-smoothing: antialiased;
@@ -492,19 +492,19 @@ th {
   text-transform: none;
   line-height: 1; }
 
-.icon_email:before {
+.icon_twitter:before {
   content: ""; }
 
-.icon_facebook:before {
+.icon_email:before {
   content: ""; }
 
-.icon_gplus:before {
+.icon_facebook:before {
   content: ""; }
 
-.icon_pinterest:before {
+.icon_gplus:before {
   content: ""; }
 
-.icon_twitter:before {
+.icon_pinterest:before {
   content: ""; }
 
 /**
@@ -627,7 +627,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_media .iconfont:before {
   font-size: 10em; }
@@ -1087,7 +1087,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_googleplus:before {
   display: inline-block;
@@ -1100,7 +1100,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_twitter:before {
   display: inline-block;
@@ -1113,7 +1113,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_pinterest:before {
   display: inline-block;
@@ -1126,7 +1126,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_socialwidget .link.var_mail:before {
   display: inline-block;
@@ -1139,7 +1139,7 @@ nav ol {
   text-decoration: none;
   text-transform: none;
   line-height: 1;
-  content: ""; }
+  content: ""; }
 
 .mod_cookieconfirmation {
   display: none;
@@ -1184,5 +1184,42 @@ nav ol {
     background-color: rgba(128, 128, 0, 0.3);
     margin: 0.5em;
     padding: 1em; }
+
+.mod_cornerribbon {
+  background: 0 0;
+  padding: 0;
+  position: absolute;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  top: 0;
+  left: 0;
+  -webkit-transform: translatex(-50%) rotate(-45deg);
+          transform: translatex(-50%) rotate(-45deg);
+  color: #f8f8f8; }
+  .mod_cornerribbon:before {
+    content: '';
+    display: block;
+    padding-top: 50%; }
+  .mod_cornerribbon span {
+    display: block;
+    margin-left: -999px;
+    margin-right: -999px;
+    border-left: 999px solid transparent;
+    border-right: 999px solid transparent; }
+  .mod_cornerribbon > span {
+    background-color: #92B300;
+    padding: 0.41667rem; }
+  .mod_cornerribbon.var_bottom-left,
+  .mod_cornerribbon.var_bottom-right {
+    top: auto;
+    bottom: 0; }
+  .mod_cornerribbon.var_top-right,
+  .mod_cornerribbon.var_bottom-right {
+    left: auto;
+    right: 0; }
+  .mod_cornerribbon.var_top-right,
+  .mod_cornerribbon.var_bottom-left {
+    -webkit-transform: translatex(50%) rotate(45deg);
+            transform: translatex(50%) rotate(45deg); }
 
 /*# sourceMappingURL=../../assets/css/main.css.map */
