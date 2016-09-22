@@ -12,38 +12,64 @@ var taskName = 'build',
 
 gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../helpers'),
-		runSequence = require('run-sequence');
+		runSequence = require('run-sequence'),
+		util = require('gulp-util'),
+		_ = require('lodash'),
+		inquirer = require('inquirer');
 
-	// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
-	runSequence(
-		'clean',
-		[
-			'css:colors',
-			'css:fonts',
-			'js:lodash',
-			'js:templates',
-			'js:mocks',
-			'media:dataurls',
-			'media:iconfont',
-			'media:pngsprite'
-		],
-		'js:modernizr',
-		[
-			'html',
-			'js',
-			'css',
-			'media:copy',
-			'media:imageversions'
-		],
-		'js:qunit',
-		function(err) {
-			if (err) {
-				helpers.errors(err);
+	var callback = function(skipTests, cb) {
+			// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
+			var runTasks = [
+					'clean',
+					[
+						'css:colors',
+						'css:fonts',
+						'js:lodash',
+						'js:templates',
+						'js:mocks',
+						'media:dataurls',
+						'media:iconfont',
+						'media:pngsprite'
+					],
+					'js:modernizr',
+					[
+						'html',
+						'js',
+						'css',
+						'media:copy',
+						'media:imageversions'
+					],
+					'js:qunit',
+					function(err) {
+						if (err) {
+							helpers.errors(err);
+						}
+
+						cb();
+					}
+				];
+
+			if (skipTests) {
+				runTasks = _.without(runTasks, 'js:qunit');
 			}
 
-			cb();
-		}
-	);
+			runSequence.apply(this, runTasks);
+		};
+
+	if (util.env.interactive !== 'false') {
+		inquirer.prompt([
+			{
+				type: 'confirm',
+				name: 'runTests',
+				message: 'Do you want to run all QUnit tests before starting the server?',
+				default: true
+			}
+		], function(answers) {
+			callback(!answers.runTests, cb);
+		});
+	} else {
+		callback(util.env.skipTests && util.env.skipTests !== 'false', cb);
+	}
 });
 
 module.exports = {
