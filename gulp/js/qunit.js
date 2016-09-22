@@ -37,18 +37,22 @@ gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
 		path = require('path'),
 		_ = require('lodash'),
-		rename = require('gulp-rename'),
 		tap = require('gulp-tap'),
 		ignore = require('gulp-ignore'),
-		webpack = require('gulp-webpack-sourcemaps'),
+		webpack = require('webpack'),
 		qunit = require('gulp-qunit'),
 		del = require('del'),
 		glob = require('glob');
 
-	var srcTests = taskConfig.srcTests,
+	var srcTests = [],
 		ignoreFiles = [],
 		polyfills = [],
 		polyfillPathPrefix = path.relative(taskConfig.srcTemplatesBase, taskConfig.destTests);
+
+	// Resolve test paths
+	taskConfig.srcTests.forEach(function(fileGlob) {
+		srcTests = srcTests.concat(glob.sync(fileGlob));
+	});
 
 	// Add polyfills to files to be copied
 	srcTests = srcTests.concat(taskConfig.srcPolyfills);
@@ -59,78 +63,65 @@ gulp.task(taskName, function(cb) {
 	});
 
 	// Prepare test-config
-	gulp.src(taskConfig.srcQUnit, {
-			base: taskConfig.srcBase
-		})
-		.pipe(webpack({
-			module: {
-				loaders: [
-					{
-						test: /qunit\.js$/,
-						loader: 'expose?QUnit'
-					},
-					{
-						test: /\.css$/,
-						loader: 'style-loader!css-loader'
-					}
-				]
-			},
-			externals: {
-				'jquery': 'jQuery'
-			}
-		}, null, function(err, stats) {
-			stats.compilation.errors.forEach(function(error) {
-				helpers.errors({
-					message: error.message
-				});
-			});
+	webpack({
+		// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
+		entry: helpers.webpack.getEntries([taskConfig.srcQUnit], taskConfig.srcBase),
+		module: {
+			loaders: [
+				{
+					test: /qunit\.js$/,
+					loader: 'expose?QUnit'
+				},
+				{
+					test: /\.css$/,
+					loader: 'style-loader!css-loader'
+				}
+			]
+		},
+		externals: {
+			'jquery': 'jQuery'
+		},
+		output: {
+			path: taskConfig.destTests,
+			filename: '[name].js'
+		}
+	}, function(err, stats) {
+		helpers.webpack.log(err, stats, taskName);
 
-			stats.compilation.warnings.forEach(function(error) {
-				console.log(error.message);
-			});
-		}))
-		.pipe(gulp.dest(taskConfig.destTests));
+		// Copy test files
+		webpack({
+			// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
+			entry: helpers.webpack.getEntries(srcTests, taskConfig.srcBase, function(key) {
+				// Move files from node_modules into target dir, too
+				return key.replace(path.join('..', 'node_modules'), 'node_modules');
+			}),
 
-	// Copy test files
-	gulp.src(srcTests, {
-		base: taskConfig.srcBase
-	})
-		.pipe(webpack({
 			externals: {
 				'qunitjs': 'QUnit',
 				'jquery': 'jQuery'
+			},
+			output: {
+				path: taskConfig.destTests,
+				filename: '[name].js'
 			}
-		}, null, function(err, stats) {
-			stats.compilation.errors.forEach(function(error) {
-				helpers.errors({
-					message: error.message
-				});
-			});
+		}, function(err, stats) {
+			helpers.webpack.log(err, stats, taskName);
 
-			stats.compilation.warnings.forEach(function(error) {
-				console.log(error.message);
-			});
-		}))
-		.pipe(rename(function(filePath) {
-			// Move node_modules into the same dest dir
-			filePath.dirname = filePath.dirname.replace(path.join('..', 'node_modules'), 'node_modules');
-		}))
-		.pipe(gulp.dest(taskConfig.destTests))
-		.on('finish', function() {
-			// Run tests
 			gulp.src(taskConfig.srcTemplates, {
 				base: taskConfig.srcTemplatesBase
 			})
 				.pipe(tap(function(file) {
 					var content = file.contents.toString(),
-						relPathPrefix = path.relative(file.path, taskConfig.srcTemplatesBase);
+						relPathPrefix = path.relative(file.path, taskConfig.srcTemplatesBase),
+						QUnitPath = taskConfig.srcQUnit.replace(taskConfig.srcBase, '');
 
 					relPathPrefix = relPathPrefix
 						.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
-						.replace(/\.\.$/, ''); // Remove trailing ..
+						.replace(/\.\.$/, '') // Remove trailing ..
+						.replace(new RegExp(/\./g), '\\.').replace(new RegExp(/\//g), '\\/'); // Escape special characters
 
 					// Ignore files without a QUnit script reference
-					if (content.search(taskConfig.srcQUnit) === -1) {
+					if (content.search(QUnitPath) === -1) {
 						ignoreFiles.push(file.path);
 
 						return;
@@ -142,7 +133,7 @@ gulp.task(taskName, function(cb) {
 						.replace(new RegExp(relPathPrefix, 'g'), '');
 
 					// Re-enable autostart
-					content = content.replace('QUnit.config.autostart = false;', '');
+					content = content.replace('</body>', '<script>QUnit.config.autostart = true;</script></body>');
 
 					// Insert polyfills for PhantomJS
 					polyfills.forEach(function(filePath) {
@@ -167,6 +158,7 @@ gulp.task(taskName, function(cb) {
 					del(taskConfig.destTemplates, cb);
 				});
 		});
+	});
 });
 
 module.exports = {
