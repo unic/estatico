@@ -5,8 +5,11 @@
 ### `gulp`
 Create static webserver with livereload functionality, serve build directory on port 9000, watch source files.
 
-* Prompts whether the `build` task should run in advance.
-* For non-interactive mode: `gulp --interactive=false --skipBuild`
+* Prompts whether the `build` task should run in advance (Default: Yes).
+* Skip build in non-interactive mode: `gulp --interactive=false --skipBuild`
+
+* Prompts whether tests should run (Default: Yes).
+* Skip tests in non-interactive mode: `gulp --interactive=false --skipTests`
 
 ## Generic options
 
@@ -109,4 +112,3 @@ Rename module or page
 
 * Prompts for type and name of module to be copied as well as the new name.
 * Non-interactive mode: `gulp scaffold:rename --interactive=false --type={Module|Page|Demo Module|Demo Page} --name=helloworld --newName=helloworld2`
-
