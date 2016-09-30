@@ -37,8 +37,7 @@ gulp.task(taskName, function(cb) {
 						'media:copy',
 						'media:imageversions'
 					],
-
-					// 'js:qunit', // ToDo: fix me
+					'js:qunit',
 					function(err) {
 						if (err) {
 							helpers.errors(err);
