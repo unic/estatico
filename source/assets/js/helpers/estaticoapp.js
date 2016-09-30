@@ -68,15 +68,14 @@ class EstaticoApp {
 					modules = $element.data('init').split(' ');
 
 				modules.forEach((moduleName) => {
-					if (moduleName && !$element.data(moduleName + '-instance') &&
-						estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
+					if (estatico.modules[moduleName] && !$element.data(moduleName + '-instance') && estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
 						let Module = this.modules[moduleName],
 							_metaData = $element.data(moduleName + '-data') || {},
 							_metaOptions = $element.data(moduleName + '-options') || {},
 							moduleInstance = new Module($element, _metaData, _metaOptions);
 
 						estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
-						$(element).data(moduleName + '-instance', moduleInstance);
+						$element.data(moduleName + '-instance', moduleInstance);
 					}
 				});
 			});
