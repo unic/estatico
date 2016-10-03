@@ -48,12 +48,14 @@ Works with JSON, too. Just replace the HTML file with a JSON one (containing "co
 
 ### `gulp css`
 Compile Sass to CSS (using `LibSass`), run autoprefixer on the generated CSS.
+By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. This can be disabled by setting `returnChangedFileOnWatch` in the task config to false.
 
 ### `gulp css:fonts`
 Encode *.otf or *.ttf or *.woff fonts to base64 data
 
 ### `gulp html`
 Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
+By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. This can be disabled by setting `returnChangedFileOnWatch` in the task config to false.
 
 ### `gulp html:migrate`
 Transform old `.json` data files to `.data.js`.

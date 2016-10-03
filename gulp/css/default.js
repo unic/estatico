@@ -3,6 +3,7 @@
 /**
  * @function `gulp css`
  * @desc Compile Sass to CSS (using `LibSass`), run autoprefixer on the generated CSS.
+ * By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. This can be disabled by setting `returnChangedFileOnWatch` in the task config to false.
  */
 
 var gulp = require('gulp');
@@ -31,9 +32,10 @@ var taskName = 'css',
 		],
 		plugins: {
 			autoprefixer: 'last 2 version'
-		}
+		},
+		returnChangedFileOnWatch: true
 	},
-	task = function(config, cb) {
+	task = function(config, cb, changedFile) {
 		var helpers = require('require-dir')('../../helpers'),
 			plumber = require('gulp-plumber'),
 			size = require('gulp-size'),
@@ -47,7 +49,9 @@ var taskName = 'css',
 			rename = require('gulp-rename'),
 			lazypipe = require('lazypipe'),
 			ignore = require('gulp-ignore'),
-			path = require('path');
+			path = require('path'),
+			through = require('through2'),
+			fs = require('fs');
 
 		// Optionally build dev styles
 		if (util.env.dev) {
@@ -76,6 +80,49 @@ var taskName = 'css',
 		gulp.src(config.src, {
 			base: config.srcBase
 		})
+			.pipe(through.obj(function(file, enc, done) {
+				if (!changedFile) {
+					this.push(file);
+					return done();
+				}
+
+				// Create dependency graph of currently piped file
+				var dependencyGraph = new helpers.dependencygraph(file.path, {
+						pattern: /@import "(.*?)"/g,
+						resolvePath: function(match) {
+							var resolvedPath = path.resolve('./source/assets/css', match + '.scss'),
+								prefixedResolvedPath;
+
+							// Retry with leading underscore if not found
+							if (!fs.existsSync(resolvedPath)) {
+								prefixedResolvedPath = resolvedPath.replace(path.basename(resolvedPath), '_' + path.basename(resolvedPath));
+
+								// Retry with .css extensions if still not found
+								if (!fs.existsSync(prefixedResolvedPath)) {
+									resolvedPath = resolvedPath.replace(path.extname(resolvedPath), '.css');
+								} else {
+									resolvedPath = prefixedResolvedPath;
+								}
+							}
+
+							if (!fs.existsSync(resolvedPath)) {
+								util.log(util.colors.cyan(taskName), util.colors.red(resolvedPath + ' not found'));
+							}
+
+							return resolvedPath;
+						}
+					});
+
+				// Check if the changed file is part or the currently piped file's dependency graph
+				// Remove file from pipeline otherwise
+				if (dependencyGraph.contains(changedFile)) {
+					// util.log(util.colors.cyan(taskName), 'Rebuilding ' + file.path + ' ...');
+
+					this.push(file);
+				}
+
+				done();
+			}))
 			.pipe(plumber())
 			.pipe(sourcemaps.init())
 			.pipe(libSass.sync({

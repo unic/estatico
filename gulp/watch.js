@@ -7,15 +7,16 @@
  * * Fall back to polling (e.g. in Vagrant): `gulp --pollWatch=true`
  */
 
-var gulp = require('gulp'),
-	watch = require('gulp-watch'),
-	util = require('gulp-util');
+var gulp = require('gulp');
 
 var taskName = 'watch',
 	taskConfig = {};
 
 gulp.task(taskName, function() {
 	var _ = require('lodash'),
+		watch = require('gulp-watch'),
+		util = require('gulp-util'),
+		prettyTime = require('pretty-hrtime'),
 		tasks = require('require-dir')('./', {
 			recurse: true
 		});
@@ -27,8 +28,27 @@ gulp.task(taskName, function() {
 					if (config.taskConfig.watch) {
 						watch(config.taskConfig.watch, {
 							usePolling: !!(util.env.pollWatch && util.env.pollWatch !== 'false')
-						}, function() {
-							gulp.start(config.taskName);
+						}, function(file) {
+							// Explicitly run task function and provide changed file as parameter if returnChangedFileOnWatch is set
+							// Log duration analogously to how gulp.start would do it
+							if (config.taskConfig.returnChangedFileOnWatch && config.task) {
+								var start = process.hrtime(),
+									end,
+									time;
+
+								util.log('Starting', '\'' + util.colors.cyan(config.taskName) + '\'...');
+
+								config.task(config.taskConfig, function() {
+									end = process.hrtime(start);
+									time = prettyTime(end);
+
+									util.log('Finished', '\'' + util.colors.cyan(config.taskName) + '\'', 'after', util.colors.magenta(time));
+								}, file.path);
+
+							// Just trigger task otherwise
+							} else {
+								gulp.start(config.taskName);
+							}
 						});
 					}
 				} else {
