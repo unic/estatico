@@ -27,4 +27,17 @@ To use an icon from SVG sprite:
 		<svg class="{{class}}" focusable="false">
 			<use xlink:href="#{{icon}}" />
 		</svg>
-	 ```
+	```
+
+
+## Alternative: Simplified approach without JavaScript
+
+Instead of defining sprites in the `data-svgsprites-options` of the body, using `svgsprites_loader.js` and referencing the icons relatively, they can be referenced explicitly:
+
+	```html
+		<svg class="{{class}}" focusable="false">
+			<use xlink:href="/assets/media/svg/base.svg#{{icon}}" />
+		</svg>
+	```
+
+This simplifies the setup a lot, however, the backend would need to update the `xlink:href` attribute whenever an icon is moved between sprites, e.g.
