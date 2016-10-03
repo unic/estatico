@@ -21,10 +21,10 @@ To use an icon from SVG sprite:
 		<body data-svgsprites-options="['../../assets/media/svg/base.svg',{{path to needed group}}]">
 	```
 
-2. Add the html snippet below to the module or page. Replace `iconname` with the name of the icon you want to use.
+2. Add the html snippet below to the module or page. Replace `icon` with the name of the icon you want to use and `class` with whatever CSS class you need.
 
 	```html
-		<svg class="mod_svgsprite_icon var_{{iconname}}" focusable="false">
-		<use xlink:href="#{{iconname}}" />
+		<svg class="{{class}}" focusable="false">
+			<use xlink:href="#{{icon}}" />
 		</svg>
 	 ```

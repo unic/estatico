@@ -1,15 +1,15 @@
 .mod_svgsprite {
 	padding: 0 50px;
 
-	&_list {
+	.list {
 		@include resetList;
 	}
 
-	&_list_item {
+	.item {
 		@include clearfix;
 	}
 
-	&_icon {
+	.icon {
 		width: 32px;
 		height: 32px;
 		padding: 0;
