@@ -9,8 +9,7 @@
 
 'use strict';
 
-var loadSvgSprites = function() {
-
+function loadSvgSprites() {
 	var id = 'mod_svgsprites',
 		oReq,
 		spritesToLoad,
@@ -18,7 +17,6 @@ var loadSvgSprites = function() {
 		spriteContainer = document.createElement('div');
 
 	setTimeout(function() {
-
 		spritesToLoad = JSON.parse(document.body.getAttribute('data-svgsprites-options'));
 		spritesAmount = spritesToLoad.length;
 
@@ -45,11 +43,11 @@ var loadSvgSprites = function() {
 		 */
 		function RequestSVG(url) {
 			var oReq = getXMLHttpRequest(),
-				$container = document.getElementById(id),
+				container = document.getElementById(id),
 				handler = function() {
 					if (oReq.readyState === 4) { // complete
 						if (oReq.status === 200) {
-							$container.innerHTML = $container.innerHTML + oReq.responseText;
+							container.innerHTML = container.innerHTML + oReq.responseText;
 						}
 					}
 				};
@@ -76,34 +74,18 @@ var loadSvgSprites = function() {
 				spriteContainer.setAttribute('style', 'display: none');
 
 				document.body.appendChild(spriteContainer);
+
 				while (i--) {
 					request = new RequestSVG(spritesToLoad[i]);
 				}
 
-				if (window.requestAnimationFrame) {
-					window.requestAnimationFrame(function() {
-						html.setAttribute('class', html.getAttribute('class') + ' svgSpritesLoaded');
-					});
-				} else {
-					html.setAttribute('class', html.getAttribute('class') + ' svgSpritesLoaded');
-				}
-
+				html.setAttribute('class', html.getAttribute('class') + ' svgSpritesLoaded'); // word of caution: the SVG files might not really be loaded yet, this is rather about having them requested (for now)
 			}
 		}
-
 	}, 100);
-
-};
+}
 
 /**
  * Load the SVG Sprite
  */
-
 document.addEventListener('DOMContentLoaded', loadSvgSprites());
-
-// Alternative to DOMContentLoaded event
-/* document.onreadystatechange = function() {
-	if (document.readyState === 'complete') {
-		loadSvgSprites();
-	}
-} */
