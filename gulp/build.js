@@ -62,7 +62,7 @@ gulp.task(taskName, function(cb) {
 				message: 'Do you want to run all QUnit tests before starting the server?',
 				default: true
 			}
-		], function(answers) {
+		]).then(function(answers) {
 			callback(!answers.runTests, cb);
 		});
 	} else {

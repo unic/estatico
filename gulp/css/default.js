@@ -41,7 +41,8 @@ var taskName = 'css',
 			util = require('gulp-util'),
 			sourcemaps = require('gulp-sourcemaps'),
 			libSass = require('gulp-sass'),
-			autoprefixer = require('gulp-autoprefixer'),
+			postCSS = require('gulp-postcss'),
+			autoprefixer = require('autoprefixer'),
 			cssMinify = require('gulp-minify-css'),
 			rename = require('gulp-rename'),
 			lazypipe = require('lazypipe'),
@@ -80,7 +81,9 @@ var taskName = 'css',
 			.pipe(libSass.sync({
 				includePaths: config.include
 			}).on('error', helpers.errors))
-			.pipe(autoprefixer(config.plugins.autoprefixer).on('error', helpers.errors))
+			.pipe(postCSS([
+				autoprefixer(config.plugins.autoprefixer)
+			]).on('error', helpers.errors))
 			.pipe(writeSourceMaps())
 			.pipe(util.env.dev ? util.noop() : minify())
 			.pipe(size({

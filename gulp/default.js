@@ -56,7 +56,7 @@ gulp.task(taskName, function(cb) {
 				message: 'Do you want to create a complete build before starting the server?' + (!util.env.skipWebpackWatch ? ' JS tasks involving webpack will run anyway unless using --skipWebpackWatch' : ''),
 				default: true
 			}
-		], function(answers) {
+		]).then(function(answers) {
 			callback(!answers.createBuild, cb);
 		});
 	} else {

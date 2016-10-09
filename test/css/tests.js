@@ -33,6 +33,8 @@ module.exports = {
 	after: function(done) {
 
 		// Removing temporary results directory after test execution
-		del(__dirname + '/results', done);
+		del(__dirname + '/results').then(function() {
+			done();
+		});
 	}
 };

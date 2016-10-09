@@ -24,6 +24,7 @@ var taskName = 'html',
 			'source/demo/modules/**/*.hbs',
 			'source/preview/**/*.hbs'
 		],
+		partialPathBase: './source',
 		dest: './build/',
 		watch: [
 			'source/*.hbs',
@@ -59,8 +60,7 @@ gulp.task(taskName, function(cb) {
 		// Format HTML (disabled due to incorrect resulting indentation)
 		// prettify = require('gulp-prettify'),
 		_ = require('lodash'),
-		handlebars = require('gulp-hb'),
-		Handlebars = require('handlebars');
+		handlebars = require('gulp-hb');
 
 	var modulePreviewTemplate;
 
@@ -91,12 +91,12 @@ gulp.task(taskName, function(cb) {
 				moduleTemplate = file.contents.toString();
 				modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(taskConfig.srcModulePreview, 'utf8');
 
-				data.demo = Handlebars.compile(moduleTemplate)(data);
+				data.demo = helpers.handlebars.compile(moduleTemplate)(data);
 
 				// Compile variants
 				if (data.variants) {
 					data.variants = data.variants.map(function(variant) {
-						variant.demo = Handlebars.compile(moduleTemplate)(variant);
+						variant.demo = helpers.handlebars.compile(moduleTemplate)(variant);
 
 						return variant;
 					});
@@ -120,7 +120,23 @@ gulp.task(taskName, function(cb) {
 		}))
 		.pipe(plumber())
 		.pipe(handlebars({
+			handlebars: helpers.handlebars,
 			partials: taskConfig.partials,
+			parsePartialName: function(options, file) {
+				var filePath = file.path;
+
+				// Use forward slashes on every OS
+				filePath = filePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
+
+				// Relative to base
+				filePath = path.relative(taskConfig.partialPathBase, filePath);
+
+				// Remove extension
+				filePath = filePath.replace(path.extname(filePath), '');
+
+				return filePath;
+			},
+
 			bustCache: true,
 			dataEach: function(context, file) {
 				return file.data;

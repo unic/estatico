@@ -140,7 +140,7 @@ module.exports = {
 							return true;
 						})
 					}
-				], function(answers) {
+				]).then(function(answers) {
 					resolve(answers.type);
 				});
 			} else if (env) {
@@ -177,7 +177,7 @@ module.exports = {
 						message: 'Which one?',
 						choices: getTargetInquirerOptions(targets, allowRecursive)
 					}
-				], function(answers) {
+				]).then(function(answers) {
 					resolve(answers.target);
 				});
 			} else if (!util.env.name) {
@@ -232,7 +232,7 @@ module.exports = {
 							}
 						}
 					}
-				], function(answers) {
+				]).then(function(answers) {
 					name = getSanitizedName(answers.name, options.allowUnderscores);
 
 					resolve({
@@ -279,7 +279,7 @@ module.exports = {
 						message: 'Do you want me to create and register a SCSS file?',
 						default: true
 					}
-				], function(answers) {
+				]).then(function(answers) {
 					resolve(answers);
 				});
 			} else {

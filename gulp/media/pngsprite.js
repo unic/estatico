@@ -28,6 +28,8 @@ var taskName = 'media:pngsprite',
 gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
 		plumber = require('gulp-plumber'),
+		imagemin = require('gulp-imagemin'),
+		buffer = require('vinyl-buffer'),
 		size = require('gulp-size'),
 		spritesmith = require('gulp.spritesmith'),
 		tap = require('gulp-tap'),
@@ -36,14 +38,16 @@ gulp.task(taskName, function(cb) {
 
 	var spriteData = {},
 		streams = gulp.src(taskConfig.src)
-		.pipe(spritesmith({
-			imgName: 'sprite.png',
-			cssName: 'sprite.json',
-			imgPath: taskConfig.relImg,
-			cssFormat: 'json'
-		}));
+			.pipe(spritesmith({
+				imgName: 'sprite.png',
+				cssName: 'sprite.json',
+				imgPath: taskConfig.relImg,
+				cssFormat: 'json'
+			}));
 
 	streams.img
+		.pipe(buffer())
+		.pipe(imagemin())
 		.pipe(size({
 			title: taskName
 		}))
@@ -74,6 +78,7 @@ gulp.task(taskName, function(cb) {
 			gulp.src(taskConfig.srcStyles)
 				.pipe(plumber())
 				.pipe(handlebars({
+					handlebars: helpers.handlebars,
 					data: {
 						images: images
 					},

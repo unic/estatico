@@ -1,1 +1,1 @@
-{"version":3,"sources":["test/css/fixtures/subfolder/includefile.scss","test/css/fixtures/main.scss"],"names":[],"mappings":"AAAA,EACC,MAAA,cCEA,kBAAA,WAAA,UAAA","file":"assets/css/main.min.css","sourceRoot":"./test/css/fixtures/"}
+{"version":3,"sources":["test/css/fixtures/assets/css/subfolder/includefile.scss","test/css/fixtures/assets/css/main.scss"],"names":[],"mappings":"AAAA,EACC,MAAA,cCEA,UAAA","file":"assets/css/main.min.css","sourceRoot":"./test/css/fixtures/"}
