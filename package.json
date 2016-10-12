@@ -93,6 +93,9 @@
     "vinyl-paths": "1.0.0"
   },
   "scripts": {
-    "test": "mocha --ui exports"
+    "test": "mocha --ui exports",
+    "start": "gulp --dev",
+    "build": "gulp build",
+    "gulp": "gulp"
   }
 }

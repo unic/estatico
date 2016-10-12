@@ -20,10 +20,6 @@ Install dependencies:
 ```shell
 npm install
 # Shortcut: npm i
-
-# Install Gulp globally (optional)
-npm install -g gulp
-# Shortcut: npm i -g gulp
 ```
 
 ## Options
@@ -56,16 +52,29 @@ nvm use
 Start server. Access on http://localhost:9000 (or http://192.168.33.10:9000 when using Vagrant):
 
 ```shell
-gulp --dev
-# local version: node node_modules/.bin/gulp --dev
+npm start
+# This will run "gulp --dev"
 # dev flag makes sure the server and watcher don't crash on error
 ```
 
 Build:
 
 ```shell
-gulp build
-# local version: node node_modules/.bin/gulp build
+npm run build
+
+# Dev version:
+npm run build -- --dev
+```
+
+Run specific tasks like `css`:
+
+```shell
+npm run gulp -- css
+# Alternative: Install gulp globally and run "gulp css"
+
+# Dev version
+npm run gulp -- css --dev
+# Alternative: Install gulp globally and run "gulp css --dev"
 ```
 
 Install new npm dependency "foo" (used for client-side code, saved to `dependencies`):

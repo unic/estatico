@@ -37,11 +37,8 @@ cd estatico
 # Install dependencies
 npm install
 
-# Install Gulp globally if not already present
-npm install -g gulp
-
 # Run
-gulp --dev
+npm start
 ```
 
 ## Documentation
