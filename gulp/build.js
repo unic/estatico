@@ -3,6 +3,9 @@
 /**
  * @function `gulp build`
  * @desc Create build by running every HTML, CSS, JavaScript and media task.
+ *
+ * * Prompts whether the `js:qunit` task should run in the end (default: yes).
+ * * For non-interactive mode: `gulp --interactive=false --skipTests`
  */
 
 var gulp = require('gulp');
@@ -61,7 +64,7 @@ gulp.task(taskName, function(cb) {
 			{
 				type: 'confirm',
 				name: 'runTests',
-				message: 'Do you want to run all QUnit tests before starting the server?',
+				message: 'Do you want to run all QUnit tests in the end?',
 				default: true
 			}
 		], function(answers) {

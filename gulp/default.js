@@ -4,7 +4,7 @@
  * @function `gulp`
  * @desc Create static webserver with livereload functionality, serve build directory on port 9000, watch source files.
  *
- * * Prompts whether the `build` task should run in advance.
+ * * Prompts whether the `build` task should run in advance (default: yes).
  * * For non-interactive mode: `gulp --interactive=false --skipBuild`
  */
 

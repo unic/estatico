@@ -5,11 +5,8 @@
 ### `gulp`
 Create static webserver with livereload functionality, serve build directory on port 9000, watch source files.
 
-* Prompts whether the `build` task should run in advance (Default: Yes).
-* Skip build in non-interactive mode: `gulp --interactive=false --skipBuild`
-
-* Prompts whether tests should run (Default: Yes).
-* Skip tests in non-interactive mode: `gulp --interactive=false --skipTests`
+* Prompts whether the `build` task should run in advance (default: yes).
+* For non-interactive mode: `gulp --interactive=false --skipBuild`
 
 ## Generic options
 
@@ -19,6 +16,9 @@ Create static webserver with livereload functionality, serve build directory on 
 
 ### `gulp build`
 Create build by running every HTML, CSS, JavaScript and media task.
+
+* Prompts whether the `js:qunit` task should run in the end (default: yes).
+* For non-interactive mode: `gulp --interactive=false --skipTests`
 
 ### `gulp clean`
 Remove build and temp folders.
