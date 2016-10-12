@@ -34,11 +34,15 @@ Estático has been born as a result of a collective work of our frontend team. W
 git clone https://github.com/unic/estatico.git
 cd estatico
 
+# Make sure to use correct Node version, e.g. using nvm (see docs/Setup_and_Usage.md)
+
+# Install yarn if not already present: npm install -g yarn
+
 # Install dependencies
-npm install
+yarn
 
 # Run
-npm start
+yarn start
 ```
 
 ## Documentation
