@@ -125,14 +125,14 @@ gulp.task(taskName, function(cb) {
 			parsePartialName: function(options, file) {
 				var filePath = file.path;
 
-				// Use forward slashes on every OS
-				filePath = filePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
-
 				// Relative to base
 				filePath = path.relative(taskConfig.partialPathBase, filePath);
 
 				// Remove extension
 				filePath = filePath.replace(path.extname(filePath), '');
+
+				// Use forward slashes on every OS
+				filePath = filePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
 
 				return filePath;
 			},
