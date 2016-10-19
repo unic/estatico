@@ -148,15 +148,15 @@ class SlideShow extends EstaticoModule {
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
 		WindowEventListener.addDebouncedResizeListener((originalEvent, event) => {
 			this.logger(event, originalEvent);
-		});
+		}, this.uuid);
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
 		WindowEventListener.addDebouncedScrollListener((originalEvent, event) => {
 			this.logger(event, originalEvent);
-		});
+		}, this.uuid);
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
-		MediaQuery.addMQChangeListener(this.resize.bind(this));
+		MediaQuery.addMQChangeListener(this.resize.bind(this), this.uuid);
 	}
 
 	_fetchSlides() {

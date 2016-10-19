@@ -11,25 +11,12 @@ var moduleName = 'slideshow',
 QUnit.module('slideshow', {
 	setup: function() {
 		instance = $node.data(moduleName + '-instance');
+		instance.name = moduleName;
 	},
 
 	teardown: function() {
 		instance.destroy();
-		
-		// TODO: Fix: Use module's destroy method after fixing
-		$node.removeData(moduleName + '-instance');
-
-		delete estatico.modules[moduleName].instances[instance.uuid];
-
-		// Re-init
-		// TODO: Make this reusable in estaticoapp.js
-		var Module = estatico.modules[moduleName].Class,
-			_metaData = $node.data(moduleName + '-data') || {},
-			_metaOptions = $node.data(moduleName + '-options') || {},
-			moduleInstance = new Module($node, _metaData, _metaOptions);
-
-		estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
-		$node.data(moduleName + '-instance', moduleInstance);
+		estatico.helpers.initModule(moduleName, $node);
 	}
 });
 
@@ -39,26 +26,27 @@ QUnit.test('Test correct plugin registration', function(assert) {
 	assert.equal(typeof instance, 'object', 'Plugin instance is an object');
 });
 
-// TODO: Figure out how resize events work and test accordingly
 QUnit.test('Test correct plugin init', function(assert) {
-	QUnit.expect(4);
+	QUnit.expect(7);
 
 	var $buttons = $node.find('button[data-' + moduleName + ']'),
 		events = $._data($node.get(0), 'events') || {},
 		clickEvents = $.grep(events.click || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		});
+		}),
 
-		// docEvents = $._data(document, 'events'),
-		// resizeEvent = $.grep(docEvents[estatico.events.resize.key.split('.')[0]] || [], function(event) {
-		// 	return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		// }),
-		// scrollEvent = $.grep(docEvents[estatico.events.scroll.key.split('.')[0]] || [], function(event) {
-		// 	return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		// }),
-		// mqEvent = $.grep(docEvents[estatico.events.mq.key.split('.')[0]] || [], function(event) {
-		// 	return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		// });
+		docEvents = $._data(document, 'events'),
+		resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
+			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
+		}),
+
+		scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
+			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
+		}),
+
+		mqEvent = $.grep(docEvents[estatico.events.mq.split('.')[0]] || [], function(event) {
+			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
+		});
 
 	assert.equal($buttons.length, 2, 'Two buttons found');
 
@@ -67,14 +55,13 @@ QUnit.test('Test correct plugin init', function(assert) {
 	assert.equal(events.click[0].selector.toLowerCase(), '[data-' + moduleName + '="prev"]', 'Prev button event reporting correct selector');
 	assert.equal(events.click[1].selector.toLowerCase(), '[data-' + moduleName + '="next"]', 'Next button event reporting correct selector');
 
-	// assert.equal(resizeEvent.length, 1, 'Resize event set');
-	// assert.equal(scrollEvent.length, 1, 'Scroll event set');
-	// assert.equal(mqEvent.length, 1, 'Media-query event set');
+	assert.equal(resizeEvent.length, 1, 'Resize event set');
+	assert.equal(scrollEvent.length, 1, 'Scroll event set');
+	assert.equal(mqEvent.length, 1, 'Media-query event set');
 });
 
-// TODO: Figure out how resize events work and test accordingly
 QUnit.test('Test correct plugin destroy', function(assert) {
-	QUnit.expect(2);
+	QUnit.expect(5);
 
 	instance.destroy();
 
@@ -82,26 +69,28 @@ QUnit.test('Test correct plugin destroy', function(assert) {
 		events = $._data($node.get(0), 'events') || {},
 		clickEvents = $.grep(events.click || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		});
+		}),
 
-		// docEvents = $._data(document, 'events'),
-		// resizeEvent = $.grep(docEvents[estatico.events.resize.key.split('.')[0]] || [], function(event) {
-		// 	return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		// }),
-		// scrollEvent = $.grep(docEvents[estatico.events.scroll.key.split('.')[0]] || [], function(event) {
-		// 	return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		// }),
-		// mqEvent = $.grep(docEvents[estatico.events.mq.key.split('.')[0]] || [], function(event) {
-		// 	return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
-		// });
+		docEvents = $._data(document, 'events'),
+		resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
+			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
+		}),
+
+		scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
+			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
+		}),
+
+		mqEvent = $.grep(docEvents[estatico.events.mq.split('.')[0]] || [], function(event) {
+			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
+		});
 
 	assert.equal($buttons.length, 0, 'No more button found');
 
 	assert.equal(clickEvents.length, 0, 'No more click events attached to slideshow');
 
-	// assert.equal(resizeEvent.length, 0, 'Resize event unset');
-	// assert.equal(scrollEvent.length, 0, 'Scroll event unset');
-	// assert.equal(mqEvent.length, 0, 'Media-query event unset');
+	assert.equal(resizeEvent.length, 0, 'Resize event unset');
+	assert.equal(scrollEvent.length, 0, 'Scroll event unset');
+	assert.equal(mqEvent.length, 0, 'Media-query event unset');
 });
 
 QUnit.test('Test whether clicking prev button updates "currentItem" property', function(assert) {

@@ -25,7 +25,6 @@
  */
 
 import $ from '../../../../node_modules/jquery/dist/jquery';
-import WindowEventListener from './events';
 
 class MediaQuery {
 	constructor() {
@@ -39,17 +38,25 @@ class MediaQuery {
 
 		this.breakpoints = this.parseCssProperty(this.breakpointsString);
 		this.currentBreakpoint = this.parseCssProperty(this.currentBreakpointString);
-	}
 
-	addMQChangeListener(callback) {
-		WindowEventListener.addDebouncedResizeListener(() => {
+		// Save to global namespace
+		$.extend(true, estatico, { events: {} });
+		estatico.events.mq = 'mq.estatico';
+
+		this.$document.on('debouncedresize.estatico.mq', () => {
 			var breakpoint = this.parseCssProperty(this.$title.css('font-family')),
 				prevBreakpoint = this.currentBreakpoint;
 
 			if (breakpoint && breakpoint.name !== this.currentBreakpoint.name) {
 				this.currentBreakpoint = breakpoint;
-				callback(prevBreakpoint, breakpoint);
+				this.$document.triggerHandler(estatico.events.mq, [prevBreakpoint, breakpoint]);
 			}
+		});
+	}
+
+	addMQChangeListener(callback, uuid) {
+		this.$document.on(estatico.events.mq + '.' + uuid, (prevBreakpoint, breakpoint) => {
+			callback(prevBreakpoint, breakpoint);
 		});
 	}
 

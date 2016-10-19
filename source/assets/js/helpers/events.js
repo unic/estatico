@@ -51,6 +51,10 @@ class WindowEventListener {
 
 		// adds a public shorthand method, e.g. addResizeListener to the WindowEventListener class
 		this[`addDebounced${methodName}Listener`] = this._addEventListener.bind(this, debouncedEventName);
+
+		// Save to global namespace
+		$.extend(true, estatico, { events: {} });
+		estatico.events[eventName] = debouncedEventName;
 	}
 
 	/**
