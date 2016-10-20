@@ -22,7 +22,7 @@
 		<script src="/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body>
+<body {{#if svgSprites}} data-svgsprites-options='{{svgSprites}}'{{/if}}>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}

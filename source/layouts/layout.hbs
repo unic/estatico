@@ -21,7 +21,7 @@
 		<script src="/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body>
+<body {{#if svgSprites}} data-svgsprites-options='{{svgSprites}}'{{/if}}>
 	{{#block "header"}}
 	{{/block}}
 
