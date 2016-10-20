@@ -1,0 +1,43 @@
+.mod_media {
+
+	// Media examples
+	.iconfont {
+		@include icon("twitter");
+
+		&:before {
+			font-size: pxToEm(120);
+		}
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: $colorActive;
+		}
+	}
+	.dataurl {
+		@include iconDataurl("twitter");
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: $colorActive;
+
+			&:before {
+				@include iconDataurlStyles("twitter", $color: "active", $skipDimensions: true);
+			}
+		}
+	}
+	.pngsprite {
+		@include pngsprite("twitter");
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: $colorActive;
+
+			&:before {
+				@include pngspriteStyles("twitter_active", $skipDimensions: true);
+			}
+		}
+	}
+}
