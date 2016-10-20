@@ -18,7 +18,7 @@
 
 		<h3>Dynamic partial with placeholder in name ("demo/modules/slideshow/{{{{raw}}}}{{partialPlaceholder}}{{{{/raw}}}}")</h3>
 
-		{{dynamicPartial "demo/modules/slideshow/{{partialPlaceholder}}" modules.slideshow}}
+		{{dynamicPartial "demo/modules/slideshow/{{partialPlaceholder}}" modules.slideshow replacementContext=this}}
 
 		<h3>Dynamic partial inside each loop</h3>
 

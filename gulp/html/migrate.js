@@ -74,9 +74,9 @@ gulp.task(taskName, function(cb) {
 					message: 'Do you want me to delete the following JSON files? ' + JSON.stringify(vp.paths),
 					default: false
 				}
-			], function(answers) {
+			]).then(function(answers) {
 				if (answers.delete) {
-					del(vp.paths, cb);
+					del(vp.paths).then(cb);
 				} else {
 					cb();
 				}

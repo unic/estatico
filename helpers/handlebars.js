@@ -3,6 +3,7 @@
 // Handlebars
 var handlebars = require('handlebars'),
 	layouts = require('handlebars-layouts'),
+	helpers = require('handlebars-helpers'),
 	errors = require('./errors'),
 	_ = require('lodash');
 
@@ -13,7 +14,9 @@ handlebars.registerHelper(layouts(handlebars));
 // See http://assemble.io/helpers/ for a documentation
 //
 // Example: Use the comparisons provided by the handlebars-helpers package
-require('../node_modules/handlebars-helpers/lib/helpers/helpers-comparisons.js').register(handlebars);
+helpers.comparison({
+	handlebars: handlebars
+});
 
 // WARNING: For some helpers, grunt has to be installed (npm install grunt --save && npm shrinkwrap)
 // This might be fixed at some point: https://github.com/assemble/handlebars-helpers/pull/157
@@ -47,7 +50,7 @@ handlebars.registerHelper('times', function(n, block) {
 // Based on http://stackoverflow.com/a/21411521
 // @param {String} name - Partial path, can contain placeholder as "{{key}}"
 // @param {Object} partialData - Data to pass to the partial
-// @param {Object} options.partialContext - Context to use for the placeholder replacement
+// @param {Object} options.replacementContext - Context to use for the placeholder replacement
 handlebars.registerHelper('dynamicPartial', function(name, partialData, options) {
 	if (name === undefined) {
 		errors({
@@ -91,3 +94,5 @@ handlebars.registerHelper('dynamicPartial', function(name, partialData, options)
 
 	return new handlebars.SafeString(output);
 });
+
+module.exports = handlebars;

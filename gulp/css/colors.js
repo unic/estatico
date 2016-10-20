@@ -31,6 +31,7 @@ gulp.task(taskName, function() {
 	return gulp.src(taskConfig.src)
 		.pipe(plumber())
 		.pipe(handlebars({
+			handlebars: helpers.handlebars,
 			data: {
 				colors: colors
 			},

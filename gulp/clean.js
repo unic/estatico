@@ -18,7 +18,9 @@ var taskName = 'clean',
 gulp.task(taskName, function(cb) {
 	var del = require('del');
 
-	del(taskConfig.src, cb);
+	del(taskConfig.src).then(function() {
+		cb();
+	});
 });
 
 module.exports = {

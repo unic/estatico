@@ -14,8 +14,8 @@
 ## Specific tasks
 
 {{#globals}}
-{{#isnt name "`gulp`"}}
+{{#unless (equal name "`gulp`")}}
 ### {{{name}}}
 {{>description}}
-{{/isnt}}
+{{/unless}}
 {{/globals}}

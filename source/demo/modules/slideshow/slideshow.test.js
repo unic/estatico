@@ -9,24 +9,24 @@ var moduleName = 'slideshow',
 
 // Setup QUnit module
 QUnit.module('slideshow', {
-	setup: function() {
+	beforeEach: function() {
 		instance = $node.data(moduleName + '-instance');
 	},
 
-	teardown: function() {
+	afterEach: function() {
 		instance.destroy();
 		estatico.helpers.initModule(moduleName, $node);
 	}
 });
 
 QUnit.test('Test correct plugin registration', function(assert) {
-	QUnit.expect(1);
+	assert.expect(1);
 
 	assert.equal(typeof instance, 'object', 'Plugin instance is an object');
 });
 
 QUnit.test('Test correct plugin init', function(assert) {
-	QUnit.expect(7);
+	assert.expect(7);
 
 	var $buttons = $node.find('button[data-' + moduleName + ']'),
 		events = $._data($node.get(0), 'events') || {},
@@ -60,7 +60,7 @@ QUnit.test('Test correct plugin init', function(assert) {
 });
 
 QUnit.test('Test correct plugin destroy', function(assert) {
-	QUnit.expect(5);
+	assert.expect(5);
 
 	instance.destroy();
 
@@ -93,7 +93,7 @@ QUnit.test('Test correct plugin destroy', function(assert) {
 });
 
 QUnit.test('Test whether clicking prev button updates "currentItem" property', function(assert) {
-	QUnit.expect(1);
+	assert.expect(1);
 
 	var $button = $node.find('button.next');
 
@@ -103,7 +103,7 @@ QUnit.test('Test whether clicking prev button updates "currentItem" property', f
 });
 
 QUnit.test('Test whether "show" method updates "currentItem" property', function(assert) {
-	QUnit.expect(1);
+	assert.expect(1);
 
 	instance.show(2);
 

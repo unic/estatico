@@ -2,7 +2,6 @@ a {
   color: red !important; }
 
 a {
-  -webkit-transform: rotate(-5);
-          transform: rotate(-5); }
+  transform: rotate(-5); }
 
-/*# sourceMappingURL=../../assets/css/main.css.map */
+/*# sourceMappingURL=main.css.map */

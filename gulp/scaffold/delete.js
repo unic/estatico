@@ -82,7 +82,7 @@ var taskName = 'scaffold:delete',
 			return cb();
 		}
 
-		del(config.scaffold.src, function() {
+		del(config.scaffold.src).then(function() {
 			var srcs = _.isArray(config.scaffold.src) ? config.scaffold.src.map(function(src, i) {
 					return path.join(src, config.scaffold.name[i]);
 				}) : [path.join(config.scaffold.src, config.scaffold.name)],

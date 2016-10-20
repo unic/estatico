@@ -65,7 +65,7 @@ gulp.task(taskName, function(cb) {
 				message: 'Do you want to run all QUnit tests in the end?',
 				default: true
 			}
-		], function(answers) {
+		]).then(function(answers) {
 			callback(!answers.runTests, cb);
 		});
 	} else {
