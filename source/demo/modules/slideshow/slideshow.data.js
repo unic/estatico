@@ -8,6 +8,7 @@ var _ = require('lodash'),
 var data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Slideshow',
+			className: 'SlideShow',
 			jira: 'JIRA-4',
 			code: dataHelper.getTemplateCode('slideshow.hbs'),
 			documentation: dataHelper.getDocumentation('slideshow.md'),

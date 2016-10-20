@@ -1,11 +1,3 @@
-/**
- * @requires ../../../../node_modules/skip-link-focus/skip-link-focus.js
- */
+import SkipLinkFocus from 'skip-link-focus';
 
-;(function(undefined) {
-	'use strict';
-
-	if (window.skipLinkFocus) {
-		window.skipLinkFocus.init();
-	}
-})();
+SkipLinkFocus.init();

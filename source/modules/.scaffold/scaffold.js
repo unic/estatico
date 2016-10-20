@@ -1,78 +1,58 @@
 /*!
- * {{originalName}}
+ * {{className}}
  *
  * @author
  * @copyright
- *
- * //@requires ../../../node_modules/some/dependency.js
  */
+import EstaticoModule from '../../../assets/js/helpers/module';
 
-;(function($, undefined) {
-	'use strict';
+class {{className}} extends EstaticoModule {
 
-	var name = '{{name}}',
-		events = {
-			// eventname: 'eventname.estatico.' + name
-		},
-		defaults = {
-			domSelectors: {
-				// item: '[data-' + name + '="item"]'
-			},
-			stateClasses: {
-				// isActive: 'is_active'
-			}
-		},
-		data = {
-			// items: ["Item 1", "Item 2"]
-		};
+	constructor($element, data, options) {
+		let _defaultData = {},
+			_defaultOptions = {
+				domSelectors: {
+					// item: '[data-' + name + '="item"]'
+				},
+				stateClasses: {
+					// activated: 'is_activated'
+				}
+			};
 
-	/**
-	 * Create an instance of the module
-	 * @constructor
-	 * @param {object} element - The DOM element to bind the module
-	 * @param {object} options - Options overwriting the defaults
-	 */
-	function Module(element, options) {
-		this._helper = estatico.helpers.SuperClass;
+		super($element, _defaultData, _defaultOptions, data, options);
 
-		this._helper({
-			name: name,
-			element: element,
-			defaults: defaults,
-			options: options,
-			events: events,
-			data: data
-		});
+		this._initUi();
+		this._initEventListeners();
 	}
 
-	Module.prototype = $.extend(true, {}, estatico.helpers.SuperClass.prototype, Module.prototype);
+	static get events() {
+		return {
+			// eventname: 'eventname.estatico.' + {{className}}
+		};
+	}
 
 	/**
-	 * Initialize module, bind events.
-	 * @method
-	 * @public
+	 * Initialisation of variables, which point to DOM elements
 	 */
-	Module.prototype.init = function() {
-		// console.log('Module "{{name}}" initialized');
-	};
+	_initUi() {
+		// DOM element pointers
+	}
+
+	/**
+	 * Event listeners initialisation
+	 */
+	_initEventListeners() {
+		// Event listeners
+	}
 
 	/**
 	 * Unbind events, remove data, custom teardown
-	 * @method
-	 * @public
 	 */
-	Module.prototype.destroy = function() {
-		// Unbind events, remove data
-		estatico.helpers.SuperClass.prototype.destroy.apply(this);
+	destroy() {
+		super.destroy();
 
-		// Custom teardown (removing added DOM elements etc.)
-		// If there is no need for a custom teardown, this method can be removed
-	};
+		// Custom destroy actions go here
+	}
+}
 
-	// Make the plugin available through jQuery (and the global project namespace)
-	estatico.helpers.SuperClass.register(Module, name, {
-		initEvents: ['ready', 'ajaxload'],
-		events: events
-	});
-
-})(jQuery);
+export default {{className}};

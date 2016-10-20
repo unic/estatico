@@ -1,12 +1,11 @@
-/**
- * @requires ../.tmp/modernizr.js
- * @requires helpers/namespace.js
- * @requires helpers/fontloader.js
- */
+import 'babel-polyfill';
+import '../.tmp/modernizr';
+import FontLoader from './helpers/fontloader';
+import Helper from './helpers/helper';
 
-;(function(undefined) {
-	'use strict';
-
-	estatico.helpers.fontsLoader.init();
-
-})();
+window.estatico = {
+	data: {}, // Content data
+	options: {}, // Module options
+	fontLoader: new FontLoader(),
+	helpers: new Helper()
+};

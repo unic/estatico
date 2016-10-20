@@ -6,7 +6,10 @@ var path = require('path'),
 	util = require('gulp-util'),
 	inquirer = require('inquirer'),
 	_ = require('lodash'),
-	glob = require('glob');
+	glob = require('glob'),
+	requireNew = require('require-new'),
+	handlebars = require('handlebars'),
+	errors = require('./errors');
 
 /**
  * Check whether --interactive is set to "false
@@ -37,9 +40,22 @@ function getTargetsByPath(dir) {
 	return glob.sync(dir + '*').filter(function(file) {
 		return fs.statSync(file).isDirectory();
 	}).map(function(dir) {
+		var moduleName = path.basename(dir),
+			moduleData;
+
+		console.log(path.resolve(dir, moduleName + '.data.js'));
+
+		try {
+			moduleData = requireNew(path.resolve(dir, moduleName + '.data.js'));
+		} catch (err) {
+			console.log(err);
+			return {};
+		};
+
 		return {
-			name: path.basename(dir),
-			src: dir
+			name: moduleName,
+			src: dir,
+			className: moduleData.meta.className || moduleName
 		};
 	});
 }
@@ -210,7 +226,7 @@ module.exports = {
 
 								exists = targetExists(name, dest);
 
-								return exists ? (typeName + ' named "' + name + '" already exists') : true;
+								return exists ? (typeName + ' named "' + name + '" already exists Lorem ipsum dolor sit amet, \\n consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.') : true;
 							} else {
 								return 'Please enter a name';
 							}
@@ -285,9 +301,29 @@ module.exports = {
 	addModule: function(file, modulePath, options) {
 		var content = file.contents.toString(),
 			relPath = path.relative(path.dirname(file.path), modulePath),
-			insertion = options.insertionPrefix + relPath + options.insertionSuffix + options.insertionPoint,
-			insertionPoint = options.insertionPoint.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+			insertion,
+			importInsertion,
+			insertionPoint;
 
+		if (options.insertionTemplate) {
+			insertion = handlebars.compile(options.insertionTemplate)({
+					name: options.name,
+					className: options.className
+				}) + options.insertionPoint;
+			importInsertion = handlebars.compile(options.importInsertionTemplate)({
+					modulePath: relPath,
+					className: options.className
+				}) + options.importInsertionPoint;
+
+			// add js import statement
+			insertionPoint = options.importInsertionPoint.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+			content = content.replace(new RegExp(insertionPoint), importInsertion);
+		} else {
+			insertion = options.insertionPrefix + relPath + options.insertionSuffix + options.insertionPoint;
+		}
+
+		// add a regular include (css or js)
+		insertionPoint = options.insertionPoint.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
 		content = content.replace(new RegExp(insertionPoint), insertion);
 
 		return new Buffer(content);
@@ -303,7 +339,22 @@ module.exports = {
 	removeModule: function(file, modulePath, options) {
 		var content = file.contents.toString(),
 			relPath = path.relative(path.dirname(file.path), modulePath),
+			reference,
+			importReference;
+
+		if (options.insertionTemplate) {
+			reference = handlebars.compile(options.insertionTemplate)({
+					name: options.name,
+					className: options.className
+				});
+			importReference = handlebars.compile(options.importInsertionTemplate)({
+				modulePath: relPath,
+				className: options.className
+			});
+			content = content.replace(importReference, '');
+		} else {
 			reference = options.insertionPrefix + relPath + options.insertionSuffix;
+		}
 
 		content = content.replace(reference, '');
 

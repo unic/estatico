@@ -1,1 +1,3 @@
-console.log('includefile.js');
+export default function() {
+	console.log('includefile.js');
+}

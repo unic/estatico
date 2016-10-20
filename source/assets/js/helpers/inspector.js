@@ -3,85 +3,92 @@
  *
  * Start inspection with ctrl+m (same to switch off module inspection)
  */
+import Helper from './helper';
 
-;(function(undefined) {
-	'use strict';
+class Inspector extends Helper {
 
-	estatico.helpers.inspector = {
-		mode: null,
-		dataAttribute: 'estaticoDev',
-		className: 'estatico_dev_overlay',
-		classNameVariant: 'var_variant',
-		logger: estatico.helpers.log('Inspector'),
+	constructor() {
+		super();
+		this.logger = this.log(Inspector.name);
 
-		run: function() {
-			if (document.documentElement.classList) {
-				// Set the mode we're in (1 = show modules, 0 = hide modules)
-				if (this.mode === null) {
-					this.mode = 1;
-				} else {
-					this.mode++;
-				}
+		this.state = {
+			visible: false
+		};
 
-				// Run the current mode
-				if (this.mode === 1) {
-					this.showModules();
-				} else {
-					this.hideModules();
-				}
-			} else {
-				this.logger('Element.classList not supported in this browser');
+		this.DOM = {
+			dataAttribute: 'estaticoDev',
+			class: {
+				moduleDecorator: 'estatico_dev_overlay',
+				variantDecorator: 'var_variant'
 			}
-		},
+		};
 
-		// Add class to all modules
-		showModules: function() {
-			[].forEach.call(document.querySelectorAll('[class]'), function(node) {
-				var log = '',
-					module = '',
-					variations = [];
+		this.logger('Initialized ' + Inspector.name);
+	}
 
-				node.classList.forEach(function(className) {
-					if (className.substring(0, 4) === 'mod_') {
-						module = className.substring(4).replace(/_/g, ' ');
-					}
+	run() {
+		if (document.documentElement.classList) {
+			// Set the mode we're in (1 = show modules, 0 = hide modules)
+			if (!this.state.visible) {
+				this.showModules();
+			} else {
+				this.hideModules();
+			}
+		} else {
+			this.logger('Element.classList not supported in this browser');
+		}
+	}
 
-					if (className.substring(0, 4) === 'var_') {
-						variations.push(className.substring(4).replace(/_/g, ' '));
-					}
-				});
+	// Add class to all modules
+	showModules() {
+		[].forEach.call(document.querySelectorAll('[class]'), (node) => {
+			var log = '',
+				module = '',
+				variations = [];
 
-				if (module !== '') {
-					log = module;
+			node.classList.forEach(function(className) {
+				if (className.substring(0, 4) === 'mod_') {
+					module = className.substring(4).replace(/_/g, ' ');
 				}
+
+				if (className.substring(0, 4) === 'var_') {
+					variations.push(className.substring(4).replace(/_/g, ' '));
+				}
+			});
+
+			if (module !== '') {
+				log = module;
+			}
+
+			if (variations.length > 0) {
+				log += ': ' + variations.join(', ');
+			}
+
+			if (log !== '') {
+				this.logger([node, log]);
+
+				node.classList.add(this.DOM.class.moduleDecorator);
 
 				if (variations.length > 0) {
-					log += ': ' + variations.join(', ');
+					node.classList.add(this.DOM.class.variantDecorator);
 				}
 
-				if (log !== '') {
-					this.logger([node, log]);
+				node.dataset[this.DOM.dataAttribute] = log;
+			}
+		});
 
-					node.classList.add(this.className);
+		this.state.visible = 1;
+	}
 
-					if (variations.length > 0) {
-						node.classList.add(this.classNameVariant);
-					}
+	// Remove class from modules
+	hideModules() {
+		[].forEach.call(document.querySelectorAll('[class]'), (node) => {
+			node.classList.remove(this.DOM.class.moduleDecorator);
+			node.classList.remove(this.DOM.class.variantDecorator);
+		});
 
-					node.dataset[this.dataAttribute] = log;
-				}
-			}.bind(this));
-		},
+		this.state.visible = 0;
+	}
+}
 
-		// Remove class from modules
-		hideModules: function() {
-			[].forEach.call(document.querySelectorAll('[class]'), function(node) {
-				node.classList.remove(this.className);
-				node.classList.remove(this.classNameVariant);
-			}.bind(this));
-
-			this.mode = 0;
-		}
-	};
-
-})();
+export default Inspector;

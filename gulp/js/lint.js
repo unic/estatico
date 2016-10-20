@@ -19,7 +19,9 @@ var taskName = 'js:lint',
 			'./source/modules/**/*.js',
 			'./source/pages/**/*.js',
 			'./source/demo/modules/**/*.js',
-			'./source/demo/pages/**/*.js'
+			/*'./source/demo/modules/!**!/!*.jsx',*/
+			'./source/demo/pages/**/*.js',
+			'!./source/modules/.scaffold/scaffold.js'
 		]
 	};
 
@@ -31,9 +33,11 @@ gulp.task(taskName, function() {
 		jshint = require('gulp-jshint'),
 		jscs = require('gulp-jscs');
 
-	return gulp.src(taskConfig.src)
+	return gulp.src(taskConfig.src, {
+		dot: true
+	})
 		.pipe(cached('linting'))
-		.pipe(jshint())
+		.pipe(jshint({ linter: require('jshint-jsx').JSXHINT }))
 		.pipe(jscs({
 			configPath: '.jscsrc'
 

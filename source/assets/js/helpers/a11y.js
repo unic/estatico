@@ -4,97 +4,103 @@
  * Start the debugging with ctrl+a (same to switch to next mode)
  */
 
-;(function(undefined) {
-	'use strict';
+import Helper from './helper';
 
-	estatico.helpers.a11y = {
-		mode: null,
-		dataAttribute: 'estaticoDev',
-		className: 'estatico_dev_overlay',
-		logger: estatico.helpers.log('A11y'),
-		activeElInterval: null,
-		currentActiveEl: null,
+class A11y extends Helper {
 
-		run: function() {
-			if (document.documentElement.classList) {
-				// Set the mode we're in (1 = focused element, 2 = aria elements)
-				if (this.mode === null) {
-					this.mode = 1;
-				} else {
-					this.mode++;
-				}
+	constructor() {
+		super();
+		this.logger = this.log(A11y.name);
 
-				// Run the current mode
-				if (this.mode === 1) {
-					this.addActiveElement();
-				} else if (this.mode === 2) {
-					this.removeActiveElement();
+		this.mode = null;
+		this.dataAttribute = 'estaticoDev';
+		this.className = 'estatico_dev_overlay';
+		this.activeElInterval = null;
+		this.currentActiveEl = null;
 
-					this.addClassToAriaElements();
-				} else {
-					this.removeClassFromAriaElements();
-				}
+		this.logger('Initialized ' + A11y.name);
+	}
+
+	run() {
+		if (document.documentElement.classList) {
+			// Set the mode we're in (1 = focused element, 2 = aria elements)
+			if (this.mode === null) {
+				this.mode = 1;
 			} else {
-				this.logger('Element.classList not supported in this browser');
+				this.mode++;
 			}
-		},
 
-		// Add class to the active element
-		addActiveElement: function() {
-			var activeEl = null;
+			// Run the current mode
+			if (this.mode === 1) {
+				this.addActiveElement();
+			} else if (this.mode === 2) {
+				this.removeActiveElement();
 
-			this.activeElInterval = setInterval(function() {
-				this.currentActiveEl = document.activeElement;
+				this.addClassToAriaElements();
+			} else {
+				this.removeClassFromAriaElements();
+			}
+		} else {
+			this.logger('Element.classList not supported in this browser');
+		}
+	}
 
-				if (this.currentActiveEl !== activeEl) {
-					if (activeEl !== null) {
-						activeEl.classList.remove(this.className);
-					}
+	// Add class to the active element
+	addActiveElement() {
+		var activeEl = null;
 
-					activeEl = this.currentActiveEl;
+		this.activeElInterval = setInterval(() => {
+			this.currentActiveEl = document.activeElement;
 
-					this.logger(activeEl);
-
-					this.currentActiveEl.classList.add(this.className);
+			if (this.currentActiveEl !== activeEl) {
+				if (activeEl !== null) {
+					activeEl.classList.remove(this.className);
 				}
-			}.bind(this), 200);
-		},
 
-		// Remove active element
-		removeActiveElement: function() {
-			clearInterval(this.activeElInterval);
+				activeEl = this.currentActiveEl;
 
-			this.currentActiveEl.classList.remove(this.className);
-		},
+				this.logger(activeEl);
 
-		// Add class to all aria elements
-		addClassToAriaElements: function() {
-			[].forEach.call(document.querySelectorAll('[*]'), function(node) {
-				var log = '';
+				this.currentActiveEl.classList.add(this.className);
+			}
+		}, 200);
+	}
 
-				node.attributes.forEach(function(attribute) {
-					if (attribute.name === 'role' || attribute.name.substring(0, 5) === 'aria-') {
-						log += '[' + attribute.name + '=' + attribute.value + ']';
-					}
-				});
+	// Remove active element
+	removeActiveElement() {
+		clearInterval(this.activeElInterval);
 
-				if (log !== '') {
-					this.logger([node, log]);
+		this.currentActiveEl.classList.remove(this.className);
+	}
 
-					node.classList.add(this.className);
-					node.dataset[this.dataAttribute] = log;
+	// Add class to all aria elements
+	addClassToAriaElements() {
+		[].forEach.call(document.querySelectorAll('[*]'), (node) => {
+			var log = '';
+
+			node.attributes.forEach(function(attribute) {
+				if (attribute.name === 'role' || attribute.name.substring(0, 5) === 'aria-') {
+					log += '[' + attribute.name + '=' + attribute.value + ']';
 				}
 			});
-		},
 
-		// Remove class from aria elements
-		removeClassFromAriaElements: function() {
-			[].forEach.call(document.querySelectorAll('[*]'), function(node) {
-				node.classList.remove(this.className);
-			}.bind(this));
+			if (log !== '') {
+				this.logger([node, log]);
 
-			this.mode = 0;
-		}
-	};
+				node.classList.add(this.className);
+				node.dataset[this.dataAttribute] = log;
+			}
+		});
+	}
 
-})();
+	// Remove class from aria elements
+	removeClassFromAriaElements() {
+		[].forEach.call(document.querySelectorAll('[*]'), (node) => {
+			node.classList.remove(this.className);
+		});
+
+		this.mode = 0;
+	}
+}
+
+export default A11y;

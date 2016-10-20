@@ -1,3 +1,3 @@
-/**
- * @requires subfolder/includefile.js
- */
+import bla from './subfolder/includefile.js';
+
+bla();

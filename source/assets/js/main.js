@@ -1,16 +1,11 @@
-/**
- * @requires ../../../node_modules/jquery/dist/jquery.js
- * @requires ../.tmp/lodash.js
- * @requires ../../../node_modules/handlebars/dist/handlebars.js
- * @requires ../.tmp/templates.js
+import datasetPolyfill from 'element-dataset';
+import '../../../node_modules/handlebars/dist/handlebars';
+import './helpers/module';
 
- * @requires helpers/module.js
- * @requires helpers/events.js
- * @requires helpers/mediaqueries.js
- *
- * @requires ../../demo/modules/skiplinks/skiplinks.js
- * @requires ../../demo/modules/slideshow/slideshow.js
- * //*autoinsertmodule*
- *
- * @requires helpers/init.js
- */
+import EstaticoApp from './helpers/estaticoapp';
+
+datasetPolyfill();
+
+let app = new EstaticoApp();
+
+app.start();
