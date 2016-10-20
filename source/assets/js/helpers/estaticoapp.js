@@ -25,11 +25,24 @@ class EstaticoApp {
 		this.modules.slideshow = SlideShow;
 		this.modules.skiplinks = SkipLinks;
 		/* autoinsertmodule */
+
+		// expose initModule function
+		estatico.helpers.initModule = this.initModule;
 	}
 
 	start() {
 		this._registerModules();
 		this._initModuleInitialiser();
+	}
+
+	initModule(moduleName, $node) {
+		let Module = estatico.modules[moduleName].Class,
+			_metaData = $node.data(moduleName + '-data') || {},
+			_metaOptions = $node.data(moduleName + '-options') || {},
+			moduleInstance = new Module($node, _metaData, _metaOptions);
+
+		estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
+		$node.data(moduleName + '-instance', moduleInstance);
 	}
 
 	_registerModules() {
@@ -49,7 +62,7 @@ class EstaticoApp {
 			estatico.modules[moduleName] = {
 				initEvents: Module.initEvents,
 				events: Module.events,
-				instances: [],
+				instances: {},
 				Class: Module
 			};
 
@@ -68,15 +81,8 @@ class EstaticoApp {
 					modules = $element.data('init').split(' ');
 
 				modules.forEach((moduleName) => {
-					if (moduleName && !$element.data(moduleName + '-instance') &&
-						estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
-						let Module = this.modules[moduleName],
-							_metaData = $element.data(moduleName + '-data') || {},
-							_metaOptions = $element.data(moduleName + '-options') || {},
-							moduleInstance = new Module($element, _metaData, _metaOptions);
-
-						estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
-						$(element).data(moduleName + '-instance', moduleInstance);
+					if (estatico.modules[moduleName] && !$element.data(moduleName + '-instance') && estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
+						this.initModule(moduleName, $element);
 					}
 				});
 			});

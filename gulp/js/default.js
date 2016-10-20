@@ -21,7 +21,7 @@ var taskName = 'js',
 		dest: './build/assets/js/',
 		destBase: './build/',
 		destAsyncSuffix: 'async/',
-		watch: util.env.webpackWatch ? null : [
+		watch: !util.env.skipWebpackWatch ? null : [
 			'source/assets/js/**/*.js',
 			'source/assets/js/**/*.jsx',
 			'source/assets/.tmp/**/*.js',

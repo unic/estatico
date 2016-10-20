@@ -15,19 +15,14 @@ QUnit.module('slideshow', {
 
 	teardown: function() {
 		instance.destroy();
-
-		// Re-init
-		$.fn[moduleName].apply($node, [{
-			// Options
-		}]);
+		estatico.helpers.initModule(moduleName, $node);
 	}
 });
 
 QUnit.test('Test correct plugin registration', function(assert) {
-	QUnit.expect(2);
+	QUnit.expect(1);
 
 	assert.equal(typeof instance, 'object', 'Plugin instance is an object');
-	assert.equal(typeof $.fn[moduleName], 'function', 'Plugin function registered to jQuery');
 });
 
 QUnit.test('Test correct plugin init', function(assert) {
@@ -35,20 +30,20 @@ QUnit.test('Test correct plugin init', function(assert) {
 
 	var $buttons = $node.find('button[data-' + moduleName + ']'),
 		events = $._data($node.get(0), 'events') || {},
-		docEvents = $._data(document, 'events'),
 		clickEvents = $.grep(events.click || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		resizeEvent = $.grep(docEvents[estatico.events.resize.key.split('.')[0]] || [], function(event) {
+		docEvents = $._data(document, 'events'),
+		resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		scrollEvent = $.grep(docEvents[estatico.events.scroll.key.split('.')[0]] || [], function(event) {
+		scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		mqEvent = $.grep(docEvents[estatico.events.mq.key.split('.')[0]] || [], function(event) {
+		mqEvent = $.grep(docEvents[estatico.events.mq.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		});
 
@@ -56,8 +51,8 @@ QUnit.test('Test correct plugin init', function(assert) {
 
 	assert.equal(clickEvents.length, 2, 'Two click events attached to slideshow');
 
-	assert.equal(events.click[0].selector, '[data-' + moduleName + '="prev"]', 'Prev button event reporting correct selector');
-	assert.equal(events.click[1].selector, '[data-' + moduleName + '="next"]', 'Next button event reporting correct selector');
+	assert.equal(events.click[0].selector.toLowerCase(), '[data-' + moduleName + '="prev"]', 'Prev button event reporting correct selector');
+	assert.equal(events.click[1].selector.toLowerCase(), '[data-' + moduleName + '="next"]', 'Next button event reporting correct selector');
 
 	assert.equal(resizeEvent.length, 1, 'Resize event set');
 	assert.equal(scrollEvent.length, 1, 'Scroll event set');
@@ -69,24 +64,22 @@ QUnit.test('Test correct plugin destroy', function(assert) {
 
 	instance.destroy();
 
-	console.log(estatico.events);
-
 	var $buttons = $node.find('button[data-' + moduleName + ']'),
 		events = $._data($node.get(0), 'events') || {},
-		docEvents = $._data(document, 'events'),
 		clickEvents = $.grep(events.click || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		resizeEvent = $.grep(docEvents[estatico.events.resize.key.split('.')[0]] || [], function(event) {
+		docEvents = $._data(document, 'events'),
+		resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		scrollEvent = $.grep(docEvents[estatico.events.scroll.key.split('.')[0]] || [], function(event) {
+		scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		mqEvent = $.grep(docEvents[estatico.events.mq.key.split('.')[0]] || [], function(event) {
+		mqEvent = $.grep(docEvents[estatico.events.mq.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		});
 
