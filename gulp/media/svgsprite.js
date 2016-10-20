@@ -12,16 +12,19 @@ var taskName = 'media:svgsprite',
 	taskConfig = {
 		src: {
 			base: [
-				'./source/assets/media/svg/base/*.svg'
+				'./source/assets/media/svg/**/*.svg'
 			],
+
+			// Example for custom sprite
 			demo: [
-				'./source/assets/media/svg/demo/*.svg'
+				'./source/demo/modules/svgsprite/svg/*.svg'
 			]
 		},
 		dest: './build/assets/media/svg',
 		watch: [
 			'source/assets/media/svg/**/*.svg',
-			'source/modules/**/svg/*.svg'
+			'source/modules/**/svg/**/*.svg',
+			'source/demo/modules/**/svg/**/*.svg'
 		]
 	};
 

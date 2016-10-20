@@ -1,13 +1,14 @@
 ## Description
 
-List of all icons used in SVG sprites. SVG's are grouped in folders based on their usage. `base` group is added on all subpages by default.
+List of all icons used in SVG sprites. SVGs are grouped in folders based on their usage. Sprites can be added to `default.data.js` to be included on all pages by default.
+
 
 ## How to re-use this pattern
 
 To be able to use SVG sprites, follow the steps below.
 
 * Add `media:svgsprite` gulp task to your project. Remember to configure paths to your SVG assets.
-* Add `svgsprites_loader.js` helper to `source/assets/js/helpers`.
+* Add `svgspriteloader.js` helper to `source/assets/js/helpers`.
 * Include a `data-svgsprites-options` attribute in the `body` tag that contains the list of path to SVG sprites you want to use.
 
 
