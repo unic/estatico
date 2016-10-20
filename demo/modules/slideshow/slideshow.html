@@ -104,43 +104,9 @@
 							<div id="qunit"></div>
 							<div id="qunit-fixture"></div>
 					
-							<script src="../../../test/node_modules/qunitjs/qunit/qunit.js"></script>
-							<script>QUnit.config.autostart = false;</script>
+							<script src="../../../test/preview/assets/js/test.js"></script>
 					
 								<script src="../../../test/demo/modules/slideshow/slideshow.test.js"></script>
-					
-							<script>
-								;(function($) {
-									'use strict';
-					
-									var $container = $('#qunit'),
-										$button = $('<button>Run QUnit tests</button>'),
-										startTests = function() {
-											$container.show();
-					
-											$('<link/>', {
-												rel: 'stylesheet',
-												href: '../../../test/node_modules/qunitjs/qunit/qunit.css'
-											}).appendTo('head');
-					
-											$button.remove();
-					
-											QUnit.start();
-										};
-					
-									if ($.isEmptyObject(QUnit.urlParams)) {
-										$container.hide();
-					
-										$button
-											.insertAfter($container)
-											.on('click', function() {
-												startTests();
-											});
-									} else {
-										startTests();
-									}
-								})(jQuery);
-							</script>
 						</div>
 					<!-- //DO NOT COPY -->
 				</section>
