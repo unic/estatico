@@ -12,6 +12,8 @@ class EstaticoModule {
 	* @param  {object} options - The options passed as data attribute in the Module
 	*/
 	constructor($element, _defaultData, _defaultOptions, data, options) {
+		this.name = this.constructor.name.toLowerCase();
+
 		this.ui = {
 			$element
 		};

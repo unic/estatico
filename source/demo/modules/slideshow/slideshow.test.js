@@ -11,7 +11,6 @@ var moduleName = 'slideshow',
 QUnit.module('slideshow', {
 	setup: function() {
 		instance = $node.data(moduleName + '-instance');
-		instance.name = moduleName;
 	},
 
 	teardown: function() {
