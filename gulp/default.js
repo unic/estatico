@@ -38,11 +38,6 @@ gulp.task(taskName, function(cb) {
 			if (skipBuild) {
 				// Remove build task from list
 				runTasks = _.without(runTasks, 'build');
-
-				// Start webpack watcher by running corresponding tasks explicitly
-				if (!util.env.skipWebpackWatch) {
-					runTasks.unshift(['js', 'js:qunit']);
-				}
 			}
 
 			runSequence.apply(this, runTasks);
@@ -53,7 +48,7 @@ gulp.task(taskName, function(cb) {
 			{
 				type: 'confirm',
 				name: 'createBuild',
-				message: 'Do you want to create a complete build before starting the server?' + (!util.env.skipWebpackWatch ? ' JS tasks involving webpack will run anyway unless using --skipWebpackWatch' : ''),
+				message: 'Do you want to create a complete build before starting the server?',
 				default: true
 			}
 		]).then(function(answers) {

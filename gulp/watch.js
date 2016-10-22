@@ -26,30 +26,35 @@ gulp.task(taskName, function() {
 			_.each(tasks, function(config) {
 				if (config.taskName) {
 					if (config.taskConfig.watch) {
-						watch(config.taskConfig.watch, {
-							usePolling: !!(util.env.pollWatch && util.env.pollWatch !== 'false')
-						}, function(file) {
-							// Explicitly run task function and provide changed file as parameter if returnChangedFileOnWatch is set
-							// Log duration analogously to how gulp.start would do it
-							if (config.taskConfig.returnChangedFileOnWatch && config.task) {
-								var start = process.hrtime(),
-									end,
-									time;
+						var watcher = watch(config.taskConfig.watch, {
+								usePolling: !!(util.env.pollWatch && util.env.pollWatch !== 'false')
+							}, function(file, bla) {
+								// Explicitly run task function and provide changed file as parameter if returnChangedFileOnWatch is set
+								// Log duration analogously to how gulp.start would do it
+								if (config.taskConfig.returnChangedFileOnWatch && config.task) {
+									var start = process.hrtime(),
+										end,
+										time;
 
-								util.log('Starting', '\'' + util.colors.cyan(config.taskName) + '\'...');
+									util.log('Starting', '\'' + util.colors.cyan(config.taskName) + '\'...');
 
-								config.task(config.taskConfig, function() {
-									end = process.hrtime(start);
-									time = prettyTime(end);
+									config.task(config.taskConfig, function() {
+										end = process.hrtime(start);
+										time = prettyTime(end);
 
-									util.log('Finished', '\'' + util.colors.cyan(config.taskName) + '\'', 'after', util.colors.magenta(time));
-								}, file.path);
+										util.log('Finished', '\'' + util.colors.cyan(config.taskName) + '\'', 'after', util.colors.magenta(time));
+									}, file.path);
 
-							// Just trigger task otherwise
-							} else {
-								gulp.start(config.taskName);
-							}
-						});
+								// Just trigger task otherwise
+								} else {
+									gulp.start(config.taskName);
+
+									// Hand over to webpack watcher after the initial run
+									if (config.taskConfig.hasWebpackWatch && !util.env.skipWebpackWatch) {
+										watcher.close();
+									}
+								}
+							});
 					}
 				} else {
 					initWatchTasks(config);
@@ -58,6 +63,9 @@ gulp.task(taskName, function() {
 		};
 
 	initWatchTasks(tasks);
+
+	// Set global flag
+	util.env.watch = true;
 });
 
 module.exports = {
