@@ -43,7 +43,8 @@ var taskName = 'html',
 			'source/modules/**/*.md',
 			'source/demo/modules/**/*.md',
 			'source/assets/css/data/colors.html'
-		]
+		],
+		returnChangedFileOnWatch: true
 	},
 	task = function(config, cb, changedFile) {
 		var helpers = require('require-dir')('../../helpers'),
