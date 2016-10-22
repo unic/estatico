@@ -22,7 +22,7 @@ module.exports = {
 		if (err) {
 			return error({
 				task: taskName,
-				err: err
+				err: err.message
 			});
 		}
 
