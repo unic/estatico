@@ -33,16 +33,14 @@
 	 * @param {object} options - Options overwriting the defaults
 	 */
 	function Module(element, options) {
-		this._helper = estatico.helpers.SuperClass;
-
-		this._helper({
+		estatico.helpers.SuperClass.apply(this, [{
 			name: name,
 			element: element,
 			defaults: defaults,
 			options: options,
 			events: events,
 			data: data
-		});
+		}]);
 	}
 
 	Module.prototype = $.extend(true, {}, estatico.helpers.SuperClass.prototype, Module.prototype);
