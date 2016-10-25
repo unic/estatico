@@ -8,7 +8,7 @@ import $ from '../../../../node_modules/jquery/dist/jquery';
 /** Demo modules **/
 import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 import SlideShow from '../../../demo/modules/slideshow/slideshow';
-/* autoinsertmodulereference */
+/* autoinsertmodulereference */ // eslint-disable-line
 
 class EstaticoApp {
 
@@ -22,7 +22,7 @@ class EstaticoApp {
 		this.modules = {};
 		this.modules.slideshow = SlideShow;
 		this.modules.skiplinks = SkipLinks;
-		/* autoinsertmodule */
+		/* autoinsertmodule */ // eslint-disable-line
 
 		// expose initModule function
 		estatico.helpers.initModule = this.initModule;

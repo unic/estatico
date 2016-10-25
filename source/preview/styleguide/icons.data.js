@@ -4,9 +4,8 @@ var _ = require('lodash'),
 	requireNew = require('require-new'),
 	defaultData = requireNew('../../data/default.data.js'),
 	glob = require('glob'),
-	path = require('path');
-
-var data = _.merge(defaultData, {
+	path = require('path'),
+	data = _.merge(defaultData, {
 		meta: {
 			title: 'Icons (font variant)',
 		},
