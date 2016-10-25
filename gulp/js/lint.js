@@ -19,7 +19,8 @@ var taskName = 'js:lint',
 			'./source/modules/**/*.js',
 			'./source/pages/**/*.js',
 			'./source/demo/modules/**/*.js',
-			/*'./source/demo/modules/!**!/!*.jsx',*/
+
+			// './source/demo/modules/!**!/!*.jsx',
 			'./source/demo/pages/**/*.js',
 			'!./source/modules/.scaffold/scaffold.js'
 		]
@@ -30,24 +31,16 @@ gulp.task(taskName, function() {
 		tap = require('gulp-tap'),
 		path = require('path'),
 		cached = require('gulp-cached'),
-		jshint = require('gulp-jshint'),
-		jscs = require('gulp-jscs');
+		eslint = require('gulp-eslint');
 
 	return gulp.src(taskConfig.src, {
 		dot: true
 	})
 		.pipe(cached('linting'))
-		.pipe(jshint({ linter: require('jshint-jsx').JSXHINT }))
-		.pipe(jscs({
-			configPath: '.jscsrc'
-
-			// Automatically fix invalid code (files would have to be saved back to disk below)
-			// fix: true
-		}))
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jscs.reporter())
+		.pipe(eslint())
+		.pipe(eslint.formatEach())
 		.pipe(tap(function(file) {
-			if (!file.jshint.success || !file.jscs.success) {
+			if (file.eslint && file.eslint.errorCount > 0) {
 				helpers.errors({
 					task: taskName,
 					message: 'Linting error in file "' + path.relative('./source/', file.path) + '" (details above)'
