@@ -1,7 +1,11 @@
 {
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
   },
   "globals": {
     "estatico": true,
@@ -30,7 +34,8 @@
       2,
       "tab",
       {
-        "SwitchCase": 1
+        "SwitchCase": 1,
+        "VariableDeclarator": 1
       }
     ],
     "no-use-before-define": [
@@ -165,7 +170,8 @@
     "lines-around-comment": [
       2,
       {
-        "beforeLineComment": true
+        "beforeLineComment": true,
+        "allowBlockStart": true
       }
     ],
     "space-infix-ops": 2,
