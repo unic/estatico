@@ -3,10 +3,11 @@
 /**
  * @function `gulp css`
  * @desc Compile Sass to CSS (using `LibSass`), run autoprefixer on the generated CSS.
- * By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. This can be disabled by setting `returnChangedFileOnWatch` in the task config to false.
+ * By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipCssDependencyGraph` flag to disable this behavior and just build everything all the time.
  */
 
-var gulp = require('gulp');
+var gulp = require('gulp'),
+	util = require('gulp-util');
 
 var taskName = 'css',
 	taskConfig = {
@@ -33,14 +34,13 @@ var taskName = 'css',
 		plugins: {
 			autoprefixer: 'last 2 version'
 		},
-		returnChangedFileOnWatch: true
+		returnChangedFileOnWatch: !util.env.skipCssDependencyGraph
 	},
 	task = function(config, cb, changedFile) {
 		var helpers = require('require-dir')('../../helpers'),
 			plumber = require('gulp-plumber'),
 			size = require('gulp-size'),
 			livereload = require('gulp-livereload'),
-			util = require('gulp-util'),
 			sourcemaps = require('gulp-sourcemaps'),
 			libSass = require('gulp-sass'),
 			postCSS = require('gulp-postcss'),

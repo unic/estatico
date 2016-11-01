@@ -48,14 +48,14 @@ Works with JSON, too. Just replace the HTML file with a JSON one (containing "co
 
 ### `gulp css`
 Compile Sass to CSS (using `LibSass`), run autoprefixer on the generated CSS.
-By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. This can be disabled by setting `returnChangedFileOnWatch` in the task config to false.
+By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipCssDependencyGraph` flag to disable this behavior and just build everything all the time.
 
 ### `gulp css:fonts`
 Encode *.otf or *.ttf or *.woff fonts to base64 data
 
 ### `gulp html`
 Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
-By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. This can be disabled by setting `returnChangedFileOnWatch` in the task config to false.
+By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipHtmlDependencyGraph` flag to disable this behavior and just build everything all the time.
 
 ### `gulp html:migrate`
 Transform old `.json` data files to `.data.js`.
@@ -91,6 +91,10 @@ Depends on GraphicsMagick being installed.
 ### `gulp media:pngsprite`
 Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).
 
+### `gulp media:svgsprite`
+Fetches multiple svg files and creates a svg sprite which can later be referenced to from within the html code as described in this article
+https://css-tricks.com/svg-symbol-good-choice-icons/
+
 ### `gulp scaffold:copy`
 Copy module or page
 
@@ -114,3 +118,4 @@ Rename module or page
 
 * Prompts for type and name of module to be copied as well as the new name.
 * Non-interactive mode: `gulp scaffold:rename --interactive=false --type={Module|Page|Demo Module|Demo Page} --name=helloworld --newName=helloworld2`
+

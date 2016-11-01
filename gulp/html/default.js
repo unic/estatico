@@ -3,9 +3,11 @@
 /**
  * @function `gulp html`
  * @desc Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
+ * By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipHtmlDependencyGraph` flag to disable this behavior and just build everything all the time.
  */
 
-var gulp = require('gulp');
+var gulp = require('gulp'),
+	util = require('gulp-util');
 
 var taskName = 'html',
 	taskConfig = {
@@ -44,13 +46,12 @@ var taskName = 'html',
 			'source/demo/modules/**/*.md',
 			'source/assets/css/data/colors.html'
 		],
-		returnChangedFileOnWatch: true
+		returnChangedFileOnWatch: !util.env.skipHtmlDependencyGraph
 	},
 	task = function(config, cb, changedFile) {
 		var helpers = require('require-dir')('../../helpers'),
 			plumber = require('gulp-plumber'),
 			livereload = require('gulp-livereload'),
-			util = require('gulp-util'),
 			requireNew = require('require-new'),
 			path = require('path'),
 			fs = require('fs'),
