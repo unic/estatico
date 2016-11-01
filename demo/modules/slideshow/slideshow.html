@@ -16,7 +16,7 @@
 	<script src="../../../assets/js/head.min.js"></script>
 
 </head>
-<body  data-svgsprites-options='[]'>
+<body>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			<a href="../../../" class="sg_logo">Estático</a> / Demo: Slideshow
@@ -44,13 +44,13 @@
 
 		<section class="sg_inner_wrapper">
 			<h2 class="sg_h2">Code</h2>
-			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"mod_slideshow"</span> <span class="hljs-attr">data-init</span>=<span class="hljs-string">"slideshow"</span> <span class="hljs-attr">data-slideshow-data</span>=<span class="hljs-string">'{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}'</span> <span class="hljs-attr">data-slideshow-options</span>=<span class="hljs-string">'{"animationDuration":100}'</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"slides"</span> <span class="hljs-attr">data-slideshow</span>=<span class="hljs-string">"slides"</span>&gt;</span>
+			<pre class="sg_code hljs"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mod_slideshow"</span> <span class="hljs-attribute">data-init</span>=<span class="hljs-value">"slideshow"</span> <span class="hljs-attribute">data-slideshow-data</span>=<span class="hljs-value">'{"i18n":{"prev":"Previous Bill","next":"Next Bill"}}'</span> <span class="hljs-attribute">data-slideshow-options</span>=<span class="hljs-value">'{"animationDuration":100}'</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"slides"</span> <span class="hljs-attribute">data-slideshow</span>=<span class="hljs-value">"slides"</span>&gt;</span>
 		{{#each slides}}
 			{{&gt; "demo/modules/slideshow/_slideshow_slide.js" this}}
 		{{/each}}
-	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </pre>
 		</section>
 
@@ -77,21 +77,21 @@
 
 
 					<pre class="sg_code hljs">{
-	<span class="hljs-attr">"slides"</span>: [
+	"<span class="hljs-attribute">slides</span>": <span class="hljs-value">[
 		{
-			<span class="hljs-attr">"src"</span>: <span class="hljs-string">"http://www.fillmurray.com/600/204"</span>,
-			<span class="hljs-attr">"alt"</span>: <span class="hljs-string">"Bill Murray 4"</span>
-		},
+			"<span class="hljs-attribute">src</span>": <span class="hljs-value"><span class="hljs-string">"http://www.fillmurray.com/600/204"</span></span>,
+			"<span class="hljs-attribute">alt</span>": <span class="hljs-value"><span class="hljs-string">"Bill Murray 4"</span>
+		</span>},
 		{
-			<span class="hljs-attr">"src"</span>: <span class="hljs-string">"http://www.fillmurray.com/600/205"</span>,
-			<span class="hljs-attr">"alt"</span>: <span class="hljs-string">"Bill Murray 5"</span>
-		},
+			"<span class="hljs-attribute">src</span>": <span class="hljs-value"><span class="hljs-string">"http://www.fillmurray.com/600/205"</span></span>,
+			"<span class="hljs-attribute">alt</span>": <span class="hljs-value"><span class="hljs-string">"Bill Murray 5"</span>
+		</span>},
 		{
-			<span class="hljs-attr">"src"</span>: <span class="hljs-string">"http://www.fillmurray.com/600/206"</span>,
-			<span class="hljs-attr">"alt"</span>: <span class="hljs-string">"Bill Murray 6"</span>
-		}
+			"<span class="hljs-attribute">src</span>": <span class="hljs-value"><span class="hljs-string">"http://www.fillmurray.com/600/206"</span></span>,
+			"<span class="hljs-attribute">alt</span>": <span class="hljs-value"><span class="hljs-string">"Bill Murray 6"</span>
+		</span>}
 	]
-}</pre>
+</span>}</pre>
 			</section>
 
 		<script src="../../../assets/js/main.min.js"></script>
@@ -104,9 +104,43 @@
 							<div id="qunit"></div>
 							<div id="qunit-fixture"></div>
 					
-							<script src="../../../test/source/preview/assets/js/test.js"></script>
+							<script src="../../../test/node_modules/qunitjs/qunit/qunit.js"></script>
+							<script>QUnit.config.autostart = false;</script>
 					
-								<script src="../../../test/source/demo/modules/slideshow/slideshow.test.js"></script>
+								<script src="../../../test/demo/modules/slideshow/slideshow.test.js"></script>
+					
+							<script>
+								;(function($) {
+									'use strict';
+					
+									var $container = $('#qunit'),
+										$button = $('<button>Run QUnit tests</button>'),
+										startTests = function() {
+											$container.show();
+					
+											$('<link/>', {
+												rel: 'stylesheet',
+												href: '../../../test/node_modules/qunitjs/qunit/qunit.css'
+											}).appendTo('head');
+					
+											$button.remove();
+					
+											QUnit.start();
+										};
+					
+									if ($.isEmptyObject(QUnit.urlParams)) {
+										$container.hide();
+					
+										$button
+											.insertAfter($container)
+											.on('click', function() {
+												startTests();
+											});
+									} else {
+										startTests();
+									}
+								})(jQuery);
+							</script>
 						</div>
 					<!-- //DO NOT COPY -->
 				</section>
