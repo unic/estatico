@@ -1,0 +1,172 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Demo: SVG icons – Estático</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../../assets/css/main.min.css">
+	<link rel="stylesheet" href="../../../preview/assets/css/main.min.css">
+
+
+	<script src="../../../assets/js/head.min.js"></script>
+
+</head>
+<body  data-svgsprites-options='[&quot;/assets/media/svg/demo.svg&quot;]'>
+	<div class="sg_wrapper sg_module">
+		<h1 class="sg_title">
+			<a href="../../../" class="sg_logo">Estático</a> / Demo: SVG icons
+		</h1>
+
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+							<div class="mod_svgsprite">
+		<h3 class="title">Sprite Name: base</h3>
+		<ul class="list">
+		</ul>
+	</div>
+	<div class="mod_svgsprite">
+		<h3 class="title">Sprite Name: demo</h3>
+		<ul class="list">
+			<li class="item">
+				<svg class="icon var_ic_cake" focusable="false">
+					<use xlink:href="#ic_cake" />
+				</svg>
+				<span>
+					ic_cake
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_chevron_left" focusable="false">
+					<use xlink:href="#ic_chevron_left" />
+				</svg>
+				<span>
+					ic_chevron_left
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_chevron_right" focusable="false">
+					<use xlink:href="#ic_chevron_right" />
+				</svg>
+				<span>
+					ic_chevron_right
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_close" focusable="false">
+					<use xlink:href="#ic_close" />
+				</svg>
+				<span>
+					ic_close
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_menu" focusable="false">
+					<use xlink:href="#ic_menu" />
+				</svg>
+				<span>
+					ic_menu
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_pool" focusable="false">
+					<use xlink:href="#ic_pool" />
+				</svg>
+				<span>
+					ic_pool
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_priority_high" focusable="false">
+					<use xlink:href="#ic_priority_high" />
+				</svg>
+				<span>
+					ic_priority_high
+				</span>
+			</li>
+			<li class="item">
+				<svg class="icon var_ic_sentiment_very_satisfied" focusable="false">
+					<use xlink:href="#ic_sentiment_very_satisfied" />
+				</svg>
+				<span>
+					ic_sentiment_very_satisfied
+				</span>
+			</li>
+		</ul>
+	</div>
+
+				</div>
+			</section>
+
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs">{{#each preview}}
+	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"mod_svgsprite"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"title"</span>&gt;</span>Sprite Name: {{@key}}<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"list"</span>&gt;</span>
+			{{#each this}}
+			<span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"item"</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon var_{{this}}"</span> <span class="hljs-attr">focusable</span>=<span class="hljs-string">"false"</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">use</span> <span class="hljs-attr">xlink:href</span>=<span class="hljs-string">"#{{this}}"</span> /&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+					{{this}}
+				<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+			{{/each}}
+		<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+{{/each}}
+</pre>
+		</section>
+
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Documentation</h2>
+
+				<div class="sg_documentation">
+					<h2 id="description">Description</h2>
+<p>List of all icons used in SVG sprites. SVGs are grouped in folders based on their usage. Sprites can be added to <code>default.data.js</code> to be included on all pages by default.</p>
+<h2 id="how-to-re-use-this-pattern">How to re-use this pattern</h2>
+<p>To be able to use SVG sprites, follow the steps below.</p>
+<ul>
+<li>Add <code>media:svgsprite</code> gulp task to your project. Remember to configure paths to your SVG assets.</li>
+<li>Add <code>svgspriteloader.js</code> helper to <code>source/assets/js/helpers</code>.</li>
+<li>Include a <code>data-svgsprites-options</code> attribute in the <code>body</code> tag that contains the list of path to SVG sprites you want to use.</li>
+</ul>
+<h2 id="icon-usage">Icon usage</h2>
+<p>To use an icon from SVG sprite:</p>
+<ol>
+<li><p>Make sure the group that contains this icon is listed in the <code>data-svgsprites-options</code> attribute of <code>body</code> element. If not, add a path to the group.</p>
+<pre><code class="lang-html">     &lt;<span class="hljs-keyword">body </span><span class="hljs-meta">data</span>-svgsprites-options=<span class="hljs-string">"['../../assets/media/svg/base.svg',{{path to needed group}}]"</span>&gt;
+</code></pre>
+</li>
+<li><p>Add the html snippet below to the module or page. Replace <code>icon</code> with the name of the icon you want to use and <code>class</code> with whatever CSS class you need.</p>
+<pre><code class="lang-html"><span class="xml">     <span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{class}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">focusable</span>=<span class="hljs-string">"false"</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">use</span> <span class="hljs-attr">xlink:href</span>=<span class="hljs-string">"#</span></span></span><span class="hljs-template-variable">{{icon}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> /&gt;</span>
+     <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span>
+</code></pre>
+</li>
+</ol>
+<h2 id="alternative-simplified-approach-without-javascript">Alternative: Simplified approach without JavaScript</h2>
+<p>Instead of defining sprites in the <code>data-svgsprites-options</code> of the body, using <code>svgsprites_loader.js</code> and referencing the icons relatively, they can be referenced explicitly:</p>
+<pre><code>`<span class="javascript"></span>``<span class="javascript">html
+    &lt;svg <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"{{class}}"</span> focusable=<span class="hljs-string">"false"</span>&gt;
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">use</span> <span class="hljs-attr">xlink:href</span>=<span class="hljs-string">"../../../assets/media/svg/base.svg#{{icon}}"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span>
+</span>``<span class="javascript"></span>`
+</code></pre><p>This simplifies the setup a lot, however, the backend would need to update the <code>xlink:href</code> attribute whenever an icon is moved between sprites, e.g.</p>
+
+				</div>
+			</section>
+
+
+		<script src="../../../assets/js/main.min.js"></script>
+
+	</div>
+</body>
+</html>
