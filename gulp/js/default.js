@@ -32,7 +32,9 @@ var taskName = 'js',
 			'!source/modules/**/*.data.js',
 			'!source/demo/modules/**/*.data.js',
 			'!source/modules/**/*.mock.js',
-			'!source/demo/modules/**/*.mock.js'
+			'!source/demo/modules/**/*.mock.js',
+			'!source/modules/**/*.test.js',
+			'!source/demo/modules/**/*.test.js'
 		],
 		hasWebpackWatch: true
 	},
