@@ -28,7 +28,7 @@ gulp.task(taskName, function() {
 					if (config.taskConfig.watch) {
 						var watcher = watch(config.taskConfig.watch, {
 								usePolling: !!(util.env.pollWatch && util.env.pollWatch !== 'false')
-							}, function(file, bla) {
+							}, function(file) {
 								// Explicitly run task function and provide changed file as parameter if returnChangedFileOnWatch is set
 								// Log duration analogously to how gulp.start would do it
 								if (config.taskConfig.returnChangedFileOnWatch && config.task) {
