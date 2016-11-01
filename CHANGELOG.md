@@ -1,3 +1,20 @@
+## 5.0.0
+
+Hi there!
+
+Features & changes:
+
+* Introduce Webpack to bundle JavaScript
+* Write ES2015 and use Babel to transpile to ES5
+* Add basic dependency graphs to HTML and CSS tasks to allow for selective rebuilds
+* Add SVG sprite capability
+* Bump Node to 6, update dependencies
+
+Bugfixes:
+
+* Most probably
+
+
 ## 4.0.0
 
 We're terribly sorry, but some of the changes may be **slightly** backwards incompatible.
