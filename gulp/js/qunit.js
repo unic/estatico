@@ -146,7 +146,7 @@ gulp.task(taskName, function(cb) {
 					return _.indexOf(ignoreFiles, file.path) !== -1;
 				}))
 
-				// Move them outside /build/ for some weird phantomJS reason
+				// Temporarily save them to file system since gulp-qunit does not read them from stream
 				.pipe(gulp.dest(taskConfig.destTemplates))
 				.pipe(qunit({
 					'phantomjs-options': ['--web-security=no']
