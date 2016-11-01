@@ -42,5 +42,12 @@ module.exports = {
 			errorDetails: false,
 			assetsSort: 'name'
 		}));
+
+		if (stats.compilation.errors.length) {
+			error({
+				task: taskName,
+				err: 'Webpack error (see details above)'
+			});
+		}
 	}
 };
