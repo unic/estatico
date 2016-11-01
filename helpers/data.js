@@ -62,7 +62,7 @@ module.exports = {
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
 			requirePath = path.resolve(path.dirname(requester), filePath),
-			scriptPath = path.join('/test/', path.relative('./source/', requirePath));
+			scriptPath = path.join('/test/', path.relative('./', requirePath));
 
 		// Fix path on windows
 		scriptPath = scriptPath.replace(new RegExp('\\' + path.sep, 'g'), '/');

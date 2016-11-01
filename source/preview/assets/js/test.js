@@ -1,6 +1,5 @@
 /**
- * Handles the QUnit-functionality for estatico.
- *
+ * Load and init QUnit
  */
 
 'use strict';
