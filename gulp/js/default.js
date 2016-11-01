@@ -21,7 +21,7 @@ var taskName = 'js',
 		dest: './build/assets/js/',
 		destBase: './build/',
 		destAsyncSuffix: 'async/',
-		watch: !util.env.skipWebpackWatch ? null : [
+		watch: [
 			'source/assets/js/**/*.js',
 			'source/assets/js/**/*.jsx',
 			'source/assets/.tmp/**/*.js',
@@ -33,7 +33,8 @@ var taskName = 'js',
 			'!source/demo/modules/**/*.data.js',
 			'!source/modules/**/*.mock.js',
 			'!source/demo/modules/**/*.mock.js'
-		]
+		],
+		hasWebpackWatch: true
 	},
 	task = function(config, cb) {
 		var helpers = require('require-dir')('../../helpers'),
@@ -121,7 +122,7 @@ var taskName = 'js',
 			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null
 		});
 
-		if (!util.env.skipWebpackWatch) {
+		if (util.env.watch && !util.env.skipWebpackWatch) {
 			cb = _.once(cb);
 
 			compiler.watch({
