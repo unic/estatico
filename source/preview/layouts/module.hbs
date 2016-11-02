@@ -34,12 +34,12 @@
 
 				<div class="sg_tabs">
 					{{#each variants}}
-						<input type="radio" name="variants" class="tab_trigger" id="variants{{@index}}"{{#unless @index}} checked{{/unless}} aria-controls="panel{{@index}}" role="tab" />
+						<input type="radio" name="variants" class="tab_trigger" id="variants{{@index}}"{{#unless @index}} checked{{/unless}} aria-controls="demoPanel{{@index}} infoPanel{{@index}}" />
 					{{/each}}
 
 					<div class="panels">
 						{{#each variants}}
-							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
+							<div class="tab_content" id="demoPanel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
 								<div class="sg_demo">
 									{{{demo}}}
 								</div>
@@ -55,7 +55,7 @@
 
 					<div class="panels">
 						{{#each variants}}
-							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
+							<div class="tab_content" id="infoPanel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
 								{{!-- "content" is a reserved word in Handlebars, therefore we need the "this" keyword here. --}}
 								{{#if meta}}
 									<div class="sg_variant_meta">
