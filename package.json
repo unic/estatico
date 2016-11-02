@@ -103,6 +103,7 @@
     "should": "11.1.0",
     "style-loader": "0.13.0",
     "through2": "2.0.1",
+    "validate-node-version": "1.1.1",
     "vinyl-buffer": "1.0.0",
     "vinyl-paths": "2.1.0",
     "webpack": "1.13.1"
