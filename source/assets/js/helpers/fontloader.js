@@ -2,13 +2,13 @@ import Helper from './helper';
 
 class FontLoader extends Helper {
 
-	constructor() {
+	constructor(href = '/assets/css/fonts.css?v1') {
 		super();
 		this.logger = this.log(FontLoader.name);
 
 		// once cached, the css file is stored on the client forever unless
 		// the URL below is changed. Any change will invalidate the cache
-		this.cssHref = '/assets/css/fonts.css?v1';
+		this.cssHref = href;
 
 		if (this._fileIsCached()) {
 			this.logger('just use the cached version');
