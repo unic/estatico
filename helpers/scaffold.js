@@ -106,6 +106,16 @@ function getSanitizedName(name, allowUnderscores) {
 	return (!allowUnderscores) ? name.replace(/_/g, '') : name;
 }
 
+/**
+ * Get pascal-cased name for JS class
+ * Example: "Hello World 2" returns "HelloWorld2"
+ * @param {String} name
+ * @return {String}
+ */
+function getClassName(name) {
+	return changeCase.pascal(name, null, true);
+}
+
 module.exports = {
 	/**
 	 * Get type
@@ -237,7 +247,8 @@ module.exports = {
 
 					resolve({
 						original: answers.name,
-						sanitized: name
+						sanitized: name,
+						className: getClassName(answers.name)
 					});
 				});
 			} else if (env && env !== true) {
@@ -250,7 +261,8 @@ module.exports = {
 				} else {
 					resolve({
 						original: env,
-						sanitized: name
+						sanitized: name,
+						className: getClassName(env)
 					});
 				}
 			} else {

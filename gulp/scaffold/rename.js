@@ -51,7 +51,7 @@ var taskName = 'scaffold:rename',
 			})
 			.then(function(response) {
 				scaffoldConfig.name = response.sanitized;
-				scaffoldConfig.className = response.original;
+				scaffoldConfig.className = response.className;
 
 				scaffoldConfig.replaceContent = function(content, config) {
 					return content.replace(new RegExp(config.previousClassName, 'g'), config.className).replace(new RegExp(config.previousName, 'g'), config.name);
