@@ -48,7 +48,7 @@ var taskName = 'scaffold',
 			src: './source/assets/js/helpers/estaticoapp.js',
 			insertionPoint: '/* autoinsertmodule */',
 			importInsertionPoint: '/* autoinsertmodulereference */',
-			insertionTemplate: 'this.modules.{{name}} = {{className}};\n		',
+			insertionTemplate: 'this.modules.{{keyName}} = {{className}};\n		',
 			importInsertionTemplate: 'import {{className}} from \'{{modulePath}}\';\n'
 		},
 
@@ -56,8 +56,12 @@ var taskName = 'scaffold',
 		scaffold: {
 			name: null,
 			className: null,
+			originalName: null,
+			keyName: null,
 			previousName: 'scaffold',
-			previousClassName: 'Scaffold',
+			previousClassName: 'scaffold',
+			previousOriginalName: 'Scaffold',
+			previousKeyName: 'scaffold',
 			deletePrevious: false,
 			src: null,
 			dest: null,
@@ -65,8 +69,11 @@ var taskName = 'scaffold',
 			createScript: false,
 			replaceContentExtensions: ['.js', '.scss', '.hbs', '.md'],
 			replaceContent: function(content, config) {
-				return content.replace(/\{\{name\}\}/g, config.name)
-					.replace(/\{\{className\}\}/g, config.className);
+				return content
+					.replace(/\{\{name\}\}/g, config.name)
+					.replace(/\{\{className\}\}/g, config.className)
+					.replace(/\{\{keyName\}\}/g, config.keyName)
+					.replace(/\{\{originalName\}\}/g, config.originalName);
 			}
 		}
 	},
@@ -90,8 +97,10 @@ var taskName = 'scaffold',
 				});
 			})
 			.then(function(response) {
-				scaffoldConfig.name = response.sanitized;
-				scaffoldConfig.className = response.original;
+				scaffoldConfig.originalName = response.original; // the input by the user. Ideally with spaces
+				scaffoldConfig.name = response.sanitized; // snakeCase or lowercase
+				scaffoldConfig.className = response.className; // pascalCase
+				scaffoldConfig.keyName = response.keyName; // camelCase
 
 				if (hasAssets) {
 					return helpers.scaffold.getAssetsToCreate();
@@ -126,7 +135,7 @@ var taskName = 'scaffold',
 
 		gulp.src(src)
 
-			// Replace {{name|className}}
+			// Replace {{name|className|keyName|originalName}}
 			.pipe(tap(function(file) {
 				if (!file.stat.isDirectory() && config.scaffold.replaceContentExtensions.indexOf(path.extname(file.path)) !== -1) {
 					var content = file.contents.toString();
@@ -222,6 +231,8 @@ var taskName = 'scaffold',
 						scaffold: {
 							name: config.scaffold.previousName,
 							className: config.scaffold.previousClassName,
+							keyName: config.scaffold.previousKeyName,
+							originalName: config.scaffold.previousOriginalName,
 							deregisterStyles: config.scaffold.createStyles,
 							deregisterScript: config.scaffold.createScript
 						}

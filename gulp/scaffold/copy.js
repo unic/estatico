@@ -30,7 +30,9 @@ var taskName = 'scaffold:copy',
 			})
 			.then(function(response) {
 				scaffoldConfig.src = response.src;
+				scaffoldConfig.previousOriginalName = response.originalName;
 				scaffoldConfig.previousName = response.name;
+				scaffoldConfig.previousKeyName = response.keyName;
 				scaffoldConfig.previousClassName = response.className;
 
 				return helpers.scaffold.getType(config.types, {
@@ -55,11 +57,17 @@ var taskName = 'scaffold:copy',
 				});
 			})
 			.then(function(response) {
+				scaffoldConfig.originalName = response.original;
 				scaffoldConfig.name = response.sanitized;
-				scaffoldConfig.className = response.original;
+				scaffoldConfig.className = response.className;
+				scaffoldConfig.keyName = response.keyName;
 
 				scaffoldConfig.replaceContent = function(content, config) {
-					return content.replace(new RegExp(config.previousClassName, 'g'), config.className).replace(new RegExp(config.previousName, 'g'), config.name);
+					return content
+						.replace(new RegExp(config.previousOriginalName, 'g'), config.originalName)
+						.replace(new RegExp(config.previousName, 'g'), config.name)
+						.replace(new RegExp(config.previousClassName, 'g'), config.className)
+						.replace(new RegExp(config.previousKeyName, 'g'), config.keyName);
 				};
 
 				cb(scaffoldConfig);
