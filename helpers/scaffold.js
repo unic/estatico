@@ -43,8 +43,6 @@ function getTargetsByPath(dir) {
 		var moduleName = path.basename(dir),
 			moduleData;
 
-		console.log(path.resolve(dir, moduleName + '.data.js'));
-
 		try {
 			moduleData = requireNew(path.resolve(dir, moduleName + '.data.js'));
 		} catch (err) {
@@ -55,7 +53,9 @@ function getTargetsByPath(dir) {
 		return {
 			name: moduleName,
 			src: dir,
-			className: moduleData.meta.className || moduleName
+			originalName: moduleData.meta.title || moduleName,
+			className: moduleData.meta.className || moduleName,
+			keyName: moduleData.meta.keyName || moduleName
 		};
 	});
 }
@@ -102,6 +102,32 @@ function getTargetInquirerOptions(targets, allowRecursive) {
  */
 function getSanitizedName(name, allowUnderscores) {
 	name = changeCase.snake(name);
+
+	return (!allowUnderscores) ? name.replace(/_/g, '') : name;
+}
+
+/**
+ * Get pascal-cased class name (pascal case, by default without underscores).
+ * Example: "Hello World" returns "HelloWorld" or "Hello_World" (if allowUnderscores is true)
+ * @param {String} name
+ * @param {Boolean} allowUnderscores
+ * @return {String}
+ */
+function getClassName(name, allowUnderscores) {
+	name = changeCase.pascalCase(name);
+
+	return (!allowUnderscores) ? name.replace(/_/g, '') : name;
+}
+
+/**
+ * Get camel-cased key name (camel case, by default without underscores).
+ * Example: "Hello World" returns "HelloWorld" or "Hello_World" (if allowUnderscores is true)
+ * @param {String} name
+ * @param {Boolean} allowUnderscores
+ * @return {String}
+ */
+function getKeyName(name, allowUnderscores) {
+	name = changeCase.camelCase(name);
 
 	return (!allowUnderscores) ? name.replace(/_/g, '') : name;
 }
@@ -211,6 +237,8 @@ module.exports = {
 
 		var env = util.env[options.envKey],
 			name,
+			className,
+			keyName,
 			exists;
 
 		return new Promise(function(resolve, reject) {
@@ -226,7 +254,7 @@ module.exports = {
 
 								exists = targetExists(name, dest);
 
-								return exists ? (typeName + ' named "' + name + '" already exists Lorem ipsum dolor sit amet, \\n consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.') : true;
+								return exists ? (typeName + ' named "' + name + '" already exists') : true;
 							} else {
 								return 'Please enter a name';
 							}
@@ -234,15 +262,20 @@ module.exports = {
 					}
 				]).then(function(answers) {
 					name = getSanitizedName(answers.name, options.allowUnderscores);
+					className = getClassName(answers.name, options.allowUnderscores);
+					keyName = getKeyName(answers.name, options.allowUnderscores);
 
 					resolve({
 						original: answers.name,
+						className: className,
+						keyName: keyName,
 						sanitized: name
 					});
 				});
 			} else if (env && env !== true) {
 				name = getSanitizedName(env, options.allowUnderscores);
-
+				className = getClassName(env, options.allowUnderscores);
+				keyName = getKeyName(answers.name, options.allowUnderscores);
 				exists = targetExists(name, dest);
 
 				if (exists) {
@@ -250,6 +283,8 @@ module.exports = {
 				} else {
 					resolve({
 						original: env,
+						className: className,
+						keyName: keyName,
 						sanitized: name
 					});
 				}
@@ -307,8 +342,8 @@ module.exports = {
 
 		if (options.insertionTemplate) {
 			insertion = handlebars.compile(options.insertionTemplate)({
-					name: options.name,
-					className: options.className
+					className: options.className,
+					keyName: options.keyName
 				}) + options.insertionPoint;
 			importInsertion = handlebars.compile(options.importInsertionTemplate)({
 					modulePath: relPath,
@@ -344,13 +379,14 @@ module.exports = {
 
 		if (options.insertionTemplate) {
 			reference = handlebars.compile(options.insertionTemplate)({
-					name: options.name,
-					className: options.className
+					className: options.className,
+					keyName: options.keyName
 				});
 			importReference = handlebars.compile(options.importInsertionTemplate)({
 				modulePath: relPath,
 				className: options.className
 			});
+
 			content = content.replace(importReference, '');
 		} else {
 			reference = options.insertionPrefix + relPath + options.insertionSuffix;
