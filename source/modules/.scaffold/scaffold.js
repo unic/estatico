@@ -1,19 +1,18 @@
 /*!
- * {{originalName}}
+ * {{className}}
  *
  * @author
  * @copyright
  */
-import EstaticoModule from '../../assets/js/helpers/module';
+import EstaticoModule from '../../../assets/js/helpers/module';
 
 class {{className}} extends EstaticoModule {
 
 	constructor($element, data, options) {
 		let _defaultData = {},
-			_name = '{{name}}',
 			_defaultOptions = {
 				domSelectors: {
-					// item: '[data-' + _name + '="item"]'
+					// item: '[data-' + name + '="item"]'
 				},
 				stateClasses: {
 					// activated: 'is_activated'
@@ -28,7 +27,7 @@ class {{className}} extends EstaticoModule {
 
 	static get events() {
 		return {
-			// eventname: 'eventname.estatico.' + {{name}}
+			// eventname: 'eventname.estatico.' + {{className}}
 		};
 	}
 
