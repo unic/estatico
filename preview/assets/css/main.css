@@ -224,6 +224,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .sg_wrapper .sg_h2 {
   font-size: 2.08333em; }
 
+.sg_warning {
+  border: 1px solid #c30;
+  color: #c30;
+  padding: 1em; }
+
 .sg_tabs {
   /*
 	 * Functionality

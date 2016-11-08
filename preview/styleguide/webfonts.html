@@ -21,6 +21,10 @@
 			<a href="../../" class="sg_logo">Estático</a> / Webfonts
 		</h1>
 
+		<section class="sg_inner_wrapper sg_warning">
+			<strong>Warning:</strong> By default, the font loader assumes to find a <code>/assets/css/fonts.css</code> file. This can be configured as a parameter of the <code>FontLoader</code> instance in <code>head.js</code>. The result is that this currently fails on our GitHub pages, e.g., where the whole build is in a subdirectory. Subsequently, the request to the CSS file will result in a 404 and Roboto will not be loaded.
+		</section>
+
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">family: Roboto</h2>
 					<div class="sg_fonts_font">
