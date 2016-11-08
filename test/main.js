@@ -3,5 +3,6 @@
 module.exports = {
 	css: require('./css/tests.js'),
 	js: require('./js/tests.js'),
-	media: require('./imageversions/tests.js')
+	media: require('./imageversions/tests.js'),
+	scaffold: require('./scaffold/tests.js')
 };
