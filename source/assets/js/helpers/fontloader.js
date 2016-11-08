@@ -2,13 +2,13 @@ import Helper from './helper';
 
 class FontLoader extends Helper {
 
-	constructor() {
+	constructor(href = '/assets/css/fonts.css?v1') {
 		super();
 		this.logger = this.log(FontLoader.name);
 
 		// once cached, the css file is stored on the client forever unless
 		// the URL below is changed. Any change will invalidate the cache
-		this.cssHref = '/assets/css/fonts.css?v1';
+		this.cssHref = href;
 
 		if (this._fileIsCached()) {
 			this.logger('just use the cached version');
@@ -38,7 +38,7 @@ class FontLoader extends Helper {
 
 		// cater for IE8 which does not support addEventListener or attachEvent on XMLHttpRequest
 		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4) {
+			if (xhr.readyState === 4 && xhr.status === 200) {
 
 				// once we have the content, quickly inject the css rules
 				this._injectRawStyle(xhr.responseText);

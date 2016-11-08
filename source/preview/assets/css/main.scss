@@ -26,6 +26,7 @@ $sg_colorLightGray: #eaeaea;
 $sg_colorGray: #999;
 $sg_colorBlack: #000;
 $sg_colorUnicGreen: #a4c400;
+$sg_colorWarning: #c30;
 
 // Transitions
 $sg_defaultTransitionProperty: all;
@@ -98,6 +99,12 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	.sg_h2 {
 		font-size: pxToEm(25px);
 	}
+}
+
+.sg_warning {
+	border: 1px solid $sg_colorWarning;
+	color: $sg_colorWarning;
+	padding: 1em;
 }
 
 
