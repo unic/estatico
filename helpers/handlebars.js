@@ -1,7 +1,7 @@
 'use strict';
 
 // Handlebars
-var handlebars = require('handlebars'),
+var handlebars = require('handlebars').create(),
 	layouts = require('handlebars-layouts'),
 	helpers = require('handlebars-helpers'),
 	errors = require('./errors'),
