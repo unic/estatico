@@ -91,7 +91,7 @@ var taskName = 'scaffold',
 			})
 			.then(function(response) {
 				scaffoldConfig.name = response.sanitized;
-				scaffoldConfig.className = response.original;
+				scaffoldConfig.className = response.className;
 
 				if (hasAssets) {
 					return helpers.scaffold.getAssetsToCreate();
