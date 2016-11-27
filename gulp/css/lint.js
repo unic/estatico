@@ -36,9 +36,7 @@ gulp.task(taskName, function() {
 			}],
 			failAfterError: !util.env.dev
 		}))
-		.on('error', function(err) {
-			console.log(err);
-		});
+		.on('error', helpers.errors);
 });
 
 module.exports = {
