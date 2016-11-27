@@ -1,10 +1,13 @@
+/**
+ * Media examples
+ */
+
 .mod_media {
 
-	// Media examples
 	.iconfont {
 		@include icon("twitter");
 
-		&:before {
+		&::before {
 			font-size: pxToEm(120);
 		}
 
@@ -14,6 +17,7 @@
 			color: $colorActive;
 		}
 	}
+
 	.dataurl {
 		@include iconDataurl("twitter");
 
@@ -22,11 +26,12 @@
 		&:active {
 			color: $colorActive;
 
-			&:before {
+			&::before {
 				@include iconDataurlStyles("twitter", $color: "active", $skipDimensions: true);
 			}
 		}
 	}
+
 	.pngsprite {
 		@include pngsprite("twitter");
 
@@ -35,7 +40,7 @@
 		&:active {
 			color: $colorActive;
 
-			&:before {
+			&::before {
 				@include pngspriteStyles("twitter_active", $skipDimensions: true);
 			}
 		}

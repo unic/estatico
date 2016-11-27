@@ -143,7 +143,7 @@ var taskName = 'css',
 			.on('end', cb);
 	};
 
-gulp.task(taskName, function(cb) {
+gulp.task(taskName, ['css:lint'], function(cb) {
 	return task(taskConfig, cb);
 });
 

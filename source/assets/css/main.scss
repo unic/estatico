@@ -28,7 +28,7 @@
 @import "../../demo/modules/slideshow/slideshow";
 @import "../../demo/modules/imageversions/imageversions";
 @import "../../demo/modules/svgsprite/svgsprite";
-//*autoinsertmodule*
+/* autoinsertmodule */ // stylelint-disable-line comment-empty-line-before
 
 @media print {
 	@import "print";

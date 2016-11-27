@@ -40,7 +40,7 @@ var taskName = 'scaffold',
 		},
 		registerStyles: {
 			src: './source/assets/css/main.scss',
-			insertionPoint: '//*autoinsertmodule*',
+			insertionPoint: '/* autoinsertmodule */',
 			insertionPrefix: '@import "',
 			insertionSuffix: '";\n'
 		},

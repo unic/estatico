@@ -3,7 +3,7 @@
  */
 
 $sizeFontBase: 12px;
-$fontFamilyBase: Arial, sans-serif;
+$fontFamilyBase: "Arial", sans-serif;
 $sizeLineHeightBase: 1.5;
 
 $sizeWidthContent: 960px;
@@ -17,6 +17,6 @@ $sizeBreakpointLarge: 1281px;
  * Custom colors
  */
 
-$colorText: #000000;
-$colorBg: #ffffff;
+$colorText: #000;
+$colorBg: #fff;
 $colorActive: #a4c400;
