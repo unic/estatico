@@ -21,6 +21,7 @@ var taskName = 'css:lint',
 
 gulp.task(taskName, function() {
 	var helpers = require('require-dir')('../../helpers'),
+		path = require('path'),
 		util = require('gulp-util'),
 		cached = require('gulp-cached'),
 		stylelint = require('gulp-stylelint');
@@ -33,6 +34,17 @@ gulp.task(taskName, function() {
 			reporters: [{
 				formatter: 'string',
 				console: true
+			}, {
+				formatter: function(results) {
+					results.filter(function(result) {
+						return result.errored;
+					}).forEach(function(result) {
+						helpers.errors({
+							task: taskName,
+							message: 'Linting error in file "' + path.relative('./source/', result.source) + '" (details above)'
+						});
+					});
+				}
 			}],
 			failAfterError: !util.env.dev
 		}))
