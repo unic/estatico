@@ -1,5 +1,5 @@
 import datasetPolyfill from 'element-dataset';
-import '../../../node_modules/handlebars/dist/handlebars';
+import 'handlebars/dist/handlebars';
 import './helpers/module';
 import './helpers/svgspriteloader';
 

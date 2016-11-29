@@ -1,4 +1,4 @@
-import $ from '../../../../node_modules/jquery/dist/jquery';
+import $ from 'jquery';
 import EstaticoModule from '../../../assets/js/helpers/module';
 import MediaQuery from '../../../assets/js/helpers/mediaqueries';
 import WindowEventListener from '../../../assets/js/helpers/events';

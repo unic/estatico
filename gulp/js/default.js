@@ -59,8 +59,6 @@ var taskName = 'js',
 			resolve: {
 				alias: {
 					handlebars: 'handlebars/runtime.js'
-
-					// jquery: path.join(__dirname, '../../node_modules/jquery/dist/jquery.js')
 				}
 			},
 			module: {

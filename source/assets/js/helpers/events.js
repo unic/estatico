@@ -1,5 +1,5 @@
-import $ from '../../../../node_modules/jquery/dist/jquery';
-import debounce from '../../../../node_modules/lodash.debounce';
+import $ from 'jquery';
+import debounce from 'lodash.debounce';
 
 /**
  * Adds debounced global resize and scroll events and generates public methods for adding handlers
