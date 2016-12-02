@@ -41,7 +41,7 @@
 						{{#each variants}}
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
 								<div class="sg_demo">
-									{{{demo}}}
+									{{{meta.demo}}}
 								</div>
 							</div>
 						{{/each}}
@@ -64,6 +64,9 @@
 										{{/if}}
 									</div>
 								{{/if}}
+{{! Indentation matters... }}
+{{> "preview/partials/code"}}
+
 							</div>
 						{{/each}}
 					</div>
@@ -75,16 +78,14 @@
 				<h2 class="sg_h2">Module Preview</h2>
 				<div class="sg_demo">
 					{{#block "content"}}
-						{{{demo}}}
+						{{{meta.demo}}}
 					{{/block}}
 				</div>
 			</section>
 		{{/if}}
 
-		<section class="sg_inner_wrapper">
-			<h2 class="sg_h2">Code</h2>
-			<pre class="sg_code hljs">{{{meta.code}}}</pre>
-		</section>
+{{! Indentation matters... }}
+{{> "preview/partials/code"}}
 
 		{{#if meta.documentation}}
 			<section class="sg_inner_wrapper">

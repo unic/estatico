@@ -2,14 +2,27 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	dataHelper = require('../../../../helpers/data.js'),
+	dataHelper = requireNew('../../../../helpers/data.js'),
+	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
+
+	moduleData = {},
+	template = dataHelper.getFileContent('media.hbs'),
+	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
 	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Media demo',
 			jira: 'JIRA-3',
-			code: dataHelper.getTemplateCode('media.hbs')
-		}
+			demo: compiledTemplate,
+			code: {
+
+				// handlebars: dataHelper.getFormattedHandlebars(template)
+				html: dataHelper.getFormattedHtml(compiledTemplate)
+
+				// data: dataHelper.getFormattedJson(moduleData)
+			}
+		},
+		module: moduleData
 	});
 
 module.exports = data;

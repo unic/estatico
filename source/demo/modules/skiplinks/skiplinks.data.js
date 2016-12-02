@@ -2,14 +2,11 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	dataHelper = require('../../../../helpers/data.js'),
+	dataHelper = requireNew('../../../../helpers/data.js'),
+	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
-	data = _.merge(defaultData, {
-		meta: {
-			title: 'Demo: Skiplinks',
-			jira: 'JIRA-5',
-			code: dataHelper.getTemplateCode('skiplinks.hbs')
-		},
+
+	moduleData = {
 		links: [
 			{
 				href: '#main',
@@ -18,6 +15,21 @@ var _ = require('lodash'),
 				label: 'Skip to content'
 			}
 		]
+	},
+	template = dataHelper.getFileContent('skiplinks.hbs'),
+	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
+	data = _.merge(defaultData, {
+		meta: {
+			title: 'Demo: Skiplinks',
+			jira: 'JIRA-5',
+			demo: compiledTemplate,
+			code: {
+				handlebars: dataHelper.getFormattedHandlebars(template),
+				html: dataHelper.getFormattedHtml(compiledTemplate),
+				data: dataHelper.getFormattedJson(moduleData)
+			}
+		},
+		module: moduleData
 	});
 
 module.exports = data;

@@ -10,6 +10,7 @@ var _ = require('lodash'),
 	fs = require('fs'),
 	Highlight = require('highlight.js'),
 	marked = require('marked'),
+	prettify = require('js-beautify'),
 	fileCache = {},
 	getFile = function(requirePath) {
 		var cache = fileCache[requirePath],
@@ -29,6 +30,14 @@ var _ = require('lodash'),
 		}
 
 		return cache.content;
+	},
+
+	// Resolve path relative to calling function (expecting a nesting of 2 by default)
+	getRequirePath = function(relativeFilePath, nesting) {
+		var stack = callsite(),
+			requester = stack[nesting || 2].getFileName();
+
+		return path.resolve(path.dirname(requester), relativeFilePath);
 	};
 
 marked.setOptions({
@@ -58,10 +67,14 @@ module.exports = {
 		return data;
 	},
 
+	getFileContent: function(filePath) {
+		var requirePath = getRequirePath(filePath);
+
+		return getFile(requirePath);
+	},
+
 	getTestScriptPath: function(filePath) {
-		var stack = callsite(),
-			requester = stack[1].getFileName(),
-			requirePath = path.resolve(path.dirname(requester), filePath),
+		var requirePath = getRequirePath(filePath),
 			scriptPath = path.join('/test/', path.relative('./', requirePath));
 
 		// Fix path on windows
@@ -70,19 +83,34 @@ module.exports = {
 		return scriptPath;
 	},
 
-	getTemplateCode: function(filePath) {
-		var stack = callsite(),
-			requester = stack[1].getFileName(),
-			requirePath = path.resolve(path.dirname(requester), filePath),
-			content = getFile(requirePath);
+	getFormattedHtml: function(content) {
+		var html = prettify.html(content, {
+				'indent_char': '\t',
+				'indent_size': 1
+			});
 
+		return Highlight.highlight('html', html).value;
+	},
+
+	getFormattedHandlebars: function(content) {
 		return Highlight.highlight('html', content).value;
 	},
 
+	getFormattedJson: function(content) {
+		var formatted = JSON.stringify(content, null, '\t');
+
+		return Highlight.highlight('json', formatted).value;
+	},
+
+	getTemplateCode: function(filePath) {
+		var requirePath = getRequirePath(filePath),
+			content = requireNew(requirePath);
+
+		return this.getFormattedHtml(content);
+	},
+
 	getDataMock: function(filePath) {
-		var stack = callsite(),
-			requester = stack[1].getFileName(),
-			requirePath = path.resolve(path.dirname(requester), filePath),
+		var requirePath = getRequirePath(filePath),
 			content = requireNew(requirePath);
 
 		content = JSON.stringify(content, null, '\t');
@@ -91,18 +119,14 @@ module.exports = {
 	},
 
 	getDocumentation: function(filePath) {
-		var stack = callsite(),
-			requester = stack[1].getFileName(),
-			requirePath = path.resolve(path.dirname(requester), filePath),
+		var requirePath = getRequirePath(filePath),
 			content = getFile(requirePath);
 
 		return marked(content);
 	},
 
 	getColors: function(filePath) {
-		var stack = callsite(),
-			requester = stack[1].getFileName(),
-			requirePath = path.resolve(path.dirname(requester), filePath),
+		var requirePath = getRequirePath(filePath),
 			colors = [],
 			content,
 			$;

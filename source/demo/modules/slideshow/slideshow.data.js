@@ -2,25 +2,11 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	dataHelper = require('../../../../helpers/data.js'),
+	dataHelper = requireNew('../../../../helpers/data.js'),
+	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
-	data = _.merge(defaultData, {
-		meta: {
-			title: 'Demo: Slideshow',
-			className: 'SlideShow',
-			jira: 'JIRA-4',
-			code: dataHelper.getTemplateCode('slideshow.hbs'),
-			documentation: dataHelper.getDocumentation('slideshow.md'),
-			testScripts: [
-				dataHelper.getTestScriptPath('slideshow.test.js')
-			],
-			mocks: [
-				{
-					description: null,
-					data: dataHelper.getDataMock('slideshow.mock.js')
-				}
-			]
-		},
+
+	moduleData = {
 		slides: _.map(['600/201', '600/202', '600/203'], function(size, index) {
 			return {
 				src: 'http://www.fillmurray.com/' + size,
@@ -32,6 +18,32 @@ var _ = require('lodash'),
 			prev: 'Previous Slide',
 			next: 'Next Slide'
 		}
+	},
+	template = dataHelper.getFileContent('slideshow.hbs'),
+	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
+	data = _.merge(defaultData, {
+		meta: {
+			title: 'Demo: Slideshow',
+			className: 'SlideShow',
+			jira: 'JIRA-4',
+			demo: compiledTemplate,
+			code: {
+				handlebars: dataHelper.getFormattedHandlebars(template),
+				html: dataHelper.getFormattedHtml(compiledTemplate),
+				data: dataHelper.getFormattedJson(moduleData)
+			},
+			documentation: dataHelper.getDocumentation('slideshow.md'),
+			testScripts: [
+				dataHelper.getTestScriptPath('slideshow.test.js')
+			],
+			mocks: [
+				{
+					description: null,
+					data: dataHelper.getDataMock('slideshow.mock.js')
+				}
+			]
+		},
+		module: moduleData
 	});
 
 module.exports = data;

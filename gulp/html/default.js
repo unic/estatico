@@ -64,20 +64,7 @@ var taskName = 'html',
 			handlebars = require('gulp-hb'),
 			through = require('through2');
 
-		var compileTemplate = function(template, data) {
-				try {
-					return helpers.handlebars.compile(template)(data);
-				} catch (err) {
-					helpers.errors({
-						task: taskName,
-						message: err.message
-					});
-
-					return '';
-				}
-			},
-
-			modulePreviewTemplate;
+		var modulePreviewTemplate;
 
 		gulp.src(config.src, {
 				base: './source'
@@ -140,35 +127,11 @@ var taskName = 'html',
 
 							return {};
 						}
-					})(),
+					})();
 
-					moduleTemplate,
-					mergedData;
-
-				// Precompile module demo and variants
+				// Replace module file content with preview template
 				if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
-					moduleTemplate = file.contents.toString();
 					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(config.srcModulePreview, 'utf8');
-
-					data.demo = compileTemplate(moduleTemplate, data);
-
-					// Compile variants
-					if (data.variants) {
-						data.variants = data.variants.map(function(variant) {
-							variant.demo = compileTemplate(moduleTemplate, variant);
-
-							return variant;
-						});
-
-						mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
-								meta: {
-									title: 'Default',
-									desc: 'Default implementation.'
-								}
-							}
-						);
-						data.variants.unshift(mergedData);
-					}
 
 					// Replace file content with preview template
 					file.contents = new Buffer(modulePreviewTemplate);
