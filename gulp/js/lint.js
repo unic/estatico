@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp js:lint`
- * @desc Lint JavaScript files (using `JSHint`).
+ * @desc Lint JavaScript files (using `ESLint`).
  */
 
 var gulp = require('gulp');
