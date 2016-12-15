@@ -10,17 +10,18 @@ var gulp = require('gulp');
 var taskName = 'js:lint',
 	taskConfig = {
 		src: [
-
-			// './gulp/**/*.js',
-			// './helpers/**/*.js',
-			// './test/**/*.js',
-			// '!./test/**/expected/**/*.js',
 			'./source/assets/js/**/*.js',
 			'./source/modules/**/*.js',
 			'./source/pages/**/*.js',
 			'./source/demo/modules/**/*.js',
-
-			// './source/demo/modules/!**!/!*.jsx',
+			'./source/demo/pages/**/*.js',
+			'!./source/modules/.scaffold/scaffold.js'
+		],
+		watch: [
+			'./source/assets/js/**/*.js',
+			'./source/modules/**/*.js',
+			'./source/pages/**/*.js',
+			'./source/demo/modules/**/*.js',
 			'./source/demo/pages/**/*.js',
 			'!./source/modules/.scaffold/scaffold.js'
 		]
