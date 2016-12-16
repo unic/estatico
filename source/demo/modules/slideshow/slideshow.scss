@@ -1,18 +1,18 @@
 .mod_slideshow {
 
 	.slide {
-		height: 0;
-		overflow: hidden;
-		padding-bottom: 33.3333333%;
 		position: relative;
+		overflow: hidden;
+		height: 0;
+		padding-bottom: 33.333%;
 
 		img {
-			display: block;
-			height: auto;
-			left: 0;
 			position: absolute;
 			top: 0;
+			left: 0;
+			display: block;
 			width: 100%;
+			height: auto;
 		}
 	}
 
@@ -36,13 +36,14 @@
 			background-color: $colorGraspingGrass;
 		}
 	}
+
 	.next {
 		float: right;
 	}
 
 	.js & {
 
-		.slide + .slide {
+		.slide + .slide { // stylelint-disable-line selector-max-compound-selectors
 			display: none;
 		}
 	}

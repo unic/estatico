@@ -5,18 +5,23 @@
 @function pxToEm($px, $ref: $sizeFontBase) {
 	@return toEm(toPx($px) / toPx($ref));
 }
+
 @function pxToRem($px) {
 	@return toRem(toPx($px) / toPx($sizeFontBase));
 }
+
 @function pxToPc($px, $ref: $sizeWidthContent) {
 	@return (toPx($px) / toPx($ref) * 100%);
 }
+
 @function toEm($val) {
-	@return ($val + 0em);
+	@return ($val + 0em); // stylelint-disable-line length-zero-no-unit
 }
+
 @function toRem($val) {
-	@return ($val + 0rem);
+	@return ($val + 0rem); // stylelint-disable-line length-zero-no-unit
 }
+
 @function toPx($val) {
-	@return ($val + 0px);
+	@return ($val + 0px); // stylelint-disable-line length-zero-no-unit
 }

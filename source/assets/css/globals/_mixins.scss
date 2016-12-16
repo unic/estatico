@@ -6,23 +6,23 @@
  */
 
 @mixin visuallyhidden() {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
 	position: absolute;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
 	width: 1px;
+	height: 1px;
+	padding: 0;
+	border: 0;
+	margin: -1px;
 }
 
 @mixin visuallyhiddenReset() {
+	position: static;
 	clip: auto;
+	overflow: visible;
+	width: auto;
 	height: auto;
 	margin: 0;
-	overflow: visible;
-	position: static;
-	width: auto;
 }
 
 @mixin visuallyhiddenFocusable() {
@@ -44,13 +44,13 @@
 @mixin clearfix() {
 	*zoom: 1;
 
-	&:before,
-	&:after {
+	&::before,
+	&::after {
 		content: " ";
 		display: table;
 	}
 
-	&:after {
+	&::after {
 		clear: both;
 	}
 }
@@ -62,8 +62,8 @@
 
 @mixin resetList() {
 	list-style: none;
-	margin: 0;
 	padding: 0;
+	margin: 0;
 }
 
 
@@ -113,12 +113,15 @@
 	&::-webkit-input-placeholder {
 		@content;
 	}
-	&:-moz-placeholder { // Firefox 18-
-		@content;
+
+	&:-moz-placeholder {
+		@content; // Firefox 18-
 	}
-	&::-moz-placeholder { // Firefox 19+
-		@content;
+
+	&::-moz-placeholder { // stylelint-disable-line no-descending-specificity
+		@content; // Firefox 19+
 	}
+
 	&:-ms-input-placeholder {
 		@content;
 	}

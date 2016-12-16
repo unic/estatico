@@ -3,110 +3,92 @@
 @import "globals/functions";
 @import "globals/mixins";
 @import "globals/mediaqueries";
-
 @import "../../../node_modules/highlight.js/styles/github";
-
 
 
 // Preview: defaults
 // ----------------------------------------------------------------------------------------------------
 
-// Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
+// Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px
+// when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: monospace, serif;
+$sgFont: monospace, serif;
 
-$sg_breakpoint: 941px;
-$sg_marginsBoxed: 20px;
-$sg_maxWidth: 900px;
+$sgBreakpoint: 941px;
+$sgMarginsBoxed: 20px;
+$sgMaxWidth: 900px;
 
 // Colors
-$sg_colorWhite: #fff;
-$sg_colorLightGray: #eaeaea;
-$sg_colorGray: #999;
-$sg_colorBlack: #000;
-$sg_colorUnicGreen: #a4c400;
-$sg_colorWarning: #c30;
+$sgColorWhite: #fff;
+$sgColorLightGray: #eaeaea;
+$sgColorGray: #999;
+$sgColorBlack: #000;
+$sgColorUnicGreen: #a4c400;
+$sgColorWarning: #c30;
 
 // Transitions
-$sg_defaultTransitionProperty: all;
-$sg_defaultTransitionDuration: 0.2s;
-$sg_defaultTransitionTimingFunction: ease-in-out;
-$sg_defaultTransitionDelay: 0s;
-$sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
-
+$sgDefaultTransitionProperty: all;
+$sgDefaultTransitionDuration: 0.2s;
+$sgDefaultTransitionTimingFunction: ease-in-out;
+$sgDefaultTransitionDelay: 0s;
+$sgDefaultTransition: $sgDefaultTransitionProperty $sgDefaultTransitionDuration $sgDefaultTransitionTimingFunction $sgDefaultTransitionDelay; // stylelint-disable-line max-line-length
 
 
 // Preview: mixins
 // ----------------------------------------------------------------------------------------------------
 
 @mixin sgBoxedMargins {
-	margin-left: $sg_marginsBoxed;
-	margin-right: $sg_marginsBoxed;
+	margin-right: $sgMarginsBoxed;
+	margin-left: $sgMarginsBoxed;
 }
 
 @mixin sgBoxed {
-	max-width: $sg_maxWidth;
 	@include sgBoxedMargins;
 
-	@include mq($from: $sg_breakpoint) {
-		margin-left: auto;
+	max-width: $sgMaxWidth;
+
+	@include mq($from: $sgBreakpoint) {
 		margin-right: auto;
+		margin-left: auto;
 	}
 }
-
 
 
 // Preview: generic styles
 // ----------------------------------------------------------------------------------------------------
 
-.sg_wrapper {
-	.sg_h2,
-	.sg_h3,
-	.sg_documentation,
-	.sg_code,
-	.sg_variant_meta,
-	.sg_tests {
-		@include sgBoxed;
-	}
+.sg_h2,
+.sg_h3,
+.sg_documentation,
+.sg_code,
+.sg_variant_meta,
+.sg_tests {
+	@include sgBoxed;
+}
 
-	.sg_title {
-		@include sgBoxedMargins;
-		margin-bottom: pxToEm(70px, 35px);
-		font-family: Georgia, serif;
-		font-size: pxToEm(35px);
+.sg_title,
+.sg_h2,
+.sg_h3,
+.sg_h4 {
+	font-weight: 600;
+}
 
-		a {
-			border-bottom: 3px solid;
-			color: inherit;
-			text-decoration: none;
-		}
-	}
+.sg_h2,
+.sg_h3,
+.sg_h4 {
+	font-family: $sgFont;
+}
 
-	.sg_title,
-	.sg_h2,
-	.sg_h3,
-	.sg_h4 {
-		font-weight: 600;
-	}
-
-	.sg_h2,
-	.sg_h3,
-	.sg_h4 {
-		font-family: $sg_font;
-	}
-
-	.sg_h2 {
-		font-size: pxToEm(25px);
-	}
+.sg_h2 {
+	font-size: pxToEm(25px);
 }
 
 .sg_warning {
-	border: 1px solid $sg_colorWarning;
-	color: $sg_colorWarning;
 	padding: 1em;
+	border: 1px solid $sgColorWarning;
+	color: $sgColorWarning;
 }
-
 
 
 // Preview: modules
@@ -114,72 +96,82 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
 .sg_tabs {
 	$numTabs: 5;
-	$bgcolorActive: $sg_colorLightGray;
+	$bgcolorActive: $sgColorLightGray;
+	$i: $numTabs;
 
 	/*
 	 * Functionality
 	 */
+
 	.tab_trigger {
 		@include visuallyhidden;
 	}
+
 	.tab_content {
 		display: none;
 	}
 
-	$i: $numTabs;
 	@while $i > 0 {
+
 		.tab_trigger:nth-child(#{$i}):checked ~ .panels > .tab_content:nth-child(#{$i}) {
 			display: block;
 		}
+
 		.tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
 			background-color: $bgcolorActive;
 			font-weight: bold;
 		}
-		/*.tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
-			background-color: $bgcolorFocus;
-		}
-		.tab_trigger:nth-child(#{$i}):hover ~ .labels > label:nth-child(#{$i}) {
-			background-color: $bgcolorHover;
-		}*/
-		$i: $i - 1;
+
+		// .tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
+		// 	background-color: $bgcolorFocus;
+		// }
+		// .tab_trigger:nth-child(#{$i}):hover ~ .labels > label:nth-child(#{$i}) {
+		// 	background-color: $bgcolorHover;
+		// }
+
+		$i: $i - 1; // stylelint-disable-line order/declaration-block-order
 	}
 
 	.labels {
 		@include clearfix;
 		@include sgBoxed;
-		border-bottom: 1px solid $sg_colorLightGray;
-		border-top: 1px solid $sg_colorLightGray;
-		& > label {
-			//border-radius: 4px 4px 0 0;
+
+		border-top: 1px solid $sgColorLightGray;
+		border-bottom: 1px solid $sgColorLightGray;
+
+		> label {
 			display: inline-block;
 			padding: 8px 18px;
+
+			// border-radius: 4px 4px 0 0;
 		}
 	}
 }
 
 .hljs {
-	background-color: $sg_colorLightGray;
+	background-color: $sgColorLightGray;
 }
-
 
 
 // Preview: commons
 // ----------------------------------------------------------------------------------------------------
 
 .sg_inner_wrapper {
+
 	.sg_colors &,
 	.sg_elements &,
-	.sg_fonts &,
+	.sgFonts &,
 	.sg_forms &,
 	.sg_icons &,
 	.sg_module & {
 		@include clearfix;
+
 		margin-bottom: pxToEm(70px);
 	}
 
 	.sg_colors &,
 	.sg_elements &,
-	.sg_fonts &,
+	.sgFonts &,
 	.sg_forms &,
 	.sg_icons & {
 		@include sgBoxed;
@@ -187,9 +179,21 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 .sg_title {
+	@include sgBoxedMargins;
+
+	margin-bottom: pxToEm(70px, 35px);
+	font-family: Georgia, serif;
+	font-size: pxToEm(35px);
+
+	a {
+		border-bottom: 3px solid;
+		color: inherit;
+		text-decoration: none;
+	}
+
 	.sg_colors &,
 	.sg_elements &,
-	.sg_fonts &,
+	.sgFonts &,
 	.sg_forms &,
 	.sg_icons &,
 	.sg_module & {
@@ -204,22 +208,23 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 .sg_documentation {
 
 	th {
-		border-bottom: 1px solid $sg_colorLightGray;
+		border-bottom: 1px solid $sgColorLightGray;
 		text-align: left;
 	}
+
 	th,
 	td {
-		border-left: 1px solid $sg_colorLightGray;
 		padding: 0.2em 0.5em;
+		border-left: 1px solid $sgColorLightGray;
 
 		&:first-child {
-			border-left: none;
 			padding-left: 0;
+			border-left: none;
 		}
 	}
 
 	code {
-		background: $sg_colorLightGray;
+		background: $sgColorLightGray;
 		color: #666;
 		padding: 0 0.2em;
 	}
@@ -234,22 +239,21 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 
-
 // Preview: Index page
 // ----------------------------------------------------------------------------------------------------
 
 .sg_index {
+	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	display:flex;
-	//justify-content: flex-start;
-	//align-content: flex-start;
-	//align-items: flex-start;
-
-	margin-left: pxToEm(10px);
 	margin-right: pxToEm(10px);
-	font-family: $sg_font;
+	margin-left: pxToEm(10px);
+	font-family: $sgFont;
 	font-size: pxToEm(14px);
+
+	// justify-content: flex-start;
+	// align-content: flex-start;
+	// align-items: flex-start;
 
 	ul,
 	li {
@@ -264,24 +268,23 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	a {
 		display: inline-block;
 		padding: 0.4em 0;
-		color: $sg_colorGray;
+		color: $sgColorGray;
 		text-decoration: none;
 		line-height: 1.3;
 
 		&:hover {
-			color: $sg_colorBlack;
+			color: $sgColorBlack;
 			text-decoration: none;
 		}
 	}
 
 	.sg_inner_wrapper {
-		border-top: 6px solid;
 		box-sizing: border-box;
-		padding: 1em 0;
-
-		margin: pxToEm(10px, 15px);
-		flex-grow: 1;
 		flex-basis: 100%;
+		flex-grow: 1;
+		padding: 1em 0;
+		border-top: 6px solid;
+		margin: pxToEm(10px, 15px);
 
 		@include mq($from: 600px) {
 			flex-basis: 45%;
@@ -294,17 +297,18 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 // Lists on index page
-.sg_index_list {
-	margin-bottom: 0;
-	padding: 0;
-}
 
+.sg_index_list {
+	padding: 0;
+	margin-bottom: 0;
+}
 
 
 // Preview: Modules page
 // ----------------------------------------------------------------------------------------------------
 
 .sg_module {
+
 	.sg_h2,
 	.sg_h3,
 	.sg_h4 {
@@ -312,44 +316,45 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	}
 
 	.sg_inner_wrapper {
+
 		&:nth-of-type(even) {
-			margin-bottom: 1em;
 			padding-bottom: pxToEm(36px);
-			background-color: $sg_colorLightGray;
+			margin-bottom: 1em;
+			background-color: $sgColorLightGray;
 		}
 	}
 
 	// Remove clearfix in before to avoid big space from non-collapsed margins between h1 and h2
-	.sg_inner_wrapper:first-of-type:before {
+	.sg_inner_wrapper:first-of-type::before {
 		display: none;
 	}
 }
 
 
-
 // Preview: Icons page
 // ----------------------------------------------------------------------------------------------------
+
 .sg_icons_label,
 .sg_icons_icon {
 	display: table-cell;
-	border-top: 1px solid $sg_colorLightGray;
-	border-left: 1px solid $sg_colorLightGray;
-	vertical-align: top;
 	padding: 0.5em;
+	border-top: 1px solid $sgColorLightGray;
+	border-left: 1px solid $sgColorLightGray;
+	vertical-align: top;
 }
 
 .sg_icons_icon {
 	width: 20%;
 }
+
 .sg_icons_icon:last-of-type {
-	border-right: 1px solid $sg_colorLightGray;
+	border-right: 1px solid $sgColorLightGray;
 }
 
 .sg_icons_list {
 	display: table;
 	width: 100%;
-
-	border-bottom: 1px solid $sg_colorLightGray;
+	border-bottom: 1px solid $sgColorLightGray;
 
 	.sg_icons_item {
 		display: table-row;
@@ -367,32 +372,32 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	margin: 0 pxToEm(-10);
 }
 
+.sg_color_preview {
+	width: 7.5em;
+	height: 7.5em;
+	border-radius: 50%;
+	margin: 0 auto;
+	box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.025);
+	transition: $sgDefaultTransition;
+
+	// border: 1px solid $sgColorLightGray;
+}
+
 .sg_color_item {
-	font-size: pxToEm(14);
+	width: pxToEm(($sgMaxWidth / 6), 14);
+	box-sizing: border-box;
 	padding: pxToEm(15, 14) pxToEm(10, 14) pxToEm(20, 14);
-	width: pxToEm(($sg_maxWidth/6), 14);
+	font-size: pxToEm(14);
 	float: left;
 	text-align: center;
-	box-sizing: border-box;
 
 	&:hover {
 
 		.sg_color_preview {
 			transform: scale(1.25);
-			box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
+			box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
 		}
 	}
-}
-
-.sg_color_preview {
-	width: 7.5em;
-	height: 7.5em;
-	margin: 0 auto;
-	// border: 1px solid $sg_colorLightGray;
-	border-radius: 50%;
-	box-shadow: inset 0 0 0 2px rgba(0,0,0,.025);
-
-	transition: $sg_defaultTransition;
 }
 
 .sg_color_name {
@@ -400,15 +405,15 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	font-weight: bold;
 }
 
-.sg_color_value {
-}
+// .sg_color_value {
+// }
 
 
 // Preview: Fonts page
 // ----------------------------------------------------------------------------------------------------
 
 .sg_subsection {
-	border-bottom: 2px solid $sg_colorBlack;
-	padding: 1em 0;
 	position: relative;
+	padding: 1em 0;
+	border-bottom: 2px solid $sgColorBlack;
 }

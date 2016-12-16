@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "{{options.fontName}}";
-	src: url('{{options.fontPath}}{{options.fontName}}.eot');
-	src: url('{{options.fontPath}}{{options.fontName}}.eot?#iefix') format('eot'),
-		url('{{options.fontPath}}{{options.fontName}}.woff') format('woff'),
-		url('{{options.fontPath}}{{options.fontName}}.ttf') format('truetype'),
-		url('{{options.fontPath}}{{options.fontName}}.svg#{{options.fontName}}') format('svg');
+	src: url("{{options.fontPath}}{{options.fontName}}.eot");
+	src: url("{{options.fontPath}}{{options.fontName}}.eot?#iefix") format("eot"),
+		url("{{options.fontPath}}{{options.fontName}}.woff") format("woff"),
+		url("{{options.fontPath}}{{options.fontName}}.ttf") format("truetype"),
+		url("{{options.fontPath}}{{options.fontName}}.svg#{{options.fontName}}") format("svg");
 }
 
 
@@ -36,7 +36,7 @@ $icons: (
 
 @mixin icon($name, $skipDefaultsStyles: false) {
 
-	&:before {
+	&::before {
 		@if $skipDefaultsStyles == false {
 			@include iconDefaultStyles;
 		}
@@ -85,7 +85,7 @@ $icons: (
 
 {{#each icons}}.icon_{{@key}} {
 
-	&:before {
+	&::before {
 		@extend %icon;
 	}
 

@@ -24,7 +24,7 @@ $pngsprite: (
 // See https://github.com/twolfson/json2css/blob/master/lib/templates/scss.template.mustache for parameters
 @mixin pngsprite($name) {
 
-	&:before {
+	&::before {
 		@include pngspriteStyles($name);
 
 		content: "";
@@ -47,7 +47,7 @@ $pngsprite: (
 	background-position: toPx(map-get($position, "x")) toPx(map-get($position, "y"));
 
 	@if $skipDimensions != true {
-		height: toPx(map-get($dimensions, "y"));
 		width: toPx(map-get($dimensions, "x"));
+		height: toPx(map-get($dimensions, "y"));
 	}
 }
