@@ -50,8 +50,8 @@ var taskName = 'scaffold:delete',
 			})
 			.then(function(response) {
 				if (_.isArray(response)) {
-					scaffoldConfig.name = _.pluck(response, 'name');
-					scaffoldConfig.src = _.pluck(response, 'src');
+					scaffoldConfig.name = _.map(response, 'name');
+					scaffoldConfig.src = _.map(response, 'src');
 				} else {
 					scaffoldConfig.name = response.name;
 					scaffoldConfig.className = response.className;
