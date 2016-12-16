@@ -23,9 +23,11 @@ var taskName = 'scaffold:delete',
 			}
 		},
 		scaffold: {
+			originalName: null,
 			name: null,
 			src: null,
 			className: null,
+			keyName: null,
 			deregisterStyles: false,
 			deregisterScript: false
 		}
@@ -53,10 +55,11 @@ var taskName = 'scaffold:delete',
 					scaffoldConfig.name = _.map(response, 'name');
 					scaffoldConfig.src = _.map(response, 'src');
 				} else {
+					scaffoldConfig.originalName = response.originalName;
 					scaffoldConfig.name = response.name;
 					scaffoldConfig.className = response.className;
+					scaffoldConfig.keyName = response.keyName;
 					scaffoldConfig.src = response.src;
-					console.log(response.className);
 				}
 
 				cb(scaffoldConfig);
