@@ -101,9 +101,12 @@ class SlideShow extends EstaticoModule {
 	 * @public
 	 */
 	add(data) {
-		var slide = templates.slide(data);
+		var slide = templates.slide(data),
+			$slide = $(slide);
 
-		$(slide).appendTo(this.ui.$wrapper);
+		$slide.appendTo(this.ui.$wrapper);
+
+		this.ui.$slides = this.ui.$slides.add($slide);
 	}
 
 	/**
