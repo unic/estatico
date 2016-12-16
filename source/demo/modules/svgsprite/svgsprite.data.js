@@ -34,7 +34,7 @@ var _ = require('lodash'),
 	},
 	template = dataHelper.getFileContent('svgsprite.hbs'),
 	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
-	data = _.merge(defaultData, {
+	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: 'Demo: SVG icons',
 			jira: 'ESTATICO-212',
@@ -44,8 +44,7 @@ var _ = require('lodash'),
 				html: dataHelper.getFormattedHtml(compiledTemplate)
 			},
 			documentation: dataHelper.getDocumentation('svgsprite.md')
-		},
-		module: moduleData
+		}
 	});
 
 module.exports = data;

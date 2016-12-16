@@ -18,7 +18,7 @@ var _ = require('lodash'),
 	},
 	template = dataHelper.getFileContent('skiplinks.hbs'),
 	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
-	data = _.merge(defaultData, {
+	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: 'Demo: Skiplinks',
 			jira: 'JIRA-5',
@@ -28,8 +28,7 @@ var _ = require('lodash'),
 				html: dataHelper.getFormattedHtml(compiledTemplate),
 				data: dataHelper.getFormattedJson(moduleData)
 			}
-		},
-		module: moduleData
+		}
 	});
 
 module.exports = data;

@@ -9,7 +9,7 @@ var _ = require('lodash'),
 	moduleData = {}, // Add data to be passed to the module template
 	template = dataHelper.getFileContent('{{name}}.hbs'),
 	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
-	data = _.merge(defaultData, {
+	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: '{{originalName}}',
 			className: '{{className}}',
@@ -22,8 +22,7 @@ var _ = require('lodash'),
 				data: dataHelper.getFormattedJson(moduleData)
 			},
 			documentation: dataHelper.getDocumentation('{{name}}.md')
-		},
-		module: moduleData
+		}
 	});
 
 module.exports = data;

@@ -9,14 +9,14 @@ var _ = require('lodash'),
 
 	moduleData = {
 		teasers: _.map(['Teaser 1', 'Teaser 2', 'Teaser 3', 'Teaser 4'], function(value) {
-			return _.merge({}, teaserData.module, {
+			return _.merge({}, teaserData, {
 				title: value
 			});
 		})
 	},
 	template = dataHelper.getFileContent('teasers.hbs'),
 	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
-	data = _.merge(defaultData, {
+	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: 'Demo: Teasers',
 			jira: 'JIRA-1',
@@ -27,8 +27,7 @@ var _ = require('lodash'),
 				html: dataHelper.getFormattedHtml(compiledTemplate),
 				data: dataHelper.getFormattedJson(moduleData)
 			}
-		},
-		module: moduleData
+		}
 	});
 
 module.exports = data;
