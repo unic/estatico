@@ -141,7 +141,9 @@ var taskName = 'html',
 
 					// Compile variants
 					if (data.variants) {
-						data.variants = data.variants.map(function(variant) {
+						data.variants = Object.keys(data.variants).map(function(variantId) {
+							var variant = data.variants[variantId];
+
 							variant.demo = helpers.handlebars.compile(moduleTemplate)(variant);
 
 							return variant;
