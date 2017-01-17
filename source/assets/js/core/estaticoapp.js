@@ -25,8 +25,8 @@ class EstaticoApp {
 		this._initModuleInitialiser();
 	}
 
-	registerModuleClass(name, xxClass) {
-		this.modules[name] = xxClass;
+	registerModuleClass(name, moduleClass) {
+		this.modules[name] = moduleClass;
 	}
 
 	initModule(moduleName, $node) {
