@@ -45,10 +45,10 @@ var taskName = 'scaffold',
 			insertionSuffix: '";\n'
 		},
 		registerScript: {
-			src: './source/assets/js/helpers/estaticoapp.js',
+			src: './source/assets/js/main.js',
 			insertionPoint: '/* autoinsertmodule */',
 			importInsertionPoint: '/* autoinsertmodulereference */',
-			insertionTemplate: 'this.modules.{{keyName}} = {{className}};\n		',
+			insertionTemplate: 'app.registerModuleClass({{className}}.name, {{className}});\n',
 			importInsertionTemplate: 'import {{className}} from \'{{modulePath}}\';\n'
 		},
 
