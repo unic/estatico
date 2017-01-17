@@ -1,15 +1,10 @@
+import $ from '../../../../node_modules/jquery/dist/jquery';
+
 /**
  * Init registered modules on specified events
  *
  * @license APLv2
  */
-import $ from '../../../../node_modules/jquery/dist/jquery';
-
-/** Demo modules **/
-import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
-import SlideShow from '../../../demo/modules/slideshow/slideshow';
-/* autoinsertmodulereference */
-
 class EstaticoApp {
 
 	constructor() {
@@ -20,9 +15,6 @@ class EstaticoApp {
 
 		// Module registry - mapping module name (used in data-init) to module Class
 		this.modules = {};
-		this.modules.slideshow = SlideShow;
-		this.modules.skiplinks = SkipLinks;
-		/* autoinsertmodule */
 
 		// expose initModule function
 		estatico.helpers.initModule = this.initModule;
@@ -31,6 +23,10 @@ class EstaticoApp {
 	start() {
 		this._registerModules();
 		this._initModuleInitialiser();
+	}
+
+	registerModuleClass(name, moduleClass) {
+		this.modules[name] = moduleClass;
 	}
 
 	initModule(moduleName, $node) {

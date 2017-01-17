@@ -2,11 +2,19 @@ import datasetPolyfill from 'element-dataset';
 import '../../../node_modules/handlebars/dist/handlebars';
 import './helpers/module';
 import './helpers/svgspriteloader';
+import EstaticoApp from './core/estaticoapp';
 
-import EstaticoApp from './helpers/estaticoapp';
+/** Demo modules **/
+import SkipLinks from '../../demo/modules/skiplinks/skiplinks';
+import SlideShow from '../../demo/modules/slideshow/slideshow';
+/* autoinsertmodulereference */
 
 datasetPolyfill();
 
-let app = new EstaticoApp();
+const app = new EstaticoApp();
+
+app.registerModuleClass(SlideShow.name, SlideShow);
+app.registerModuleClass(SkipLinks.name, SkipLinks);
+/* autoinsertmodule */
 
 app.start();
