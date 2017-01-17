@@ -48,7 +48,7 @@ var taskName = 'scaffold',
 			src: './source/assets/js/helpers/estaticoapp.js',
 			insertionPoint: '/* autoinsertmodule */',
 			importInsertionPoint: '/* autoinsertmodulereference */',
-			insertionTemplate: 'this.modules.{{keyName}} = {{className}};\n		',
+			insertionTemplate: 'this.modules[{{className}}.name] = {{className}};\n		',
 			importInsertionTemplate: 'import {{className}} from \'{{modulePath}}\';\n'
 		},
 
