@@ -1,7 +1,5 @@
 import EstaticoModule from '../../assets/js/helpers/module';
 
-const name = '{{name}}';
-
 /*
  * {{originalName}}
  *
@@ -10,12 +8,12 @@ const name = '{{name}}';
  */
 export default class {{className}} extends EstaticoModule {
 	static events = {
-		// eventname: `eventname.estatico.${name}`
+		// eventname: `eventname.estatico.${{{className}}.name}`
 	};
 	static defaultData = {};
 	static defaultOptions = {
 		domSelectors: {
-			// item: `[data-${name}="item"]`
+			// item: `[data-${{{className}}.name}}="item"]`
 		},
 		stateClasses: {
 			// activated: 'is_activated'
