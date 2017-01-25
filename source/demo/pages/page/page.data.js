@@ -2,7 +2,8 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	defaultData = requireNew('../../../data/default.data.js');
+	defaultData = requireNew('../../../data/default.data.js'),
+	teasersData = requireNew('../../modules/teasers/teasers.data.js');
 
 var data = _.merge(defaultData, {
 		meta: {
@@ -12,7 +13,8 @@ var data = _.merge(defaultData, {
 		text: 'This page demonstrates the inclusion of a module.',
 		modules: {
 			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js'),
-			teasers: requireNew('../../modules/teasers/teasers.data.js')
+			teasers: teasersData,
+			teasersInverted: teasersData.variants.find((variants) => variants.meta.key === 'inverted')
 		}
 	});
 

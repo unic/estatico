@@ -17,7 +17,21 @@ var data = _.merge(defaultData, {
 			return _.merge({}, teaserData, {
 				title: value
 			});
-		})
+		}),
+
+		variants: [
+			{
+				meta: {
+					title: 'Teasers inverted',
+					key: 'inverted'
+				},
+				teasers: _.map(['Teaser 1', 'Teaser 2', 'Teaser 3', 'Teaser 4'], function(value) {
+					return _.merge({}, teaserData.variants.find((variants) => variants.meta.key === 'inverted'), {
+						title: value
+					});
+				})
+			}
+		]
 	});
 
 module.exports = data;
