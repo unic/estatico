@@ -56,13 +56,6 @@ var taskName = 'js',
 		compiler = webpack({
 			// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
 			entry: helpers.webpack.getEntries(src, config.srcBase),
-			resolve: {
-				alias: {
-					handlebars: 'handlebars/runtime.js'
-
-					// jquery: path.join(__dirname, '../../node_modules/jquery/dist/jquery.js')
-				}
-			},
 			module: {
 				loaders: [
 					{

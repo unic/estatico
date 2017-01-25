@@ -1,6 +1,6 @@
 import A11y from './helpers/a11y';
 import Inspector from './helpers/inspector';
-import bows from '../../../node_modules/bows/bows';
+import bows from 'bows';
 
 // Enable by default
 // Remove these lines and run "localStorage.removeItem('debug');" to disable

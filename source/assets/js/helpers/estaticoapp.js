@@ -3,7 +3,7 @@
  *
  * @license APLv2
  */
-import $ from '../../../../node_modules/jquery/dist/jquery';
+import $ from 'jquery';
 
 /** Demo modules **/
 import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
