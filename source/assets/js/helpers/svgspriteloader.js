@@ -1,6 +1,6 @@
 /* global ActiveXObject: false */
 
-/*!
+/**
  * SVG Icon Sprite Loader
  *
  * @author Unic AG
@@ -11,7 +11,6 @@
 
 function loadSvgSprites() {
 	var id = 'mod_svgsprites',
-		oReq,
 		spritesToLoad,
 		spritesAmount,
 		spriteContainer = document.createElement('div');
@@ -63,12 +62,9 @@ function loadSvgSprites() {
 		 */
 		if (spritesAmount > 0 && (document.getElementById(id) === null)) {
 			var i = spritesAmount,
-				html = document.getElementsByTagName('html')[0],
-				request;
+				html = document.getElementsByTagName('html')[0];
 
-			oReq = getXMLHttpRequest();
-
-			if (oReq !== null) {
+			if (getXMLHttpRequest() !== null) {
 				spriteContainer.setAttribute('id', id);
 				spriteContainer.setAttribute('data-svgsprites', 'wrapper'); // for potential later usage within JavaScript
 				spriteContainer.setAttribute('style', 'display: none');
@@ -76,7 +72,7 @@ function loadSvgSprites() {
 				document.body.appendChild(spriteContainer);
 
 				while (i--) {
-					request = new RequestSVG(spritesToLoad[i]);
+					new RequestSVG(spritesToLoad[i]); // eslint-disable-line no-new
 				}
 
 				html.setAttribute('class', html.getAttribute('class') + ' svgSpritesLoaded'); // word of caution: the SVG files might not really be loaded yet, this is rather about having them requested (for now)

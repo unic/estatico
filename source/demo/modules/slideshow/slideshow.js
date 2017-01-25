@@ -4,34 +4,34 @@ import MediaQuery from '../../../assets/js/helpers/mediaqueries';
 import WindowEventListener from '../../../assets/js/helpers/events';
 
 var templates = {
-		nav: require('./_slideshow_nav.js.hbs'),
-		slide: require('./_slideshow_slide.js.hbs')
-	};
+	nav: require('./_slideshow_nav.js.hbs'),
+	slide: require('./_slideshow_slide.js.hbs')
+};
 
 class SlideShow extends EstaticoModule {
 
 	constructor($element, data, options) {
 		let _defaultData = {
-			i18n: {
-				prev: 'Previous Slide',
-				next: 'Next Slide'
-			}
-		},
-		_defaultOptions = {
-			initialItem: 0,
-			animationDuration: 300,
-			url: '/mocks/demo/modules/slideshow/slideshow.json?delay=5000',
-			stateClasses: {
-				activated: 'is_activated'
+				i18n: {
+					prev: 'Previous Slide',
+					next: 'Next Slide'
+				}
 			},
-			domSelectors: {
-				slides: '[data-' + SlideShow.name + '="slides"]',
-				slide: '[data-' + SlideShow.name + '="slide"]',
-				nav: '[data-' + SlideShow.name + '="nav"]',
-				prev: '[data-' + SlideShow.name + '="prev"]',
-				next: '[data-' + SlideShow.name + '="next"]'
-			}
-		};
+			_defaultOptions = {
+				initialItem: 0,
+				animationDuration: 300,
+				url: '/mocks/demo/modules/slideshow/slideshow.json?delay=5000',
+				stateClasses: {
+					activated: 'is_activated'
+				},
+				domSelectors: {
+					slides: '[data-' + SlideShow.name + '="slides"]',
+					slide: '[data-' + SlideShow.name + '="slide"]',
+					nav: '[data-' + SlideShow.name + '="nav"]',
+					prev: '[data-' + SlideShow.name + '="prev"]',
+					next: '[data-' + SlideShow.name + '="next"]'
+				}
+			};
 
 		super($element, _defaultData, _defaultOptions, data, options);
 
@@ -123,9 +123,7 @@ class SlideShow extends EstaticoModule {
 		this.ui.$wrapper = this.ui.$element.find(this.options.domSelectors.slides);
 		this.ui.$slides = this.ui.$element.find(this.options.domSelectors.slide);
 		this.ui.$nav = $(templates.nav(this.data));
-		this.ui.$element
-			.append(this.ui.$nav);
-
+		this.ui.$element.append(this.ui.$nav);
 	}
 
 	_initEventListeners() {

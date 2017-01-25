@@ -6,9 +6,8 @@ var _ = require('lodash'),
 	path = require('path'),
 	spriteTask = require('../../../../gulp/media/svgsprite.js'),
 	dataHelper = require('../../../../helpers/data.js'),
-	defaultData = requireNew('../../../data/default.data.js');
-
-var sprites = _.mapValues(spriteTask.taskConfig.src, function(globs) {
+	defaultData = requireNew('../../../data/default.data.js'),
+	sprites = _.mapValues(spriteTask.taskConfig.src, function(globs) {
 		var files = [];
 
 		globs.forEach(function(item) {

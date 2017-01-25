@@ -15,9 +15,9 @@ var _ = require('lodash'),
 		});
 
 		return data;
-	};
+	},
 
-var data = _.merge(defaultData, {
+	data = _.merge(defaultData, {
 		pages: dataHelper.getDataGlob('./source/pages/**/*.data.js', transform),
 		demoPages: dataHelper.getDataGlob('./source/demo/pages/**/*.data.js', transform),
 		modules: dataHelper.getDataGlob('./source/modules/**/*.data.js', transform),
