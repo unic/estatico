@@ -8,7 +8,7 @@ var _ = require('lodash'),
 
 	moduleData = {}, // Add data to be passed to the module template
 	template = dataHelper.getFileContent('{{name}}.hbs'),
-	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
+	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
 	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: '{{originalName}}',

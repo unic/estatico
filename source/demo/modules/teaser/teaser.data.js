@@ -11,7 +11,7 @@ var _ = require('lodash'),
 		text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 	},
 	template = dataHelper.getFileContent('teaser.hbs'),
-	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
+	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
 	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: 'Demo: Teaser with module variants',
@@ -48,7 +48,7 @@ var _ = require('lodash'),
 			variant: 'var_inverted'
 		}
 	].map(function(variant) {
-		var compiledVariant = handlebarsHelper.compile(template)(variant),
+		var compiledVariant = handlebarsHelper.Handlebars.compile(template)(variant),
 			variantData = _.merge({}, data, variant, {
 				meta: {
 					demo: compiledVariant,

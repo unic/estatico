@@ -17,7 +17,7 @@ var _ = require('lodash'),
 		]
 	},
 	template = dataHelper.getFileContent('skiplinks.hbs'),
-	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
+	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
 	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: 'Demo: Skiplinks',

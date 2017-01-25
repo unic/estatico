@@ -78,7 +78,7 @@ gulp.task(taskName, function(cb) {
 			gulp.src(taskConfig.srcStyles)
 				.pipe(plumber())
 				.pipe(handlebars({
-					handlebars: helpers.handlebars,
+					handlebars: helpers.handlebars.Handlebars.create(),
 					data: {
 						images: images
 					},

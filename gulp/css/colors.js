@@ -31,10 +31,11 @@ gulp.task(taskName, function() {
 	return gulp.src(taskConfig.src)
 		.pipe(plumber())
 		.pipe(handlebars({
-			handlebars: helpers.handlebars,
+			handlebars: helpers.handlebars.Handlebars.create(),
 			data: {
 				colors: colors
 			},
+			helpers: helpers.handlebars.helpers,
 			bustCache: true
 		}).on('error', helpers.errors))
 		.pipe(gulp.dest(taskConfig.dest));

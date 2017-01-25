@@ -8,7 +8,7 @@ var _ = require('lodash'),
 
 	moduleData = {},
 	template = dataHelper.getFileContent('imageversions.hbs'),
-	compiledTemplate = handlebarsHelper.compile(template)(moduleData),
+	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
 	data = _.merge(defaultData, moduleData, {
 		meta: {
 			title: 'Demo: Image versions',

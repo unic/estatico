@@ -142,7 +142,7 @@ var taskName = 'html',
 			}))
 			.pipe(plumber())
 			.pipe(handlebars({
-				handlebars: helpers.handlebars,
+				handlebars: helpers.handlebars.Handlebars,
 				partials: config.partials,
 				parsePartialName: function(options, file) {
 					var filePath = file.path;

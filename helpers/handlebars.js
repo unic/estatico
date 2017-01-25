@@ -1,42 +1,38 @@
 'use strict';
 
 // Handlebars
-var handlebars = require('handlebars').create(),
-	layouts = require('handlebars-layouts'),
-	helpers = require('handlebars-helpers'),
+var Handlebars = require('handlebars'),
+	handlebarsLayouts = require('handlebars-layouts'),
+	assembleHelpers = require('handlebars-helpers'),
 	errors = require('./errors'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	helpers = {};
 
 // Make handlebars layout helpers available
-handlebars.registerHelper(layouts(handlebars));
+_.merge(helpers, handlebarsLayouts(Handlebars));
 
 // Make specific assemble helpers available
 // See http://assemble.io/helpers/ for a documentation
-//
 // Example: Use the comparisons provided by the handlebars-helpers package
-helpers.comparison({
-	handlebars: handlebars
-});
+helpers.comparison = assembleHelpers.comparison();
 
-// WARNING: For some helpers, grunt has to be installed (npm install grunt --save && npm shrinkwrap)
-// This might be fixed at some point: https://github.com/assemble/handlebars-helpers/pull/157
 
 // Custom Handlebars helpers
 
 // Capitalize string
-handlebars.registerHelper('capitalize', function(value) {
-	return new handlebars.SafeString(
+helpers.capitalize = function(value) {
+	return new Handlebars.SafeString(
 		value.charAt(0).toUpperCase() + value.substr(1)
 	);
-});
+};
 
 // Output raw block (use: {{{{raw}}}} blabla {{title}} bla{{{{/raw}}}})
-handlebars.registerHelper('raw', function(options) {
+helpers.raw = function(options) {
 	return options.fn();
-});
+};
 
 // Repeat something X times
-handlebars.registerHelper('times', function(n, block) {
+helpers.times = function(n, block) {
 	var output = '';
 
 	for (var i = 0; i < n; i++) {
@@ -44,14 +40,14 @@ handlebars.registerHelper('times', function(n, block) {
 	}
 
 	return output;
-});
+};
 
 // Include partial with dynamic name
 // Based on http://stackoverflow.com/a/21411521
 // @param {String} name - Partial path, can contain placeholder as "{{key}}"
 // @param {Object} partialData - Data to pass to the partial
 // @param {Object} options.replacementContext - Context to use for the placeholder replacement
-handlebars.registerHelper('dynamicPartial', function(name, partialData, options) {
+helpers.dynamicPartial = function(name, partialData, options) {
 	if (name === undefined) {
 		errors({
 			task: 'helpers/handlebars.js',
@@ -75,7 +71,7 @@ handlebars.registerHelper('dynamicPartial', function(name, partialData, options)
 		}
 	});
 
-	template = handlebars.partials[name];
+	template = Handlebars.partials[name];
 
 	if (template === undefined) {
 		errors({
@@ -87,12 +83,18 @@ handlebars.registerHelper('dynamicPartial', function(name, partialData, options)
 	}
 
 	if (typeof template !== 'function') {
-		template = handlebars.compile(template);
+		template = Handlebars.compile(template);
 	}
 
 	output = template(partialData).replace(/^\s+/, '');
 
-	return new handlebars.SafeString(output);
-});
+	return new Handlebars.SafeString(output);
+};
 
-module.exports = handlebars;
+// Register helpers
+Handlebars.registerHelper(helpers);
+
+module.exports = {
+	Handlebars: Handlebars,
+	helpers: helpers
+};
