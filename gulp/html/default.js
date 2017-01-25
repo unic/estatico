@@ -64,7 +64,20 @@ var taskName = 'html',
 			handlebars = require('gulp-hb'),
 			through = require('through2');
 
-		var modulePreviewTemplate;
+		var compileTemplate = function(template, data) {
+				try {
+					return helpers.handlebars.compile(template)(data);
+				} catch (err) {
+					helpers.errors({
+						task: taskName,
+						message: err.message
+					});
+
+					return '';
+				}
+			},
+
+			modulePreviewTemplate;
 
 		gulp.src(config.src, {
 				base: './source'
@@ -137,12 +150,12 @@ var taskName = 'html',
 					moduleTemplate = file.contents.toString();
 					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(config.srcModulePreview, 'utf8');
 
-					data.demo = helpers.handlebars.compile(moduleTemplate)(data);
+					data.demo = compileTemplate(moduleTemplate, data);
 
 					// Compile variants
 					if (data.variants) {
 						data.variants = data.variants.map(function(variant) {
-							variant.demo = helpers.handlebars.compile(moduleTemplate)(variant);
+							variant.demo = compileTemplate(moduleTemplate, variant);
 
 							return variant;
 						});
