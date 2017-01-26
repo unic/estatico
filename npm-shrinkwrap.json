@@ -1475,9 +1475,9 @@
       "resolved": "https://registry.npmjs.org/cli-columns/-/cli-columns-1.0.6.tgz",
       "dependencies": {
         "object-assign": {
-          "version": "4.1.0",
-          "from": "object-assign@>=4.0.1 <5.0.0",
-          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
+          "version": "4.1.1",
+          "from": "object-assign@^4.0.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
         }
       }
     },
@@ -4359,14 +4359,51 @@
       "resolved": "https://registry.npmjs.org/gulp-flatten/-/gulp-flatten-0.3.1.tgz"
     },
     "gulp-hb": {
-      "version": "5.1.4",
-      "from": "gulp-hb@5.1.4",
-      "resolved": "https://registry.npmjs.org/gulp-hb/-/gulp-hb-5.1.4.tgz",
+      "version": "6.0.0",
+      "from": "gulp-hb@6.0.0",
+      "resolved": "https://registry.npmjs.org/gulp-hb/-/gulp-hb-6.0.0.tgz",
       "dependencies": {
+        "async": {
+          "version": "1.5.2",
+          "from": "async@>=1.4.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz"
+        },
+        "dateformat": {
+          "version": "2.0.0",
+          "from": "dateformat@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/dateformat/-/dateformat-2.0.0.tgz"
+        },
+        "gulp-util": {
+          "version": "3.0.8",
+          "from": "gulp-util@>=3.0.8 <4.0.0",
+          "resolved": "https://registry.npmjs.org/gulp-util/-/gulp-util-3.0.8.tgz",
+          "dependencies": {
+            "object-assign": {
+              "version": "3.0.0",
+              "from": "object-assign@>=3.0.0 <4.0.0",
+              "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-3.0.0.tgz"
+            }
+          }
+        },
+        "handlebars": {
+          "version": "4.0.6",
+          "from": "handlebars@>=4.0.6 <5.0.0",
+          "resolved": "https://registry.npmjs.org/handlebars/-/handlebars-4.0.6.tgz"
+        },
+        "minimist": {
+          "version": "1.2.0",
+          "from": "minimist@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
+        },
         "object-assign": {
-          "version": "4.1.0",
-          "from": "object-assign@>=4.1.0 <5.0.0",
-          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
+          "version": "4.1.1",
+          "from": "object-assign@>=4.1.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+        },
+        "through2": {
+          "version": "2.0.3",
+          "from": "through2@>=2.0.3 <3.0.0",
+          "resolved": "https://registry.npmjs.org/through2/-/through2-2.0.3.tgz"
         }
       }
     },
@@ -5380,14 +5417,14 @@
       }
     },
     "handlebars-wax": {
-      "version": "4.0.4",
-      "from": "handlebars-wax@>=4.0.4 <5.0.0",
-      "resolved": "https://registry.npmjs.org/handlebars-wax/-/handlebars-wax-4.0.4.tgz",
+      "version": "5.0.0",
+      "from": "handlebars-wax@>=5.0.0 <6.0.0",
+      "resolved": "https://registry.npmjs.org/handlebars-wax/-/handlebars-wax-5.0.0.tgz",
       "dependencies": {
         "object-assign": {
-          "version": "4.1.0",
-          "from": "object-assign@>=4.1.0 <5.0.0",
-          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
+          "version": "4.1.1",
+          "from": "object-assign@^4.1.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
         }
       }
     },
@@ -6000,7 +6037,7 @@
     },
     "js-beautify": {
       "version": "1.6.4",
-      "from": "js-beautify@1.6.4",
+      "from": "js-beautify@>=1.6.3 <2.0.0",
       "resolved": "https://registry.npmjs.org/js-beautify/-/js-beautify-1.6.4.tgz"
     },
     "js-tokens": {
@@ -7824,7 +7861,7 @@
     },
     "pretty-hrtime": {
       "version": "1.0.2",
-      "from": "pretty-hrtime@latest",
+      "from": "pretty-hrtime@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/pretty-hrtime/-/pretty-hrtime-1.0.2.tgz"
     },
     "private": {
@@ -8222,19 +8259,19 @@
       "resolved": "https://registry.npmjs.org/require-glob/-/require-glob-3.2.0.tgz",
       "dependencies": {
         "glob-parent": {
-          "version": "3.0.1",
+          "version": "3.1.0",
           "from": "glob-parent@>=3.0.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-3.0.1.tgz"
+          "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-3.1.0.tgz"
         },
         "globby": {
-          "version": "6.0.0",
+          "version": "6.1.0",
           "from": "globby@>=6.0.0 <7.0.0",
-          "resolved": "https://registry.npmjs.org/globby/-/globby-6.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/globby/-/globby-6.1.0.tgz"
         },
         "is-extglob": {
-          "version": "2.1.0",
+          "version": "2.1.1",
           "from": "is-extglob@>=2.1.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.0.tgz"
+          "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz"
         },
         "is-glob": {
           "version": "3.1.0",
@@ -8242,9 +8279,9 @@
           "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-3.1.0.tgz"
         },
         "object-assign": {
-          "version": "4.1.0",
-          "from": "object-assign@>=4.0.1 <5.0.0",
-          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
+          "version": "4.1.1",
+          "from": "object-assign@^4.0.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
         }
       }
     },
