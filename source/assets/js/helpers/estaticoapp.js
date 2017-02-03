@@ -66,7 +66,7 @@ class EstaticoApp {
 
 			this.initEvents = this.initEvents.concat(Module.initEvents);
 
-			// Remove duplicats from initEvents
+			// Remove duplicates from initEvents
 			this.initEvents = [...new Set(this.initEvents)];
 		}
 	}
