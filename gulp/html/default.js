@@ -194,11 +194,6 @@ var taskName = 'html',
 					filePath = filePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
 
 					return filePath;
-				},
-
-				bustCache: true,
-				dataEach: function(context, file) {
-					return file.data;
 				}
 			}).on('error', helpers.errors))
 
