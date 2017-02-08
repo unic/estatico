@@ -163,7 +163,7 @@ var taskName = 'html',
 						mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
 								meta: {
 									title: 'Default',
-									desc: 'Default implemention.'
+									desc: 'Default implementation.'
 								}
 							}
 						);
