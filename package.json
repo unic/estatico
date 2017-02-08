@@ -49,7 +49,7 @@
     "gulp-concat": "2.6.0",
     "gulp-eslint": "3.0.1",
     "gulp-flatten": "0.3.1",
-    "gulp-hb": "5.1.4",
+    "gulp-hb": "6.0.0",
     "gulp-iconfont": "8.0.1",
     "gulp-ignore": "2.0.1",
     "gulp-imagemin": "3.0.3",
