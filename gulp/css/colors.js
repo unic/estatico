@@ -34,8 +34,7 @@ gulp.task(taskName, function() {
 			handlebars: helpers.handlebars,
 			data: {
 				colors: colors
-			},
-			bustCache: true
+			}
 		}).on('error', helpers.errors))
 		.pipe(gulp.dest(taskConfig.dest));
 });

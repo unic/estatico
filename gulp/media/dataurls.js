@@ -158,8 +158,7 @@ gulp.task(taskName, function(cb) {
 				.pipe(handlebars({
 					data: {
 						icons: icons
-					},
-					bustCache: true
+					}
 				}).on('error', helpers.errors))
 				.pipe(postCss([
 					postCssUrl(taskConfig.postCssPlugins.url)

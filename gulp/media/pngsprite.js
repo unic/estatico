@@ -81,8 +81,7 @@ gulp.task(taskName, function(cb) {
 					handlebars: helpers.handlebars,
 					data: {
 						images: images
-					},
-					bustCache: true
+					}
 				}).on('error', helpers.errors))
 				.pipe(gulp.dest(taskConfig.destStyles));
 
