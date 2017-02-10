@@ -30,7 +30,7 @@ var taskName = 'media:imageversions',
 		var helpers = require('require-dir')('../../helpers'),
 			plumber = require('gulp-plumber'),
 			tap = require('gulp-tap'),
-			gm = require('gm').subClass({imageMagick: true}),
+			gm = require('gm'),
 			path = require('path'),
 			_ = require('lodash'),
 			through = require('through2'),
@@ -105,6 +105,13 @@ var taskName = 'media:imageversions',
 			}),
 
 			mergedConfig = combineConfigs(configPaths);
+
+		if (!helpers.media.hasGraphicsMagick()) {
+			helpers.errors({
+				task: taskName,
+				message: 'Please install GraphicsMagick (see docs/Setup_and_usage.md)'
+			});
+		}
 
 		gulp.src(
 			_.map(config.src, function(path) {
