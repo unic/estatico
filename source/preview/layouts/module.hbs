@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{project}}</title>
+	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{meta.project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
@@ -25,10 +25,10 @@
 <body {{#if svgSprites}} data-svgsprites-options='{{svgSprites}}'{{/if}}>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
+			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
 
-		{{#if variants}}
+		{{#gt variants.length 1}}
 			<section class="sg_variants sg_inner_wrapper">
 				<h2 class="sg_h2">Module Preview</h2>
 
@@ -76,16 +76,19 @@
 		{{else}}
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Module Preview</h2>
-				<div class="sg_demo">
-					{{#block "content"}}
-						{{{meta.demo}}}
-					{{/block}}
-				</div>
-			</section>
-		{{/if}}
+
+				{{#each variants}}
+					<div class="sg_demo">
+						{{#block "content"}}
+							{{{meta.demo}}}
+						{{/block}}
+					</div>
 
 {{! Indentation matters... }}
 {{> "preview/partials/code"}}
+				{{/each}}
+			</section>
+		{{/gt}}
 
 		{{#if meta.documentation}}
 			<section class="sg_inner_wrapper">

@@ -6,29 +6,21 @@ var _ = require('lodash'),
 	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 
-	moduleData = {
-		title: 'Teaser title',
-		text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
-	},
 	template = dataHelper.getFileContent('teaser.hbs'),
-	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
-	data = _.merge(defaultData, moduleData, {
+	data = _.merge(defaultData, {
 		meta: {
-			title: 'Demo: Teaser with module variants',
-			demo: compiledTemplate
-
-			// code: {
-			// 	handlebars: dataHelper.getFormattedHandlebars(template),
-			// 	html: dataHelper.getFormattedHtml(compiledTemplate),
-			// 	data: dataHelper.getFormattedJson(moduleData)
-			// }
+			title: 'Demo: Teaser with module variants'
+		},
+		props: {
+			title: 'Teaser title',
+			text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 		}
 	}),
 	variants = [
 		{
 			meta: {
 				title: 'Default',
-				desc: 'Default implemention.'
+				desc: 'Default implementation'
 			}
 		},
 		{
@@ -36,31 +28,35 @@ var _ = require('lodash'),
 				title: 'No text',
 				desc: 'Used when there are no words.'
 			},
-			title: 'Teaser title'
+			props: {
+				title: 'Teaser title',
+				text: null
+			}
 		},
 		{
 			meta: {
 				title: 'Inverted',
 				desc: 'Used at night. Set `variant` to `var_inverted`.'
 			},
-			title: 'Teaser title',
-			text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-			variant: 'var_inverted'
+			props: {
+				title: 'Teaser title',
+				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+				variant: 'var_inverted'
+			}
 		}
 	].map(function(variant) {
-		var compiledVariant = handlebarsHelper.Handlebars.compile(template)(variant),
+		var variantProps = _.merge({}, data, variant).props,
+			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
 			variantData = _.merge({}, data, variant, {
 				meta: {
 					demo: compiledVariant,
 					code: {
 						handlebars: dataHelper.getFormattedHandlebars(template),
 						html: dataHelper.getFormattedHtml(compiledVariant),
-						data: dataHelper.getFormattedJson(variant)
+						data: dataHelper.getFormattedJson(variantProps)
 					}
 				}
 			});
-
-		// delete variantData.meta.code.handlebars;
 
 		return variantData;
 	});

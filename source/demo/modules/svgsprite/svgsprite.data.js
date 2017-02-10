@@ -9,6 +9,7 @@ var _ = require('lodash'),
 	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 
+	template = dataHelper.getFileContent('svgsprite.hbs'),
 	sprites = _.mapValues(spriteTask.taskConfig.src, function(globs) {
 		var files = [];
 
@@ -25,26 +26,44 @@ var _ = require('lodash'),
 
 		return files;
 	}),
-
-	moduleData = {
-		svgSprites: JSON.stringify(JSON.parse(defaultData.svgSprites || '[]').concat([
-			'/assets/media/svg/demo.svg'
-		])),
-		preview: sprites
-	},
-	template = dataHelper.getFileContent('svgsprite.hbs'),
-	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
-	data = _.merge(defaultData, moduleData, {
+	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: SVG icons',
 			jira: 'ESTATICO-212',
-			demo: compiledTemplate,
-			code: {
-				handlebars: dataHelper.getFormattedHandlebars(template),
-				html: dataHelper.getFormattedHtml(compiledTemplate)
-			},
 			documentation: dataHelper.getDocumentation('svgsprite.md')
+		},
+		svgSprites: JSON.stringify(JSON.parse(defaultData.svgSprites || '[]').concat([
+			'/assets/media/svg/demo.svg'
+		])),
+		props: {
+			preview: sprites
 		}
+	}),
+	variants = [
+		{
+			meta: {
+				title: 'Default',
+				desc: 'Default implementation'
+			}
+		}
+	].map(function(variant) {
+		var variantProps = _.merge({}, data, variant).props,
+			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
+			variantData = _.merge({}, data, variant, {
+				meta: {
+					demo: compiledVariant
+
+					// code: {
+					// 	handlebars: dataHelper.getFormattedHandlebars(template),
+					// 	html: dataHelper.getFormattedHtml(compiledVariant),
+					// 	data: dataHelper.getFormattedJson(variantProps)
+					// }
+				}
+			});
+
+		return variantData;
 	});
+
+data.variants = variants;
 
 module.exports = data;

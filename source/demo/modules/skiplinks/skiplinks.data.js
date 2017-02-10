@@ -6,29 +6,47 @@ var _ = require('lodash'),
 	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 
-	moduleData = {
-		links: [
-			{
-				href: '#main',
-				accesskey: 1,
-				title: '[ALT + 1]',
-				label: 'Skip to content'
-			}
-		]
-	},
 	template = dataHelper.getFileContent('skiplinks.hbs'),
-	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
-	data = _.merge(defaultData, moduleData, {
+	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Skiplinks',
-			jira: 'JIRA-5',
-			demo: compiledTemplate,
-			code: {
-				handlebars: dataHelper.getFormattedHandlebars(template),
-				html: dataHelper.getFormattedHtml(compiledTemplate),
-				data: dataHelper.getFormattedJson(moduleData)
+			jira: 'JIRA-5'
+		},
+		props: {
+			links: [
+				{
+					href: '#main',
+					accesskey: 1,
+					title: '[ALT + 1]',
+					label: 'Skip to content'
+				}
+			]
+		}
+	}),
+	variants = [
+		{
+			meta: {
+				title: 'Default',
+				desc: 'Default implementation'
 			}
 		}
+	].map(function(variant) {
+		var variantProps = _.merge({}, data, variant).props,
+			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
+			variantData = _.merge({}, data, variant, {
+				meta: {
+					demo: compiledVariant,
+					code: {
+						handlebars: dataHelper.getFormattedHandlebars(template),
+						html: dataHelper.getFormattedHtml(compiledVariant),
+						data: dataHelper.getFormattedJson(variantProps)
+					}
+				}
+			});
+
+		return variantData;
 	});
+
+data.variants = variants;
 
 module.exports = data;

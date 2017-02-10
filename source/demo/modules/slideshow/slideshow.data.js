@@ -6,32 +6,12 @@ var _ = require('lodash'),
 	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 
-	moduleData = {
-		slides: _.map(['600/201', '600/202', '600/203'], function(size, index) {
-			return {
-				src: 'http://www.fillmurray.com/' + size,
-				alt: 'Bill Murray ' + (index + 1)
-			};
-		}),
-
-		i18n: {
-			prev: 'Previous Slide',
-			next: 'Next Slide'
-		}
-	},
 	template = dataHelper.getFileContent('slideshow.hbs'),
-	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
-	data = _.merge(defaultData, moduleData, {
+	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Slideshow',
 			className: 'SlideShow',
 			jira: 'JIRA-4',
-			demo: compiledTemplate,
-			code: {
-				handlebars: dataHelper.getFormattedHandlebars(template),
-				html: dataHelper.getFormattedHtml(compiledTemplate),
-				data: dataHelper.getFormattedJson(moduleData)
-			},
 			documentation: dataHelper.getDocumentation('slideshow.md'),
 			testScripts: [
 				dataHelper.getTestScriptPath('slideshow.test.js')
@@ -42,7 +22,45 @@ var _ = require('lodash'),
 					data: dataHelper.getDataMock('slideshow.mock.js')
 				}
 			]
+		},
+		props: {
+			slides: _.map(['600/201', '600/202', '600/203'], function(size, index) {
+				return {
+					src: 'http://www.fillmurray.com/' + size,
+					alt: 'Bill Murray ' + (index + 1)
+				};
+			}),
+
+			i18n: {
+				prev: 'Previous Slide',
+				next: 'Next Slide'
+			}
 		}
+	}),
+	variants = [
+		{
+			meta: {
+				title: 'Default',
+				desc: 'Default implementation'
+			}
+		}
+	].map(function(variant) {
+		var variantProps = _.merge({}, data, variant).props,
+			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
+			variantData = _.merge({}, data, variant, {
+				meta: {
+					demo: compiledVariant,
+					code: {
+						handlebars: dataHelper.getFormattedHandlebars(template),
+						html: dataHelper.getFormattedHtml(compiledVariant),
+						data: dataHelper.getFormattedJson(variantProps)
+					}
+				}
+			});
+
+		return variantData;
 	});
+
+data.variants = variants;
 
 module.exports = data;

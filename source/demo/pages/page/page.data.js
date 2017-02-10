@@ -10,8 +10,8 @@ var _ = require('lodash'),
 		title: 'Page',
 		text: 'This page demonstrates the inclusion of a module.',
 		modules: {
-			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js'),
-			teasers: requireNew('../../modules/teasers/teasers.data.js')
+			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js').props,
+			teasers: requireNew('../../modules/teasers/teasers.data.js').props
 		}
 	});
 

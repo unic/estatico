@@ -10,7 +10,7 @@ var _ = require('lodash'),
 		title: 'Page (custom teasers)',
 		text: 'This page demonstrates the inclusion of a module with custom data.',
 		modules: {
-			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js'),
+			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js').props,
 			teasers: {
 				teasers: _.map(['Custom Teaser 1', 'Custom Teaser 2', 'Custom Teaser 3'], function(value) {
 					return {

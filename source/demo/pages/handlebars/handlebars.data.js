@@ -21,8 +21,8 @@ var _ = require('lodash'),
 		subString: 'hello',
 		testString2: 'hello world',
 		modules: {
-			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js'),
-			slideshow: requireNew('../../modules/slideshow/slideshow.data.js')
+			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js').props,
+			slideshow: requireNew('../../modules/slideshow/slideshow.data.js').props
 		}
 	});
 

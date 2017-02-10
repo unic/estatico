@@ -6,22 +6,39 @@ var _ = require('lodash'),
 	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 
-	moduleData = {},
 	template = dataHelper.getFileContent('media.hbs'),
-	compiledTemplate = handlebarsHelper.Handlebars.compile(template)(moduleData),
-	data = _.merge(defaultData, moduleData, {
+	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Media demo',
-			jira: 'JIRA-3',
-			demo: compiledTemplate,
-			code: {
-
-				// handlebars: dataHelper.getFormattedHandlebars(template)
-				html: dataHelper.getFormattedHtml(compiledTemplate)
-
-				// data: dataHelper.getFormattedJson(moduleData)
+			jira: 'JIRA-3'
+		},
+		props: {}
+	}),
+	variants = [
+		{
+			meta: {
+				title: 'Default',
+				desc: 'Default implementation'
 			}
 		}
+	].map(function(variant) {
+		var variantProps = _.merge({}, data, variant).props,
+			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
+			variantData = _.merge({}, data, variant, {
+				meta: {
+					demo: compiledVariant
+
+					// code: {
+					// 	handlebars: dataHelper.getFormattedHandlebars(template),
+					// 	html: dataHelper.getFormattedHtml(compiledVariant),
+					// 	data: dataHelper.getFormattedJson(variantProps)
+					// }
+				}
+			});
+
+		return variantData;
 	});
+
+data.variants = variants;
 
 module.exports = data;
