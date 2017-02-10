@@ -1,5 +1,5 @@
-import $ from '../../../../node_modules/jquery/dist/jquery';
-import _ from '../../../../node_modules/lodash';
+import $ from 'jquery';
+import _ from 'lodash';
 
 class EstaticoModule {
 

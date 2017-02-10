@@ -19,6 +19,12 @@ var taskName = 'media:dataurls',
 		destStyles: './source/assets/.tmp/',
 		relStyles: './build/assets/css/',
 		relIcons: '../media/icons/',
+		postCssPlugins: {
+			url: {
+				url: 'inline',
+				basePath: '../../../../build/assets/media/'
+			}
+		},
 		watch: [
 			'source/assets/media/icons/*.svg',
 			'source/modules/**/icons/*.svg',
@@ -40,7 +46,9 @@ gulp.task(taskName, function(cb) {
 		raster = require('gulp-raster'),
 		rename = require('gulp-rename'),
 		handlebars = require('gulp-hb'),
-		base64 = require('gulp-base64');
+		postCss = require('gulp-postcss'),
+		postCssUrl = require('postcss-url'),
+		postCssScss = require('postcss-scss');
 
 	var pathSeparator = '--',
 		icons = {};
@@ -153,11 +161,13 @@ gulp.task(taskName, function(cb) {
 					},
 					bustCache: true
 				}).on('error', helpers.errors))
-				.pipe(base64({
-					baseDir: taskConfig.relStyles
+				.pipe(postCss([
+					postCssUrl(taskConfig.postCssPlugins.url)
+				], {
+					syntax: postCssScss
 				}))
 				.pipe(size({
-					title: 'media:icons (CSS base64)'
+					title: 'media:icons (CSS)'
 				}))
 				.pipe(gulp.dest(taskConfig.destStyles))
 				.pipe(livereload())

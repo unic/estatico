@@ -106,6 +106,13 @@ var taskName = 'media:imageversions',
 
 			mergedConfig = combineConfigs(configPaths);
 
+		if (!helpers.media.hasGraphicsMagick()) {
+			helpers.errors({
+				task: taskName,
+				message: 'Please install GraphicsMagick (see docs/Setup_and_usage.md)'
+			});
+		}
+
 		gulp.src(
 			_.map(config.src, function(path) {
 				return path + config.fileExtensionPattern;

@@ -3,7 +3,9 @@ build
 source/assets/.tmp
 .sass-cache
 .cache
-.idea
+.idea/workspace.xml
+.idea/tasks.xml
+*.iws
 atlassian-ide-plugin.xml
 .vagrant
 .qunit

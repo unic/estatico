@@ -68,10 +68,10 @@ gulp.task(taskName, function(cb) {
 						y: data.height
 					},
 					position: {
-						x: data.offset_x, // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
-						y: data.offset_y // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
+						x: data.offset_x,
+						y: data.offset_y
 					},
-					url: data.escaped_image // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
+					url: data.escaped_image
 				};
 			});
 
