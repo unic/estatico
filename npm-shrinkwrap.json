@@ -9416,6 +9416,18 @@
       "from": "vali-date@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/vali-date/-/vali-date-1.0.0.tgz"
     },
+    "validate-node-version": {
+      "version": "1.1.1",
+      "from": "validate-node-version@1.1.1",
+      "resolved": "https://registry.npmjs.org/validate-node-version/-/validate-node-version-1.1.1.tgz",
+      "dependencies": {
+        "semver": {
+          "version": "5.3.0",
+          "from": "semver@>=5.0.1 <6.0.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.3.0.tgz"
+        }
+      }
+    },
     "validate-npm-package-license": {
       "version": "3.0.1",
       "from": "validate-npm-package-license@>=3.0.1 <4.0.0",
