@@ -1,17 +1,13 @@
 'use strict';
 
-var _ = require('lodash'),
-	requireNew = require('require-new'),
-	dataHelper = require('../../../helpers/data.js'),
-	defaultData = requireNew('../../data/default.data.js'),
-	data = _.merge(defaultData, {
-		meta: {
-			title: '{{originalName}}',
-			className: '{{className}}',
-			keyName: '{{keyName}}',
-			code: dataHelper.getTemplateCode('{{name}}.hbs'),
-			documentation: dataHelper.getDocumentation('{{name}}.md')
-		}
-	});
+var dataHelper = require('../../../helpers/data.js');
 
-module.exports = data;
+module.exports = dataHelper.getExtendedData({
+	meta: {
+		title: '{{originalName}}',
+		className: '{{className}}',
+		keyName: '{{keyName}}',
+		code: dataHelper.getTemplateCode('{{name}}.hbs'),
+		documentation: dataHelper.getDocumentation('{{name}}.md')
+	}
+});
