@@ -54,7 +54,7 @@ class EstaticoModule {
 		$(document).off('.' + this.uuid);
 
 		// Delete references to instance
-		this.ui.$element.removeData(this.name + '-instance');
+		this.ui.$element.removeData(this.name + 'Instance');
 
 		delete estatico.modules[this.name].instances[this.uuid];
 	}
