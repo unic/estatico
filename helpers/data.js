@@ -76,7 +76,12 @@ module.exports = {
 			requirePath = path.resolve(path.dirname(requester), filePath),
 			content = getFile(requirePath);
 
-		return Highlight.highlight('html', content).value;
+		var highlighted = Highlight.highlight('html', content).value;
+
+		// Link the used sub modules (excludes partials starting with underscore)
+		highlighted = highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
+
+		return highlighted;
 	},
 
 	getDataMock: function(filePath) {
