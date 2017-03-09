@@ -71,17 +71,59 @@ module.exports = {
 	},
 
 	getTemplateCode: function(filePath) {
+		function highlightTemplateCode(content) {
+			var highlighted = Highlight.highlight('html', content).value;
+
+			// Link the used sub modules (excludes partials starting with underscore)
+			return highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
+		}
+
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
 			requirePath = path.resolve(path.dirname(requester), filePath),
-			content = getFile(requirePath);
+			content = getFile(requirePath),
+			usedPartials = this.getUsedPartialsInTemplate(content),
+			partialContent;
 
-		var highlighted = Highlight.highlight('html', content).value;
+		// Look up content of all partials used in the main template
+		usedPartials = usedPartials.map((partial) => {
+			partialContent = getFile(path.resolve('./source/', partial + '.hbs'));
 
-		// Link the used sub modules (excludes partials starting with underscore)
-		highlighted = highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
+			return {
+				name: partial,
+				content: highlightTemplateCode(partialContent)
+			};
+		});
 
-		return highlighted;
+		return {
+			content: highlightTemplateCode(content),
+			partials: usedPartials
+		};
+	},
+
+	/**
+	 * Returns a list with all partials within the defined template content.
+	 * Only includes the internal module partials (those starting with _),
+	 * which don't have an own module page.
+	 *
+	 * @param content
+	 * @returns {Array}
+	 */
+	getUsedPartialsInTemplate: function(content) {
+		var list = [],
+			regexp = /{{>[\s"]*([a-z0-9\/_-]+\/_[a-z0-9\/._-]+)[\s"}]/g,
+			match;
+
+		match = regexp.exec(content);
+		while (match) {
+			list.push(match[1]);
+			match = regexp.exec(content);
+		}
+
+		// Remove duplicates
+		list = [...new Set(list)];
+
+		return list;
 	},
 
 	getDataMock: function(filePath) {

@@ -82,8 +82,14 @@
 		{{/if}}
 
 		<section class="sg_inner_wrapper">
-			<h2 class="sg_h2">Code</h2>
-			<pre class="sg_code hljs">{{{meta.code}}}</pre>
+			<h2 class="sg_h2">Template</h2>
+			<pre class="sg_code hljs">{{{meta.code.content}}}</pre>
+
+			{{#each meta.code.partials as |partial|}}
+				<hr>
+				<h3 class="sg_h3">Template of {{partial.name}}</h3>
+				<pre class="sg_code hljs">{{{partial.content}}}</pre>
+			{{/each}}
 		</section>
 
 		{{#if meta.documentation}}
