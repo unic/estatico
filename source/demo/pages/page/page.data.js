@@ -7,11 +7,13 @@ var _ = require('lodash'),
 		meta: {
 			title: 'Demo: 01 Page'
 		},
-		title: 'Page',
-		text: 'This page demonstrates the inclusion of a module.',
-		modules: {
-			skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js').props,
-			teasers: requireNew('../../modules/teasers/teasers.data.js').props
+		props: {
+			title: 'Page',
+			text: 'This page demonstrates the inclusion of a module.',
+			modules: {
+				skiplinks: requireNew('../../modules/skiplinks/skiplinks.data.js').props,
+				teasers: requireNew('../../modules/teasers/teasers.data.js').props
+			}
 		}
 	});
 
