@@ -32,10 +32,10 @@ var _ = require('lodash'),
 			jira: 'ESTATICO-212',
 			documentation: dataHelper.getDocumentation('svgsprite.md')
 		},
-		svgSprites: JSON.stringify(JSON.parse(defaultData.svgSprites || '[]').concat([
-			'/assets/media/svg/demo.svg'
-		])),
 		props: {
+			svgSprites: JSON.stringify(JSON.parse(defaultData.props.svgSprites || '[]').concat([
+				'/assets/media/svg/demo.svg'
+			])),
 			preview: sprites
 		}
 	}),
