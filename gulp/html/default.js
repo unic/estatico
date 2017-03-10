@@ -77,7 +77,7 @@ var taskName = 'html',
 
 				// Create dependency graph of currently piped file
 				var dependencyGraph = new helpers.dependencygraph(file.path, {
-						pattern: /{{>[\s-]*"(.*?)"(.*?)}}/g,
+						pattern: /{{>[\s-]*"?(.*?)["|\s](.*?)}}/g,
 						resolvePath: function(match) {
 							var resolvedPath = path.resolve('./source/', match + '.hbs');
 
@@ -157,11 +157,6 @@ var taskName = 'html',
 					filePath = filePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
 
 					return filePath;
-				},
-
-				bustCache: true,
-				dataEach: function(context, file) {
-					return file.data;
 				}
 			}).on('error', helpers.errors))
 

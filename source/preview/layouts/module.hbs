@@ -28,7 +28,7 @@
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
 
-		{{#gt variants.length 1}}
+		{{#hasVariants variants}}
 			<section class="sg_variants sg_inner_wrapper">
 				<h2 class="sg_h2">Module Preview</h2>
 
@@ -88,7 +88,7 @@
 {{> "preview/partials/code"}}
 				{{/each}}
 			</section>
-		{{/gt}}
+		{{/hasVariants}}
 
 		{{#if meta.documentation}}
 			<section class="sg_inner_wrapper">

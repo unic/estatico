@@ -71,8 +71,7 @@ gulp.task(taskName, function(cb) {
 					data: {
 						icons: data.icons,
 						options: data.options
-					},
-					bustCache: true
+					}
 				}).on('error', helpers.errors))
 				.pipe(gulp.dest(taskConfig.destStyles))
 				.on('end', function() {

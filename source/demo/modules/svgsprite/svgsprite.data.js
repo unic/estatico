@@ -39,14 +39,14 @@ var _ = require('lodash'),
 			preview: sprites
 		}
 	}),
-	variants = [
-		{
+	variants = _.mapValues({
+		default: {
 			meta: {
 				title: 'Default',
 				desc: 'Default implementation'
 			}
 		}
-	].map(function(variant) {
+	}, function(variant) {
 		var variantProps = _.merge({}, data, variant).props,
 			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
 			variantData = _.merge({}, data, variant, {
