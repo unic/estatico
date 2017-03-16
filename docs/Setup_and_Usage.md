@@ -57,6 +57,12 @@ npm start
 # dev flag makes sure the server and watcher don't crash on error
 ```
 
+Start server with an specific configuration, either `local` or `acceptance`:
+
+```shell
+npm start -- --local
+```
+
 Build:
 
 ```shell
