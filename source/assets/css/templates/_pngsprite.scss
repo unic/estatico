@@ -1,0 +1,53 @@
+/**
+ * Map containing all sprite images with their dimensions and position
+ *
+ * Can be accessed using map-get (see pngspriteStyles mixin)
+ */
+
+$pngsprite: (
+	{{#each images}}"{{@key}}": (
+		"position": (
+			"x": {{this.position.x}},
+			"y": {{this.position.y}}
+		),
+		"dimensions": (
+			"x": {{this.dimensions.x}},
+			"y": {{this.dimensions.y}}
+		),
+		"url": "{{this.url}}"
+	),
+	{{/each}}
+);
+
+
+// Example template
+// See https://github.com/twolfson/json2css/blob/master/lib/templates/scss.template.mustache for parameters
+@mixin pngsprite($name) {
+
+	&:before {
+		@include pngspriteStyles($name);
+
+		content: "";
+		display: inline-block;
+	}
+}
+
+@mixin pngspriteStyles($name, $skipDimensions: false) {
+	$image: map-get($pngsprite, $name);
+
+	@if $image == null {
+		@error "No image '#{$name}' found";
+	}
+
+	$url: map-get($image, "url");
+	$position: map-get($image, "position");
+	$dimensions: map-get($image, "dimensions");
+
+	background-image: url($url);
+	background-position: toPx(map-get($position, "x")) toPx(map-get($position, "y"));
+
+	@if $skipDimensions != true {
+		height: toPx(map-get($dimensions, "y"));
+		width: toPx(map-get($dimensions, "x"));
+	}
+}

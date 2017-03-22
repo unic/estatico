@@ -1,0 +1,49 @@
+.mod_slideshow {
+
+	.slide {
+		height: 0;
+		overflow: hidden;
+		padding-bottom: 33.3333333%;
+		position: relative;
+
+		img {
+			display: block;
+			height: auto;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+	}
+
+	.nav {
+		@include clearfix;
+		margin-top: 1em;
+	}
+
+	.prev,
+	.next {
+		background-color: $colorSoulSide; // for anything smaller than a tablet
+		border: none;
+		float: left;
+
+		@include mq($from: small, $to: medium) { // for tablets
+			background-color: $colorBondiBlue;
+			color: $colorAlpineAlabaster;
+		}
+
+		@include mq($from: medium) { // for anything bigger than a tablet
+			background-color: $colorGraspingGrass;
+		}
+	}
+	.next {
+		float: right;
+	}
+
+	.js & {
+
+		.slide + .slide {
+			display: none;
+		}
+	}
+}

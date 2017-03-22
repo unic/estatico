@@ -1,0 +1,80 @@
+/**
+ * Map containing all icons with their dimensions and color variants
+ *
+ * Can be accessed using map-get (see iconDataurlStyles( mixin)
+ */
+
+$iconsDataurls: (
+	{{#each icons}}"{{@key}}": (
+		"dimensions": (
+			"x": {{this.dimensions.x}},
+			"y": {{this.dimensions.y}}
+		),
+		"urls": (
+			{{#each this.urls}}"{{@key}}": (
+				"svg": "{{this.svg}}",
+				"svgInline": "url({{this.svg}})",
+				"png": "{{this.png}}",
+				"pngInline": "url({{this.png}})"
+			),
+			{{/each}}
+		)
+	),
+	{{/each}}
+);
+
+
+/**
+ * Mixins
+ *
+ * iconDataurl() renders an icon into the :before/:after pseudo element
+ *
+ * iconDataurlStyles() renders the main styles
+ * It is used by iconDataurl()
+ */
+
+@mixin iconDataurl($name, $color: "primary", $after: false) {
+	$selector: "before";
+
+	@if $after == true {
+		$selector: "after";
+	}
+
+	&:#{$selector} {
+		@include iconDataurlStyles($name, $color);
+
+		content: "";
+		display: inline-block;
+	}
+}
+
+@mixin iconDataurlStyles($name, $color: "primary", $skipDimensions: false, $skipFallback: false) {
+	$icon: map-get($iconsDataurls, $name);
+
+	@if $icon == null {
+		@error "No icon '#{$name}' found";
+	}
+
+	$dimensions: map-get($icon, "dimensions");
+	$urls: map-get($icon, "urls");
+	$urls: map-get($urls, $color);
+
+	@if $urls == null {
+		@error "No color '#{$color}' of icon '#{$name}' found";
+	}
+
+	background-image: unquote(map-get($urls, "svgInline"));
+	background-repeat: no-repeat;
+	background-size: contain;
+
+	@if $skipDimensions != true {
+		height: pxToEm(map-get($dimensions, "y"));
+		width: pxToEm(map-get($dimensions, "x"));
+	}
+
+	@if $skipFallback != true {
+		.no-svg & {
+			background-image: url(map-get($urls, "png"));
+		}
+	}
+}
