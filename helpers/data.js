@@ -71,18 +71,11 @@ module.exports = {
 	},
 
 	getTemplateCode: function(filePath) {
-		function highlightTemplateCode(content) {
-			var highlighted = Highlight.highlight('html', content).value;
-
-			// Link the used sub modules (excludes partials starting with underscore)
-			return highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
-		}
-
 		var stack = callsite(),
 			requester = stack[1].getFileName(),
 			requirePath = path.resolve(path.dirname(requester), filePath),
 			content = getFile(requirePath),
-			usedPartials = this.getUsedPartialsInTemplate(content),
+			usedPartials = this._getUsedPartialsInTemplate(content),
 			partialContent;
 
 		// Look up content of all partials used in the main template
@@ -91,14 +84,29 @@ module.exports = {
 
 			return {
 				name: partial,
-				content: highlightTemplateCode(partialContent)
+				content: this._getHighlightedTemplateCode(partialContent)
 			};
 		});
 
 		return {
-			content: highlightTemplateCode(content),
+			content: this._getHighlightedTemplateCode(content),
 			partials: usedPartials
 		};
+	},
+
+	/**
+	 * Returns the given template code with a highlighted syntax as HTML.
+	 *
+	 * @param {string} content
+	 * @returns {string}
+	 *
+	 * @private
+	 */
+	_getHighlightedTemplateCode: function(content) {
+		var highlighted = Highlight.highlight('html', content).value;
+
+		// Link the used sub modules (excludes partials starting with underscore)
+		return highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
 	},
 
 	/**
@@ -106,10 +114,12 @@ module.exports = {
 	 * Only includes the internal module partials (those starting with _),
 	 * which don't have an own module page.
 	 *
-	 * @param content
+	 * @param {string} content
 	 * @returns {Array}
+	 *
+	 * @private
 	 */
-	getUsedPartialsInTemplate: function(content) {
+	_getUsedPartialsInTemplate: function(content) {
 		var list = [],
 			regexp = /{{>[\s"]*([a-z0-9\/_-]+\/_[a-z0-9\/._-]+)[\s"}]/g,
 			match;
