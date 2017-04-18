@@ -1,0 +1,20 @@
+{{#extend "preview/layouts/layout"}}
+	{{#content "content"}}
+		<!-- todo: add icons from all icon folders -->
+		<section class="sg_inner_wrapper">
+			<div class="sg_icons_list">
+				{{#each icons}}
+					<div class="sg_icons_item">
+						<div class="sg_icons_label">{{this}}</div>
+
+						{{#each ../sizes}}
+							<div class="sg_icons_icon" style="font-size: {{this}}px" title="{{../this}} {{this}}px">
+								<span class="icon_{{../this}}"></span>
+							</div>
+						{{/each}}
+					</div>
+				{{/each}}
+			</div>
+		</section>
+	{{/content}}
+{{/extend}}

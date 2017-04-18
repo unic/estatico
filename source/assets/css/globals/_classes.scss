@@ -1,0 +1,11 @@
+/**
+ * Generic classes
+ */
+
+.visuallyhidden {
+	@include visuallyhidden;
+}
+
+.clearfix {
+	@include clearfix;
+}

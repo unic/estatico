@@ -1,0 +1,26 @@
+{
+	// Built partially with http://paletton.com/palette.php?uid=c0J4W3l280kDutnCp-MuwByCSpQD6nh
+	// Lighter colors
+	"IcyIvory": "#ffffff",
+	"SoulSide": "#FF990C",
+	"ClearChill": "#0B9CB0",
+	"LiquidLime": "#CDF80C",
+	"EclecticEggplant": "#B809B8",
+	"CharmedChalice": "#999999",
+
+	// Colors
+	"AlpineAlabaster": "#f8f8f8",
+	"TrueTangerine": "#EA8700",
+	"BondiBlue": "#027E8F",
+	"LividLime": "#B8E100",
+	"EnergicEggplant": "#B300B3",
+	"GreasyGray": "#808080",
+
+	// Darker colors
+	"AltruisticAlto": "#dddddd",
+	"IndocileIndochine": "#B96B00",
+	"LambentLagoon": "#026472",
+	"GraspingGrass": "#92B300",
+	"PoppyPompadour": "#790079",
+	"DottedDove": "#666666"
+}

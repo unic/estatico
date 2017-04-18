@@ -1,0 +1,45 @@
+html {
+	background: $colorBg;
+	color: $colorText;
+	font-family: $fontFamilyBase;
+	font-size: $sizeFontBase / 16px * 100%;
+	line-height: $sizeLineHeightBase;
+}
+
+nav {
+
+	ul,
+	ol {
+		@include resetList;
+	}
+}
+
+.layout_wrapper {
+	margin: 0 auto;
+	width: pxToEm($sizeWidthContent);
+}
+
+.layout_columns {
+	display: flex;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		@include clearfix;
+	}
+}
+
+.layout_main {
+	width: 75%;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		float: left;
+	}
+}
+
+.layout_sidebar {
+	flex: 1;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		float: right;
+		width: 25%;
+	}
+}

@@ -1,0 +1,69 @@
+{{#extend "preview/layouts/layout"}}
+	{{#content "content"}}
+		<div class="sg_index">
+			{{#if pages}}
+				<div class="sg_inner_wrapper">
+					<h2 class="sg_h2">Pages</h2>
+
+					<ul class="sg_index_list">
+						{{#each pages}}
+							{{#unless meta.hideFromListing}}
+								<li>
+									<a href="{{meta.previewUrl}}">{{meta.title}}</a>
+									{{#if meta.jira}}
+                                        (<a href="#{{meta.jira}}">
+											{{meta.jira}}
+										</a>)
+									{{/if}}
+									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if modules}}
+				<div class="sg_inner_wrapper">
+					<h2 class="sg_h2">Modules</h2>
+
+					<ul class="sg_index_list">
+						{{#each modules}}
+							{{#unless meta.hideFromListing}}
+								<li>
+									<a href="{{meta.previewUrl}}">
+										{{meta.title}}
+									</a>
+									{{#if meta.jira}}
+                                       (<a href="#{{meta.jira}}">
+											{{meta.jira}}
+										</a>)
+									{{/if}}
+									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if styleguide}}
+				<div class="sg_inner_wrapper">
+					<h2 class="sg_h2">Styleguide</h2>
+
+					<ul class="sg_index_list">
+						{{#each styleguide}}
+							{{#unless meta.hideFromListing}}
+								<li>
+									<a href="{{meta.previewUrl}}">
+										{{meta.title}}
+									</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+		</div>
+	{{/content}}
+{{/extend}}
