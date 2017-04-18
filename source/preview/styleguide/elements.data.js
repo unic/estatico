@@ -5,7 +5,7 @@ var _ = require('lodash'),
 	defaultData = requireNew('../../data/default.data.js'),
 	data = _.merge(defaultData, {
 		meta: {
-			title: 'Elements',
+			title: 'Elements'
 		},
 		additionalLayoutClass: 'sg_elements'
 	});

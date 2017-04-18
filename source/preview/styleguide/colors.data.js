@@ -6,7 +6,7 @@ var _ = require('lodash'),
 	defaultData = requireNew('../../data/default.data.js'),
 	data = _.merge(defaultData, {
 		meta: {
-			title: 'Colors',
+			title: 'Colors'
 		},
 		colors: dataHelper.getColors('../../assets/css/data/colors.html'),
 		additionalLayoutClass: 'sg_colors'

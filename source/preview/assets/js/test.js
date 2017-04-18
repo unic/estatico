@@ -10,7 +10,7 @@ var $ = require('jquery'),
 
 QUnit.config.autostart = false;
 
-$(document).on('ready', function(){
+$(document).on('ready', function() {
 	var $container = $('#qunit'),
 		$button = $('<button>Run QUnit tests</button>'),
 		startTests = function() {
