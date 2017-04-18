@@ -34,6 +34,9 @@ Estático has been born as a result of a collective work of our frontend team. W
 git clone https://github.com/unic/estatico.git
 cd estatico
 
+#Switch to configured node version
+nvm use
+
 # Install dependencies
 npm install
 
