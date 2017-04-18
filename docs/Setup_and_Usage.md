@@ -59,7 +59,7 @@ yarn start
 Start server with an specific configuration, either `local` or `acceptance`:
 
 ```shell
-npm start -- --local
+yarn start -- --local
 ```
 
 Build:
