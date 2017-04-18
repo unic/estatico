@@ -6,8 +6,7 @@
 import $ from 'jquery';
 
 /** Demo modules **/
-import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
-import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import Skiplinks from '../../../modules/skiplinks/skiplinks';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class EstaticoApp {
@@ -20,8 +19,7 @@ class EstaticoApp {
 
 		// Module registry - mapping module name (used in data-init) to module Class
 		this.modules = {};
-		this.modules.slideshow = SlideShow;
-		this.modules.skiplinks = SkipLinks;
+		this.modules.skiplinks = Skiplinks;
 		/* autoinsertmodule */ // eslint-disable-line
 
 		// expose initModule function
