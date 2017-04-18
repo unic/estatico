@@ -1,0 +1,12 @@
+.mod_teasers {
+	display: flex;
+
+	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+		@include clearfix;
+
+		.mod_teaser {
+			float: left;
+			width: 25%;
+		}
+	}
+}
