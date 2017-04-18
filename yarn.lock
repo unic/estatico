@@ -3712,13 +3712,14 @@ handlebars-layouts@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/handlebars-layouts/-/handlebars-layouts-1.1.0.tgz#2612be5aed8f20269737c7311da15c9c2d75fbbc"
 
-handlebars-loader@1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/handlebars-loader/-/handlebars-loader-1.1.4.tgz#6e4f6e67f80dcea8f9527dc4a83a912d88d8528e"
+handlebars-loader@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/handlebars-loader/-/handlebars-loader-1.4.0.tgz#142b2c29bcb8e407554fbc8846feef9f90da3317"
   dependencies:
     async "~0.2.10"
     fastparse "^1.0.0"
     loader-utils "0.2.x"
+    object-assign "^4.1.0"
 
 handlebars-regexp@^1.0.0:
   version "1.0.1"
