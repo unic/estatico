@@ -3,7 +3,10 @@
 ## Dependencies
 
 * Node, [yarn](https://yarnpkg.com/) (preferably using [nvm](https://github.com/creationix/nvm))
+	* `brew install nvm`
+	* `brew install yarn` or `npm install -g yarn`
 * [GraphicsMagick](http://www.graphicsmagick.org/) for resizing images using the `media:imageversions` tasks
+	* `brew install graphicsmagick`
 * Optional: [Vagrant](https://www.vagrantup.com/)
 
 ## Install
