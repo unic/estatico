@@ -8,23 +8,15 @@ var _ = require('lodash'),
 			title: 'Webfonts'
 		},
 		fonts: [{
-			family: 'Roboto',
+			family: 'Helvetica',
 			variants: [
 				{
 					weight: 400,
 					style: 'normal'
 				},
 				{
-					weight: 400,
-					style: 'italic'
-				},
-				{
 					weight: 700,
 					style: 'normal'
-				},
-				{
-					weight: 700,
-					style: 'italic'
 				}
 			]
 		}],

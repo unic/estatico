@@ -2,7 +2,7 @@
 
 var util = require('gulp-util'),
 	data = {
-		project: 'Estático',
+		project: 'KPT VPK',
 		env: util.env,
 		svgSprites: JSON.stringify([
 

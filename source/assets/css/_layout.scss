@@ -2,12 +2,78 @@ html {
 	background: $colorBg;
 	color: $colorText;
 	font-family: $fontFamilyBase;
+	font-weight: 400;
 	font-size: $sizeFontBase / 16px * 100%;
 	line-height: $sizeLineHeightBase;
 }
 
-nav {
+h1 {
+	font-weight: 700;
+	font-size: 60px;
+	color: $colorRed;
+	line-height: 65px;
+}
 
+h2,
+h3,
+h4,
+h5 {
+	font-weight: 700;
+	color: $colorDarkGrey;
+}
+
+h2 {
+	font-size: 40px;
+	line-height: 45px;
+}
+
+h3 {
+	font-size: 30px;
+	line-height: 35px;
+}
+
+h4 {
+	font-size: 20px;
+	line-height: 25px;
+}
+
+h5 {
+	font-size: 15px;
+	line-height: 20px;
+}
+
+p {
+	font-size: 15px;
+	color: $colorDarkGrey;
+	line-height: 22px;
+}
+
+@media (max-width: 479px) {
+	h1 {
+		font-size: 40px;
+	}
+	h2 {
+		font-size: 25px;
+	}
+	h3 {
+		font-size: 20px;
+	}
+	h4 {
+		font-size: 20px;
+	}
+	h5 {
+		font-size: 20px;
+	}
+	p {
+		line-height: 21px;
+	}
+}
+
+a {
+	color: inherit;
+}
+
+nav {
 	ul,
 	ol {
 		@include resetList;
@@ -31,7 +97,7 @@ nav {
 	width: 75%;
 
 	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
-		float: left;
+	float: left;
 	}
 }
 
@@ -39,7 +105,7 @@ nav {
 	flex: 1;
 
 	.no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
-		float: right;
-		width: 25%;
+	float: right;
+	width: 25%;
 	}
 }
