@@ -2,13 +2,10 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	dataHelper = require('../../../../helpers/data.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 	data = _.merge(defaultData, {
 		meta: {
-			title: 'Demo: Image versions',
-			code: dataHelper.getTemplateCode('imageversions.hbs'),
-			documentation: dataHelper.getDocumentation('imageversions.md')
+			title: 'Demo: Image versions'
 		}
 	});
 

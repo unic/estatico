@@ -128,6 +128,8 @@ var taskName = 'html',
 			}))
 			.pipe(tap(function(file) {
 				var dataFile = util.replaceExtension(file.path, '.data.js'),
+					documentationFile = util.replaceExtension(file.path, '.md'),
+					templateFile = util.replaceExtension(file.path, '.hbs'),
 					data = (function() {
 						try {
 							return requireNew(dataFile);
@@ -170,6 +172,14 @@ var taskName = 'html',
 							}
 						);
 						data.variants.unshift(mergedData);
+					}
+
+					// Fill the template code data to be passed into module meta data
+					data.meta.code = helpers.data.getTemplateCode(templateFile);
+
+					// If .md file exists, fill the documentation data to be passed into module meta data
+					if (fs.existsSync(documentationFile)) {
+						data.meta.documentation = helpers.data.getDocumentation(documentationFile);
 					}
 
 					// Replace file content with preview template
