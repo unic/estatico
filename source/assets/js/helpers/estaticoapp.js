@@ -85,14 +85,12 @@ class EstaticoApp {
 	}
 
 	_initModules(event) {
-		let eventType = event && typeof event.type === 'string' ? event.type : 'ready';
-
 		$('[data-init]').each((key, element) => {
 			let $element = $(element),
 				modules = $element.data('init').split(' ');
 
 			modules.forEach((moduleName) => {
-				if (this._isRegistered(moduleName) && !this._isInitialised($element, moduleName) && this._isInitEvent(eventType, moduleName)) {
+				if (this._isRegistered(moduleName) && !this._isInitialised($element, moduleName) && this._isInitEvent(event.type, moduleName)) {
 					this.initModule(moduleName, $element);
 				}
 			});
@@ -105,7 +103,8 @@ class EstaticoApp {
 		}
 
 		// jQuery 3 does not support `ready` event in $(document).on() https://jquery.com/upgrade-guide/3.0/#breaking-change-on-quot-ready-quot-fn-removed
-		$(this._initModules.bind(this));
+		// But lets sent 'ready' information to modules initialising on that event
+		$(this._initModules.bind(this, { type: 'ready' }));
 		$(document).on(this.initEvents.join(' '), this._initModules.bind(this));
 	}
 }
