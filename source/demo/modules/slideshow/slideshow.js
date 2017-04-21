@@ -36,7 +36,6 @@ class SlideShow extends EstaticoModule {
 		super($element, _defaultData, _defaultOptions, data, options);
 
 		this.currentItem = -1;
-		this.logger = this.log(SlideShow.name);
 
 		this._initUi();
 		this._initEventListeners();
@@ -113,9 +112,9 @@ class SlideShow extends EstaticoModule {
 	 */
 	resize() {
 		if (MediaQuery.query({ from: 'small' })) {
-			this.logger('Viewport: Above small breakpoint');
+			this.log('Viewport: Above small breakpoint');
 		} else {
-			this.logger('Viewport: Below small breakpoint');
+			this.log('Viewport: Below small breakpoint');
 		}
 	}
 
@@ -140,17 +139,17 @@ class SlideShow extends EstaticoModule {
 
 		// Exemplary touch detection
 		if (Modernizr.touchevents) {
-			this.logger('Touch support detected');
+			this.log('Touch support detected');
 		}
 
 		// Exemplary debounced resize listener (uuid used to make sure it can be unbound per plugin instance)
 		WindowEventListener.addDebouncedResizeListener((originalEvent, event) => {
-			this.logger(event, originalEvent);
+			this.log(event, originalEvent);
 		}, this.uuid);
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
 		WindowEventListener.addDebouncedScrollListener((originalEvent, event) => {
-			this.logger(event, originalEvent);
+			this.log(event, originalEvent);
 		}, this.uuid);
 
 		// Exemplary media query listener (uuid used to make sure it can be unbound per plugin instance)
@@ -167,7 +166,7 @@ class SlideShow extends EstaticoModule {
 				});
 			}
 		}).fail((jqXHR) => {
-			this.logger('NOO!', jqXHR.status, jqXHR.statusText);
+			this.log('NOO!', jqXHR.status, jqXHR.statusText);
 		});
 	}
 
