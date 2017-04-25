@@ -73,6 +73,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	.sg_title {
 		@include sgBoxedMargins;
 		margin-bottom: pxToEm(70px, 35px);
+		font-family: Georgia, serif;
 		font-size: pxToEm(35px);
 
 		a {
@@ -87,7 +88,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	.sg_h3,
 	.sg_h4 {
 		font-weight: 700;
-	  	color: $colorRed;
+		color: $colorRed;
 	}
 
 	.sg_h2,
