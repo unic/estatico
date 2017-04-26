@@ -1,13 +1,13 @@
 {
-	"Black": "#000000",
-	"Red": "#D8321E",
-	"DarkGrey": "#545454",
-	"White": "#FFFFFF",
+	"DeepBlack": "#000000",
+	"OrangeCom": "#D8321E",
+	"DavisGrey": "#545454",
+	"IcyIvory": "#FFFFFF",
 
-	"IceBlue": "#A4D7F5",
-	"Grey": "#D1D1D1",
-	"BrightGrey": "#F2F2F2",
-	"Sand": "#DDC7A2",
-	"SunYellow": "#EBCA54",
-	"FirGreen": "#434F3E"
+	"NonPhotoBlue": "#A4D7F5",
+	"LightGrey": "#D1D1D1",
+	"AntiFlashWhite": "#F2F2F2",
+	"SandRafia": "#DDC7A2",
+	"FestivalYellow": "#EBCA54",
+	"ClimbingIvy": "#434F3E"
 }
