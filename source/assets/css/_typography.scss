@@ -1,0 +1,140 @@
+$sizeH1: $sizeFont2;
+$sizeLineHeightH1: $sizeFont1 + 5px;
+
+$sizeH2: $sizeFont3;
+$sizeLineHeightH2: $sizeFont2 + 5px;
+
+$sizeH3: $sizeFont4;
+$sizeLineHeightH3: $sizeFont3 + 10px;
+
+$sizeH4: $sizeFont4;
+$sizeLineHeightH4: $sizeFont4 + 5px;
+
+$sizeH5: $sizeFont4;
+$sizeLineHeightH5: $sizeFont4;
+
+$sizeH6: $sizeFont6;
+$sizeLineHeightH6: $sizeFont6;
+
+$sizeP: $sizeFont5;
+$sizeLineHeightP: $sizeFont4 + 1px;
+
+/**
+ * Weight
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+}
+
+
+/**
+ * Colors
+ */
+
+h1 {
+	color: $colorOrangeCom;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $colorDavisGrey;
+}
+
+p {
+	color: $colorDavisGrey;
+}
+
+a {
+	color: inherit;
+}
+
+
+/**
+ * Sizes
+ */
+
+h1 {
+	font-size: $sizeH1;
+	line-height: pxToRel($sizeLineHeightH1, $sizeH1);
+}
+
+h2 {
+	font-size: $sizeH2;
+	line-height: pxToRel($sizeLineHeightH2, $sizeH2);
+}
+
+h3 {
+	font-size: $sizeH3;
+	line-height: pxToRel($sizeLineHeightH3, $sizeH3);
+}
+
+h4 {
+	font-size: $sizeH4;
+	line-height: pxToRel($sizeLineHeightH4, $sizeH4);
+}
+
+h5 {
+	font-size: $sizeH5;
+	line-height: pxToRel($sizeLineHeightH5, $sizeH5);
+}
+
+h6 {
+	font-size: $sizeH6;
+	line-height: pxToRel($sizeLineHeightH6, $sizeH6);
+}
+
+p {
+	font-size: $sizeP;
+	line-height: pxToRel($sizeLineHeightP, $sizeP);
+}
+
+
+@include mq($from: small) {
+	$sizeH1: $sizeFont1;
+	$sizeLineHeightH1: $sizeFont1 + 5px;
+	$sizeH2: $sizeFont2;
+	$sizeH3: $sizeFont3 + 5px;
+	$sizeH4: $sizeFont4;
+	$sizeH5: $sizeFont5;
+	$sizeH6: $sizeFont6;
+	$sizeLineHeightP: $sizeFont4 + 2px;
+
+	h1 {
+		font-size: $sizeH1;
+		line-height: pxToRel($sizeLineHeightH1, $sizeH1);
+	}
+
+	h2 {
+		font-size: $sizeH2;
+	}
+
+	h3 {
+		font-size: $sizeH3;
+	}
+
+	h4 {
+		font-size: $sizeH4;
+	}
+
+	h5 {
+		font-size: $sizeH5;
+	}
+
+	h6 {
+		font-size: $sizeH6;
+	}
+
+	p {
+		line-height: $sizeLineHeightP;
+	}
+}
+
