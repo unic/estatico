@@ -2,15 +2,6 @@
  * Helper functions
  */
 
-@function pxToEm($px, $ref: $sizeFontBase) {
-	@return toEm(toPx($px) / toPx($ref));
-}
-@function pxToRem($px) {
-	@return toRem(toPx($px) / toPx($sizeFontBase));
-}
-@function pxToPc($px, $ref: $sizeWidthContent) {
-	@return (toPx($px) / toPx($ref) * 100%);
-}
 @function toEm($val) {
 	@return ($val + 0em);
 }
@@ -19,4 +10,16 @@
 }
 @function toPx($val) {
 	@return ($val + 0px);
+}
+@function pxToRel($px, $ref: $sizeFontBase) {
+	@return toPx($px) / toPx($ref);
+}
+@function pxToEm($px, $ref: $sizeFontBase) {
+	@return toEm(toPx($px) / toPx($ref));
+}
+@function pxToRem($px) {
+	@return toRem(toPx($px) / toPx($sizeFontBase));
+}
+@function pxToPc($px, $ref: $sizeWidthContent) {
+	@return (toPx($px) / toPx($ref) * 100%);
 }

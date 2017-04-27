@@ -14,7 +14,7 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: $fontFamilyBase;
+$sg_font: monospace, serif;
 
 $sg_breakpoint: 941px;
 $sg_marginsBoxed: 20px;
@@ -87,8 +87,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	.sg_h2,
 	.sg_h3,
 	.sg_h4 {
-		font-weight: 700;
-		color: $colorRed;
+		font-weight: 600;
 	}
 
 	.sg_h2,
@@ -276,7 +275,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	}
 
 	.sg_inner_wrapper {
-		border-top: 6px solid $colorRed;
+		border-top: 6px solid;
 		box-sizing: border-box;
 		padding: 1em 0;
 
