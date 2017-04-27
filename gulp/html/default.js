@@ -80,8 +80,8 @@ var taskName = 'html',
 			modulePreviewTemplate;
 
 		gulp.src(config.src, {
-				base: './source'
-			})
+			base: './source'
+		})
 			.pipe(through.obj(function(file, enc, done) {
 				if (!changedFile) {
 					this.push(file);
@@ -162,13 +162,10 @@ var taskName = 'html',
 							return variant;
 						});
 
-						mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
-								meta: {
-									title: 'Default',
-									desc: 'Default implementation.'
-								}
-							}
-						);
+						mergedData = Object.assign({}, data);
+						delete mergedData.project;
+						delete mergedData.env;
+						delete mergedData.variants;
 						data.variants.unshift(mergedData);
 					}
 
