@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import _ from 'lodash';
+import extend from '../../../../node_modules/lodash/extend';
+import uniqueId from '../../../../node_modules/lodash/uniqueId';
 
 class EstaticoModule {
 
@@ -21,11 +22,11 @@ class EstaticoModule {
 		let _globalData = window.estatico.data[this.name],
 			_globalOptions = window.estatico.options[this.name];
 
-		this.data = _.extend({}, _defaultData, _globalData, data);
-		this.options = _.extend({}, _defaultOptions, _globalOptions, options);
+		this.data = extend({}, _defaultData, _globalData, data);
+		this.options = extend({}, _defaultOptions, _globalOptions, options);
 
 		// Identify instance by UUID
-		this.uuid = _.uniqueId(this.name);
+		this.uuid = uniqueId(this.name);
 
 		this.log = window.estatico.helpers.log(this.name);
 
