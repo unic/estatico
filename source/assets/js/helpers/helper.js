@@ -7,8 +7,7 @@ class Helper {
 		This is overwritten when in dev mode (see dev.js)
 
 		Usage inside a module:
-		"this.logger = this.log('MyModule');"
-		"this.logger('it's now initialised);"
+		"this.log('it's now initialised);"
 
 		Output:
 		`MyModule -> it's now initialised`
