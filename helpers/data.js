@@ -10,6 +10,7 @@ var _ = require('lodash'),
 	fs = require('fs'),
 	Highlight = require('highlight.js'),
 	marked = require('marked'),
+	defaultData = requireNew('../source/data/default.data.js'),
 	fileCache = {},
 	getFile = function(requirePath) {
 		var cache = fileCache[requirePath],
@@ -148,5 +149,36 @@ module.exports = {
 		}
 
 		return colors;
+	},
+	getSVGSprites() {
+		var spriteTask = require('../gulp/media/svgsprite.js');
+
+		return _.mapValues(spriteTask.taskConfig.src, function(globs) {
+			var files = [];
+
+			globs.forEach(function(item) {
+
+				var paths = glob.sync(item);
+
+				paths = paths.map(function(file) {
+					return path.basename(file, path.extname(file));
+				});
+
+				files = files.concat(paths);
+			});
+
+			return files;
+		});
+	},
+	getDefaultData() {
+		return defaultData;
+	},
+	getExtendedData(data) {
+		return _.extend({}, defaultData, data);
+	},
+	tools: {
+		requireNew: requireNew,
+		map: _.map,
+		extend: _.extend
 	}
 };

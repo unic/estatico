@@ -1,10 +1,7 @@
 'use strict';
 
-var _ = require('lodash'),
-	requireNew = require('require-new'),
-	dataHelper = require('../../../../helpers/data.js'),
-	defaultData = requireNew('../../../data/default.data.js'),
-	data = _.merge(defaultData, {
+var dataHelper = require('../../../../helpers/data.js'),
+	data = dataHelper.getExtendedData({
 		meta: {
 			title: 'Demo: Teaser with module variants',
 			code: dataHelper.getTemplateCode('teaser.hbs')
