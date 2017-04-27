@@ -5,7 +5,6 @@ var _ = require('lodash'),
 	glob = require('glob'),
 	path = require('path'),
 	spriteTask = require('../../../../gulp/media/svgsprite.js'),
-	dataHelper = require('../../../../helpers/data.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 	sprites = _.mapValues(spriteTask.taskConfig.src, function(globs) {
 		var files = [];
@@ -27,9 +26,7 @@ var _ = require('lodash'),
 	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: SVG icons',
-			jira: 'ESTATICO-212',
-			code: dataHelper.getTemplateCode('svgsprite.hbs'),
-			documentation: dataHelper.getDocumentation('svgsprite.md')
+			jira: 'ESTATICO-212'
 		},
 		svgSprites: JSON.stringify(JSON.parse(defaultData.svgSprites || '[]').concat([
 			'/assets/media/svg/demo.svg'

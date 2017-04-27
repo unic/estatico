@@ -2,13 +2,11 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	dataHelper = require('../../../../helpers/data.js'),
 	defaultData = requireNew('../../../data/default.data.js'),
 	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Skiplinks',
-			jira: 'JIRA-5',
-			code: dataHelper.getTemplateCode('skiplinks.hbs')
+			jira: 'JIRA-5'
 		},
 		links: [
 			{
