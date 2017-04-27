@@ -36,7 +36,6 @@ class SlideShow extends EstaticoModule {
 		super($element, _defaultData, _defaultOptions, data, options);
 
 		this.currentItem = -1;
-		this.logger = this.log(SlideShow.name);
 
 		this._initUi();
 		this._initEventListeners();
