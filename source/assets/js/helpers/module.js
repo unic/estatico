@@ -27,10 +27,7 @@ class EstaticoModule {
 		// Identify instance by UUID
 		this.uuid = _.uniqueId(this.name);
 
-		this.log = window.estatico.helpers.log(this.name);
-
-		// Expose original log helper
-		this._log = window.estatico.helpers.log;
+		this.log = window.estatico.helpers.log;
 	}
 
 	static get initEvents() {
