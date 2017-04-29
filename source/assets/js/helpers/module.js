@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import extend from '../../../../node_modules/lodash/extend';
-import uniqueId from '../../../../node_modules/lodash/uniqueId';
+import extend from 'lodash/extend';
+import uniqueId from 'lodash/uniqueId';
 
 class EstaticoModule {
 
