@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp media:pngsprite`
- * @desc Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).
+ * @desc Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Twig template).
  */
 
 var gulp = require('gulp');
@@ -28,26 +28,22 @@ var taskName = 'media:pngsprite',
 gulp.task(taskName, function(cb) {
 	var helpers = require('require-dir')('../../helpers'),
 		plumber = require('gulp-plumber'),
-		imagemin = require('gulp-imagemin'),
-		buffer = require('vinyl-buffer'),
 		size = require('gulp-size'),
 		spritesmith = require('gulp.spritesmith'),
 		tap = require('gulp-tap'),
 		_ = require('lodash'),
-		handlebars = require('gulp-hb');
+		twig = require('gulp-twig');
 
 	var spriteData = {},
 		streams = gulp.src(taskConfig.src)
-			.pipe(spritesmith({
-				imgName: 'sprite.png',
-				cssName: 'sprite.json',
-				imgPath: taskConfig.relImg,
-				cssFormat: 'json'
-			}));
+		.pipe(spritesmith({
+			imgName: 'sprite.png',
+			cssName: 'sprite.json',
+			imgPath: taskConfig.relImg,
+			cssFormat: 'json'
+		}));
 
 	streams.img
-		.pipe(buffer())
-		.pipe(imagemin())
 		.pipe(size({
 			title: taskName
 		}))
@@ -68,17 +64,16 @@ gulp.task(taskName, function(cb) {
 						y: data.height
 					},
 					position: {
-						x: data.offset_x,
-						y: data.offset_y
+						x: data.offset_x, // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
+						y: data.offset_y // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
 					},
-					url: data.escaped_image
+					url: data.escaped_image // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
 				};
 			});
 
 			gulp.src(taskConfig.srcStyles)
 				.pipe(plumber())
-				.pipe(handlebars({
-					handlebars: helpers.handlebars,
+				.pipe(twig({
 					data: {
 						images: images
 					}

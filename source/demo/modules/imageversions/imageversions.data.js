@@ -7,7 +7,7 @@ var _ = require('lodash'),
 	data = _.merge(defaultData, {
 		meta: {
 			title: 'Demo: Image versions',
-			code: dataHelper.getTemplateCode('imageversions.hbs'),
+			code: dataHelper.getTemplateCode('imageversions.twig'),
 			documentation: dataHelper.getDocumentation('imageversions.md')
 		}
 	});

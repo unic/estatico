@@ -1,0 +1,125 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{% if meta.title %}{{meta.title}} – {% endif %}{{project}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="/assets/css/main{% if not env.dev %}.min{% endif %}.css">
+	<link rel="stylesheet" href="/preview/assets/css/main{% if not env.dev %}.min{% endif %}.css">
+
+	{% if env.dev %}
+		<link rel="stylesheet" href="/assets/css/dev.css">
+	{% endif %}
+
+	<script src="/assets/js/head{% if not env.dev %}.min{% endif %}.js"></script>
+
+	{% if env.dev %}
+		<script src="/assets/js/dev.js"></script>
+	{% endif %}
+</head>
+<body>
+	<div class="sg_wrapper sg_module">
+		<h1 class="sg_title">
+			<a href="/" class="sg_logo">{{project}}</a>{% if meta.title %} / {{meta.title}}{% endif %}
+		</h1>
+
+		{% if variants %}
+			<section class="sg_variants sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+
+				<div class="sg_tabs">
+					{% for variant in variants %}
+						<input type="radio" name="variants" class="tab_trigger" id="variants{{loop.index}}"{% if loop.first %} checked{% endif %} aria-controls="panel{{loop.index}}" role="tab" />
+					{% endfor %}
+
+					<div class="panels">
+						{% for variant in variants %}
+							<div class="tab_content" id="panel{{loop.index}}" aria-labelledby="tabLabel{{loop.index}}" role="tabpanel">
+								<div class="sg_demo">
+									{{variant.demo}}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="labels" aria-hidden="true">
+						{% for variant in variants %}
+							<label for="variants{{loop.index}}" id="tabLabel{{loop.index}}">{{variant.meta.title}}</label>
+						{% endfor %}
+					</div>
+
+					<div class="panels">
+						{% for variant in variants %}
+							<div class="tab_content" id="panel{{loop.index}}" aria-labelledby="tabLabel{{loop.index}}" role="tabpanel">
+								{% if variant.meta %}
+									<div class="sg_variant_meta">
+										{% if variant.meta.desc %}
+											<p>{{variant.meta.desc}}</p>
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+
+				</div>
+			</section>
+		{% else %}
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Module Preview</h2>
+				<div class="sg_demo">
+					{% block content %}
+						{{demo}}
+					{% endblock %}
+				</div>
+			</section>
+		{% endif %}
+
+		<section class="sg_inner_wrapper">
+			<h2 class="sg_h2">Code</h2>
+			<pre class="sg_code hljs">{{meta.code}}</pre>
+		</section>
+
+		{% if meta.documentation %}
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Documentation</h2>
+
+				<div class="sg_documentation">
+					{{meta.documentation}}
+				</div>
+			</section>
+		{% endif %}
+
+		{% if meta.mocks %}
+			<section class="sg_inner_wrapper">
+				<h2 class="sg_h2">Data mocking</h2>
+
+				{% for mock in meta.mocks %}
+					{% if description %}
+						<h3 class="sg_h3">{{mock.description}}</h3>
+					{% endif %}
+
+					<pre class="sg_code hljs">{{mock.data}}</pre>
+				{% endfor %}
+			</section>
+		{% endif %}
+
+		<script src="/assets/js/main{% if not env.dev %}.min{% endif %}.js"></script>
+
+		{% block scripts %}
+			{% if meta.testScripts %}
+				<section class="sg_inner_wrapper">
+					<h2 class="sg_h2">QUnit tests</h2>
+
+					{% include "preview/partials/qunit.twig" %}
+				</section>
+			{% endif %}
+		{% endblock %}
+	</div>
+</body>
+</html>

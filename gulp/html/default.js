@@ -2,40 +2,38 @@
 
 /**
  * @function `gulp html`
- * @desc Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
- * By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipHtmlDependencyGraph` flag to disable this behavior and just build everything all the time.
+ * @desc Compile Twig templates to HTML. Use `.data.js` files for - surprise! - data.
  */
 
-var gulp = require('gulp'),
-	util = require('gulp-util');
+var gulp = require('gulp');
 
 var taskName = 'html',
 	taskConfig = {
 		src: [
-			'./source/*.hbs',
-			'./source/pages/**/*.hbs',
-			'./source/demo/pages/**/*.hbs',
-			'./source/modules/**/!(_)*.hbs',
-			'./source/demo/modules/**/!(_)*.hbs',
-			'./source/preview/styleguide/*.hbs'
+			'./source/*.twig',
+			'./source/pages/**/*.twig',
+			'./source/demo/pages/**/*.twig',
+			'./source/modules/**/!(_)*.twig',
+			'./source/demo/modules/**/!(_)*.twig',
+			'./source/preview/styleguide/*.twig'
 		],
-		srcModulePreview: './source/preview/layouts/module.hbs',
-		partials: [
-			'source/layouts/*.hbs',
-			'source/modules/**/*.hbs',
-			'source/demo/modules/**/*.hbs',
-			'source/preview/**/*.hbs'
+		srcBase: './source',
+		srcModulePreview: './source/preview/layouts/module.twig',
+		includes: [
+			'source/layouts/*.twig',
+			'source/modules/**/*.twig',
+			'source/demo/modules/**/*.twig',
+			'source/preview/**/*.twig'
 		],
-		partialPathBase: './source',
 		dest: './build/',
 		watch: [
-			'source/*.hbs',
-			'source/layouts/*.hbs',
-			'source/pages/**/*.hbs',
-			'source/demo/pages/**/*.hbs',
-			'source/modules/**/*.hbs',
-			'source/demo/modules/**/*.hbs',
-			'source/preview/**/*.hbs',
+			'source/*.twig',
+			'source/layouts/*.twig',
+			'source/pages/**/*.twig',
+			'source/demo/pages/**/*.twig',
+			'source/modules/**/*.twig',
+			'source/demo/modules/**/*.twig',
+			'source/preview/**/*.twig',
 			'source/data/**/*.data.js',
 			'source/pages/**/*.data.js',
 			'source/demo/pages/**/*.data.js',
@@ -45,195 +43,122 @@ var taskName = 'html',
 			'source/modules/**/*.md',
 			'source/demo/modules/**/*.md',
 			'source/assets/css/data/colors.html'
-		],
-		returnChangedFileOnWatch: !util.env.skipHtmlDependencyGraph
+		]
 	},
-	task = function(config, cb, changedFile) {
-		var helpers = require('require-dir')('../../helpers'),
-			plumber = require('gulp-plumber'),
-			livereload = require('gulp-livereload'),
-			requireNew = require('require-new'),
-			path = require('path'),
-			fs = require('fs'),
-			tap = require('gulp-tap'),
-			rename = require('gulp-rename'),
+	includeCache = {};
 
-			// Format HTML (disabled due to incorrect resulting indentation)
-			// prettify = require('gulp-prettify'),
-			_ = require('lodash'),
-			handlebars = require('gulp-hb'),
-			through = require('through2');
+gulp.task(taskName, function(cb) {
+	var helpers = require('require-dir')('../../helpers'),
+		plumber = require('gulp-plumber'),
+		livereload = require('gulp-livereload'),
+		util = require('gulp-util'),
+		requireNew = require('require-new'),
+		path = require('path'),
+		fs = require('fs'),
+		tap = require('gulp-tap'),
+		rename = require('gulp-rename'),
 
-		var compileTemplate = function(template, data) {
-				try {
-					return helpers.handlebars.compile(template)(data);
-				} catch (err) {
-					helpers.errors({
-						task: taskName,
-						message: err.message
-					});
+		// Format HTML (disabled due to incorrect resulting indentation)
+		// prettify = require('gulp-prettify'),
+		_ = require('lodash');
 
-					return '';
-				}
-			},
+	var modulePreviewTemplate;
 
-			modulePreviewTemplate;
+	helpers.twig.registerIncludes(taskConfig.includes, includeCache);
 
-		gulp.src(config.src, {
-				base: './source'
-			})
-			.pipe(through.obj(function(file, enc, done) {
-				if (!changedFile) {
-					this.push(file);
-					return done();
-				}
+	gulp.src(taskConfig.src, {
+			base: './source'
+		})
+		.pipe(plumber())
+		.pipe(tap(function(file) {
+			var content = file.contents.toString(),
+				dataFile = util.replaceExtension(file.path, '.data.js'),
+				data = (function() {
+					try {
+						return requireNew(dataFile);
+					} catch (err) {
+						helpers.errors({
+							task: taskName,
+							message: 'Error reading "' + path.relative('./', dataFile) + '": ' + err,
+							stack: err.stack
+						});
 
-				// Create dependency graph of currently piped file
-				var dependencyGraph = new helpers.dependencygraph(file.path, {
-						pattern: /{{>[\s-]*"?([^"\s(]+)["|\s][\s]?(.*?)}}/g,
-						resolvePath: function(match) {
-							var resolvedPath = path.resolve('./source/', match + '.hbs');
+						return {};
+					}
+				})(),
 
-							if (!fs.existsSync(resolvedPath)) {
-								util.log(util.colors.cyan(taskName), util.colors.red(resolvedPath + ' not found'));
-							}
+				mergedData;
 
-							return resolvedPath;
-						}
-					}),
-					dataDependencyGraph = new helpers.dependencygraph(file.path.replace(path.extname(file.path), '.data.js'), {
-						pattern: /requireNew\(\'(.*?\.data\.js)\'\)/g,
-						resolvePath: function(match, filePath) {
-							var resolvedPath = path.resolve(path.dirname(filePath), match);
-
-							return resolvedPath;
-						}
-					});
-
-				// Add data files to main graph
-				dependencyGraph.combine(dataDependencyGraph);
-
-				// Add .md file to graph
-				dependencyGraph.add(file.path.replace(path.extname(file.path), '.md'));
-
-				// Check if the changed file is part or the currently piped file's dependency graph
-				// Remove file from pipeline otherwise
-				if (dependencyGraph.contains(changedFile)) {
-					util.log(util.colors.cyan(taskName), 'Rebuilding ' + file.path + ' ...');
-
-					this.push(file);
-				}
-
-				done();
-			}))
-			.pipe(tap(function(file) {
-				var dataFile = util.replaceExtension(file.path, '.data.js'),
-					data = (function() {
-						try {
-							return requireNew(dataFile);
-						} catch (err) {
-							helpers.errors({
-								task: taskName,
-								message: 'Error reading "' + path.relative('./', dataFile) + '": ' + err,
-								stack: err.stack
-							});
-
-							return {};
-						}
-					})(),
-
-					moduleTemplate,
-					mergedData;
-
+			// Render template
+			try {
 				// Precompile module demo and variants
 				if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
-					moduleTemplate = file.contents.toString();
-					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(config.srcModulePreview, 'utf8');
+					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(taskConfig.srcModulePreview, 'utf8');
 
-					data.demo = compileTemplate(moduleTemplate, data);
+					data.demo = helpers.twig.render(content, data);
 
 					// Compile variants
 					if (data.variants) {
-						data.variants = Object.keys(data.variants).map(function(variantId) {
-							var variant = data.variants[variantId];
-
-							variant.demo = compileTemplate(moduleTemplate, variant);
-
-							return variant;
+						data.variants = data.variants.map(function(variant) {
+							variant.demo = helpers.twig.render(content, variant);
 						});
 
 						mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
 								meta: {
 									title: 'Default',
-									desc: 'Default implementation.'
+									desc: 'Default implemention.'
 								}
 							}
 						);
+
 						data.variants.unshift(mergedData);
 					}
 
 					// Replace file content with preview template
-					file.contents = new Buffer(modulePreviewTemplate);
+					content = modulePreviewTemplate;
 				}
 
-				// Save data by file name
-				file.data = data;
-			}))
-			.pipe(plumber())
-			.pipe(handlebars({
-				handlebars: helpers.handlebars,
-				partials: config.partials,
-				parsePartialName: function(options, file) {
-					var filePath = file.path;
+				file.contents = new Buffer(helpers.twig.render(content, data));
+			} catch (err) {
+				helpers.errors({
+					task: taskName,
+					message: 'Error rendering "' + path.relative('./', file.path) + '": ' + err
 
-					// Relative to base
-					filePath = path.relative(config.partialPathBase, filePath);
+					// stack: err.stack
+				});
+			}
+		}).on('error', helpers.errors))
 
-					// Remove extension
-					filePath = filePath.replace(path.extname(filePath), '');
+		// Relativify absolute paths
+		.pipe(tap(function(file) {
+			var content = file.contents.toString(),
+				relPathPrefix = path.join(path.relative(file.path, './source'));
 
-					// Use forward slashes on every OS
-					filePath = filePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
+			relPathPrefix = relPathPrefix
+				.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
+				.replace(/\.\.$/, ''); // Remove trailing ..
 
-					return filePath;
-				}
-			}).on('error', helpers.errors))
+			content = content.replace(/('|")\//g, '$1' + relPathPrefix);
 
-			// Relativify absolute paths
-			.pipe(tap(function(file) {
-				var content = file.contents.toString(),
-					relPathPrefix = path.join(path.relative(file.path, './source'));
+			file.contents = new Buffer(content);
+		}))
 
-				relPathPrefix = relPathPrefix
-					.replace(new RegExp('\\' + path.sep, 'g'), '/') // Normalize path separator
-					.replace(/\.\.$/, ''); // Remove trailing ..
+		// .pipe(prettify({
+		// 	indent_with_tabs: true,
+		// 	max_preserve_newlines: 1
+		// }))
+		.pipe(rename({
+			extname: '.html'
+		}))
+		.pipe(gulp.dest(taskConfig.dest))
+		.on('finish', function() {
+			livereload.reload();
 
-				content = content.replace(/('|")\//g, '$1' + relPathPrefix);
-
-				file.contents = new Buffer(content);
-			}))
-
-			// .pipe(prettify({
-			// 	indent_with_tabs: true,
-			// 	max_preserve_newlines: 1
-			// }))
-			.pipe(rename({
-				extname: '.html'
-			}))
-			.pipe(gulp.dest(config.dest))
-			.on('finish', function() {
-				livereload.reload();
-
-				cb();
-			});
-	};
-
-gulp.task(taskName, function(cb) {
-	return task(taskConfig, cb);
+			cb();
+		});
 });
 
 module.exports = {
 	taskName: taskName,
-	taskConfig: taskConfig,
-	task: task
+	taskConfig: taskConfig
 };

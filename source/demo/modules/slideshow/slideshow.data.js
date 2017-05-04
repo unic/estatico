@@ -9,7 +9,7 @@ var _ = require('lodash'),
 			title: 'Demo: Slideshow',
 			className: 'SlideShow',
 			jira: 'JIRA-4',
-			code: dataHelper.getTemplateCode('slideshow.hbs'),
+			code: dataHelper.getTemplateCode('slideshow.twig'),
 			documentation: dataHelper.getDocumentation('slideshow.md'),
 			testScripts: [
 				dataHelper.getTestScriptPath('slideshow.test.js')

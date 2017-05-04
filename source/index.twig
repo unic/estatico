@@ -1,0 +1,69 @@
+{% extends "preview/layouts/layout.twig" %}
+
+{% block content %}
+	<div class="sg_index">
+		{% if pages %}
+			<div class="sg_inner_wrapper">
+				<h2 class="sg_h2">Pages</h2>
+
+				<ul class="sg_index_list">
+					{% for item in pages %}
+						{% if not item.meta.hideFromListing %}
+							<li>
+								<a href="{{item.meta.previewUrl}}">{{item.meta.title}}</a>
+								{% if item.meta.jira %}
+                                    (<a href="#{{item.meta.jira}}">
+										{{item.meta.jira}}
+									</a>)
+								{% endif %}
+								{% if item.meta.feature %} &mdash; {{item.meta.feature}}{% endif %}
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		{% if modules %}
+			<div class="sg_inner_wrapper">
+				<h2 class="sg_h2">Modules</h2>
+
+				<ul class="sg_index_list">
+					{% for item in modules %}
+						{% if not item.meta.hideFromListing %}
+							<li>
+								<a href="{{item.meta.previewUrl}}">
+									{{item.meta.title}}
+								</a>
+								{% if item.meta.jira %}
+                                   (<a href="#{{item.meta.jira}}">
+										{{item.meta.jira}}
+									</a>)
+								{% endif %}
+								{% if item.meta.feature %} &mdash; {{item.meta.feature}}{% endif %}
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		{% if styleguide %}
+			<div class="sg_inner_wrapper">
+				<h2 class="sg_h2">Styleguide</h2>
+
+				<ul class="sg_index_list">
+					{% for item in styleguide %}
+						{% if not item.meta.hideFromListing %}
+							<li>
+								<a href="{{item.meta.previewUrl}}">
+									{{item.meta.title}}
+								</a>
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

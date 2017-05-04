@@ -6,22 +6,22 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
+	<title>{% if title %}{{title}} – {% endif %}{{project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
-	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+	<link rel="stylesheet" href="/assets/css/main{% if not env.dev %}.min{% endif %}.css">
+	<link rel="stylesheet" href="/preview/assets/css/main{% if not env.dev %}.min{% endif %}.css">
 
-	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+	<script src="/assets/js/head{% if not env.dev %}.min{% endif %}.js"></script>
 </head>
-<body {{#if svgSprites}} data-svgsprites-options='{{svgSprites}}'{{/if}}>
-	<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
+<body>
+	<div class="sg_wrapper{% if additionalLayoutClass %} {{additionalLayoutClass}}{% endif %}">
 		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
+			<a href="/" class="sg_logo">{{project}}</a>{% if meta.title %} / {{meta.title}}{% endif %}
 		</h1>
 
-		{{#block "content"}}
-		{{/block}}
+		{% block content %}
+		{% endblock %}
 	</div>
 </body>
 </html>

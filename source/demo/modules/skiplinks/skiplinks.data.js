@@ -8,7 +8,7 @@ var _ = require('lodash'),
 		meta: {
 			title: 'Demo: Skiplinks',
 			jira: 'JIRA-5',
-			code: dataHelper.getTemplateCode('skiplinks.hbs')
+			code: dataHelper.getTemplateCode('skiplinks.twig')
 		},
 		links: [
 			{

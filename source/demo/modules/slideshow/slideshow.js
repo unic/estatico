@@ -4,8 +4,8 @@ import MediaQuery from '../../../assets/js/helpers/mediaqueries';
 import WindowEventListener from '../../../assets/js/helpers/events';
 
 var templates = {
-	nav: require('./_slideshow_nav.js.hbs'),
-	slide: require('./_slideshow_slide.js.hbs')
+	nav: require('./_slideshow_nav.js.twig'),
+	slide: require('./_slideshow_slide.js.twig')
 };
 
 class SlideShow extends EstaticoModule {

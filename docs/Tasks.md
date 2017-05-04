@@ -41,7 +41,7 @@ Run specific tasks when specific files have changed. Uses the `gulp-watch` packa
 * Fall back to polling (e.g. in Vagrant): `gulp --pollWatch=true`
 
 ### `gulp css:colors`
-Import colors from ColorSchemer HTML export and save to Sass file (based on Handlebars template).
+Import colors from ColorSchemer HTML export and save to Sass file (based on Twig template).
 
 Non-alphanumeric characters are removed from the name.
 Works with JSON, too. Just replace the HTML file with a JSON one (containing "colorName": "#000000" pairs).
@@ -54,8 +54,7 @@ By default, a very basic dependency graph makes sure that only the necessary fil
 Encode *.otf or *.ttf or *.woff fonts to base64 data
 
 ### `gulp html`
-Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
-By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipHtmlDependencyGraph` flag to disable this behavior and just build everything all the time.
+Compile Twig templates to HTML. Use `.data.js` files for - surprise! - data.
 
 ### `gulp html:migrate`
 Transform old `.json` data files to `.data.js`.
@@ -82,14 +81,14 @@ Copy specific media files to build directory.
 Generate Sass file with base64 encoded SVG data urls and PNG fallbacks.
 
 ### `gulp media:iconfont`
-Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Handlebars template).
+Generate icon font (using `gulp-iconfont`) and corresponding Sass file (based on Twig template).
 
 ### `gulp media:imageversions`
 Creates versions of images, based on configuration, located in imageversions.js file in the same folder as original image. See /source/demo/modules/imageversions module for more details and further documentation.
 Depends on GraphicsMagick being installed.
 
 ### `gulp media:pngsprite`
-Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Handlebars template).
+Generate sprite image from input files (using `gulp.spritesmith`) and generate Sass file (based on Twig template).
 
 ### `gulp media:svgsprite`
 Fetches multiple svg files and creates a svg sprite which can later be referenced to from within the html code as described in this article
@@ -118,4 +117,3 @@ Rename module or page
 
 * Prompts for type and name of module to be copied as well as the new name.
 * Non-interactive mode: `gulp scaffold:rename --interactive=false --type={Module|Page|Demo Module|Demo Page} --name=helloworld --newName=helloworld2`
-

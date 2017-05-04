@@ -1,12 +1,16 @@
-import datasetPolyfill from 'element-dataset';
-import 'handlebars/dist/handlebars';
-import './helpers/module';
-import './helpers/svgspriteloader';
+/**
+ * @requires ../../../node_modules/jquery/dist/jquery.js
+ * @requires ../.tmp/lodash.js
+ * @requires ../../../node_modules/twig/twig.js
+ * @requires ../.tmp/templates.js
 
-import EstaticoApp from './helpers/estaticoapp';
-
-datasetPolyfill();
-
-let app = new EstaticoApp();
-
-app.start();
+ * @requires helpers/module.js
+ * @requires helpers/events.js
+ * @requires helpers/mediaqueries.js
+ *
+ * @requires ../../demo/modules/skiplinks/skiplinks.js
+ * @requires ../../demo/modules/slideshow/slideshow.js
+ * //*autoinsertmodule*
+ *
+ * @requires helpers/init.js
+ */
