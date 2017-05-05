@@ -1,17 +1,23 @@
 {{#extend "layouts/sublayout"}}
 	{{#content "header"}}
-		{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+		{{#with props}}
+			{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+		{{/with}}
 	{{/content}}
 
 	{{#content "main"}}
-		<h2>{{title}}</h2>
+		{{#with props}}
+			<h2>{{title}}</h2>
 
-		<p>{{text}}</p>
+			<p>{{text}}</p>
+		{{/with}}
 	{{/content}}
 
 	{{#content "sidebar"}}
-		<h2>Sidebar area</h2>
+		{{#with props}}
+			<h2>Sidebar area</h2>
 
-		<p>{{sidebar}}</p>
+			<p>{{sidebar}}</p>
+		{{/with}}
 	{{/content}}
 {{/extend}}

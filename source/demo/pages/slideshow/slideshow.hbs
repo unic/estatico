@@ -1,35 +1,39 @@
 {{#extend "layouts/layout"}}
 	{{#content "header"}}
-		<script>
-			// Global content data, will be extended by data-slideshow-data
-			estatico.helpers.extend(estatico.data, {
-				slideshow: {
-					i18n: {
-						prev: 'Previous',
-						next: 'Next'
+		{{#with props}}
+			<script>
+				// Global content data, will be extended by data-slideshow-data
+				estatico.helpers.extend(estatico.data, {
+					slideshow: {
+						i18n: {
+							prev: 'Previous',
+							next: 'Next'
+						}
 					}
-				}
-			});
+				});
 
-			// Global configuration data, will be extended by data-slideshow-options
-			estatico.helpers.extend(estatico.options, {
-				slideshow: {
-					animationDuration: 200,
-					url: '/mocks/demo/modules/slideshow/slideshow.json?delay=500'
-				}
-			});
-		</script>
+				// Global configuration data, will be extended by data-slideshow-options
+				estatico.helpers.extend(estatico.options, {
+					slideshow: {
+						animationDuration: 200,
+						url: '/mocks/demo/modules/slideshow/slideshow.json?delay=500'
+					}
+				});
+			</script>
 
-		{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+			{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+		{{/with}}
 	{{/content}}
 
 	{{#content "content"}}
-		<h2>{{title}}</h2>
+		{{#with props}}
+			<h2>{{title}}</h2>
 
-		<p>{{text}}</p>
+			<p>{{text}}</p>
 
-		<hr>
+			<hr>
 
-		{{> "demo/modules/slideshow/slideshow" modules.slideshow}}
+			{{> "demo/modules/slideshow/slideshow" modules.slideshow}}
+		{{/with}}
 	{{/content}}
 {{/extend}}
