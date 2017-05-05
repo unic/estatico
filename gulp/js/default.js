@@ -114,7 +114,14 @@ var taskName = 'js',
 				// Tell webpack about the asset path structure in the browser to be able to load async files
 				publicPath: path.join('/', path.relative(config.destBase, config.dest), '/')
 			},
-			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null
+			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null,
+			handlebarsLoader: {
+				partialResolver: function(partial, callback) {
+					var resolvedPath = path.resolve('./source/', partial + '.hbs');
+
+					callback(null, resolvedPath);
+				}
+			}
 		});
 
 		if (util.env.watch && !util.env.skipWebpackWatch) {
