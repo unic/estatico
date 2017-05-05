@@ -23,7 +23,8 @@ var taskName = 'css',
 			'./source/assets/css/',
 			'./source/modules/'
 		],
-		dest: './build/',
+		dest: '../site/web/themes/estatico/',
+		dest2: './build/',
 		watch: [
 			'source/assets/css/**/*.scss',
 			'source/assets/.tmp/**/*.scss',
@@ -138,6 +139,7 @@ var taskName = 'css',
 				showFiles: true
 			}))
 			.pipe(gulp.dest(config.dest))
+			.pipe(gulp.dest(config.dest2))
 			.pipe(excludeSourcemaps())
 			.pipe(livereload())
 			.on('end', cb);

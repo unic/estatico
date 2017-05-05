@@ -67,7 +67,7 @@ var taskName = 'scaffold',
 			dest: null,
 			createStyles: false,
 			createScript: false,
-			replaceContentExtensions: ['.js', '.scss', '.hbs', '.md'],
+			replaceContentExtensions: ['.js', '.scss', '.hbs', '.md', '.twig'],
 			replaceContent: function(content, config) {
 				return content
 					.replace(/\{\{name\}\}/g, config.name)

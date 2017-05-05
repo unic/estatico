@@ -21,11 +21,11 @@ gulp.task(taskName, function(cb) {
 		runSequence = require('run-sequence');
 
 	var callback = function(skipBuild, cb) {
+
+		if (typeof util.env.drupal !== 'undefined') {
 			var runTasks = [
-					'livereload',
-					'build',
-					'watch',
-					'serve',
+					'build:drupal',
+					'sync',
 					function(err) {
 						if (err) {
 							helpers.errors(err);
@@ -34,6 +34,21 @@ gulp.task(taskName, function(cb) {
 						cb();
 					}
 				];
+			} else {
+					var runTasks = [
+						'livereload',
+						'build',
+						'watch',
+						'serve',
+						function(err) {
+							if (err) {
+								helpers.errors(err);
+							}
+
+							cb();
+						}
+					];
+			}
 
 			if (skipBuild) {
 				// Remove build task from list
