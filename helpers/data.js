@@ -93,22 +93,7 @@ module.exports = {
 	},
 
 	getFormattedHandlebars: function(content) {
-		var highlighted = Highlight.highlight('html', content).value;
-
-		// Link the used sub modules (excludes partials starting with underscore)
-		return highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
-	},
-
-	getFormattedJson: function(content) {
-		var formatted = JSON.stringify(content, null, '\t');
-
-		return Highlight.highlight('json', formatted).value;
-	},
-
-	getTemplateCode: function(filePath) {
-		var requirePath = getRequirePath(filePath),
-			content = requireNew(requirePath),
-			usedPartials = this._getUsedPartialsInTemplate(content),
+		var usedPartials = this._getUsedPartialsInTemplate(content),
 			partialContent;
 
 		// Look up content of all partials used in the main template
@@ -117,12 +102,12 @@ module.exports = {
 
 			return {
 				name: partial,
-				content: this._getHighlightedTemplateCode(partialContent)
+				content: this._getHighlightedTemplate(partialContent)
 			};
 		});
 
 		return {
-			content: this._getHighlightedTemplateCode(content),
+			content: this._getHighlightedTemplate(content),
 			partials: usedPartials
 		};
 	},
@@ -135,7 +120,7 @@ module.exports = {
 	 *
 	 * @private
 	 */
-	_getHighlightedTemplateCode: function(content) {
+	_getHighlightedTemplate: function(content) {
 		var highlighted = Highlight.highlight('html', content).value;
 
 		// Link the used sub modules (excludes partials starting with underscore)
@@ -167,6 +152,12 @@ module.exports = {
 		list = [...new Set(list)];
 
 		return list;
+	},
+
+	getFormattedJson: function(content) {
+		var formatted = JSON.stringify(content, null, '\t');
+
+		return Highlight.highlight('json', formatted).value;
 	},
 
 	getDataMock: function(filePath) {
