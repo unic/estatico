@@ -1,15 +1,19 @@
 {{#extend "layouts/layout"}}
 	{{#content "header"}}
-		{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+		{{#with props}}
+			{{> "demo/modules/skiplinks/skiplinks" modules.skiplinks}}
+		{{/with}}
 	{{/content}}
 
 	{{#content "content"}}
-		<h2>{{title}}</h2>
+		{{#with props}}
+			<h2>{{title}}</h2>
 
-		<p>{{text}}</p>
+			<p>{{text}}</p>
 
-		<hr>
+			<hr>
 
-		{{> "demo/modules/teasers/teasers" modules.teasers}}
+			{{> "demo/modules/teasers/teasers" modules.teasers}}
+		{{/with}}
 	{{/content}}
 {{/extend}}
