@@ -11,7 +11,7 @@ import debounce from 'lodash.debounce';
  * // Listen to debounced scroll event:
  * import WindowEventListener from './events';
  * WindowEventListener.addDebouncedScrollListener((originalEvent, event) => {
- *		this.logger(event, originalEvent);
+ *		this.log(event, originalEvent);
  * });
  */
 

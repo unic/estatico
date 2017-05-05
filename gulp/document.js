@@ -32,10 +32,7 @@ gulp.task(taskName, function() {
 		.pipe(concat('Tasks.md'))
 		.pipe(plumber())
 		.pipe(jsdocToMarkdown({
-			template: template,
-			helper: [
-				'./helpers/handlebars.js'
-			]
+			template: template
 		}).on('error', helpers.errors))
 		.pipe(gulp.dest(taskConfig.dest));
 });
