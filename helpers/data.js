@@ -93,7 +93,10 @@ module.exports = {
 	},
 
 	getFormattedHandlebars: function(content) {
-		return Highlight.highlight('html', content).value;
+		var highlighted = Highlight.highlight('html', content).value;
+
+		// Link the used sub modules (excludes partials starting with underscore)
+		return highlighted.replace(/({{&gt;[\s"]*)(([\/]?[!a-z][a-z0-9-_]+)+)([\s"}]+)/g, '$1<a href="/$2.html">$2</a>$4');
 	},
 
 	getFormattedJson: function(content) {
