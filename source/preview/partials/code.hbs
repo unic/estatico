@@ -1,0 +1,25 @@
+{{#if meta.code}}
+	<section class="sg_inner_wrapper">
+		<h2 class="sg_h2">Code</h2>
+
+		{{#if meta.code.handlebars}}
+			<h3 class="sg_h3">Handlebars Template</h3>
+			<pre class="sg_code hljs">{{{meta.code.handlebars.content}}}</pre>
+
+			{{#each meta.code.handlebars.partials as |partial|}}
+				<h3 class="sg_h3">Handlebars Template of {{partial.name}}</h3>
+				<pre class="sg_code hljs">{{{partial.content}}}</pre>
+			{{/each}}
+		{{/if}}
+
+		{{#if meta.code.data}}
+			<h3 class="sg_h3">Data</h3>
+			<pre class="sg_code hljs">{{{meta.code.data}}}</pre>
+		{{/if}}
+
+		{{#if meta.code.html}}
+			<h3 class="sg_h3">Rendered HTML</h3>
+			<pre class="sg_code hljs">{{{meta.code.html}}}</pre>
+		{{/if}}
+	</section>
+{{/if}}

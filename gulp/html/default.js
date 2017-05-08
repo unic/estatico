@@ -64,20 +64,7 @@ var taskName = 'html',
 			handlebars = require('gulp-hb'),
 			through = require('through2');
 
-		var compileTemplate = function(template, data) {
-				try {
-					return helpers.handlebars.compile(template)(data);
-				} catch (err) {
-					helpers.errors({
-						task: taskName,
-						message: err.message
-					});
-
-					return '';
-				}
-			},
-
-			modulePreviewTemplate;
+		var modulePreviewTemplate;
 
 		gulp.src(config.src, {
 				base: './source'
@@ -90,7 +77,7 @@ var taskName = 'html',
 
 				// Create dependency graph of currently piped file
 				var dependencyGraph = new helpers.dependencygraph(file.path, {
-						pattern: /{{>[\s-]*"?(.*?)["|\s](.*?)}}/g,
+						pattern: /{{>[\s-]*"?([^"\s(]+)["|\s][\s]?(.*?)}}/g,
 						resolvePath: function(match) {
 							var resolvedPath = path.resolve('./source/', match + '.hbs');
 
@@ -140,37 +127,11 @@ var taskName = 'html',
 
 							return {};
 						}
-					})(),
+					})();
 
-					moduleTemplate,
-					mergedData;
-
-				// Precompile module demo and variants
+				// Replace module file content with preview template
 				if (file.path.indexOf(path.sep + 'modules' + path.sep) !== -1) {
-					moduleTemplate = file.contents.toString();
 					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(config.srcModulePreview, 'utf8');
-
-					data.demo = compileTemplate(moduleTemplate, data);
-
-					// Compile variants
-					if (data.variants) {
-						data.variants = Object.keys(data.variants).map(function(variantId) {
-							var variant = data.variants[variantId];
-
-							variant.demo = compileTemplate(moduleTemplate, variant);
-
-							return variant;
-						});
-
-						mergedData = _.extend({}, _.omit(data, ['project', 'env', 'meta', 'variants']), {
-								meta: {
-									title: 'Default',
-									desc: 'Default implementation.'
-								}
-							}
-						);
-						data.variants.unshift(mergedData);
-					}
 
 					// Replace file content with preview template
 					file.contents = new Buffer(modulePreviewTemplate);
@@ -181,7 +142,7 @@ var taskName = 'html',
 			}))
 			.pipe(plumber())
 			.pipe(handlebars({
-				handlebars: helpers.handlebars,
+				handlebars: helpers.handlebars.Handlebars,
 				partials: config.partials,
 				parsePartialName: function(options, file) {
 					var filePath = file.path;

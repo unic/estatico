@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{project}}</title>
+	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{meta.project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
@@ -22,13 +22,13 @@
 		<script src="/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body {{#if svgSprites}} data-svgsprites-options='{{svgSprites}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
+			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
 
-		{{#if variants}}
+		{{#hasVariants variants}}
 			<section class="sg_variants sg_inner_wrapper">
 				<h2 class="sg_h2">Module Preview</h2>
 
@@ -41,7 +41,7 @@
 						{{#each variants}}
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel">
 								<div class="sg_demo">
-									{{{demo}}}
+									{{{meta.demo}}}
 								</div>
 							</div>
 						{{/each}}
@@ -64,6 +64,9 @@
 										{{/if}}
 									</div>
 								{{/if}}
+{{! Indentation matters... }}
+{{> "preview/partials/code"}}
+
 							</div>
 						{{/each}}
 					</div>
@@ -73,18 +76,19 @@
 		{{else}}
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Module Preview</h2>
-				<div class="sg_demo">
-					{{#block "content"}}
-						{{{demo}}}
-					{{/block}}
-				</div>
-			</section>
-		{{/if}}
 
-		<section class="sg_inner_wrapper">
-			<h2 class="sg_h2">Code</h2>
-			<pre class="sg_code hljs">{{{meta.code}}}</pre>
-		</section>
+				{{#each variants}}
+					<div class="sg_demo">
+						{{#block "content"}}
+							{{{meta.demo}}}
+						{{/block}}
+					</div>
+
+{{! Indentation matters... }}
+{{> "preview/partials/code"}}
+				{{/each}}
+			</section>
+		{{/hasVariants}}
 
 		{{#if meta.documentation}}
 			<section class="sg_inner_wrapper">

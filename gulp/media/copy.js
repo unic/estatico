@@ -15,8 +15,8 @@ var taskName = 'media:copy',
 			'./source/assets/media/**/*',
 			'./source/tmp/media/**/*',
 			'./source/preview/assets/media/**/*',
-			'./source/modules/**/media/*',
-			'./source/demo/modules/**/media/*'
+			'./source/modules/*/media/**/*',
+			'./source/demo/modules/*/media/**/*'
 		],
 		configsSrc: [
 			'./source/assets/js/configs/local.js',
@@ -29,8 +29,8 @@ var taskName = 'media:copy',
 			'source/assets/media/**/*',
 			'source/tmp/media/**/*',
 			'source/preview/assets/media/**/*',
-			'source/modules/**/media/*',
-			'source/demo/modules/**/media/*'
+			'source/modules/*/media/**/*',
+			'source/demo/modules/*/media/**/*'
 		]
 	};
 
