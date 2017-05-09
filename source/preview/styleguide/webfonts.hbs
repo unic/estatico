@@ -8,7 +8,7 @@ In case of different sizes for each weight, they can be defined in separate obje
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
 		<section class="sg_inner_wrapper sg_warning">
-			<strong>Warning:</strong> By default, the font loader assumes to find a <code>/assets/css/fonts.css</code> file. This can be configured as a parameter of the <code>FontLoader</code> instance in <code>head.js</code>. The result is that this currently fails on our GitHub pages, e.g., where the whole build is in a subdirectory. Subsequently, the request to the CSS file will result in a 404 and Roboto will not be loaded.
+			<strong>Warning:</strong> By default, the font loader assumes to find a <code>/assets/css/fonts.css</code> file. This can be configured as a parameter of the <code>FontLoader</code> instance in <code>head.js</code> or in the inline configuration script tag in the head of the page. The result is that this currently fails on our GitHub pages, e.g., where the whole build is in a subdirectory. Subsequently, the request to the CSS file will result in a 404 and Roboto will not be loaded.
 		</section>
 
 		{{#each fonts}}
