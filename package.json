@@ -104,8 +104,8 @@
   },
   "scripts": {
     "test": "mocha --ui exports",
-    "start": "gulp --dev",
-    "build": "gulp build",
-    "gulp": "gulp"
+    "start": "node_modules/gulp/bin/gulp.js --dev",
+    "build": "node_modules/gulp/bin/gulp.js build",
+    "gulp": "node_modules/gulp/bin/gulp.js"
   }
 }
