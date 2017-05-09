@@ -16,11 +16,11 @@
 		{{/if}}
 
 		{{#if env.local}}
-			<script src="/assets/js/configs/local.js"></script>
+			{{> "partials/local" }}
 		{{/if}}
 
 		{{#if env.acceptance}}
-			<script src="/assets/js/configs/acceptance.js"></script>
+			{{> "partials/acceptance" }}
 		{{/if}}
 
 		<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>

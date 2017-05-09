@@ -22,6 +22,7 @@ var taskName = 'html',
 		srcModulePreview: './source/preview/layouts/module.hbs',
 		partials: [
 			'source/layouts/*.hbs',
+			'source/partials/**/*.hbs',
 			'source/modules/**/*.hbs',
 			'source/demo/modules/**/*.hbs',
 			'source/preview/**/*.hbs'
@@ -31,6 +32,7 @@ var taskName = 'html',
 		watch: [
 			'source/*.hbs',
 			'source/layouts/*.hbs',
+			'source/partials/**/*.hbs',
 			'source/pages/**/*.hbs',
 			'source/demo/pages/**/*.hbs',
 			'source/modules/**/*.hbs',

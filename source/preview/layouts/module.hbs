@@ -16,6 +16,14 @@
 		<link rel="stylesheet" href="/assets/css/dev.css">
 	{{/if}}
 
+	{{#if env.local}}
+		{{> "partials/local" }}
+	{{/if}}
+
+	{{#if env.acceptance}}
+		{{> "partials/acceptance" }}
+	{{/if}}
+
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
 	{{#if env.dev}}
