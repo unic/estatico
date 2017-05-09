@@ -28,19 +28,6 @@ Estático has been born as a result of a collective work of our frontend team. W
 	- PNG sprites
 - Convenient way of dealing with breakpoints (once configured in CSS they become available in both CSS and JavaScript)
 
-## Getting started
-
-```bash
-git clone https://github.com/unic/estatico.git
-cd estatico
-
-# Install dependencies
-npm install
-
-# Run
-npm start
-```
-
 ## Documentation
 
 ### Setup / Usage
