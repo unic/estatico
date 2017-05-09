@@ -2,13 +2,17 @@
 
 var util = require('gulp-util'),
 	data = {
-		project: 'KPT VPK',
+		meta: {
+			project: 'KPT VPK'
+		},
 		env: util.env,
-		svgSprites: JSON.stringify([
+		props: {
+			svgSprites: JSON.stringify([
 
-			// Disabled since there are no icons by default
-			// '/assets/media/svg/base.svg'
-		])
+				// Disabled since there are no icons by default
+				// '/assets/media/svg/base.svg'
+			])
+		}
 	};
 
 module.exports = data;

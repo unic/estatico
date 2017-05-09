@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 
 /**
  * Adds debounced global resize and scroll events and generates public methods for adding handlers
@@ -11,7 +11,7 @@ import debounce from 'lodash.debounce';
  * // Listen to debounced scroll event:
  * import WindowEventListener from './events';
  * WindowEventListener.addDebouncedScrollListener((originalEvent, event) => {
- *		this.logger(event, originalEvent);
+ *		this.log(event, originalEvent);
  * });
  */
 

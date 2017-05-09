@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{{#if title}}{{title}} – {{/if}}{{project}}</title>
+		<title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
@@ -29,21 +29,21 @@
 			<script src="/assets/js/dev.js"></script>
 		{{/if}}
 	</head>
-	<body {{#if svgSprites}} data-svgsprites-options='{{svgSprites}}'{{/if}}>
-	{{#block "header"}}
-	{{/block}}
-
-	<div class="layout_wrapper" id="main">
-		{{#block "content"}}
+	<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+		{{#block "header"}}
 		{{/block}}
-	</div>
 
-	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+		<div class="layout_wrapper" id="main">
+			{{#block "content"}}
+			{{/block}}
+		</div>
 
-	{{#block "scripts"}}
-		{{#if meta.testScripts}}
-			{{> "preview/partials/qunit"}}
-		{{/if}}
-	{{/block}}
+		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+		{{#block "scripts"}}
+			{{#if meta.testScripts}}
+				{{> "preview/partials/qunit"}}
+			{{/if}}
+		{{/block}}
 	</body>
 </html>
