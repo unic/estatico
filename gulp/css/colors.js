@@ -14,8 +14,8 @@ var taskName = 'css:colors',
 	taskConfig = {
 		src: './source/assets/css/templates/_colors.scss',
 		dest: './source/assets/.tmp',
-		input: 'source/assets/css/data/colors.html', // Optional: Replace this with a JSON file
-		watch: 'source/assets/css/data/colors.html' // Optional: Replace this with a JSON file
+		input: 'source/assets/css/data/colors.json', // Optional: Replace this with a JSON file
+		watch: 'source/assets/css/data/colors.json' // Optional: Replace this with a JSON file
 	};
 
 gulp.task(taskName, function() {

@@ -2,12 +2,12 @@ html {
 	background: $colorBg;
 	color: $colorText;
 	font-family: $fontFamilyBase;
+	font-weight: 400;
 	font-size: $sizeFontBase / 16px * 100%;
 	line-height: $sizeLineHeightBase;
 }
 
 nav {
-
 	ul,
 	ol {
 		@include resetList;
@@ -19,6 +19,7 @@ nav {
 	width: pxToEm($sizeWidthContent);
 }
 
+/*
 .layout_columns {
 	display: flex;
 
@@ -43,3 +44,4 @@ nav {
 		width: 25%;
 	}
 }
+*/
