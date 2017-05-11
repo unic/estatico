@@ -3,7 +3,7 @@
 var util = require('gulp-util'),
 	data = {
 		meta: {
-			project: 'KPT VPK'
+			project: 'KPT-VPK Components library'
 		},
 		env: util.env,
 		props: {

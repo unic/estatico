@@ -14,14 +14,8 @@
 
 		<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 	</head>
-	<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
-		<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
-			<h1 class="sg_title">
-				<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-			</h1>
-
-			{{#block "content"}}
-			{{/block}}
-		</div>
+	<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} class="sg{{#if additionalLayoutClasses}} {{additionalLayoutClasses}}{{/if}}">
+		{{#block "content"}}
+		{{/block}}
 	</body>
 </html>

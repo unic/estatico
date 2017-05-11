@@ -27,6 +27,7 @@ $sg_colorGray: #999;
 $sg_colorBlack: #000;
 $sg_colorUnicGreen: #a4c400;
 $sg_colorWarning: #c30;
+$sg_colorLightBlue: #5876a3;
 
 // Transitions
 $sg_defaultTransitionProperty: all;
@@ -34,6 +35,10 @@ $sg_defaultTransitionDuration: 0.2s;
 $sg_defaultTransitionTimingFunction: ease-in-out;
 $sg_defaultTransitionDelay: 0s;
 $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
+
+// Sizes
+$sg_sizeIconsFooter: 30px;
+$sg_sizeHeightFooter: 0;
 
 
 
@@ -60,46 +65,169 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Preview: generic styles
 // ----------------------------------------------------------------------------------------------------
 
-.sg_wrapper {
-	.sg_h2,
-	.sg_h3,
-	.sg_documentation,
-	.sg_code,
-	.sg_variant_meta,
-	.sg_tests {
-		@include sgBoxed;
+/**
+ * Layout
+ */
+
+.sg {
+	@include mq($from: small) {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+
+		&__tree {
+			position: fixed;
+			top: 0;
+			bottom: $sg_sizeHeightFooter;
+			left: 0;
+			width: 25%;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+
+		&__preview {
+			flex: 1 1 auto;
+			margin-left: 25%;
+		}
 	}
 
-	.sg_title {
-		@include sgBoxedMargins;
-		margin-bottom: pxToEm(70px, 35px);
-		font-family: Georgia, serif;
-		font-size: pxToEm(35px);
+	&__module_wrapper {
+		border: 1px solid red;
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+
+		&--is_hidden {
+
+		}
+	}
+}
+
+/**
+ * Look & Feel
+ */
+
+.sg {
+	&__title {
+		font-size: 18px;
+		color: inherit;
+		margin: 0;
+		padding: 10px 0;
+		border-bottom: 3px solid;
 
 		a {
-			border-bottom: 3px solid;
 			color: inherit;
 			text-decoration: none;
 		}
 	}
 
-	.sg_title,
-	.sg_h2,
-	.sg_h3,
-	.sg_h4 {
-		font-weight: 600;
-	}
-
-	.sg_h2,
-	.sg_h3,
-	.sg_h4 {
+	&__tree {
 		font-family: $sg_font;
+
+		a {
+			display: inline-block;
+			padding: 0.4em 0;
+			color: $sg_colorGray;
+			text-decoration: none;
+			line-height: 1.3;
+
+			&:hover {
+				color: $sg_colorBlack;
+				text-decoration: none;
+			}
+		}
+
+		@include mq($from: small) {
+			border-right: 1px solid rgba(83, 83, 99, 0.25);
+		}
 	}
 
-	.sg_h2 {
-		font-size: pxToEm(25px);
+	&__footer{
+		padding: 16px;
+		background-color: #fafbfc;
+		color: $sg_colorLightBlue;
+		font-size: 14px;
+
+		p {
+			margin-top: 0;
+		}
+
+		@include mq($from: small) {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			p {
+				flex-grow: 1;
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	&__sociallist {
+		@include resetList;
+		@include clearfix;
+		display: flex;
+		justify-content: flex-end;
+
+		&__item {
+			display: block;
+			box-sizing: border-box;
+			margin-right: 12px;
+
+			width: $sg_sizeIconsFooter;
+			height: $sg_sizeIconsFooter;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+
+	&__iconlink {
+		display: flex;
+		align-items: baseline;
+		text-decoration: none;
+
+		border-radius: 100%;
+		background: $sg_colorGray;
+		color: $sg_colorWhite; // IE8
+		fill: $sg_colorWhite;
+
+		&--icon-only {
+			.sg__iconlink__title {
+				@include visuallyhidden;
+			}
+		}
+	}
+
+	svg path {
+		fill: inherit;
+	}
+
+	&__svgicon {
+		width: 100%;
+		height: 100%;
+		flex: 0 0 auto;
+		padding: 0;
+	}
+
+	&__collapsible {
+		&_title {
+			font-weight: 600;
+			font-size: 16px;
+		}
+
+		&_content {
+			@include resetList;
+			padding-left: 16px;
+		}
 	}
 }
+
+
+
+
 
 .sg_warning {
 	border: 1px solid $sg_colorWarning;
@@ -166,7 +294,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Preview: commons
 // ----------------------------------------------------------------------------------------------------
 
-.sg_inner_wrapper {
+.sg__wrapper {
 	.sg_colors &,
 	.sg_elements &,
 	.sg_fonts &,
@@ -174,7 +302,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	.sg_icons &,
 	.sg_module & {
 		@include clearfix;
-		margin-bottom: pxToEm(70px);
+		margin-bottom: 70px;
 	}
 
 	.sg_colors &,
@@ -186,7 +314,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	}
 }
 
-.sg_title {
+.sg__title {
 	.sg_colors &,
 	.sg_elements &,
 	.sg_fonts &,
@@ -238,61 +366,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Preview: Index page
 // ----------------------------------------------------------------------------------------------------
 
-.sg_index {
-	flex-direction: row;
-	flex-wrap: wrap;
-	display:flex;
-	//justify-content: flex-start;
-	//align-content: flex-start;
-	//align-items: flex-start;
-
-	margin-left: pxToEm(10px);
-	margin-right: pxToEm(10px);
-	font-family: $sg_font;
-	font-size: pxToEm(14px);
-
-	ul,
-	li {
-		list-style-type: none;
-	}
-
-	.sg_h2 {
-		margin: 0;
-		font-size: pxToEm(25px, 14px);
-	}
-
-	a {
-		display: inline-block;
-		padding: 0.4em 0;
-		color: $sg_colorGray;
-		text-decoration: none;
-		line-height: 1.3;
-
-		&:hover {
-			color: $sg_colorBlack;
-			text-decoration: none;
-		}
-	}
-
-	.sg_inner_wrapper {
-		border-top: 6px solid;
-		box-sizing: border-box;
-		padding: 1em 0;
-
-		margin: pxToEm(10px, 15px);
-		flex-grow: 1;
-		flex-basis: 100%;
-
-		@include mq($from: 600px) {
-			flex-basis: 45%;
-		}
-
-		@include mq($from: 900px) {
-			flex-basis: 30%;
-		}
-	}
-}
-
 // Lists on index page
 .sg_index_list {
 	margin-bottom: 0;
@@ -305,22 +378,22 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // ----------------------------------------------------------------------------------------------------
 
 .sg_module {
-	.sg_h2,
+	.sg__collapsible_title,
 	.sg_h3,
 	.sg_h4 {
 		margin-top: 2em;
 	}
 
-	.sg_inner_wrapper {
+	.sg__wrapper {
 		&:nth-of-type(even) {
 			margin-bottom: 1em;
-			padding-bottom: pxToEm(36px);
+			padding-bottom: 36px;
 			background-color: $sg_colorLightGray;
 		}
 	}
 
 	// Remove clearfix in before to avoid big space from non-collapsed margins between h1 and h2
-	.sg_inner_wrapper:first-of-type:before {
+	.sg__wrapper:first-of-type:before {
 		display: none;
 	}
 }
@@ -364,13 +437,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 	@include clearfix;
 	@include resetList;
 
-	margin: 0 pxToEm(-10);
+	margin: 0 -10;
 }
 
 .sg_color_item {
-	font-size: pxToEm(14);
-	padding: pxToEm(15, 14) pxToEm(10, 14) pxToEm(20, 14);
-	width: pxToEm(($sg_maxWidth/6), 14);
+	font-size: 14px;
+	padding: 15px 10px 20px;
+	width: ($sg_maxWidth/6);
 	float: left;
 	text-align: center;
 	box-sizing: border-box;

@@ -6,15 +6,14 @@ var _ = require('lodash'),
 	defaultData = requireNew('./data/default.data.js'),
 	path = require('path'),
 	transform = function(data, filePath) {
-		var previewUrl = path.relative('./source/', filePath).replace('.data.js', '.html');
+		const previewUrl = path.relative('./source/', filePath).replace('.data.js', '.html');
 
-		data = _.merge(data, {
+		return _.merge(data, {
 			meta: {
-				previewUrl: previewUrl
+				previewUrl: previewUrl,
+				documentation: dataHelper.getDocumentation('index.md')
 			}
 		});
-
-		return data;
 	},
 
 	data = _.merge(defaultData, {
