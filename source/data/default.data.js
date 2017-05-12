@@ -1,6 +1,7 @@
 'use strict';
 
 var util = require('gulp-util'),
+	tree = require('./tree.data.js'),
 	data = {
 		meta: {
 			project: 'KPT-VPK Components library'
@@ -11,7 +12,8 @@ var util = require('gulp-util'),
 
 				// Disabled since there are no icons by default
 				// '/assets/media/svg/base.svg'
-			])
+			]),
+			tree: tree
 		}
 	};
 
