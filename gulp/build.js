@@ -36,6 +36,7 @@ gulp.task(taskName, function(cb) {
 					'js:modernizr',
 					[
 						'html',
+						'html:copy',
 						'js',
 						'css',
 						'media:copy',
