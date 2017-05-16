@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * @function `gulp html:copy`
+ * @desc Copy the handlebars files to the assets folder.
+ */
+
 var gulp = require('gulp'),
     htmlTask = require('./default');
 
