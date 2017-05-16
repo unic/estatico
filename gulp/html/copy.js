@@ -3,11 +3,12 @@
 var gulp = require('gulp'),
     htmlTask = require('./default');
 
-var taskName = 'html:copy',
+var src = ['source/**/*.hbs'],
+	taskName = 'html:copy',
 	taskConfig = {
-		src: htmlTask.taskConfig.src,
+		src: src,
 		dest: './build/assets/html',
-		watch: htmlTask.taskConfig.src
+		watch: src
 	},
 	task = function(config) {
 		return gulp.src(config.src, {
