@@ -70,7 +70,7 @@ $sg_sizeHeightFooter: 0;
  */
 
 .sg {
-	@include mq($from: small) {
+	@include mq($from: medium) {
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
@@ -190,14 +190,20 @@ $sg_sizeHeightFooter: 0;
 		text-decoration: none;
 
 		border-radius: 100%;
-		background: $sg_colorGray;
+		background-color: $sg_colorGray;
 		color: $sg_colorWhite; // IE8
 		fill: $sg_colorWhite;
+
+		transition: all .2s ease-in-out 0s;
 
 		&--icon-only {
 			.sg__iconlink__title {
 				@include visuallyhidden;
 			}
+		}
+
+		&:hover {
+			background-color: $sg_colorUnicGreen;
 		}
 	}
 
