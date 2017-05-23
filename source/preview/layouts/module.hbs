@@ -23,8 +23,6 @@
 		{{/if}}
 	</head>
 	<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} class="sg{{#if additionalLayoutClasses}} {{additionalLayoutClasses}}{{/if}}">
-		{{> preview/partials/tree}}
-
 		<div class="sg__preview">
 			<div class="sg_wrapper sg_module">
 				{{#hasVariants variants}}
@@ -124,5 +122,7 @@
 				{{/block}}
 			</div>
 		</div>
+
+		{{> preview/partials/tree}}
 	</body>
 </html>
