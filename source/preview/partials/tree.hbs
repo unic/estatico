@@ -1,11 +1,14 @@
-
 <div class="sg__tree">
-	{{#if props.tree.pages}}
+	<h1 class="sg_title">
+		<a href="/" class="sg_logo">Estático</a>
+	</h1>
+
+	{{#if tree.pages}}
 		<div class="sg__collapsible">
 			<h2 class="sg__collapsible_title">Pages</h2>
 
 			<ul class="sg__collapsible_content">
-				{{#each props.tree.pages}}
+				{{#each tree.pages}}
 					{{#unless meta.hideFromListing}}
 						<li>
 							<a href="{{meta.previewUrl}}">{{meta.title}}</a>
@@ -22,12 +25,12 @@
 		</div>
 	{{/if}}
 
-	{{#if props.tree.modules}}
+	{{#if tree.modules}}
 		<div class="sg__collapsible">
 			<h2 class="sg__collapsible_title">Modules</h2>
 
 			<ul class="sg__collapsible_content">
-				{{#each props.tree.modules}}
+				{{#each tree.modules}}
 					{{#unless meta.hideFromListing}}
 						<li>
 							<a href="{{meta.previewUrl}}">
@@ -46,12 +49,12 @@
 		</div>
 	{{/if}}
 
-	{{#if props.tree.styleguide}}
+	{{#if tree.styleguide}}
 		<div class="sg__collapsible">
 			<h2 class="sg__collapsible_title">Styleguide</h2>
 
 			<ul class="sg__collapsible_content">
-				{{#each props.tree.styleguide}}
+				{{#each tree.styleguide}}
 					{{#unless meta.hideFromListing}}
 						<li>
 							<a href="{{meta.previewUrl}}">

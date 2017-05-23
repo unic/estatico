@@ -7,13 +7,13 @@ var util = require('gulp-util'),
 			project: 'KPT-VPK Components library'
 		},
 		env: util.env,
+		tree: tree,
 		props: {
 			svgSprites: JSON.stringify([
 
 				// Disabled since there are no icons by default
 				// '/assets/media/svg/base.svg'
-			]),
-			tree: tree
+			])
 		}
 	};
 
