@@ -1,19 +1,11 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
-		<div class="sg__preview">
-			<div class="sg__home">
-				<h1 class="sg__title">
-					<a href="/">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-				</h1>
+		<div class="sg__home">
+			<h1 class="sg__title">
+				<a href="/">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
+			</h1>
 
-				{{{meta.documentation}}}
-			</div>
-
-			<!--iframe frameborder="0" id="module_wrapper" class="sg__module_wrapper sg__module_wrapper--is_hidden" name="module_wrapper"></iframe-->
-
-			{{> preview/partials/footer}}
+			{{{meta.documentation}}}
 		</div>
-
-		{{> preview/partials/tree}}
 	{{/content}}
 {{/extend}}
