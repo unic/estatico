@@ -31,7 +31,7 @@ $sg_colorLightBlue: #5876a3;
 
 // Transitions
 $sg_defaultTransitionProperty: all;
-$sg_defaultTransitionDuration: 0.2s;
+$sg_defaultTransitionDuration: 0.3s;
 $sg_defaultTransitionTimingFunction: ease-in-out;
 $sg_defaultTransitionDelay: 0s;
 $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
@@ -60,69 +60,206 @@ $sg_sizeHeightFooter: 0;
 	}
 }
 
+@mixin sgPanelsPaddingSmall {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+@mixin sgPanelsPaddingMedium {
+	padding-left: 40px;
+	padding-right: 40px;
+}
 
 
-// Preview: generic styles
+
+// Preview
 // ----------------------------------------------------------------------------------------------------
 
-/**
- * Layout
- */
+$sg_hamburgerSize: 44px;
+.sg__tree_trigger {
+	@include mq($to: small) {
+		@include visuallyhidden;
 
-.sg {
-	@include mq($from: medium) {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-
-		&__tree {
-			position: fixed;
+		&__label {
+			position: absolute;
 			top: 0;
-			bottom: $sg_sizeHeightFooter;
 			left: 0;
-			width: 25%;
-			overflow-x: hidden;
-			overflow-y: auto;
-		}
+			display: block;
+			width: $sg_hamburgerSize;
+			height: $sg_hamburgerSize;
+			overflow: hidden;
+			white-space: nowrap;
+			/* hide text */
+			color: transparent;
+			z-index: 10;
+			cursor: pointer;
+			transition: left $sg_defaultTransitionDuration;
 
-		&__preview {
-			flex: 1 1 auto;
-			margin-left: 25%;
+			span, span:before, span:after {
+				/* hamburger icon in CSS */
+				position: absolute;
+				display: inline-block;
+				height: 3px;
+				width: 24px;
+				background: $sg_colorBlack;
+				//transition: color $sg_defaultTransitionDuration;
+			}
+
+			span {
+				/* line in the center */
+				position: absolute;
+				top: 50%;
+				right: 10px;
+				margin-top: -2px;
+				transition: background $sg_defaultTransitionDuration $sg_defaultTransitionDuration;
+			}
+
+			span:before, span:after {
+				/* other 2 lines */
+				content: '';
+				right: 0;
+				/* Force Hardware Acceleration in WebKit */
+				transform: translateZ(0);
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+				transform-origin: 0% 50%;
+				transition: transform $sg_defaultTransitionDuration $sg_defaultTransitionDuration;
+			}
+
+			span:before {
+				/* menu icon top line */
+				top: -6px;
+			}
+
+			span:after {
+				/* menu icon bottom line */
+				top: 6px;
+			}
 		}
 	}
 
-	&__module_wrapper {
-		border: 1px solid red;
-		box-sizing: border-box;
-		width: 100%;
-		height: 100%;
+	&:checked {
+		& ~ .sg__tree {
+			transform: translateX(0);
+		}
 
-		&--is_hidden {
+		& ~ .sg__tree_trigger__label {
+			left: calc(100% - #{$sg_hamburgerSize});
 
+			span {
+				/* hide line in the center */
+				background: rgba($sg_colorWhite, 0);
+			}
+
+			span::before, span::after {
+				/* keep visible other 2 lines */
+				background: rgba($sg_colorWhite, 1);
+			}
+
+			span::before {
+				transform: translateX(4px) translateY(-3px) rotate(45deg);
+			}
+
+			span::after {
+				transform: translateX(4px) translateY(2px) rotate(-45deg);
+			}
+		}
+	}
+
+	@include mq($from: small) {
+		display: none;
+
+		&__label {
+			display: none;
 		}
 	}
 }
 
-/**
- * Look & Feel
- */
-
 .sg {
+	$sgTreeWidthSmall: 80%;
+	$sgTreeWidthMedium: 60%;
+	$sg_sizeTreePaddingSmall: 20px;
+	$sg_sizeTreePaddingMedium: 40px;
+
+	/**
+	 * Layout structure
+	 */
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+	&__title,
+	&__tree nav {
+		@include mq($to: small) {
+			padding-left: $sg_sizeTreePaddingSmall;
+			padding-right: $sg_sizeTreePaddingSmall;
+			background-color: $sg_colorWhite;
+		}
+	}
+
 	&__title {
-		font-size: 18px;
+		background-color: $sg_colorWhite;
 		color: inherit;
-		margin: 0;
-		padding: 10px 0;
-		border-bottom: 3px solid;
+		font-size: 18px;
+		font-weight: normal;
+		font-family: monospace;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-left: $sg_hamburgerSize + 10px;
+		padding-top: 7px;
+		padding-bottom: 10px;
+		border-bottom: 3px solid $sg_colorUnicGreen;
 
 		a {
 			color: inherit;
 			text-decoration: none;
 		}
+
+		@include mq($from: small) {
+			&--main {
+				@include visuallyhidden;
+			}
+		}
+
+		&--module {
+			background-color: rgba($sg_colorUnicGreen, .1);
+			//border-color: $sg_colorUnicGreen;
+			font-size: 24px;
+			@include sgPanelsPaddingSmall;
+			margin: 0;
+
+			@include mq($from: small) {
+				padding-top: 7px;
+				padding-bottom: 7px;
+				@include sgPanelsPaddingMedium;
+			}
+		}
 	}
 
 	&__tree {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		width: 100%;
+		transition: transform $sg_defaultTransitionDuration;
+
+		@include mq($to: small) {
+			transform: translateX(-100%);
+		}
+
+		@include mq($from: small) {
+			//bottom: $sg_sizeHeightFooter;
+			width: 25%;
+		}
+
+		/**
+		 * Look & Feel
+		 */
+
 		font-family: $sg_font;
+		box-sizing: border-box;
 
 		a {
 			display: inline-block;
@@ -137,16 +274,58 @@ $sg_sizeHeightFooter: 0;
 			}
 		}
 
+		nav {
+			@include mq($to: small) {
+				@include clearfix;
+				margin-right: 20%;
+				height: 100vh;
+			}
+		}
+
+		@include mq($to: small) {
+			background-color: rgba($sg_colorBlack, .8);
+		}
+
 		@include mq($from: small) {
 			border-right: 1px solid rgba(83, 83, 99, 0.25);
+			padding-left: $sg_sizeTreePaddingSmall;
+			padding-right: $sg_sizeTreePaddingSmall;
+			//margin-right: 100 - $sgTreeWidthMedium;
+		}
+
+		&__section_title {
+			font-size: 18px;
+			font-family: monospace;
 		}
 	}
 
+	&__preview {
+		flex: 1 1 auto;
+		//margin-top: $sg_hamburgerSize;
+
+		@include mq($from: small) {
+			margin-top: 0;
+			margin-left: 25%;
+		}
+	}
+
+	/*&__module_wrapper {
+		border: 1px solid red;
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+
+		&--is_hidden {
+
+		}
+	}*/
+
 	&__footer{
-		padding: 16px;
-		background-color: #fafbfc;
-		color: $sg_colorLightBlue;
+		background-color: rgba($sg_colorLightGray, .2);
+		border-top: 1px solid $sg_colorLightGray;
+		//color: $sg_colorLightBlue;
 		font-size: 14px;
+		padding: 16px;
 
 		p {
 			margin-top: 0;
@@ -217,23 +396,7 @@ $sg_sizeHeightFooter: 0;
 		flex: 0 0 auto;
 		padding: 0;
 	}
-
-	&__collapsible {
-		&_title {
-			font-weight: 600;
-			font-size: 16px;
-		}
-
-		&_content {
-			@include resetList;
-			padding-left: 16px;
-		}
-	}
 }
-
-
-
-
 
 .sg_warning {
 	border: 1px solid $sg_colorWarning;
@@ -243,56 +406,122 @@ $sg_sizeHeightFooter: 0;
 
 
 
-// Preview: modules
+// Preview: tabs
 // ----------------------------------------------------------------------------------------------------
 
-.sg_tabs {
-	$numTabs: 5;
-	$bgcolorActive: $sg_colorLightGray;
-
+.sg__tabs {
 	/*
 	 * Functionality
 	 */
-	.tab_trigger {
+
+	$numTabs: 10;
+	$bgcolorActive: $sg_colorLightGray;
+	$bgcolorFocus: $sg_colorUnicGreen;
+
+	&__trigger {
 		@include visuallyhidden;
 	}
-	.tab_content {
+	&__panel {
 		display: none;
 	}
 
 	$i: $numTabs;
 	@while $i > 0 {
-		.tab_trigger:nth-child(#{$i}):checked ~ .panels > .tab_content:nth-child(#{$i}) {
+		&__trigger:nth-child(#{$i}):checked ~ .sg__tabs__panels > .sg__tabs__panel:nth-child(#{$i}) {
 			display: block;
 		}
-		.tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
+		&__trigger:nth-child(#{$i}):checked ~ .sg__tabs__labels > label:nth-child(#{$i}) {
 			background-color: $bgcolorActive;
 			font-weight: bold;
 		}
-		/*.tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
+		&__trigger:nth-child(#{$i}):focus ~ .sg__tabs__labels > label:nth-child(#{$i}) {
 			background-color: $bgcolorFocus;
 		}
-		.tab_trigger:nth-child(#{$i}):hover ~ .labels > label:nth-child(#{$i}) {
+		/*&__trigger:nth-child(#{$i}):hover ~ .labels > label:nth-child(#{$i}) {
 			background-color: $bgcolorHover;
 		}*/
 		$i: $i - 1;
 	}
 
-	.labels {
+	&__labels {
 		@include clearfix;
-		@include sgBoxed;
-		border-bottom: 1px solid $sg_colorLightGray;
-		border-top: 1px solid $sg_colorLightGray;
+
 		& > label {
-			//border-radius: 4px 4px 0 0;
-			display: inline-block;
+			display: block;
+			transition: background-color .3s;
+		}
+	}
+
+	/*
+	 * Layout
+	 */
+	$sg_sizeTabsPanelsSmall: 75%;
+	$sg_sizeTabsLabelsSmall: 100 - $sg_sizeTabsPanelsSmall;
+	$sg_sizeTabsPanelsMedium: 80%;
+	$sg_sizeTabsLabelsMedium: 100 - $sg_sizeTabsPanelsMedium;
+
+	display: flex;
+	flex-direction: row;
+
+	&__panels {
+		min-width: 0;
+		width: $sg_sizeTabsPanelsSmall;
+	}
+
+	&__labels {
+		margin-left: auto;
+		flex: none;
+		width: $sg_sizeTabsLabelsSmall;
+
+		& > label {
 			padding: 8px 18px;
 		}
+	}
+
+	@include mq($from: small) {
+		&__panels {
+			width: $sg_sizeTabsPanelsMedium;
+		}
+
+		&__labels {
+			width: $sg_sizeTabsLabelsMedium;
+		}
+	}
+
+	/*
+	 * Look & Feel
+	 */
+
+	&__panels {
+		border-right: 1px solid $sg_colorLightGray;
+		@include sgPanelsPaddingSmall;
+
+		@include mq($from: medium) {
+			@include sgPanelsPaddingMedium;
+		}
+	}
+
+	&__labels {
+		background-color: rgba($sg_colorLightGray, .2);
 	}
 }
 
 .hljs {
-	background-color: $sg_colorLightGray;
+	//background-color: $sg_colorLightGray;
+	background-color: rgba($sg_colorLightBlue, .05);
+	box-shadow: 0 1px 3px $sg_colorGray inset;
+}
+
+
+
+// Preview: content
+// ----------------------------------------------------------------------------------------------------
+
+.sg__content {
+	&__section_title {
+		font-family: monospace;
+		font-size: 18px;
+	}
 }
 
 
@@ -300,7 +529,7 @@ $sg_sizeHeightFooter: 0;
 // Preview: commons
 // ----------------------------------------------------------------------------------------------------
 
-.sg__wrapper {
+/*.sg__wrapper {
 	.sg_colors &,
 	.sg_elements &,
 	.sg_fonts &,
@@ -329,13 +558,13 @@ $sg_sizeHeightFooter: 0;
 	.sg_module & {
 		@include sgBoxed;
 	}
-}
+}*/
 
-.sg_demo {
+.sg__demo {
 	@include clearfix;
 }
 
-.sg_documentation {
+.sg__documentation {
 
 	th {
 		border-bottom: 1px solid $sg_colorLightGray;
@@ -384,7 +613,6 @@ $sg_sizeHeightFooter: 0;
 // ----------------------------------------------------------------------------------------------------
 
 .sg_module {
-	.sg__collapsible_title,
 	.sg_h3,
 	.sg_h4 {
 		margin-top: 2em;

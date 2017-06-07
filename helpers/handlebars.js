@@ -92,13 +92,13 @@ helpers.dynamicPartial = function(name, partialData, options) {
 };
 
 // Module preview
-helpers.hasVariants = function(variants, options) {
+/*helpers.hasVariants = function(variants, options) {
 	if (Object.keys(variants).length > 1) {
 		return options.fn(this);
 	} else {
 		return options.inverse(this);
 	}
-};
+};*/
 
 // Register helpers
 Handlebars.registerHelper(helpers);

@@ -23,12 +23,21 @@
 		{{/if}}
 	</head>
 	<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} class="sg{{#if additionalLayoutClasses}} {{additionalLayoutClasses}}{{/if}}">
+		<input type="checkbox" id="sg__tree_trigger" class="sg__tree_trigger" />
+		<label for="sg__tree_trigger" class="sg__tree_trigger__label">
+			<span>Toggle Navigation</span>
+		</label>
+		<h1 class="sg__title sg__title--main">
+			<a href="/" class="sg__logo">Estático</a>
+		</h1>
+
 		<div class="sg__preview">
 			{{#block "content"}}
 			{{/block}}
 
 			{{> preview/partials/footer}}
 		</div>
+
 		{{> preview/partials/tree }}
 	</body>
 </html>
