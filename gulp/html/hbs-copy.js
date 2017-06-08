@@ -1,18 +1,18 @@
 'use strict';
 
 /**
- * @function `gulp html:copy`
- * @desc Copy the handlebars files to the assets folder.
+ * @function `gulp html:hbs:copy`
+ * @desc Copy the handlebars files to the assets folder. Note: this task is disabled by default. You need to enable this in build.js	
  */
 
 var gulp = require('gulp'),
     htmlTask = require('./default');
 
 var src = ['source/**/*.hbs'],
-	taskName = 'html:copy',
+	taskName = 'html:hbs:copy',
 	taskConfig = {
 		src: src,
-		dest: './build/assets/html',
+		dest: './build/templates/',
 		watch: src
 	},
 	task = function(config) {

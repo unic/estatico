@@ -57,8 +57,8 @@ Encode *.otf or *.ttf or *.woff fonts to base64 data
 Compile Handlebars templates to HTML. Use `.data.js` files for - surprise! - data.
 By default, a very basic dependency graph makes sure that only the necessary files are rebuilt on changes. Add the `--skipHtmlDependencyGraph` flag to disable this behavior and just build everything all the time.
 
-### `gulp html:copy`
-Copy the handlebars files to the assets folder.
+### `gulp html:hbs:copy`
+Copy the handlebars files to the assets folder. Note: this task is disabled by default. You need to enable this in build.js
 
 ### `gulp html:migrate`
 Transform old `.json` data files to `.data.js`.
