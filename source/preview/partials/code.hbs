@@ -1,24 +1,24 @@
 {{#if meta.code}}
 	<section class="sg__content sg__content--code">
-		<h2 class="sg__content__section_title">Code</h2>
+		<h3 class="sg__content__section_title">Code</h3>
 
 		{{#if meta.code.handlebars}}
-			<h3 class="sg__content__section_title--subtitle">Handlebars Template</h3>
+			<h4 class="sg__content__section_title--subtitle">Handlebars Template</h4>
 			<pre class="sg__code hljs">{{{meta.code.handlebars.content}}}</pre>
 
 			{{#each meta.code.handlebars.partials as |partial|}}
-				<h3 class="sg__content__section_title--subtitle">Handlebars Template of {{partial.name}}</h3>
+				<h4 class="sg__content__section_title--subtitle">Handlebars Template of {{partial.name}}</h4>
 				<pre class="sg__code hljs">{{{partial.content}}}</pre>
 			{{/each}}
 		{{/if}}
 
 		{{#if meta.code.data}}
-			<h3 class="sg__content__section_title--subtitle">Data</h3>
+			<h4 class="sg__content__section_title--subtitle">Data</h4>
 			<pre class="sg__code hljs">{{{meta.code.data}}}</pre>
 		{{/if}}
 
 		{{#if meta.code.html}}
-			<h3 class="sg__content__section_title--subtitle">Rendered HTML</h3>
+			<h4 class="sg__content__section_title--subtitle">Rendered HTML</h4>
 			<pre class="sg__code hljs">{{{meta.code.html}}}</pre>
 		{{/if}}
 	</section>

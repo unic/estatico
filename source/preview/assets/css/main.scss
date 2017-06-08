@@ -343,12 +343,17 @@ $sg_hamburgerSize: 44px;
 		}
 	}
 
+	&__styleguide,
 	&__module {
 		flex-grow: 1;
+	}
 
+	&__module {
 		display: flex;
 		flex-direction: column;
+	}
 
+	&__module {
 		&__section {
 			flex-grow: 1;
 
@@ -368,6 +373,7 @@ $sg_hamburgerSize: 44px;
 			&--mocks,
 			&--tests,
 			&--documentation {
+				margin-top: $sg_sizeSpacingMedium + $sg_sizeSpacingSmall;
 				@include mq($from: medium) {
 					padding-right: 100% - $sg_sizeTreeWidthSmall;
 				}
@@ -451,12 +457,6 @@ $sg_hamburgerSize: 44px;
 		flex: 0 0 auto;
 		padding: 0;
 	}
-}
-
-.sg_warning {
-	border: 1px solid $sg_colorWarning;
-	color: $sg_colorWarning;
-	padding: 1em;
 }
 
 
@@ -663,6 +663,7 @@ $sg_hamburgerSize: 44px;
 		background: $sg_colorLightGray;
 		color: #666;
 		padding: 0 0.2em;
+		word-wrap: break-word;
 	}
 
 	pre {
@@ -686,113 +687,112 @@ $sg_hamburgerSize: 44px;
 
 
 
-// Preview: Modules page
-// ----------------------------------------------------------------------------------------------------
-
-.sg_module {
-	.sg_h3,
-	.sg_h4 {
-		margin-top: 2em;
-	}
-
-	.sg__wrapper {
-		&:nth-of-type(even) {
-			margin-bottom: 1em;
-			padding-bottom: 36px;
-			background-color: $sg_colorLightGray;
-		}
-	}
-
-	// Remove clearfix in before to avoid big space from non-collapsed margins between h1 and h2
-	.sg__wrapper:first-of-type:before {
-		display: none;
-	}
-}
-
-
 
 // Preview: Icons page
 // ----------------------------------------------------------------------------------------------------
-.sg_icons_label,
-.sg_icons_icon {
-	display: table-cell;
-	border-top: 1px solid $sg_colorLightGray;
-	border-left: 1px solid $sg_colorLightGray;
-	vertical-align: top;
-	padding: 0.5em;
-}
 
-.sg_icons_icon {
-	width: 20%;
-}
-.sg_icons_icon:last-of-type {
-	border-right: 1px solid $sg_colorLightGray;
-}
-
-.sg_icons_list {
+.sg__icons {
 	display: table;
 	width: 100%;
 
 	border-bottom: 1px solid $sg_colorLightGray;
 
-	.sg_icons_item {
+	&__item {
 		display: table-row;
 	}
-}
 
+	&__label,
+	&__icon {
+		display: table-cell;
+		border-top: 1px solid $sg_colorLightGray;
+		border-left: 1px solid $sg_colorLightGray;
+		vertical-align: top;
+		padding: 0.5em;
+	}
 
-// Preview: Colors page
-// ----------------------------------------------------------------------------------------------------
-
-.sg_color_list {
-	@include clearfix;
-	@include resetList;
-
-	margin: 0 -10;
-}
-
-.sg_color_item {
-	font-size: 14px;
-	padding: 15px 10px 20px;
-	width: ($sg_maxWidth/6);
-	float: left;
-	text-align: center;
-	box-sizing: border-box;
-
-	&:hover {
-
-		.sg_color_preview {
-			transform: scale(1.25);
-			box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
-		}
+	&__icon {
+		width: 20%;
+	}
+	&__icon:last-of-type {
+		border-right: 1px solid $sg_colorLightGray;
 	}
 }
 
-.sg_color_preview {
-	width: 7.5em;
-	height: 7.5em;
-	margin: 0 auto;
-	// border: 1px solid $sg_colorLightGray;
-	border-radius: 50%;
-	box-shadow: inset 0 0 0 2px rgba(0,0,0,.025);
 
-	transition: $sg_defaultTransition;
-}
-
-.sg_color_name {
-	padding-top: 0.8em;
-	font-weight: bold;
-}
-
-.sg_color_value {
-}
-
-
-// Preview: Fonts page
+// Preview: styleguide
 // ----------------------------------------------------------------------------------------------------
 
-.sg_subsection {
-	border-bottom: 2px solid $sg_colorBlack;
+.sg__styleguide {
+	@include sgPanelsPaddingSmall;
+	@include mq($from: medium) {
+		@include sgPanelsPaddingMedium;
+	}
+
+	&__color {
+		&_list {
+			@include clearfix;
+			list-style: none;
+			margin: 0;
+		}
+
+		&_item {
+			font-size: 14px;
+			padding: 15px 10px 20px;
+			width: ($sg_maxWidth/6);
+			float: left;
+			text-align: center;
+			box-sizing: border-box;
+
+			&:hover {
+				.sg__styleguide__color_preview {
+					transform: scale(1.25);
+					box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
+				}
+			}
+		}
+
+		&_preview {
+			width: 7.5em;
+			height: 7.5em;
+			margin: 0 auto;
+			// border: 1px solid $sg_colorLightGray;
+			border-radius: 50%;
+			box-shadow: inset 0 0 0 2px rgba(0,0,0,.025);
+
+			transition: $sg_defaultTransition;
+		}
+
+		&_name {
+			padding-top: 0.8em;
+			font-weight: bold;
+		}
+
+		&_value {
+		}
+	}
+
+	&__elements {
+		.sg__content {
+			&:not(:first-child) {
+				margin-top: $sg_sizeSpacingMedium + $sg_sizeSpacingSmall;
+			}
+		}
+	}
+
+	&__webfonts {
+	}
+}
+
+
+.sg__subsection {
+	border-bottom: 2px solid $sg_colorLightGray;
 	padding: 1em 0;
 	position: relative;
+}
+
+.sg__warning {
+	border: 1px solid $sg_colorWarning;
+	color: $sg_colorWarning;
+	padding: 1em;
+	margin-top: 1.5em;
 }
