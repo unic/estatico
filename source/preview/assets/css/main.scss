@@ -42,6 +42,12 @@ $sg_sizeHeightFooter: 0;
 $sg_sizeSpacingSmall: 20px;
 $sg_sizeSpacingMedium: 40px;
 
+$sg_sizeTreeWidthSmall: 80%;
+$sg_sizeTreeWidthMedium: 25%;
+
+$sg_sizeTopSpacing: 7px;
+
+
 
 
 // Preview: mixins
@@ -87,64 +93,68 @@ $sg_sizeSpacingMedium: 40px;
 
 $sg_hamburgerSize: 44px;
 .sg__tree_trigger {
-	@include mq($to: small) {
-		@include visuallyhidden;
+	@include visuallyhidden;
 
-		&__label {
+	&__label {
+		display: block;
+		position: absolute;
+		width: $sg_hamburgerSize;
+		height: $sg_hamburgerSize;
+		white-space: nowrap;
+
+		top: 0;
+		left: 0;
+		@include mq($from: small) {
+			top: $sg_sizeTopSpacing;
+		}
+
+		/* hide text */
+		color: transparent;
+		overflow: hidden;
+
+		z-index: 10;
+		cursor: pointer;
+		transition: left $sg_defaultTransitionDuration;
+
+		span, span:before, span:after {
+			/* hamburger icon in CSS */
 			position: absolute;
-			top: 0;
-			left: 0;
-			display: block;
-			width: $sg_hamburgerSize;
-			height: $sg_hamburgerSize;
-			overflow: hidden;
-			white-space: nowrap;
-			/* hide text */
-			color: transparent;
-			z-index: 10;
-			cursor: pointer;
-			transition: left $sg_defaultTransitionDuration;
+			display: inline-block;
+			height: 3px;
+			width: 24px;
+			background: $sg_colorBlack;
+			//transition: background-color $sg_defaultTransitionDuration;
+		}
 
-			span, span:before, span:after {
-				/* hamburger icon in CSS */
-				position: absolute;
-				display: inline-block;
-				height: 3px;
-				width: 24px;
-				background: $sg_colorBlack;
-				//transition: color $sg_defaultTransitionDuration;
-			}
+		span {
+			/* line in the center */
+			position: absolute;
+			top: 50%;
+			right: 10px;
+			margin-top: -2px;
+			transition: background $sg_defaultTransitionDuration $sg_defaultTransitionDuration;
+		}
 
-			span {
-				/* line in the center */
-				position: absolute;
-				top: 50%;
-				right: 10px;
-				margin-top: -2px;
-				transition: background $sg_defaultTransitionDuration $sg_defaultTransitionDuration;
-			}
+		span:before, span:after {
+			/* other 2 lines */
+			content: '';
+			right: 0;
+			/* Force Hardware Acceleration in WebKit */
+			transform: translateZ(0);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			transform-origin: 0% 50%;
+			transition: transform $sg_defaultTransitionDuration $sg_defaultTransitionDuration;
+		}
 
-			span:before, span:after {
-				/* other 2 lines */
-				content: '';
-				right: 0;
-				/* Force Hardware Acceleration in WebKit */
-				transform: translateZ(0);
-				-webkit-backface-visibility: hidden;
-				backface-visibility: hidden;
-				transform-origin: 0% 50%;
-				transition: transform $sg_defaultTransitionDuration $sg_defaultTransitionDuration;
-			}
+		span:before {
+			/* menu icon top line */
+			top: -6px;
+		}
 
-			span:before {
-				/* menu icon top line */
-				top: -6px;
-			}
-
-			span:after {
-				/* menu icon bottom line */
-				top: 6px;
-			}
+		span:after {
+			/* menu icon bottom line */
+			top: 6px;
 		}
 	}
 
@@ -154,8 +164,12 @@ $sg_hamburgerSize: 44px;
 		}
 
 		& ~ .sg__tree_trigger__label {
-			left: calc(100% - #{$sg_hamburgerSize});
 			position: fixed;
+
+			left: calc(100% - #{$sg_hamburgerSize});
+			@include mq($from: small) {
+				left: $sg_sizeTreeWidthMedium;
+			}
 
 			span {
 				/* hide line in the center */
@@ -164,7 +178,9 @@ $sg_hamburgerSize: 44px;
 
 			span:before, span:after {
 				/* keep visible other 2 lines */
-				background: rgba($sg_colorWhite, 1);
+				@include mq($to: small) {
+					background: rgba($sg_colorWhite, 1);
+				}
 			}
 
 			span:before {
@@ -175,20 +191,16 @@ $sg_hamburgerSize: 44px;
 				transform: translateX(4px) translateY(2px) rotate(-45deg);
 			}
 		}
-	}
 
-	@include mq($from: small) {
-		display: none;
-
-		&__label {
-			display: none;
+		& ~ .sg__preview {
+			@include mq($from: small) {
+				margin-left: $sg_sizeTreeWidthMedium;
+			}
 		}
 	}
 }
 
 .sg {
-	$sgTreeWidthSmall: 80%;
-	$sgTreeWidthMedium: 60%;
 	$sg_sizeTreePaddingSmall: $sg_sizeSpacingSmall;
 	$sg_sizeTreePaddingMedium: $sg_sizeSpacingMedium;
 
@@ -218,7 +230,7 @@ $sg_hamburgerSize: 44px;
 		margin-top: 0;
 		margin-bottom: 0;
 		padding-left: $sg_hamburgerSize + 10px;
-		padding-top: 7px;
+		padding-top: $sg_sizeTopSpacing;
 		padding-bottom: 10px;
 		border-bottom: 3px solid $sg_colorUnicGreen;
 
@@ -249,23 +261,26 @@ $sg_hamburgerSize: 44px;
 	}
 
 	&__tree {
+		overflow-x: hidden;
+		overflow-y: auto;
+
 		position: fixed;
 		top: 0;
 		bottom: 0;
 		left: 0;
-		overflow-x: hidden;
-		overflow-y: auto;
 		width: 100%;
-		transition: transform $sg_defaultTransitionDuration;
-
-		@include mq($to: small) {
-			transform: translateX(-100%);
-		}
-
 		@include mq($from: small) {
-			//bottom: $sg_sizeHeightFooter;
-			width: 25%;
+			width: $sg_sizeTreeWidthMedium;
 		}
+		nav {
+			@include mq($to: small) {
+				@include clearfix;
+				margin-right: 100% - $sg_sizeTreeWidthSmall;
+			}
+		}
+
+		transition: transform $sg_defaultTransitionDuration;
+		transform: translateX(-100%);
 
 		/**
 		 * Look & Feel
@@ -287,13 +302,6 @@ $sg_hamburgerSize: 44px;
 			}
 		}
 
-		nav {
-			@include mq($to: small) {
-				@include clearfix;
-				margin-right: 20%;
-			}
-		}
-
 		@include mq($to: small) {
 			background-color: rgba($sg_colorBlack, .8);
 		}
@@ -302,7 +310,6 @@ $sg_hamburgerSize: 44px;
 			border-right: 1px solid rgba(83, 83, 99, 0.25);
 			padding-left: $sg_sizeTreePaddingSmall;
 			padding-right: $sg_sizeTreePaddingSmall;
-			//margin-right: 100 - $sgTreeWidthMedium;
 		}
 
 		&__section_title {
@@ -317,7 +324,8 @@ $sg_hamburgerSize: 44px;
 
 		@include mq($from: small) {
 			margin-top: 0;
-			margin-left: 25%;
+			margin-left: 0;
+			transition: margin $sg_defaultTransitionDuration;
 		}
 	}
 
@@ -535,8 +543,6 @@ $sg_hamburgerSize: 44px;
 // ----------------------------------------------------------------------------------------------------
 
 .sg__content {
-	margin-top: $sg_sizeSpacingMedium + $sg_sizeSpacingSmall;
-
 	&__section_title {
 		border-top: 1px solid;
 		font-family: monospace;
@@ -545,11 +551,24 @@ $sg_hamburgerSize: 44px;
 
 		@include mq($from: small) {
 			margin-left: -$sg_sizeSpacingSmall;
+			margin-right: -$sg_sizeSpacingSmall;
+		}
+		@include mq($from: small, $to: medium) {
+			padding-left: 10px;
+			padding-right: 10px;
 		}
 
 		&--subtitle {
 			font-size: 16px;
 		}
+
+		.sg__content:first-child & {
+			border: none;
+		}
+	}
+
+	&--code {
+		margin-top: $sg_sizeSpacingMedium + $sg_sizeSpacingSmall;
 	}
 
 	&--meta {
