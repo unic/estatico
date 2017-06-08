@@ -2,7 +2,7 @@
 	{{#content "content"}}
 		<div class="sg__module">
 
-			<section class="sg__module__variants">
+			<section class="sg__module__section sg__module__section--variants">
 				<h2 class="sg__title sg__title--module">
 					{{#if meta.title}}
 						{{meta.title}}
@@ -20,7 +20,7 @@
 						{{#each variants}}
 							<div class="sg__tabs__panel" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel" tabindex="0">
 								<section class="sg__content sg__content--demo">
-									<h2 class="sg__content__section_title">Demo</h2>
+									<h3 class="sg__content__section_title">Demo</h3>
 									<div class="sg__demo">
 										{{{meta.demo}}}
 									</div>
@@ -48,8 +48,8 @@
 			</section>
 
 			{{#if meta.documentation}}
-				<section class="sg_tree__wrapper">
-					<h2 class="sg__module_title">Documentation</h2>
+				<section class="sg__module__section sg__module__section--documentation">
+					<h2 class="sg__title">Documentation</h2>
 
 					<div class="sg__documentation">
 						{{{meta.documentation}}}
@@ -58,15 +58,17 @@
 			{{/if}}
 
 			{{#if meta.mocks}}
-				<section class="sg_tree__wrapper">
-					<h2 class="sg__module_title">Data mocking</h2>
+				<section class="sg__module__section sg__module__section--mocks">
+					<h2 class="sg__title">Data mocking</h2>
 
 					{{#each meta.mocks}}
 						{{#if description}}
-							<h3 class="sg_h3">{{description}}</h3>
+							<h3 class="sg__title sg__title--subtitle">{{description}}</h3>
 						{{/if}}
 
-						<pre class="sg_code hljs">{{{data}}}</pre>
+						<div class="sg__mocks">
+							<pre class="sg__code hljs">{{{data}}}</pre>
+						</div>
 					{{/each}}
 				</section>
 			{{/if}}
@@ -75,8 +77,8 @@
 
 			{{#block "scripts"}}
 				{{#if meta.testScripts}}
-					<section class="sg_tree__wrapper">
-						<h2 class="sg__module_title">QUnit tests</h2>
+					<section class="sg__module__section sg__module__section--tests">
+						<h2 class="sg__title">QUnit tests</h2>
 
 						{{> "preview/partials/qunit"}}
 					</section>

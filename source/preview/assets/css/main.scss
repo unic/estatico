@@ -222,36 +222,43 @@ $sg_hamburgerSize: 44px;
 	}
 
 	&__title {
-		background-color: $sg_colorWhite;
+		//background-color: $sg_colorWhite;
 		color: inherit;
 		font-size: 18px;
 		font-weight: normal;
 		@include fontSmoothing;
 		font-family: monospace;
-		margin-top: 0;
-		margin-bottom: 0;
-		padding-left: $sg_hamburgerSize + 10px;
+
 		padding-top: $sg_sizeTopSpacing;
 		padding-bottom: 10px;
-		border-bottom: 3px solid $sg_colorUnicGreen;
+		padding-left: 10px;
+		padding-right: 10px;
+
+		margin-top: 0;
+		margin-bottom: 0;
 
 		a {
 			color: inherit;
 			text-decoration: none;
 		}
 
-		@include mq($from: small) {
-			&--main {
+		&--main {
+			padding-left: $sg_hamburgerSize + 10px;
+
+			@include mq($from: small) {
 				@include visuallyhidden;
 			}
 		}
 
 		&--module {
 			background-color: rgba($sg_colorUnicGreen, .1);
-			//border-color: $sg_colorUnicGreen;
+			border-bottom: 3px solid $sg_colorUnicGreen;
+
 			font-size: 24px;
-			@include sgPanelsPaddingSmall;
+
 			margin: 0;
+			padding-left: $sg_hamburgerSize + 10px;
+			@include sgPanelsPaddingSmall;
 
 			@include mq($from: small) {
 				padding-top: 7px;
@@ -342,11 +349,29 @@ $sg_hamburgerSize: 44px;
 		display: flex;
 		flex-direction: column;
 
-		&__variants {
+		&__section {
 			flex-grow: 1;
 
 			display: flex;
 			flex-direction: column;
+
+			border-top: 1px solid $sg_colorLightGray;
+
+			&:nth-child(even) {
+				background-color: rgba($sg_colorLightGray, .2);
+			}
+
+			&--variants {
+				border-top: none;
+			}
+
+			&--mocks,
+			&--tests,
+			&--documentation {
+				@include mq($from: medium) {
+					padding-right: 100% - $sg_sizeTreeWidthSmall;
+				}
+			}
 		}
 	}
 
@@ -543,16 +568,15 @@ $sg_hamburgerSize: 44px;
 	}
 }
 
-.sg__code {
-	//background-color: $sg_colorLightGray;
-	background-color: rgba($sg_colorLightBlue, .05);
-	@include sgDefaultBoxShadow($isInset: true);
-}
-
 
 
 // Preview: content
 // ----------------------------------------------------------------------------------------------------
+
+.sg__code {
+	background-color: rgba($sg_colorLightBlue, .05);
+	@include sgDefaultBoxShadow($isInset: true);
+}
 
 .sg__content {
 	&__section_title {
@@ -572,7 +596,9 @@ $sg_hamburgerSize: 44px;
 
 		&--subtitle {
 			font-size: 16px;
+			word-break: break-word;
 		}
+
 
 		.sg__content:first-child & {
 			border: none;
@@ -601,50 +627,22 @@ $sg_hamburgerSize: 44px;
 }
 
 .sg__demo {
-	@include sgDefaultBoxShadow($isInset: true);
-}
-
-
-
-// Preview: commons
-// ----------------------------------------------------------------------------------------------------
-
-/*.sg__wrapper {
-	.sg_colors &,
-	.sg_elements &,
-	.sg_fonts &,
-	.sg_forms &,
-	.sg_icons &,
-	.sg_module & {
-		@include clearfix;
-		margin-bottom: 70px;
-	}
-
-	.sg_colors &,
-	.sg_elements &,
-	.sg_fonts &,
-	.sg_forms &,
-	.sg_icons & {
-		@include sgBoxed;
-	}
-}
-
-.sg__title {
-	.sg_colors &,
-	.sg_elements &,
-	.sg_fonts &,
-	.sg_forms &,
-	.sg_icons &,
-	.sg_module & {
-		@include sgBoxed;
-	}
-}*/
-
-.sg__demo {
 	@include clearfix;
+	@include sgDefaultBoxShadow($isInset: true);
+	overflow: hidden;
+}
+
+.sg__mocks,
+.sg__documentation {
+	@include sgPanelsPaddingSmall;
+
+	@include mq($from: medium) {
+		@include sgPanelsPaddingMedium;
+	}
 }
 
 .sg__documentation {
+	@include sgBoxed;
 
 	th {
 		border-bottom: 1px solid $sg_colorLightGray;
@@ -668,7 +666,6 @@ $sg_hamburgerSize: 44px;
 	}
 
 	pre {
-
 		code {
 			display: block;
 			padding: 0.5em;
