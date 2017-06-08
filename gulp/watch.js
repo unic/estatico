@@ -25,7 +25,7 @@ gulp.task(taskName, function() {
 	var initWatchTasks = function(tasks) {
 			_.each(tasks, function(config) {
 				if (config.taskName) {
-					if (config.taskConfig.watch) {
+					if (config.taskConfig.watch && config.taskConfig.isEnabled !== false) {
 						var watcher = watch(config.taskConfig.watch, {
 								usePolling: !!(util.env.pollWatch && util.env.pollWatch !== 'false')
 							}, function(file) {

@@ -18,7 +18,8 @@ gulp.task(taskName, function(cb) {
 		runSequence = require('run-sequence'),
 		util = require('gulp-util'),
 		_ = require('lodash'),
-		inquirer = require('inquirer');
+		inquirer = require('inquirer'),
+		publishTask = require('./publish');
 
 	var callback = function(skipTests, cb) {
 			// Currently, the modernizr task cannot run in parallel with other tasks. This should get fixed as soon as Modernizr 3 is published and the plugin is officially released.
@@ -43,20 +44,24 @@ gulp.task(taskName, function(cb) {
 						'media:copy',
 						'media:imageversions'
 					],
-					'js:qunit',
-					function(err) {
-						if (err) {
-							helpers.errors(err);
-						}
-
-						cb();
-					}
+					'js:qunit'
 				];
 
 			if (skipTests) {
 				runTasks = _.without(runTasks, 'js:qunit');
 			}
 
+			if(publishTask.taskConfig.isEnabled) {
+				runTasks.push('publish');
+			}
+
+			runTasks.push(function(err) {
+				if (err) {
+					helpers.errors(err);
+				}
+
+				cb();
+			});
 			runSequence.apply(this, runTasks);
 		};
 
