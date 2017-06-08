@@ -39,6 +39,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Sizes
 $sg_sizeIconsFooter: 30px;
 $sg_sizeHeightFooter: 0;
+$sg_sizeSpacingSmall: 20px;
+$sg_sizeSpacingMedium: 40px;
 
 
 
@@ -61,12 +63,21 @@ $sg_sizeHeightFooter: 0;
 }
 
 @mixin sgPanelsPaddingSmall {
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: $sg_sizeSpacingSmall;
+	padding-right: $sg_sizeSpacingSmall;
 }
 @mixin sgPanelsPaddingMedium {
-	padding-left: 40px;
-	padding-right: 40px;
+	padding-left: $sg_sizeSpacingMedium;
+	padding-right: $sg_sizeSpacingMedium;
+}
+
+@mixin sgDefaultBoxShadow($isInset: false) {
+	@if($isInset) {
+		box-shadow: 0 0 3px $sg_colorGray inset;
+	}
+	@else {
+		box-shadow: 0 0 3px $sg_colorGray;
+	}
 }
 
 
@@ -144,22 +155,23 @@ $sg_hamburgerSize: 44px;
 
 		& ~ .sg__tree_trigger__label {
 			left: calc(100% - #{$sg_hamburgerSize});
+			position: fixed;
 
 			span {
 				/* hide line in the center */
 				background: rgba($sg_colorWhite, 0);
 			}
 
-			span::before, span::after {
+			span:before, span:after {
 				/* keep visible other 2 lines */
 				background: rgba($sg_colorWhite, 1);
 			}
 
-			span::before {
+			span:before {
 				transform: translateX(4px) translateY(-3px) rotate(45deg);
 			}
 
-			span::after {
+			span:after {
 				transform: translateX(4px) translateY(2px) rotate(-45deg);
 			}
 		}
@@ -177,8 +189,8 @@ $sg_hamburgerSize: 44px;
 .sg {
 	$sgTreeWidthSmall: 80%;
 	$sgTreeWidthMedium: 60%;
-	$sg_sizeTreePaddingSmall: 20px;
-	$sg_sizeTreePaddingMedium: 40px;
+	$sg_sizeTreePaddingSmall: $sg_sizeSpacingSmall;
+	$sg_sizeTreePaddingMedium: $sg_sizeSpacingMedium;
 
 	/**
 	 * Layout structure
@@ -201,6 +213,7 @@ $sg_hamburgerSize: 44px;
 		color: inherit;
 		font-size: 18px;
 		font-weight: normal;
+		@include fontSmoothing;
 		font-family: monospace;
 		margin-top: 0;
 		margin-bottom: 0;
@@ -278,7 +291,6 @@ $sg_hamburgerSize: 44px;
 			@include mq($to: small) {
 				@include clearfix;
 				margin-right: 20%;
-				height: 100vh;
 			}
 		}
 
@@ -448,7 +460,12 @@ $sg_hamburgerSize: 44px;
 
 		& > label {
 			display: block;
+			cursor: pointer;
 			transition: background-color .3s;
+
+			&:hover {
+				background-color: $bgcolorActive;
+			}
 		}
 	}
 
@@ -506,10 +523,10 @@ $sg_hamburgerSize: 44px;
 	}
 }
 
-.hljs {
+.sg__code {
 	//background-color: $sg_colorLightGray;
 	background-color: rgba($sg_colorLightBlue, .05);
-	box-shadow: 0 1px 3px $sg_colorGray inset;
+	@include sgDefaultBoxShadow($isInset: true);
 }
 
 
@@ -518,10 +535,42 @@ $sg_hamburgerSize: 44px;
 // ----------------------------------------------------------------------------------------------------
 
 .sg__content {
+	margin-top: $sg_sizeSpacingMedium + $sg_sizeSpacingSmall;
+
 	&__section_title {
+		border-top: 1px solid;
 		font-family: monospace;
+		@include fontSmoothing;
 		font-size: 18px;
+
+		@include mq($from: small) {
+			margin-left: -$sg_sizeSpacingSmall;
+		}
+
+		&--subtitle {
+			font-size: 16px;
+		}
 	}
+
+	&--meta {
+		display: block;
+		margin: $sg_sizeSpacingSmall auto 0;
+		padding: 1px 10px;
+		border-left: 3px solid #999;
+		background-color: rgba($sg_colorLightBlue, .05);
+		@include sgDefaultBoxShadow;
+
+		p {
+			color: #555;
+			font-size: 1rem;
+			line-height: 1.4;
+			font-family: monospace;
+		}
+	}
+}
+
+.sg__demo {
+	@include sgDefaultBoxShadow($isInset: true);
 }
 
 

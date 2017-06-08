@@ -21,14 +21,16 @@
 							<div class="sg__tabs__panel" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}" role="tabpanel" tabindex="0">
 								<section class="sg__content sg__content--demo">
 									<h2 class="sg__content__section_title">Demo</h2>
-									{{{meta.demo}}}
+									<div class="sg__demo">
+										{{{meta.demo}}}
+									</div>
 								</section>
 								{{#if meta}}
-									<div class="sg__content sg__content--meta">
+									<blockquote class="sg__content sg__content--meta">
 										{{#if meta.desc}}
 											<p>{{meta.desc}}</p>
 										{{/if}}
-									</div>
+									</blockquote>
 								{{/if}}
 {{! Indentation matters... }}
 {{> "preview/partials/code"}}
