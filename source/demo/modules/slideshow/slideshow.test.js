@@ -9,7 +9,7 @@ var QUnit = require('qunitjs'),
 // Setup QUnit module
 QUnit.module('slideshow', {
 	beforeEach: function() {
-		instance = $node.data(moduleName + '-instance');
+		instance = $node.data(moduleName + 'Instance');
 	},
 
 	afterEach: function() {

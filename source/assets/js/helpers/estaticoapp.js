@@ -40,7 +40,7 @@ class EstaticoApp {
 			moduleInstance = new Module($node, _metaData, _metaOptions);
 
 		estatico.modules[moduleName].instances[moduleInstance.uuid] = moduleInstance;
-		$node.data(moduleName + '-instance', moduleInstance);
+		$node.data(moduleName + 'Instance', moduleInstance);
 	}
 
 	_registerModules() {
@@ -71,23 +71,41 @@ class EstaticoApp {
 		}
 	}
 
+	_isRegistered(moduleName) {
+		return estatico.modules[moduleName];
+	}
+
+	_isInitialised($element, moduleName) {
+		// jQuery 3 does not allow kebab-case in data() when retrieving whole data object https://jquery.com/upgrade-guide/3.0/#breaking-change-data-names-containing-dashes
+		return $element.data(moduleName + 'Instance');
+	}
+
+	_isInitEvent(eventType, moduleName) {
+		return estatico.modules[moduleName].initEvents.indexOf(eventType) !== -1;
+	}
+
+	_initModules(event) {
+		$('[data-init]').each((key, element) => {
+			let $element = $(element),
+				modules = $element.data('init').split(' ');
+
+			modules.forEach((moduleName) => {
+				if (this._isRegistered(moduleName) && !this._isInitialised($element, moduleName) && this._isInitEvent(event.type, moduleName)) {
+					this.initModule(moduleName, $element);
+				}
+			});
+		});
+	}
+
 	_initModuleInitialiser() {
 		if (!this.initEvents.length) {
 			return;
 		}
 
-		$(document).on(this.initEvents.join(' '), (event) => {
-			$('[data-init]').each((key, element) => {
-				let $element = $(element),
-					modules = $element.data('init').split(' ');
-
-				modules.forEach((moduleName) => {
-					if (estatico.modules[moduleName] && !$element.data(moduleName + '-instance') && estatico.modules[moduleName].initEvents.indexOf(event.type) !== -1) {
-						this.initModule(moduleName, $element);
-					}
-				});
-			});
-		});
+		// jQuery 3 does not support `ready` event in $(document).on() https://jquery.com/upgrade-guide/3.0/#breaking-change-on-quot-ready-quot-fn-removed
+		// But lets sent 'ready' information to modules initialising on that event
+		$(this._initModules.bind(this, { type: 'ready' }));
+		$(document).on(this.initEvents.join(' '), this._initModules.bind(this));
 	}
 }
 
