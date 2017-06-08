@@ -169,6 +169,7 @@ $sg_hamburgerSize: 44px;
 			left: calc(100% - #{$sg_hamburgerSize});
 			@include mq($from: small) {
 				left: $sg_sizeTreeWidthMedium;
+				position: absolute;
 			}
 
 			span {
@@ -316,11 +317,17 @@ $sg_hamburgerSize: 44px;
 			font-size: 18px;
 			font-family: monospace;
 		}
+
+		nav {
+			min-height: 100%;
+		}
 	}
 
 	&__preview {
 		flex: 1 1 auto;
-		//margin-top: $sg_hamburgerSize;
+
+		display: flex;
+		flex-direction: column;
 
 		@include mq($from: small) {
 			margin-top: 0;
@@ -329,16 +336,19 @@ $sg_hamburgerSize: 44px;
 		}
 	}
 
-	/*&__module_wrapper {
-		border: 1px solid red;
-		box-sizing: border-box;
-		width: 100%;
-		height: 100%;
+	&__module {
+		flex-grow: 1;
 
-		&--is_hidden {
+		display: flex;
+		flex-direction: column;
 
+		&__variants {
+			flex-grow: 1;
+
+			display: flex;
+			flex-direction: column;
 		}
-	}*/
+	}
 
 	&__footer{
 		background-color: rgba($sg_colorLightGray, .2);
@@ -484,6 +494,8 @@ $sg_hamburgerSize: 44px;
 	$sg_sizeTabsLabelsSmall: 100 - $sg_sizeTabsPanelsSmall;
 	$sg_sizeTabsPanelsMedium: 80%;
 	$sg_sizeTabsLabelsMedium: 100 - $sg_sizeTabsPanelsMedium;
+
+	flex-grow: 1;
 
 	display: flex;
 	flex-direction: row;
