@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import '../.tmp/modernizr';
 import FontLoader from './helpers/fontloader';
 import Helper from './helpers/helper';

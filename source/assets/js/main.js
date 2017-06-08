@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import datasetPolyfill from 'element-dataset';
 import 'handlebars/dist/handlebars';
 import './helpers/module';
