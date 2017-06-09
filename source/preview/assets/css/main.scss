@@ -104,12 +104,8 @@ $sg_hamburgerSize: 35px;
 		height: $sg_hamburgerSize;
 		white-space: nowrap;
 
-		top: 0;
-		left: 0;
-		@include mq($from: small) {
-			top: $sg_sizeTopSpacing;
-			left: $sg_posLabelMedium;
-		}
+		top: $sg_sizeTopSpacing;
+		left: $sg_posLabelMedium;
 
 		/* hide text */
 		color: transparent;
@@ -246,11 +242,7 @@ $sg_hamburgerSize: 35px;
 		}
 
 		&--main {
-			padding-left: $sg_hamburgerSize + 10px;
-
-			@include mq($from: small) {
-				@include visuallyhidden;
-			}
+			@include visuallyhidden;
 		}
 
 		&--module {
@@ -260,8 +252,9 @@ $sg_hamburgerSize: 35px;
 			font-size: 24px;
 
 			margin: 0;
-			padding-left: $sg_hamburgerSize + 10px;
+			//padding-left: $sg_hamburgerSize + 10px;
 			@include sgPanelsPaddingSmall;
+			padding-left: $sg_sizeSpacingMedium;
 
 			@include mq($from: small) {
 				padding-top: 7px;
