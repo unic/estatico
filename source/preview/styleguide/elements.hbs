@@ -1,23 +1,33 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
-		{{> preview/styleguide/elements/headings }}
+		<h2 class="sg__title sg__title--module">
+			{{#if meta.title}}
+				{{meta.title}}
+			{{else}}
+				Module Preview
+			{{/if}}
+		</h2>
 
-		{{> preview/styleguide/elements/text_paragraph }}
+		<div class="sg__styleguide sg__styleguide__elements">
+			{{> preview/styleguide/elements/headings }}
 
-		{{> preview/styleguide/elements/figure }}
+			{{> preview/styleguide/elements/text_paragraph }}
 
-		{{> preview/styleguide/elements/blockquote }}
+			{{> preview/styleguide/elements/figure }}
 
-		{{> preview/styleguide/elements/address }}
+			{{> preview/styleguide/elements/blockquote }}
 
-		{{> preview/styleguide/elements/lists }}
+			{{> preview/styleguide/elements/address }}
 
-		{{> preview/styleguide/elements/preformatted_text }}
+			{{> preview/styleguide/elements/lists }}
 
-		{{> preview/styleguide/elements/text_elements }}
+			{{> preview/styleguide/elements/preformatted_text }}
 
-		{{> preview/styleguide/elements/tables }}
+			{{> preview/styleguide/elements/text_elements }}
 
-		{{> preview/styleguide/elements/media }}
+			{{> preview/styleguide/elements/tables }}
+
+			{{> preview/styleguide/elements/media }}
+		</div>
 	{{/content}}
 {{/extend}}

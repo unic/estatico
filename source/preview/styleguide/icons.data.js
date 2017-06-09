@@ -7,7 +7,7 @@ var _ = require('lodash'),
 	path = require('path'),
 	data = _.merge(defaultData, {
 		meta: {
-			title: 'Icons (font variant)',
+			title: 'Icons (font variant)'
 		},
 		icons: _.map(glob.sync('./source/{,demo/}{assets/media/,modules/**/}icons/*'), function(file) {
 			return path.basename(file).replace(path.extname(file), '');

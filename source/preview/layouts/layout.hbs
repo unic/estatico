@@ -3,25 +3,84 @@
 <!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
 <!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{meta.project}}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
-	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+		<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+		<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
-	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
-</head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
-	<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
-		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
+		{{#if env.dev}}
+			<link rel="stylesheet" href="/assets/css/dev.css">
+		{{/if}}
+
+		<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+		{{#if env.dev}}
+			<script src="/assets/js/dev.js"></script>
+		{{/if}}
+	</head>
+	<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} class="sg{{#if additionalLayoutClasses}} {{additionalLayoutClasses}}{{/if}}">
+		<input type="checkbox" id="sg__tree_trigger" class="sg__tree_trigger" checked />
+		<label for="sg__tree_trigger" class="sg__tree_trigger__label">
+			<span>Toggle Navigation</span>
+		</label>
+		<h1 class="sg__title sg__title--main">
+			<a href="/">{{meta.project}}</a>
 		</h1>
 
-		{{#block "content"}}
-		{{/block}}
-	</div>
-</body>
+		<div class="sg__preview">
+			{{#block "content"}}
+			{{/block}}
+
+			{{> preview/partials/footer}}
+		</div>
+
+		{{> preview/partials/tree }}
+
+		{{#if env.dev}}
+			<script async defer>
+				/**
+				 * Activate tree for viewport > small
+				 */
+
+				var activateTree = function() {
+					if (document.documentElement.clientWidth <= 661) {
+						document.getElementById('sg__tree_trigger').checked = false;
+					}
+				};
+
+				// Reusing https://developer.mozilla.org/en-US/docs/Web/Events/resize
+				(function() {
+					var throttle = function(type, name, obj) {
+						var running = false,
+							func;
+						obj = obj || window;
+						func = function() {
+							if (!running) {
+								running = true;
+								requestAnimationFrame(function() {
+									obj.dispatchEvent(new CustomEvent(name));
+									running = false;
+								});
+							}
+						};
+						obj.addEventListener(type, func);
+					};
+
+					/* init - you can init any event */
+					throttle("resize", "optimizedResize");
+				})();
+
+				// handle event
+				window.addEventListener("optimizedResize", function() {
+					activateTree();
+				});
+
+				activateTree();
+			</script>
+		{{/if}}
+	</body>
 </html>

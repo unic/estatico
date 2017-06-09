@@ -1,14 +1,22 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
+		<h2 class="sg__title sg__title--module">
+			{{#if meta.title}}
+				{{meta.title}}
+			{{else}}
+				Module Preview
+			{{/if}}
+		</h2>
+
 		<!-- todo: add icons from all icon folders -->
-		<section class="sg_inner_wrapper">
-			<div class="sg_icons_list">
+		<section class="sg__styleguide sg__styleguide__icons">
+			<div class="sg__content sg__icons">
 				{{#each icons}}
-					<div class="sg_icons_item">
-						<div class="sg_icons_label">{{this}}</div>
+					<div class="sg__icons__item">
+						<div class="sg__icons__label">{{this}}</div>
 
 						{{#each ../sizes}}
-							<div class="sg_icons_icon" style="font-size: {{this}}px" title="{{../this}} {{this}}px">
+							<div class="sg__icons__icon" style="font-size: {{this}}px" title="{{../this}} {{this}}px">
 								<span class="icon_{{../this}}"></span>
 							</div>
 						{{/each}}

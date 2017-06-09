@@ -1,13 +1,20 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
-		<ul class="sg_inner_wrapper sg_color_list">
+		<h2 class="sg__title sg__title--module">
+			{{#if meta.title}}
+				{{meta.title}}
+			{{else}}
+				Module Preview
+			{{/if}}
+		</h2>
+		<ul class="sg__styleguide sg__styleguide__color_list">
 			{{#each colors}}
 				{{#unless hideFromStyleguide}}
-					<li class="sg_color_item" title="{{color}}">
-						<div class="sg_color_preview" style="background-color: {{color}}"></div>
-						<div class="sg_color_name">{{name}}</div>
-						<div class="sg_color_variable_name">$color{{capitalize name}}</div>
-						<div class="sg_color_value">{{color}}</div>
+					<li class="sg__styleguide__color_item" title="{{color}}">
+						<div class="sg__styleguide__color_preview" style="background-color: {{color}}"></div>
+						<div class="sg__styleguide__color_name">{{name}}</div>
+						<div class="sg__styleguide__color_variable_name">$color{{capitalize name}}</div>
+						<div class="sg__styleguide__color_value">{{color}}</div>
 					</li>
 				{{/unless}}
 			{{/each}}
