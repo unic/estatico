@@ -2,23 +2,25 @@
 
 var _ = require('lodash'),
 	requireNew = require('require-new'),
-	dataHelper = requireNew('../../../helpers/data.js'),
-	handlebarsHelper = requireNew('../../../helpers/handlebars.js'),
-	defaultData = requireNew('../../data/default.data.js'),
+	dataHelper = requireNew('../../../../helpers/data.js'),
+	handlebarsHelper = requireNew('../../../../helpers/handlebars.js'),
+	defaultData = requireNew('../../../data/default.data.js'),
 
 	template = dataHelper.getFileContent('skiplinks.hbs'),
 	data = _.merge(defaultData, {
 		meta: {
-			title: 'Skiplinks',
-			jira: ''
+			title: 'Demo: Skiplinks',
+			jira: 'JIRA-5'
 		},
 		props: {
-			links: [{
-				href: '#main',
-				accesskey: 1,
-				title: '[ALT + 1]',
-				label: 'Skip to content'
-			}]
+			links: [
+				{
+					href: '#main',
+					accesskey: 1,
+					title: '[ALT + 1]',
+					label: 'Skip to content'
+				}
+			]
 		}
 	}),
 	variants = _.mapValues({

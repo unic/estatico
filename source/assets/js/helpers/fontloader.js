@@ -11,8 +11,10 @@ class FontLoader extends Helper {
 		this.cssHref = href;
 
 		if (this._fileIsCached()) {
+			this.logger('just use the cached version');
 			this.injectFontsStylesheet();
 		} else {
+			this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
 			this.on(window, 'load', this.injectFontsStylesheet.bind(this));
 		}
 	}
@@ -20,10 +22,8 @@ class FontLoader extends Helper {
 	injectFontsStylesheet() {
 		if (this._supportsLocalStorageAndXHR()) {
 			if (this._cacheIsValid(this.cssHref)) {
-				this.logger('just use the cached version');
 				this._injectRawStyle(localStorage.fontCssCache);
 			} else {
-				this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
 				this._fetchAndStoreStylesheet();
 			}
 		} else {

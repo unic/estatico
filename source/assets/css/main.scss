@@ -16,13 +16,18 @@
 // General styles
 @import "mediaqueries_sync";
 @import "globals/classes";
-@import "typography";
 
 // General layout
 @import "layout";
 
 // Modules
-@import "../../modules/skiplinks/skiplinks";
+@import "../../demo/modules/media/media";
+@import "../../demo/modules/teaser/teaser";
+@import "../../demo/modules/teasers/teasers";
+@import "../../demo/modules/skiplinks/skiplinks";
+@import "../../demo/modules/slideshow/slideshow";
+@import "../../demo/modules/imageversions/imageversions";
+@import "../../demo/modules/svgsprite/svgsprite";
 //*autoinsertmodule*
 
 @media print {

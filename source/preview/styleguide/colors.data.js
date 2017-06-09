@@ -8,7 +8,7 @@ var _ = require('lodash'),
 		meta: {
 			title: 'Colors'
 		},
-		colors: dataHelper.getColors('../../assets/css/data/colors.json'),
+		colors: dataHelper.getColors('../../assets/css/data/colors.html'),
 		additionalLayoutClass: 'sg_colors'
 	});
 

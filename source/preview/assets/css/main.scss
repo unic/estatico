@@ -45,7 +45,7 @@ $sg_sizeSpacingMedium: 40px;
 $sg_sizeTreeWidthSmall: 80%;
 $sg_sizeTreeWidthMedium: 25%;
 
-$sg_sizeTopSpacing: 7px;
+$sg_sizeTopSpacing: 8px;
 
 
 
@@ -91,11 +91,13 @@ $sg_sizeTopSpacing: 7px;
 // Preview
 // ----------------------------------------------------------------------------------------------------
 
-$sg_hamburgerSize: 44px;
+$sg_hamburgerSize: 35px;
 .sg__tree_trigger {
+	$sg_posLabelMedium: 8px;
 	@include visuallyhidden;
 
 	&__label {
+
 		display: block;
 		position: absolute;
 		width: $sg_hamburgerSize;
@@ -106,6 +108,7 @@ $sg_hamburgerSize: 44px;
 		left: 0;
 		@include mq($from: small) {
 			top: $sg_sizeTopSpacing;
+			left: $sg_posLabelMedium;
 		}
 
 		/* hide text */
@@ -168,7 +171,7 @@ $sg_hamburgerSize: 44px;
 
 			left: calc(100% - #{$sg_hamburgerSize});
 			@include mq($from: small) {
-				left: $sg_sizeTreeWidthMedium;
+				left: calc(#{$sg_sizeTreeWidthMedium} + #{$sg_posLabelMedium});
 				position: absolute;
 			}
 

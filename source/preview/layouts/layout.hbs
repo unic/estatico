@@ -39,5 +39,48 @@
 		</div>
 
 		{{> preview/partials/tree }}
+
+		{{#if env.dev}}
+			<script async defer>
+				/**
+				 * Activate tree for viewport > small
+				 */
+
+				var activateTree = function() {
+					if (document.documentElement.clientWidth >= 661) {
+						document.getElementById('sg__tree_trigger').checked = true;
+					}
+				};
+
+				// Reusing https://developer.mozilla.org/en-US/docs/Web/Events/resize
+				(function() {
+					var throttle = function(type, name, obj) {
+						var running = false,
+							func;
+						obj = obj || window;
+						func = function() {
+							if (!running) {
+								running = true;
+								requestAnimationFrame(function() {
+									obj.dispatchEvent(new CustomEvent(name));
+									running = false;
+								});
+							}
+						};
+						obj.addEventListener(type, func);
+					};
+
+					/* init - you can init any event */
+					throttle("resize", "optimizedResize");
+				})();
+
+				// handle event
+				window.addEventListener("optimizedResize", function() {
+					activateTree();
+				});
+
+				activateTree();
+			</script>
+		{{/if}}
 	</body>
 </html>

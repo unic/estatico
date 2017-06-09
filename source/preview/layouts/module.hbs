@@ -72,18 +72,18 @@
 					{{/each}}
 				</section>
 			{{/if}}
-
-			<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
-
-			{{#block "scripts"}}
-				{{#if meta.testScripts}}
-					<section class="sg__module__section sg__module__section--tests">
-						<h2 class="sg__title">QUnit tests</h2>
-
-						{{> "preview/partials/qunit"}}
-					</section>
-				{{/if}}
-			{{/block}}
 		</div>
+
+		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+		{{#block "scripts"}}
+			{{#if meta.testScripts}}
+				<section class="sg__module__section sg__module__section--tests">
+					<h2 class="sg__title">QUnit tests</h2>
+
+					{{> "preview/partials/qunit"}}
+				</section>
+			{{/if}}
+		{{/block}}
 	{{/content}}
 {{/extend}}

@@ -8,7 +8,8 @@ var _ = require('lodash'),
 	data = _.merge(defaultData, {
 		meta: {
 			documentation: dataHelper.getDocumentation('index.md')
-		}
+		},
+		additionalLayoutClasses: 'sg--home'
 	});
 
 module.exports = data;

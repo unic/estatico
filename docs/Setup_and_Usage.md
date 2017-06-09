@@ -2,11 +2,8 @@
 
 ## Dependencies
 
-* Node, [yarn](https://yarnpkg.com/) (preferably using [nvm](https://github.com/creationix/nvm))
-	* `brew install nvm`
-	* `brew install yarn` or `npm install -g yarn`
+* Node, npm (preferably using [nvm](https://github.com/creationix/nvm))
 * [GraphicsMagick](http://www.graphicsmagick.org/) for resizing images using the `media:imageversions` tasks
-	* `brew install graphicsmagick`
 * Optional: [Vagrant](https://www.vagrantup.com/)
 
 ## Install
@@ -21,7 +18,8 @@ nvm use
 Install dependencies:
 
 ```shell
-yarn
+npm install
+# Shortcut: npm i
 ```
 
 ## Options
@@ -54,47 +52,47 @@ nvm use
 Start server. Access on http://localhost:9000 (or http://192.168.33.10:9000 when using Vagrant):
 
 ```shell
-yarn start
+npm start
 # This will run "gulp --dev"
 # dev flag makes sure the server and watcher don't crash on error
-```
-
-Start server with an specific configuration, either `local` or `acceptance`:
-
-```shell
-yarn start -- --local
 ```
 
 Build:
 
 ```shell
-yarn run build
+npm run build
 
 # Dev version:
-yarn run build -- --dev
+npm run build -- --dev
 ```
 
 Run specific tasks like `css`:
 
 ```shell
-yarn run gulp -- css
+npm run gulp -- css
 # Alternative: Install gulp globally and run "gulp css"
 
 # Dev version
-yarn run gulp -- css --dev
+npm run gulp -- css --dev
 # Alternative: Install gulp globally and run "gulp css --dev"
 ```
 
 Install new npm dependency "foo" (used for client-side code, saved to `dependencies`):
 
 ```shell
-yarn add foo --exact
+npm install foo --save --save-exact
+# Shortcut: npm i foo -S -E
+
+npm shrinkwrap --dev
 ```
 
 Install new npm dependency "bar" (used for the build environment, saved to  `devDependencies`):
 
 ```shell
-yarn add bar --dev --exact
+npm install bar --save-dev --save-exact
+# Shortcut: npm i bar -D -E
+
+npm shrinkwrap --dev
 ```
 
 
@@ -110,3 +108,51 @@ Estático generates source maps for both CSS and JS. How to enable them in your 
 * [Chrome](https://developer.chrome.com/devtools/docs/javascript-debugging#source-maps)
 * [Firefox](https://developer.mozilla.org/en-US/docs/Tools/Debugger/How_to/Use_a_source_map)
 * [IE](http://blogs.msdn.com/b/davrous/archive/2014/08/22/enhance-your-javascript-debugging-life-thanks-to-the-source-map-support-available-in-ie11-chrome-opera-amp-firefox.aspx)
+
+----
+
+
+# DEBUGGING
+
+If "npm install" fails (e.g. ERR cb() never called):
+
+```shell
+# Update npm to latest version
+npm install -g npm@latest
+
+# Clean up
+rm -rf node_modules
+npm cache clean
+
+# Try again
+npm install
+```
+
+Log everything to get an idea of where it fails:
+
+```shell
+npm config set spin false
+npm config set loglevel http
+
+# Try again
+npm install
+```
+
+If "npm install" still fails:
+
+```shell
+# Remove npm-shrinkwrap.json
+rm npm-shrinkwrap.json
+
+# Clean up
+rm -rf node_modules
+npm cache clean
+
+# Try again
+npm install
+
+# Re-generate npm-shrinkwrap.json (including devDependencies)
+npm shrinkwrap --dev
+
+# Make sure the new npm-shrinkwrap.json works in the CI environment
+```

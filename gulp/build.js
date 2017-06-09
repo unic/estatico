@@ -36,6 +36,8 @@ gulp.task(taskName, function(cb) {
 					'js:modernizr',
 					[
 						'html',
+						// The html:hbs:copy task is disabled by default. Uncomment it if you need it in your project.
+						// 'html:hbs:copy',
 						'js',
 						'css',
 						'media:copy',

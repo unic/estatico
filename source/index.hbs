@@ -1,10 +1,10 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
-		<div class="sg__home">
-			<h1 class="sg__title">
-				<a href="/">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-			</h1>
+		<h2 class="sg__title sg__title--module">
+			<a href="/">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
+		</h2>
 
+		<div class="sg__styleguide">
 			{{{meta.documentation}}}
 		</div>
 	{{/content}}
