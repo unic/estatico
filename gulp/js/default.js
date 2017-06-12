@@ -12,7 +12,8 @@ var taskName = 'js',
 	taskConfig = {
 		src: [
 			'./source/assets/js/main.js',
-			'./source/assets/js/head.js'
+			'./source/assets/js/head.js',
+			'./source/preview/assets/js/preview.js'
 		],
 		devSrc: [
 			'./source/assets/js/dev.js'
