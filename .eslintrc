@@ -90,13 +90,7 @@
 			}
 		],
 		"linebreak-style": 0,
-		"lines-around-comment": [
-			2,
-			{
-				"beforeLineComment": true,
-				"allowBlockStart": true
-			}
-		],
+		"lines-around-comment": 0,
 		"max-depth": [
 			2,
 			3
@@ -193,7 +187,13 @@
 		],
 		"spaced-comment": [
 			2,
-			"always"
+			"always",
+			{
+				"block": {
+					"markers": ["!"],
+					"balanced": true
+				}
+			}
 		],
 		"strict": 0,
 		"valid-typeof": 0,
