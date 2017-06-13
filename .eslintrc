@@ -190,8 +190,7 @@
 			"always",
 			{
 				"block": {
-					"markers": ["!"],
-					"balanced": true
+					"markers": ["!"]
 				}
 			}
 		],
