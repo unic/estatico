@@ -4,14 +4,14 @@
 		align-items: center;
 	}
 
-	blockquote{
+	blockquote {
 		display:block;
 		background: #fff;
 		padding: 15px 20px 15px 55px;
 		position: relative;
 
 		/*Font*/
-		font: italic 400 2.5em/1.2 "Publico Headline Web", Georgia, "Times New Roman", Times, serif;
+		font: italic 400 1.5em/1.2 Georgia, "Times New Roman", Times, serif;
 		color: #000;
 
 		/*Box Shadow - (Optional)*/
@@ -29,7 +29,7 @@
 		border-right-color: #a4c400;
 	}
 	
-	blockquote:before{
+	blockquote:before {
 		content: "\201C"; /*Unicode for Left Double Quote*/
 	
 		/*Font*/
@@ -43,7 +43,7 @@
 		top:5px;
 	}
 
-	blockquote:after{
+	blockquote:after {
 		/*Reset to make sure*/
 		content: "";
 	}
@@ -57,12 +57,18 @@
 		transition: color .3s
 	}
 
-	blockquote a:hover{
+	blockquote a:hover {
 		color: #3a4ecc;
 	}
 
 	blockquote em {
 		font-style: italic;
+	}
+	
+	@media and (min-width: 661px) {
+		blockquote {
+			font-size: 2.5em
+		}
 	}
 </style>
 
