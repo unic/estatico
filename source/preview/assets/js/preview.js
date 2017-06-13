@@ -2,37 +2,37 @@
  * Activate tree for viewport > small
  */
 
-const activateTree = function() {
-	if (document.documentElement.clientWidth <= 661) {
-		document.getElementById('sg__tree_trigger').checked = false;
-	}
-};
+const deactivateTree = function() {
+		if (document.documentElement.clientWidth < 661) {
+			document.getElementById('sg__tree_trigger').checked = false;
+		}
+	},
 
-// Reusing https://developer.mozilla.org/en-US/docs/Web/Events/resize
-(function() {
-	const throttle = function(type, name, env) {
+	// Reusing https://developer.mozilla.org/en-US/docs/Web/Events/resize
+	throttle = function(type, name, target) {
 		let running = false,
-			environment = env || window,
-			func = function() {
+			eventTarget = target || window,
+			listener = function() {
 				if (!running) {
 					running = true;
 					requestAnimationFrame(function() {
-						environment.dispatchEvent(new CustomEvent(name));
+						eventTarget.dispatchEvent(new CustomEvent(name));
 						running = false;
 					});
 				}
 			};
 
-		environment.addEventListener(type, func);
+		eventTarget.addEventListener(type, listener);
 	};
 
-	/* init - you can init any event */
-	throttle('resize', 'optimizedResize');
-})();
+// init - you can init any event
+throttle('resize', 'optimizedResize');
+
+// toggle tree if needed at the beginning
+deactivateTree();
 
 // handle event
 window.addEventListener('optimizedResize', function() {
-	activateTree();
+	deactivateTree();
 });
 
-activateTree();
