@@ -17,12 +17,16 @@ var taskName = 'css:fonts',
 gulp.task(taskName, function() {
 	var font64 = require('gulp-simplefont64'),
 		concat = require('gulp-concat'),
-		cssMinify = require('gulp-minify-css');
+		cssMinify = require('gulp-minify-css'),
+		tap = require('gulp-tap');
 
 	return gulp.src(taskConfig.src)
 		.pipe(font64())
 		.pipe(concat(taskConfig.fileName))
 		.pipe(cssMinify())
+		.pipe(tap(function(file) {
+			file.contents = new Buffer(file.contents.toString().replace(/\; base64/g, ';charset=utf-8;base64'));
+		}))
 		.pipe(gulp.dest(taskConfig.dest));
 });
 
