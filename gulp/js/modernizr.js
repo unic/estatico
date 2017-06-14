@@ -36,7 +36,7 @@ gulp.task(taskName, function() {
 			// Remove bang from test comments to allow for removal on uglifying
 			content = content.replace(/\/\*\!\n{/g, '/*\n{').replace(/\!\*\//g, '*/');
 
-			file.contents = new Buffer(content);
+			file.contents = Buffer.from(content);
 		}))
 		.pipe(gulp.dest(taskConfig.dest));
 });

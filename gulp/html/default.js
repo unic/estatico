@@ -134,7 +134,7 @@ var taskName = 'html',
 					modulePreviewTemplate = modulePreviewTemplate || fs.readFileSync(config.srcModulePreview, 'utf8');
 
 					// Replace file content with preview template
-					file.contents = new Buffer(modulePreviewTemplate);
+					file.contents = Buffer.from(modulePreviewTemplate);
 				}
 
 				// Save data by file name
@@ -171,7 +171,7 @@ var taskName = 'html',
 
 				content = content.replace(/('|")\//g, '$1' + relPathPrefix);
 
-				file.contents = new Buffer(content);
+				file.contents = Buffer.from(content);
 			}))
 
 			// .pipe(prettify({

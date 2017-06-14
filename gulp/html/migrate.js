@@ -36,8 +36,8 @@ gulp.task(taskName, function(cb) {
 			var content = file.contents.toString(),
 				dataHelperPath = path.relative(path.dirname(file.path), path.resolve(__dirname, '../../helpers/data.js')),
 				defaultDataPath = path.relative(path.dirname(file.path), path.resolve(__dirname, '../../source/data/default.data.js')),
-				prepend = new Buffer('\'use strict\';\n\nvar _ = require(\'lodash\'),\n\trequireNew = require(\'require-new\'),\n\tdataHelper = require(\'' + dataHelperPath + '\'),\n\tdefaultData = requireNew(\'' + defaultDataPath + '\');\n\nvar data = _.merge(defaultData, '),
-				append = new Buffer(');\n\nmodule.exports = data;\n');
+				prepend = Buffer.from('\'use strict\';\n\nvar _ = require(\'lodash\'),\n\trequireNew = require(\'require-new\'),\n\tdataHelper = require(\'' + dataHelperPath + '\'),\n\tdefaultData = requireNew(\'' + defaultDataPath + '\');\n\nvar data = _.merge(defaultData, '),
+				append = Buffer.from(');\n\nmodule.exports = data;\n');
 
 			// Remove trailing new line
 			content = content.trim();
@@ -56,7 +56,7 @@ gulp.task(taskName, function(cb) {
 			// Rename 'styleguide' property to 'meta'
 			content = content.replace(/styleguide\:/g, 'meta:');
 
-			content = new Buffer(content);
+			content = Buffer.from(content);
 
 			file.contents = Buffer.concat([prepend, content, append]);
 		}))
