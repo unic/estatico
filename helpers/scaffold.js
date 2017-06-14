@@ -361,7 +361,7 @@ module.exports = {
 		insertionPoint = options.insertionPoint.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
 		content = content.replace(new RegExp(insertionPoint), insertion);
 
-		return new Buffer(content);
+		return Buffer.from(content);
 	},
 
 	/**
@@ -394,6 +394,6 @@ module.exports = {
 
 		content = content.replace(reference, '');
 
-		return new Buffer(content);
+		return Buffer.from(content);
 	}
 };

@@ -79,7 +79,7 @@ gulp.task(taskName, function(cb) {
 					// Insert PhantomJS-specific code (autostart config, polyfills, e.g.)
 					content = content.replace('</body>', '<script src="' + polyfillsPath + '"></script></body>');
 
-					file.contents = new Buffer(content);
+					file.contents = Buffer.from(content);
 
 					this.push(file);
 

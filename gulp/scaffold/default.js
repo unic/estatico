@@ -142,7 +142,7 @@ var taskName = 'scaffold',
 
 					content = config.scaffold.replaceContent(content, config.scaffold);
 
-					file.contents = new Buffer(content);
+					file.contents = Buffer.from(content);
 				}
 			}))
 

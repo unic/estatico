@@ -25,7 +25,7 @@ gulp.task(taskName, function() {
 		.pipe(concat(taskConfig.fileName))
 		.pipe(cssMinify())
 		.pipe(tap(function(file) {
-			file.contents = new Buffer(file.contents.toString().replace(/\; base64/g, ';charset=utf-8;base64'));
+			file.contents = Buffer.from(file.contents.toString().replace(/\; base64/g, ';charset=utf-8;base64'));
 		}))
 		.pipe(gulp.dest(taskConfig.dest));
 });
