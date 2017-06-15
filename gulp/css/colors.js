@@ -2,7 +2,7 @@
 
 /**
  * @function `gulp css:colors`
- * @desc Import colors from ColorSchemer HTML export and save to Sass file (based on Handlebars template).
+ * @desc Import colors from JSON and save to Sass file (based on Handlebars template). Optionally it can import colors from ColorSchemer HTML export.
  *
  * Non-alphanumeric characters are removed from the name.
  * Works with JSON, too. Just replace the HTML file with a JSON one (containing "colorName": "#000000" pairs).
