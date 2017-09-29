@@ -5,7 +5,7 @@ $(function() {
 		reservedIds = [/* 'changelog', 'documentation'*/],
 		selectVariant = () => {
 			let currentVariant = window.location.hash.substr(1),
-				$currentVariant = $('#' + currentVariant),
+				$currentVariant = currentVariant.length ? $('#' + currentVariant) : [],
 				event;
 
 			if (!$currentVariant.length) {
