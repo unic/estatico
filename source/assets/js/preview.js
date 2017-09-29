@@ -5,25 +5,14 @@ $(function() {
 		reservedIds = [/* 'changelog', 'documentation'*/],
 		selectVariant = () => {
 			let currentVariant = window.location.hash.substr(1),
-				$currentVariant = currentVariant.length ? $('#' + currentVariant) : $([]),
-				event;
-
-			if (!$currentVariant.length) {
-				return;
-			}
-
-			$currentVariant.prop('checked', true);
-
-			if (typeof window.CustomEvent === 'function') {
-				event = new CustomEvent('force_init');
-			} else {
-				event = document.createEvent('CustomEvent');
-
-				event.initCustomEvent('force_init', true, true, {});
-			}
-
-			setTimeout(function() {
-				document.dispatchEvent(event);
+				$currentVariant = currentVariant.length ? $('#' + currentVariant) : $([]);
+			
+			setTimeout(() => {
+				if ($currentVariant.length && initialVariant && reservedIds.indexOf(initialVariant) === -1) {
+					$currentVariant.prop('checked', true);
+					$(document).trigger('force_init');
+					$('html, body').scrollTop(0);
+				}
 			}, 0);
 		};
 
@@ -38,12 +27,5 @@ $(function() {
 	});
 
 	// Select initial variant
-	setTimeout(() => {
-		if (initialVariant && reservedIds.indexOf(initialVariant) === -1) {
-			selectVariant();
-
-			$('html, body').scrollTop(0);
-		}
-	}, 0);
-
+	selectVariant();
 });
