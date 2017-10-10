@@ -6,21 +6,19 @@ $(function() {
 		$variants = $('[name="variants"]'),
 		selectVariant = () => {
 			const currentVariant = window.location.hash.substr(1);
-			let $currentVariant;
+			let $currentVariant = $([]);
 
 			if (currentVariant.length) {
 				$currentVariant = $('#' + currentVariant);
 			} else if ($variants.length) {
 				$currentVariant = $variants.first();
-			} else {
-				$currentVariant = $([]);
 			}
 
 			setTimeout(() => {
 				if ($currentVariant.length && initialVariant && reservedIds.indexOf(initialVariant) === -1) {
 					$currentVariant.prop('checked', true);
+					window.dispatchEvent(new Event('resize'));
 					$(document).trigger('force_init');
-					$('html, body').scrollTop(0);
 				}
 			}, 0);
 		};
