@@ -11,6 +11,7 @@
     "bows": "1.4.8",
     "jquery": "3.2.1",
     "normalize.css": "3.0.3",
+    "raf-throttle": "^2.0.3",
     "react": "0.14.7",
     "react-dom": "0.14.7",
     "skip-link-focus": "0.1.0"

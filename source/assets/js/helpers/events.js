@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
+import throttle from 'raf-throttle';
 
 /**
- * Adds debounced global resize and scroll events and generates public methods for adding handlers
+ * Adds debounced and throttled global resize and scroll events and generates public methods for adding handlers
  * e.g. for resize: addDebouncedResizeListener, for scroll: addDebouncedScrollListener
  *
  * @license APLv2
@@ -23,12 +23,10 @@ class WindowEventListener {
 
 		let events = {
 			resize: {
-				interval: 50,
-				throttleInterval: 10
+				interval: 50
 			},
 			scroll: {
-				interval: 50,
-				throttleInterval: 10
+				interval: 50
 			}
 		};
 
@@ -41,8 +39,8 @@ class WindowEventListener {
 	/**
 	 * Window event has only one debounced handler.
 	 * Achieved by triggering another fake event, which is the one we subscribe to
-	 * @param eventName
-	 * @param config
+	 * @param {String} eventName
+	 * @param {Object} config
 	 * @private
 	 */
 	_registerDebouncedEvent(eventName, config) {
@@ -62,13 +60,19 @@ class WindowEventListener {
 		estatico.events[eventName] = debouncedEventName;
 	}
 
-	_registerThrottledEvent(eventName, config) {
+	/**
+	 * Window event has only one throttled handler.
+	 * Achieved by triggering another fake event, which is the one we subscribe to
+	 * @param {String} eventName
+	 * @private
+	 */
+	_registerThrottledEvent(eventName) {
 		let throttledEventName = `throttled${eventName}.estatico`,
 			methodName = eventName.charAt(0).toUpperCase() + eventName.slice(1);
 
 		this.$window.on(eventName, throttle(function(event) {
 			$(document).triggerHandler(throttledEventName, event);
-		}.bind(this), config.throttleInterval));
+		}.bind(this)));
 
 		// adds a public shorthand method, e.g. addResizeListener to the WindowEventListener class
 		this[`addThrottled${methodName}Listener`] = this._addEventListener.bind(this, throttledEventName);
@@ -82,9 +86,9 @@ class WindowEventListener {
 	/**
 	 * Adds callback as an event listener to the fake event.
 	 * Uses unique ID if provided (might be handy to remove instance-specific handlers).
-	 * @param eventName
-	 * @param callback
-	 * @param uuid
+	 * @param {String} eventName
+	 * @param {Function} callback
+	 * @param {String} uuid - optional
 	 * @private
 	 */
 	_addEventListener(eventName, callback, uuid) {
@@ -95,6 +99,13 @@ class WindowEventListener {
 		$(document).on(eventName, callback);
 	}
 
+	/**
+	 * Remove a callback from a fake event
+	 * Uses unique ID if provided (might be handy to remove instance-specific handlers).
+	 * @param {String} eventName
+	 * @param {String} uuid - optional
+	 * @private
+	 */
 	_removeEventListener(eventName, uuid) {
 		if (uuid) {
 			eventName = eventName + '.' + uuid;
