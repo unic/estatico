@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import datasetPolyfill from 'element-dataset';
-import 'handlebars/dist/handlebars';
+import 'handlebars/dist/handlebars.runtime';
 import './helpers/module';
 import './helpers/svgspriteloader';
 
