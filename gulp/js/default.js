@@ -100,14 +100,12 @@ var taskName = 'js',
 
 			// Minifiy in prod mode
 			plugins: [
-
-			].concat(util.env.dev ? [
 				new BundleAnalyzerPlugin({
 					analyzerMode: 'static',
 					reportFilename: 'webpack-report.html', // Relative to bundles output directory
 					openAnalyzer: false
 				})
-			] : [
+			].concat(util.env.dev ? [] : [
 				new webpack.DefinePlugin({
 					'process.env': {
 						'NODE_ENV': JSON.stringify('production')
@@ -129,7 +127,7 @@ var taskName = 'js',
 				// Tell webpack about the asset path structure in the browser to be able to load async files
 				publicPath: path.join('/', path.relative(config.destBase, config.dest), '/')
 			},
-			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null
+			devtool: util.env.dev ? 'eval-cheap-module-source-map' : false
 		});
 
 		if (util.env.watch && !util.env.skipWebpackWatch) {
