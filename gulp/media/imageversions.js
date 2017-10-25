@@ -24,7 +24,8 @@ var taskName = 'media:imageversions',
 		fileExtensionPattern: '*.{jpg, png}',
 		configFileName: 'imageversions.config.js',
 		srcBase: './source/',
-		dest: './build/'
+		dest: './build/',
+		addSizeWatermark: true
 	},
 	task = function(config, cb) {
 		var helpers = require('require-dir')('../../helpers'),
@@ -65,6 +66,11 @@ var taskName = 'media:imageversions',
 
 				// resize crop result to requested size
 				imgData.img.resize(newSize.width, newSize.height, '!');
+
+				// draw size on image to allow for easier testing of responsive images
+				if (config.addSizeWatermark) {
+					imgData.img.fontSize(16).box('#fff').fill('#000').drawText(20, 16, newSize.width + 'x' + newSize.height, 'southeast');
+				}
 
 				return imgData.img;
 			},
