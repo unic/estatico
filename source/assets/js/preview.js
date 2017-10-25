@@ -1,8 +1,9 @@
 import $ from 'jquery';
 
 $(function() {
-	const initialVariant = window.location.hash.substr(1),
-		reservedIds = [/* 'changelog', 'documentation'*/],
+	let initialVariant = window.location.hash.substr(1);
+
+	const reservedIds = [/* 'changelog', 'documentation'*/],
 		$variants = $('[name="variants"]'),
 		selectVariant = () => {
 			const currentVariant = window.location.hash.substr(1);
@@ -14,13 +15,17 @@ $(function() {
 				$currentVariant = $variants.first();
 			}
 
-			setTimeout(() => {
+			if (!initialVariant) {
+				initialVariant = $currentVariant[0].id;
+			}
+
+			window.requestAnimationFrame(() => {
 				if ($currentVariant.length && initialVariant && reservedIds.indexOf(initialVariant) === -1) {
 					$currentVariant.prop('checked', true);
 					window.dispatchEvent(new Event('resize'));
 					$(document).trigger('force_init');
 				}
-			}, 0);
+			});
 		};
 
 	// Persist variant changes to URL
