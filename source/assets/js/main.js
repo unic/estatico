@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import 'handlebars/dist/handlebars';
+import 'handlebars/dist/handlebars.runtime';
 import './helpers/module';
 import './helpers/svgspriteloader';
 import EstaticoApp from './helpers/estaticoapp';
