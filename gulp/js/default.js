@@ -20,6 +20,7 @@ var taskName = 'js',
 		srcBase: './source/assets/js/',
 		dest: './build/assets/js/',
 		destBase: './build/',
+		destStats: './build/_stats/webpack-report.html',
 		destAsyncSuffix: 'async/',
 		watch: [
 			'source/assets/js/**/*.js',
@@ -102,7 +103,7 @@ var taskName = 'js',
 			plugins: [
 				new BundleAnalyzerPlugin({
 					analyzerMode: 'static',
-					reportFilename: 'webpack-report.html', // Relative to bundles output directory
+					reportFilename: path.relative(config.dest, config.destStats), // Relative to bundles output directory
 					openAnalyzer: false
 				})
 			].concat(util.env.dev ? [] : [
