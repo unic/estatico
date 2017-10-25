@@ -90,9 +90,13 @@ var taskName = 'js',
 									useBuiltIns: 'entry',
 									targets: {
 										browsers: ['last 2 versions']
-									}
+									},
+									loose: true
 								}],
 								'react'
+							],
+							plugins: [
+								'transform-proto-to-assign'
 							]
 						}
 					}
