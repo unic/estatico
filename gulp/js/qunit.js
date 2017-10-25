@@ -149,7 +149,7 @@ gulp.task(taskName, function(cb) {
 			loaders: [
 				{
 					test: /qunit\.js$/,
-					loader: 'expose?QUnit'
+					loader: 'expose-loader?QUnit'
 				},
 				{
 					test: /\.css$/,
@@ -168,7 +168,7 @@ gulp.task(taskName, function(cb) {
 		},
 
 		output: {
-			path: taskConfig.destTests,
+			path: path.resolve(taskConfig.destTests),
 			filename: '[name].js'
 		}
 	});

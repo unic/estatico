@@ -43,7 +43,8 @@ var taskName = 'js',
 			_ = require('lodash'),
 			path = require('path'),
 			webpack = require('webpack'),
-			livereload = require('gulp-livereload');
+			livereload = require('gulp-livereload'),
+			BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 		var src = config.src,
 			compiler;
@@ -57,32 +58,40 @@ var taskName = 'js',
 			// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
 			entry: helpers.webpack.getEntries(src, config.srcBase),
 			module: {
-				loaders: [
+				rules: [
 					{
 						test: /\.hbs$/,
-						loader: 'handlebars-loader'
+						loader: 'handlebars-loader',
+						options: {
+							partialResolver: function(partial, callback) {
+								var resolvedPath = path.resolve('./source/', partial + '.hbs');
+
+								callback(null, resolvedPath);
+							}
+						}
 					},
 					{
 						test: /jquery\.js$/,
-						loader: 'expose?$!expose?jQuery'
+						loader: 'expose-loader?$!expose-loader?jQuery'
 					},
 					{
 						test: /handlebars\.js$/,
-						loader: 'expose?Handlebars'
+						loader: 'expose-loader?Handlebars'
 					},
 					{
 						test: /(\.js|\.jsx)$/,
 						exclude: /node_modules/,
 						loader: 'babel-loader',
-						query: {
-							presets: ['es2015', 'react'],
-							plugins: [
-								// Work around some issues in IE
-								'transform-class-properties',
-								'transform-proto-to-assign',
-								['transform-es2015-classes', {
-									loose: true
-								}]
+						options: {
+							presets: [
+								['env', {
+									debug: util.env.dev,
+									useBuiltIns: 'entry',
+									targets: {
+										browsers: ['last 2 versions']
+									}
+								}],
+								'react'
 							]
 						}
 					}
@@ -92,7 +101,13 @@ var taskName = 'js',
 			// Minifiy in prod mode
 			plugins: [
 
-			].concat(util.env.dev ? [] : [
+			].concat(util.env.dev ? [
+				new BundleAnalyzerPlugin({
+					analyzerMode: 'static',
+					reportFilename: 'webpack-report.html', // Relative to bundles output directory
+					openAnalyzer: false
+				})
+			] : [
 				new webpack.DefinePlugin({
 					'process.env': {
 						'NODE_ENV': JSON.stringify('production')
@@ -105,7 +120,7 @@ var taskName = 'js',
 				})
 			]),
 			output: {
-				path: config.dest,
+				path: path.resolve(config.dest),
 				filename: util.env.dev ? '[name].js' : '[name].min.js',
 
 				// Save async loaded files (using require.ensurce) in special dir
@@ -114,14 +129,7 @@ var taskName = 'js',
 				// Tell webpack about the asset path structure in the browser to be able to load async files
 				publicPath: path.join('/', path.relative(config.destBase, config.dest), '/')
 			},
-			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null,
-			handlebarsLoader: {
-				partialResolver: function(partial, callback) {
-					var resolvedPath = path.resolve('./source/', partial + '.hbs');
-
-					callback(null, resolvedPath);
-				}
-			}
+			devtool: util.env.dev ? 'eval-cheap-module-source-map' : null
 		});
 
 		if (util.env.watch && !util.env.skipWebpackWatch) {
