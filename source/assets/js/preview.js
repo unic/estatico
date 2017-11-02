@@ -15,17 +15,20 @@ $(function() {
 				$currentVariant = $variants.first();
 			}
 
-			if (!initialVariant) {
-				initialVariant = $currentVariant[0].id;
+			if ($currentVariant.length) {
+				if (!initialVariant) {
+					initialVariant = $currentVariant[0].id;
+				}
+
+				window.requestAnimationFrame(() => {
+					if ($currentVariant.length && initialVariant && reservedIds.indexOf(initialVariant) === -1) {
+						$currentVariant.prop('checked', true);
+						window.dispatchEvent(new Event('resize'));
+						$(document).trigger('force_init');
+					}
+				});
 			}
 
-			window.requestAnimationFrame(() => {
-				if ($currentVariant.length && initialVariant && reservedIds.indexOf(initialVariant) === -1) {
-					$currentVariant.prop('checked', true);
-					window.dispatchEvent(new Event('resize'));
-					$(document).trigger('force_init');
-				}
-			});
 		};
 
 	// Persist variant changes to URL
