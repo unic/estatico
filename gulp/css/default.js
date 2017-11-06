@@ -32,7 +32,7 @@ var taskName = 'css',
 			'source/preview/assets/css/**/*.scss'
 		],
 		plugins: {
-			autoprefixer: 'last 2 version'
+			autoprefixer: 'last 2 versions'
 		},
 		returnChangedFileOnWatch: !util.env.skipCssDependencyGraph
 	},
