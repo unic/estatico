@@ -17,7 +17,7 @@ module.exports = {
 				include: './test/css/fixtures/assets/css/',
 				dest: './test/css/results/',
 				plugins: {
-					autoprefixer: 'last 2 version'
+					autoprefixer: 'last 2 versions'
 				}
 			};
 
