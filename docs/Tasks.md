@@ -41,7 +41,7 @@ Run specific tasks when specific files have changed. Uses the `gulp-watch` packa
 * Fall back to polling (e.g. in Vagrant): `gulp --pollWatch=true`
 
 ### `gulp css:colors`
-Import colors from ColorSchemer HTML export and save to Sass file (based on Handlebars template).
+Import colors from JSON and save to Sass file (based on Handlebars template). Optionally it can import colors from ColorSchemer HTML export.
 
 Non-alphanumeric characters are removed from the name.
 Works with JSON, too. Just replace the HTML file with a JSON one (containing "colorName": "#000000" pairs).
@@ -67,7 +67,7 @@ Transform old `.json` data files to `.data.js`.
 Use Webpack to transpile and bundle JavaScript sources. By default, Webpack's built-in, faster file watcher is used while developing. Add the `--skipWebpackWatch` flag to fall back to a simple gulp watcher.
 
 ### `gulp js:lint`
-Lint JavaScript files (using `JSHint`).
+Lint JavaScript files (using `ESLint`).
 
 ### `gulp js:mocks`
 Create static JSON data mocks
