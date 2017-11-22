@@ -2,6 +2,6 @@ language: node_js
 node_js:
   - "6.7.0"
 script:
-	- npm run build -- --interactive=false
+  - npm run build -- --interactive=false
 before_install:
-- sudo apt-get install graphicsmagick
+  - sudo apt-get install graphicsmagick
