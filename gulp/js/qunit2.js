@@ -81,7 +81,36 @@ gulp.task(taskName, function() {
 								});
 							});
 						}).then(function(results) {
-							console.log(results.summary);
+							var error;
+
+							results.details.forEach(function(test) {
+								if (test.failed === 0) {
+									util.log(util.colors.green(`✓ ${test.name}`));
+								} else {
+									util.log(util.colors.red(`× ${test.name}`));
+
+									test.assertions.filter(function(assertion) {
+										return !assertion.result;
+									}).forEach(function(assertion) {
+										util.log(util.colors.red(`Failing assertion: ${assertion.message}`));
+									});
+								}
+							});
+
+							if (results.summary.failed > 0) {
+								error = {
+									message: `Error in ${file}`,
+									task: taskName
+								};
+
+								if (!util.env.dev) {
+									return browser.close().then(function() {
+										helpers.errors(error);
+									});
+								}
+
+								helpers.errors(error);
+							}
 						});
 					});
 				});
