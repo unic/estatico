@@ -14,7 +14,7 @@ var _ = require('lodash'),
 			jira: 'JIRA-4',
 			documentation: dataHelper.getDocumentation('slideshow.md'),
 			testScripts: [
-				dataHelper.getTestScriptPath('slideshow.test.js')
+				'slideshow.test.js'
 			],
 			mocks: [
 				{

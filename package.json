@@ -92,6 +92,7 @@
     "postcss-url": "5.1.2",
     "pretty-hrtime": "1.0.2",
     "promise": "7.1.1",
+    "puppeteer": "0.13.0",
     "qunitjs": "2.0.1",
     "require-dir": "0.3.1",
     "require-new": "1.1.0",
