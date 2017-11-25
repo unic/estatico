@@ -100,7 +100,7 @@ var taskName = 'js',
 			},
 			externals: function(context, request, callback) {
 				// Do not include jQuery in test-related files
-				if (request === 'jquery' && /(\/preview\/assets\/js\/|\/modules\/)/.test(context)) {
+				if (request === 'jquery' && /(\/preview\/assets\/js|\/modules\/)/.test(context)) {
 					return callback(null, 'jQuery');
 				// Do not include QUnit in every single test file
 				} else if (request === 'qunitjs' && /\/modules\//.test(context)) {
