@@ -76,7 +76,7 @@ module.exports = {
 
 	getTestScriptPath: function(filePath) {
 		var requirePath = getRequirePath(filePath),
-			scriptPath = path.join('/', path.relative('./source', requirePath));
+			scriptPath = path.join('/preview/assets/js/', path.relative('./source', requirePath));
 
 		// Fix path on windows
 		scriptPath = scriptPath.replace(new RegExp('\\' + path.sep, 'g'), '/');

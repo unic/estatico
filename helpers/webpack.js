@@ -7,15 +7,17 @@ var _ = require('lodash'),
 
 module.exports = {
 	getEntries: function(src, srcBase, transformKey) {
-		return _.keyBy(src, function(file) {
-			var key = path.relative(srcBase, file).replace(path.extname(file), '');
+		var entries = _.keyBy(src, function(file) {
+				var key = path.relative(srcBase, file).replace(path.extname(file), '');
 
-			if (transformKey) {
-				key = transformKey(key);
-			}
+				if (transformKey) {
+					key = transformKey(key, srcBase, file);
+				}
 
-			return key;
-		});
+				return key;
+			});
+
+		return entries;
 	},
 
 	log: function(err, stats, taskName) {

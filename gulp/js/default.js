@@ -20,6 +20,8 @@ var taskName = 'js',
 			'./source/assets/js/dev.js'
 		],
 		srcBase: './source/assets/js/',
+		testSrcRoot: './source/',
+		testSrcBase: './source/preview/assets/js/',
 		dest: './build/assets/js/',
 		destBase: './build/',
 		destAsyncSuffix: 'async/',
@@ -64,7 +66,14 @@ var taskName = 'js',
 
 		compiler = webpack({
 			// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
-			entry: helpers.webpack.getEntries(src, config.srcBase),
+			entry: helpers.webpack.getEntries(src, config.srcBase, function(key, srcBase, file) {
+				// Move test files into 'preview/assets/js'
+				if (path.extname(key) === '.test') {
+					key = path.join(path.relative(config.srcBase, config.testSrcBase), path.relative(config.testSrcRoot, file)).replace(path.extname(file), '');
+				}
+
+				return key;
+			}),
 			module: {
 				loaders: [
 					{
