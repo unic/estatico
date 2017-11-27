@@ -29,7 +29,7 @@ gulp.task(taskName, function() {
 		glob = require('glob'),
 		path = require('path');
 
-	function runTests(page, file) {
+	function runTests(browser, page, file) {
 		return page.evaluate(function() {
 			return new Promise(function (resolve, reject) {
 				if (typeof QUnit === 'undefined') {
@@ -153,7 +153,7 @@ gulp.task(taskName, function() {
 								}).then(function() {
 									util.log(util.colors.cyan('Viewport'), viewport);
 
-									return runTests(page, file);
+									return runTests(browser, page, file);
 								});
 							});
 						});
