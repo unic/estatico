@@ -14,6 +14,11 @@ var taskName = 'js:test',
 			'./build/demo/pages/**/*.html',
 			'./build/modules/**/*.html',
 			'./build/demo/modules/**/*.html'
+		],
+		viewports: [
+			{ width: 700, height: 1000 },
+			{ width: 400, height: 1000 },
+			{ width: 1400, height: 1000 }
 		]
 	};
 
@@ -23,6 +28,68 @@ gulp.task(taskName, function() {
 		util = require('gulp-util'),
 		glob = require('glob'),
 		path = require('path');
+
+	function runTests(page, file) {
+		return page.evaluate(function() {
+			return new Promise(function (resolve, reject) {
+				if (typeof QUnit === 'undefined') {
+					return resolve();
+				}
+
+				var details = [];
+
+				QUnit.start();
+
+				QUnit.testDone(function(results) {
+					details.push(results);
+				});
+
+				QUnit.done(function(summary) {
+					resolve({
+						details: details,
+						summary: summary
+					});
+				});
+			});
+		}).then(function(results) {
+			if (!results) {
+				return;
+			}
+
+			var error;
+
+			results.details.forEach(function(test) {
+				if (test.failed === 0) {
+					util.log(util.colors.green(`✓ ${test.name}`));
+				} else {
+					util.log(util.colors.red(`× ${test.name}`));
+
+					test.assertions.filter(function(assertion) {
+						return !assertion.result;
+					}).forEach(function(assertion) {
+						util.log(util.colors.red(`Failing assertion: ${assertion.message}`));
+					});
+				}
+			});
+
+			if (results.summary.failed > 0) {
+				error = {
+					message: `Error in ${file}`,
+					task: taskName
+				};
+
+				if (!util.env.dev) {
+					return browser.close().then(function() {
+						helpers.errors(error);
+					});
+				}
+
+				helpers.errors(error);
+			}
+
+			return results;
+		});
+	}
 
 	// Create array of resolved paths
 	var src = taskConfig.src.reduce(function(paths, pathGlob) {
@@ -73,63 +140,25 @@ gulp.task(taskName, function() {
 					return page.goto('file://' + file, {
 						// waitUntil: 'domcontentloaded'
 					}).then(function() {
-						return page.evaluate(function() {
-							return new Promise(function (resolve, reject) {
-								if (typeof QUnit === 'undefined') {
-									return resolve();
-								}
+						var tests = Promise.resolve();
 
-								var details = [];
+						taskConfig.viewports.forEach(function(viewport, i) {
+							tests = tests.then(function() {
+								return page.setViewport(viewport).then(function() {
+									if (i > 0) {
+										return page.reload();
+									}
 
-								QUnit.start();
+									return page;
+								}).then(function() {
+									util.log(util.colors.cyan('Viewport'), viewport);
 
-								QUnit.testDone(function(results) {
-									details.push(results);
-								});
-
-								QUnit.done(function(summary) {
-									resolve({
-										details: details,
-										summary: summary
-									});
+									return runTests(page, file);
 								});
 							});
-						}).then(function(results) {
-							if (!results) {
-								return;
-							}
-
-							var error;
-
-							results.details.forEach(function(test) {
-								if (test.failed === 0) {
-									util.log(util.colors.green(`✓ ${test.name}`));
-								} else {
-									util.log(util.colors.red(`× ${test.name}`));
-
-									test.assertions.filter(function(assertion) {
-										return !assertion.result;
-									}).forEach(function(assertion) {
-										util.log(util.colors.red(`Failing assertion: ${assertion.message}`));
-									});
-								}
-							});
-
-							if (results.summary.failed > 0) {
-								error = {
-									message: `Error in ${file}`,
-									task: taskName
-								};
-
-								if (!util.env.dev) {
-									return browser.close().then(function() {
-										helpers.errors(error);
-									});
-								}
-
-								helpers.errors(error);
-							}
 						});
+
+						return tests;
 					});
 				});
 			});
