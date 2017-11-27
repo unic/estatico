@@ -1,13 +1,13 @@
 'use strict';
 
 /**
- * @function `gulp html:test`
- * @desc Open built HTML files in headless Chrome and report errors.
+ * @function `gulp js:test`
+ * @desc Open built HTML files in headless Chrome, report console errors and run QUnit tests.
  */
 
 var gulp = require('gulp');
 
-var taskName = 'js:qunit2',
+var taskName = 'js:test',
 	taskConfig = {
 		src: [
 			'./build/pages/**/*.html',

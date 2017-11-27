@@ -4,7 +4,7 @@
  * @function `gulp build`
  * @desc Create build by running every HTML, CSS, JavaScript and media task.
  *
- * * Prompts whether the `js:qunit` task should run in the end (default: yes).
+ * * Prompts whether the `js:test` task should run in the end (default: yes).
  * * For non-interactive mode: `gulp --interactive=false --skipTests`
  */
 
@@ -43,7 +43,7 @@ gulp.task(taskName, function(cb) {
 						'media:copy',
 						'media:imageversions'
 					],
-					'js:qunit',
+					'js:test',
 					function(err) {
 						if (err) {
 							helpers.errors(err);
@@ -54,7 +54,7 @@ gulp.task(taskName, function(cb) {
 				];
 
 			if (skipTests) {
-				runTasks = _.without(runTasks, 'js:qunit');
+				runTasks = _.without(runTasks, 'js:test');
 			}
 
 			runSequence.apply(this, runTasks);
