@@ -14,7 +14,7 @@ var taskName = 'js',
 			'./source/assets/js/main.js',
 			'./source/assets/js/head.js',
 			'./source/preview/assets/js/test.js',
-			'./source/demo/modules/slideshow/slideshow.test.js'
+			'./source/demo/modules/**/*.test.js'
 		],
 		devSrc: [
 			'./source/assets/js/dev.js'
@@ -44,10 +44,17 @@ var taskName = 'js',
 		var helpers = require('require-dir')('../../helpers'),
 			_ = require('lodash'),
 			path = require('path'),
+			glob = require('glob'),
 			webpack = require('webpack'),
 			livereload = require('gulp-livereload');
 
-		var src = config.src,
+		var src = taskConfig.src.reduce(function(paths, pathGlob) {
+				var resolvedGlob = glob.sync(pathGlob).map(function(file) {
+						return path.resolve(file);
+					});
+
+				return paths.concat(resolvedGlob);
+			}, []),
 			compiler;
 
 		// Optionally build dev scripts

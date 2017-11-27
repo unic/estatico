@@ -9,7 +9,12 @@ var gulp = require('gulp');
 
 var taskName = 'js:qunit2',
 	taskConfig = {
-		src: './build/demo/modules/slideshow/*.html'
+		src: [
+			'./build/pages/**/*.html',
+			'./build/demo/pages/**/*.html',
+			'./build/modules/**/*.html',
+			'./build/demo/modules/**/*.html'
+		]
 	};
 
 gulp.task(taskName, function() {
@@ -19,9 +24,14 @@ gulp.task(taskName, function() {
 		glob = require('glob'),
 		path = require('path');
 
-	var files = glob.sync(taskConfig.src).map(function(file) {
-			return path.resolve(file);
-		});
+	// Create array of resolved paths
+	var src = taskConfig.src.reduce(function(paths, pathGlob) {
+			var resolvedGlob = glob.sync(pathGlob).map(function(file) {
+					return path.resolve(file);
+				});
+
+			return paths.concat(resolvedGlob);
+		}, []);
 
 	return puppeteer.launch({
 		// headless: false
@@ -56,7 +66,7 @@ gulp.task(taskName, function() {
 			// 	}
 			// });
 
-			files.forEach(function(file) {
+			src.forEach(function(file) {
 				pages = pages.then(function() {
 					util.log(util.colors.cyan('Testing'), file);
 
@@ -65,6 +75,10 @@ gulp.task(taskName, function() {
 					}).then(function() {
 						return page.evaluate(function() {
 							return new Promise(function (resolve, reject) {
+								if (typeof QUnit === 'undefined') {
+									return resolve();
+								}
+
 								var details = [];
 
 								QUnit.start();
@@ -81,6 +95,10 @@ gulp.task(taskName, function() {
 								});
 							});
 						}).then(function(results) {
+							if (!results) {
+								return;
+							}
+
 							var error;
 
 							results.details.forEach(function(test) {
