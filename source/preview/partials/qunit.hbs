@@ -3,7 +3,7 @@
 		<div id="qunit"></div>
 		<div id="qunit-fixture"></div>
 
-		<script src="/preview/assets/js/test.js"></script>
+		<script src="/preview/assets/js/test{{#unless env.dev}}.min{{/unless}}.js"></script>
 
 		{{#each meta.testScripts}}
 			<script src="{{this}}"></script>
