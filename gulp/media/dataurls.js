@@ -43,7 +43,8 @@ gulp.task(taskName, function(cb) {
 		tap = require('gulp-tap'),
 		svgDimensions = require('gulp-svg-dimensions'),
 		imagemin = require('gulp-imagemin'),
-		raster = require('gulp-raster'),
+		through = require('through2'),
+		svg2png = require('convert-svg-to-png'),
 		rename = require('gulp-rename'),
 		handlebars = require('gulp-hb'),
 		postCss = require('gulp-postcss'),
@@ -139,7 +140,17 @@ gulp.task(taskName, function(cb) {
 		.pipe(gulp.dest(taskConfig.dest))
 
 		// Create PNGs using PhantomJS
-		.pipe(raster().on('error', helpers.errors))
+		.pipe(through.obj(async function(file, enc, done) {
+			try {
+				file.contents = await svg2png.convert(file.contents);
+			} catch(err) {
+				err.plugin = 'convert-svg-to-png';
+
+				helpers.errors(err);
+			}
+
+			return done(null, file);
+		}))
 		.pipe(rename({
 			extname: '.png'
 		}))
