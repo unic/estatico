@@ -4,6 +4,8 @@ Static site generator for frontend unicorns.
 
 Estático has been born as a result of a collective work of our frontend team. We use it in our daily work for rapid creation of clean, modern, maintainable static websites.
 
+NOTE: A more modular and faster version is being developed in https://github.com/unic/estatico-nou
+
 ## See it in action
 
 [![Screenshot from Screencast](http://img.youtube.com/vi/QlDc0zOyBDE/0.jpg)](https://www.youtube.com/watch?v=QlDc0zOyBDE)
