@@ -151,7 +151,7 @@ class SlideShow extends EstaticoModule {
 		}, this.uuid);
 
 		// Exemplary debounced scroll listener (uuid used to make sure it can be unbound per plugin instance)
-		WindowEventListener.addDebouncedScrollListener((originalEvent, event) => {
+		WindowEventListener.addThrottledScrollListener((originalEvent, event) => {
 			this.log(event, originalEvent);
 		}, this.uuid);
 
