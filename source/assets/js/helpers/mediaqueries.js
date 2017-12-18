@@ -55,8 +55,8 @@ class MediaQuery {
 	}
 
 	addMQChangeListener(callback, uuid) {
-		this.$document.on(estatico.events.mq + '.' + uuid, (event, prevBreakpoint, breakpoint) => {
-			callback(event, prevBreakpoint, breakpoint);
+		this.$document.on(estatico.events.mq + '.' + uuid, (prevBreakpoint, breakpoint, event) => {
+			callback(prevBreakpoint, breakpoint, event);
 		});
 	}
 
