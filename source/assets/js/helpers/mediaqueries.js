@@ -7,7 +7,7 @@
  * import MediaQuery from '../../../assets/js/modules/mediaqueries';
  *
  * // Listen to custom (debounced) event to react to viewport changes:
- * MediaQuery.addMQChangeListener(function(event, prevBreakpoint, currentBreakpoint) {
+ * MediaQuery.addMQChangeListener(function(prevBreakpoint, currentBreakpoint, event) {
  * 	console.log(prevBreakpoint); // { name: "small", value: "768px" }
  * 	console.log(parseInt(prevBreakpoint.value)); // "768"
  * });
@@ -55,8 +55,8 @@ class MediaQuery {
 	}
 
 	addMQChangeListener(callback, uuid) {
-		this.$document.on(estatico.events.mq + '.' + uuid, (prevBreakpoint, breakpoint) => {
-			callback(prevBreakpoint, breakpoint);
+		this.$document.on(estatico.events.mq + '.' + uuid, (prevBreakpoint, breakpoint, event) => {
+			callback(prevBreakpoint, breakpoint, event);
 		});
 	}
 
