@@ -1,0 +1,25 @@
+<footer class="sg__footer" role="contentinfo">
+	<p>
+		{{#and meta.client.name meta.client.url}}
+			Copyright © 2015-present <a href="{{meta.client.url}}">{{meta.client.name}}</a>.
+		{{/and}}
+		{{#and meta.license.name meta.license.url}}
+			Licensed under <a href="{{meta.license.url}}">{{meta.license.name}}</a>.
+		{{/and}}
+	</p>
+
+	<ul class="sg__sociallist">
+		{{#each meta.social}}
+			{{#and title url}}
+				<li class="sg__sociallist__item">
+					<a class="sg__iconlink sg__iconlink--icon-only" href="{{url}}" title="{{title}}">
+						<svg class="sg__svgicon sg__svgicon--facebook" viewBox="0 0 512 512">
+							<path d="{{iconPath}}" />
+						</svg>
+						<span class="sg__iconlink__title">{{name}}</span>
+					</a>
+				</li>
+			{{/and}}
+		{{/each}}
+	</ul>
+</footer>

@@ -1,0 +1,67 @@
+<div class="sg__tree">
+	<nav>
+		{{#if tree.pages}}
+			<section class="sg__tree__section">
+				<h2 class="sg__tree__section_title">Pages</h2>
+
+				<ul class="sg__collapsible_content">
+					{{#each tree.pages}}
+						{{#unless meta.hideFromListing}}
+							<li>
+								<a href="{{meta.previewUrl}}">{{meta.title}}</a>
+								{{#if meta.jira}}
+									(<a href="#{{meta.jira}}">
+									{{meta.jira}}
+								</a>)
+								{{/if}}
+								{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
+							</li>
+						{{/unless}}
+					{{/each}}
+				</ul>
+			</section>
+		{{/if}}
+
+		{{#if tree.modules}}
+			<section class="sg__tree__section">
+				<h2 class="sg__tree__section_title">Modules</h2>
+
+				<ul class="sg__collapsible_content">
+					{{#each tree.modules}}
+						{{#unless meta.hideFromListing}}
+							<li>
+								<a href="{{meta.previewUrl}}">
+									{{meta.title}}
+								</a>
+								{{#if meta.jira}}
+									(<a href="#{{meta.jira}}">
+									{{meta.jira}}
+								</a>)
+								{{/if}}
+								{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
+							</li>
+						{{/unless}}
+					{{/each}}
+				</ul>
+			</section>
+		{{/if}}
+
+		{{#if tree.styleguide}}
+			<section class="sg__tree__section">
+				<h2 class="sg__tree__section_title">Styleguide</h2>
+
+				<ul class="sg__collapsible_content">
+					{{#each tree.styleguide}}
+						{{#unless meta.hideFromListing}}
+							<li>
+								<a href="{{meta.previewUrl}}">
+									{{meta.title}}
+								</a>
+							</li>
+						{{/unless}}
+					{{/each}}
+				</ul>
+			</section>
+		{{/if}}
+	</nav>
+</div>
