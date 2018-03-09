@@ -28,7 +28,7 @@ class {{className}} extends EstaticoModule {
 
 	static get events() {
 		return {
-			// eventname: 'eventname.estatico.' + {{name}}
+			// eventname: 'eventname.estatico.' + {{className}}.name
 		};
 	}
 
