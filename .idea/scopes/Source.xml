@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Source" pattern="!file[estatico_github]:.idea//*&amp;&amp;!file[estatico_github]:build//*&amp;&amp;!file[estatico_github]:docs//*&amp;&amp;!file[estatico_github]:gulp//*&amp;&amp;!file[estatico_github]:helpers//*&amp;&amp;!file[estatico_github]:test//*&amp;&amp;!file:.editorconfig&amp;&amp;!file:.eslintrc&amp;&amp;!file:.gitignore&amp;&amp;!file:.nvmrc&amp;&amp;!file:CHANGELOG.md&amp;&amp;!file:gulpfile.js&amp;&amp;!file:LICENSE.txt&amp;&amp;!file:npm-shrinkwrap.json&amp;&amp;!file:package.json&amp;&amp;!file:README.md&amp;&amp;!file:Vagrantfile" />
+</component>
