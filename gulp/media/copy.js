@@ -20,6 +20,7 @@ var taskName = 'media:copy',
 		dest: './build/',
 		watch: [
 			'source/assets/fonts/**/*',
+			'source/assets/js/**/*.js',
 			'source/assets/media/**/*',
 			'source/tmp/media/**/*',
 			'source/preview/assets/media/**/*',
@@ -30,6 +31,7 @@ var taskName = 'media:copy',
 
 gulp.task(taskName, function() {
 	var changed = require('gulp-changed'),
+		livereload = require('gulp-livereload'),
 		size = require('gulp-size');
 
 	return gulp.src(taskConfig.src, {
@@ -39,7 +41,10 @@ gulp.task(taskName, function() {
 		.pipe(size({
 			title: taskName
 		}))
-		.pipe(gulp.dest(taskConfig.dest));
+		.pipe(gulp.dest(taskConfig.dest))
+		.on('finish', function() {
+			livereload.reload();
+		});
 });
 
 module.exports = {
