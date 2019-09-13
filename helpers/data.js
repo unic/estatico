@@ -11,6 +11,7 @@ var _ = require('lodash'),
 	Highlight = require('highlight.js'),
 	marked = require('marked'),
 	prettify = require('js-beautify'),
+	util = require('gulp-util'),
 	fileCache = {},
 	getFile = function(requirePath) {
 		var cache = fileCache[requirePath],
@@ -75,10 +76,15 @@ module.exports = {
 
 	getTestScriptPath: function(filePath) {
 		var requirePath = getRequirePath(filePath),
-			scriptPath = path.join('/test/', path.relative('./', requirePath));
+			scriptPath = path.join('/preview/assets/js/', path.relative('./source', requirePath));
 
 		// Fix path on windows
 		scriptPath = scriptPath.replace(new RegExp('\\' + path.sep, 'g'), '/');
+
+		// Add .min in prod mode
+		if (!util.env.dev) {
+			scriptPath = scriptPath.replace(/\.js/, '.min.js');
+		}
 
 		return scriptPath;
 	},

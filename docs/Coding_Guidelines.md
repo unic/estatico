@@ -93,12 +93,12 @@ It is highly recommended to integrate ESLint with your IDE. Instructions can be 
 
 ```js
 // Scroll
-$(document).on(estatico.events.scroll, function(event, originalEvent) {
+$(document).on(estatico.events.throttledscroll, function(event, originalEvent) {
 	console.log(originalEvent);
 }.bind(this));
 
 // Resize
-$(document).on(estatico.events.resize, function(event, originalEvent) {
+$(document).on(estatico.events.debouncedresize, function(event, originalEvent) {
 	console.log(originalEvent);
 }.bind(this));
 ```

@@ -57,7 +57,7 @@ class WindowEventListener {
 
 		// Save to global namespace
 		$.extend(true, estatico, { events: {} });
-		estatico.events[eventName] = debouncedEventName;
+		estatico.events[debouncedEventName.split('.')[0]] = debouncedEventName;
 	}
 
 	/**
@@ -80,7 +80,7 @@ class WindowEventListener {
 
 		// Save to global namespace
 		$.extend(true, estatico, { events: {} });
-		estatico.events[eventName] = throttledEventName;
+		estatico.events[throttledEventName.split('.')[0]] = throttledEventName;
 	}
 
 	/**

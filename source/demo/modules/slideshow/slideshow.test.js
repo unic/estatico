@@ -34,11 +34,11 @@ QUnit.test('Test correct plugin init', function(assert) {
 		}),
 
 		docEvents = $._data(document, 'events'),
-		resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
+		resizeEvent = $.grep(docEvents[estatico.events.debouncedresize.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
+		scrollEvent = $.grep(docEvents[estatico.events.throttledscroll.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
@@ -70,11 +70,11 @@ QUnit.test('Test correct plugin destroy', function(assert) {
 		}),
 
 		docEvents = $._data(document, 'events'),
-		resizeEvent = $.grep(docEvents[estatico.events.resize.split('.')[0]] || [], function(event) {
+		resizeEvent = $.grep(docEvents[estatico.events.debouncedresize.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 
-		scrollEvent = $.grep(docEvents[estatico.events.scroll.split('.')[0]] || [], function(event) {
+		scrollEvent = $.grep(docEvents[estatico.events.throttledscroll.split('.')[0]] || [], function(event) {
 			return $.inArray(instance.uuid, event.namespace.split('.')) !== -1;
 		}),
 

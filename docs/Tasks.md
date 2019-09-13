@@ -17,7 +17,7 @@ Create static webserver with livereload functionality, serve build directory on 
 ### `gulp build`
 Create build by running every HTML, CSS, JavaScript and media task.
 
-* Prompts whether the `js:qunit` task should run in the end (default: yes).
+* Prompts whether the `js:test` task should run in the end (default: yes).
 * For non-interactive mode: `gulp --interactive=false --skipTests`
 
 ### `gulp clean`
@@ -75,8 +75,8 @@ Create static JSON data mocks
 ### `gulp js:modernizr`
 Generate customized Modernizr build (using `Customizr`, crawling through files and gathering up references to Modernizr tests).
 
-### `gulp js:qunit`
-Run QUnit tests (using PhantomJS).
+### `gulp js:test`
+Open built HTML files in headless Chrome, report console errors and run QUnit tests.
 
 ### `gulp media:copy`
 Copy specific media files to build directory.

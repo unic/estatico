@@ -12,12 +12,16 @@ var taskName = 'js',
 	taskConfig = {
 		src: [
 			'./source/assets/js/main.js',
-			'./source/assets/js/head.js'
+			'./source/assets/js/head.js',
+			'./source/preview/assets/js/test.js',
+			'./source/demo/modules/**/*.test.js'
 		],
 		devSrc: [
 			'./source/assets/js/dev.js'
 		],
 		srcBase: './source/assets/js/',
+		testSrcRoot: './source/',
+		testSrcBase: './source/preview/assets/js/',
 		dest: './build/assets/js/',
 		destBase: './build/',
 		destAsyncSuffix: 'async/',
@@ -42,10 +46,17 @@ var taskName = 'js',
 		var helpers = require('require-dir')('../../helpers'),
 			_ = require('lodash'),
 			path = require('path'),
+			glob = require('glob'),
 			webpack = require('webpack'),
 			livereload = require('gulp-livereload');
 
-		var src = config.src,
+		var src = taskConfig.src.reduce(function(paths, pathGlob) {
+				var resolvedGlob = glob.sync(pathGlob).map(function(file) {
+						return path.resolve(file);
+					});
+
+				return paths.concat(resolvedGlob);
+			}, []),
 			compiler;
 
 		// Optionally build dev scripts
@@ -55,7 +66,14 @@ var taskName = 'js',
 
 		compiler = webpack({
 			// Create a map of entries, i.e. {'assets/js/main': './source/assets/js/main.js'}
-			entry: helpers.webpack.getEntries(src, config.srcBase),
+			entry: helpers.webpack.getEntries(src, config.srcBase, function(key, srcBase, file) {
+				// Move test files into 'preview/assets/js'
+				if (path.extname(key) === '.test') {
+					key = path.join(path.relative(config.srcBase, config.testSrcBase), path.relative(config.testSrcRoot, file)).replace(path.extname(file), '');
+				}
+
+				return key;
+			}),
 			module: {
 				loaders: [
 					{
@@ -85,8 +103,27 @@ var taskName = 'js',
 								}]
 							]
 						}
+					},
+					{
+						test: /qunit\.js$/,
+						loader: 'expose?QUnit'
+					},
+					{
+						test: /\.css$/,
+						loader: 'style-loader!css-loader'
 					}
 				]
+			},
+			externals: function(context, request, callback) {
+				// Do not include jQuery in test-related files
+				if (request === 'jquery' && /(\/preview\/assets\/js|\/modules\/)/.test(context)) {
+					return callback(null, 'jQuery');
+				// Do not include QUnit in every single test file
+				} else if (request === 'qunitjs' && /\/modules\//.test(context)) {
+					return callback(null, 'QUnit');
+				}
+
+				callback();
 			},
 
 			// Minifiy in prod mode
