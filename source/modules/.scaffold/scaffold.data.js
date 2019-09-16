@@ -26,7 +26,9 @@ var _ = require('lodash'),
 		}
 	}, function(variant) {
 		var variantProps = _.merge({}, data, variant).props,
-			compiledVariant = handlebarsHelper.Handlebars.compile(template)(variantProps),
+			compiledVariant = function() {
+				return handlebarsHelper.Handlebars.compile(template())(variantProps);
+			},
 			variantData = _.merge({}, data, variant, {
 				meta: {
 					demo: compiledVariant,

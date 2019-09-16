@@ -70,7 +70,9 @@ module.exports = {
 	getFileContent: function(filePath) {
 		var requirePath = getRequirePath(filePath);
 
-		return getFile(requirePath);
+		return function() {
+			return getFile(requirePath);
+		};
 	},
 
 	getTestScriptPath: function(filePath) {
@@ -84,32 +86,40 @@ module.exports = {
 	},
 
 	getFormattedHtml: function(content) {
-		var html = prettify.html(content, {
-				'indent_char': '\t',
-				'indent_size': 1
-			});
+		return function() {
+			content = typeof content === 'function' ? content() : content;
 
-		return Highlight.highlight('html', html).value;
+			var html = prettify.html(content, {
+					'indent_char': '\t',
+					'indent_size': 1
+				});
+
+			return Highlight.highlight('html', html).value;
+		};
 	},
 
 	getFormattedHandlebars: function(content) {
-		var usedPartials = this._getUsedPartialsInTemplate(content),
-			partialContent;
+		return function() {
+			content = typeof content === 'function' ? content() : content;
 
-		// Look up content of all partials used in the main template
-		usedPartials = usedPartials.map((partial) => {
-			partialContent = getFile(path.resolve('./source/', partial + '.hbs'));
+			var usedPartials = this._getUsedPartialsInTemplate(content),
+				partialContent;
+
+			// Look up content of all partials used in the main template
+			usedPartials = usedPartials.map((partial) => {
+				partialContent = getFile(path.resolve('./source/', partial + '.hbs'));
+
+				return {
+					name: partial,
+					content: this._getHighlightedTemplate(partialContent)
+				};
+			});
 
 			return {
-				name: partial,
-				content: this._getHighlightedTemplate(partialContent)
+				content: this._getHighlightedTemplate(content),
+				partials: usedPartials
 			};
-		});
-
-		return {
-			content: this._getHighlightedTemplate(content),
-			partials: usedPartials
-		};
+		}.bind(this);
 	},
 
 	/**
@@ -155,25 +165,33 @@ module.exports = {
 	},
 
 	getFormattedJson: function(content) {
-		var formatted = JSON.stringify(content, null, '\t');
+		return function() {
+			var formatted = JSON.stringify(content, null, '\t');
 
-		return Highlight.highlight('json', formatted).value;
+			return Highlight.highlight('json', formatted).value;
+		};
 	},
 
 	getDataMock: function(filePath) {
-		var requirePath = getRequirePath(filePath),
-			content = requireNew(requirePath);
+		var requirePath = getRequirePath(filePath);
 
-		content = JSON.stringify(content, null, '\t');
+		return function() {
+			var content = requireNew(requirePath);
 
-		return Highlight.highlight('json', content).value;
+			content = JSON.stringify(content, null, '\t');
+
+			return Highlight.highlight('json', content).value;
+		};
 	},
 
 	getDocumentation: function(filePath) {
-		var requirePath = getRequirePath(filePath),
-			content = getFile(requirePath);
+		var requirePath = getRequirePath(filePath);
 
-		return marked(content);
+		return function() {
+			var content = getFile(requirePath);
+
+			return marked(content);
+		};
 	},
 
 	getColors: function(filePath) {
